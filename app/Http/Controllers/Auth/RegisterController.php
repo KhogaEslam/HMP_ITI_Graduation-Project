@@ -6,6 +6,12 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Role;
+use App\UserDetail;
+use App\RegistrationRequest;
+use Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -67,5 +73,72 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+
+    /**
+     * Overriding registration form to pass extra fields
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+
+    public function showRegistrationForm()
+    {
+        return view('auth.register', [
+            "prefix" => Request::route()->getPrefix(),
+        ]);
+    }
+
+    /**
+     * Overriding registration method
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+
+    public function register(Request $request)
+    {
+        $this->validator(Request::all())->validate();
+
+        event(new Registered($user = $this->create(Request::all())));
+
+        $this->guard()->login($user);
+
+
+
+        $role = null;
+        $userDetail = new UserDetail;
+
+        if(Request::route()->getPrefix() == "/vendor") {
+            $role = \App\Role::all()->where("name", "=", "vendor")->first();
+            $userDetail->status = "suspended";
+        }
+        else if($request->route()->prefix == "/admin") {
+
+        }
+        else {
+
+        }
+        $user->roles()->attach($role);
+        $user->save();
+
+        $userDetail->gender = Request::input("gender");
+        $userDetail->date_of_birth = Request::input("date_of_birth");
+        $userDetail->user()->associate($user);
+        try {
+            $userDetail->save();
+
+            $registrationRequest = new RegistrationRequest;
+            $registrationRequest->user()->associate($user);
+            $registrationRequest->save();
+
+        }
+        catch(Exception $e) {
+            echo $e->getMessage();
+        }
+
+
+        return $this->registered(Request::instance(), $user)
+            ?: redirect($this->redirectPath());
     }
 }
