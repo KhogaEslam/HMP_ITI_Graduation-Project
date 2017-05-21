@@ -5,8 +5,11 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use Zizaco\Entrust\Traits\EntrustUserTrait;
+
 class User extends Authenticatable
 {
+    use EntrustUserTrait;
     use Notifiable;
 
     /**
@@ -27,7 +30,4 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function roles() {
-        return $this->hasMany("\App\Role");
-    }
 }
