@@ -113,10 +113,12 @@ class RegisterController extends Controller
             $role = \App\Role::all()->where("name", "=", "vendor")->first();
             $userDetail->status = "suspended";
         }
-        else if($request->route()->prefix == "/admin") {
+        else if(Request::route()->getPrefix() == "/admin") {
 
         }
-        else {
+        else if(Request::route()->getPrefix() == "/customer") {
+            $role = \App\Role::all()->where("name", "=", "customer")->first();
+            $userDetail->status = "active";
 
         }
         $user->roles()->attach($role);
