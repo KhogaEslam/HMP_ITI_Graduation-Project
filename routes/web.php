@@ -27,3 +27,7 @@ Route::group(['prefix' => 'vendor'], function(){
     Auth::routes();
 });
 
+Route::group(['prefix' => 'customer'], function(){
+    Auth::routes();
+});
+

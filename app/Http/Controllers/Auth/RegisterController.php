@@ -117,10 +117,12 @@ class RegisterController extends Controller
             $registrationRequest->user()->associate($user);
             $registrationRequest->save();
         }
-        else if($request->route()->prefix == "/admin") {
+        else if(Request::route()->getPrefix() == "/admin") {
 
         }
-        else {
+        else if(Request::route()->getPrefix() == "/customer") {
+            $role = \App\Role::all()->where("name", "=", "customer")->first();
+            $userDetail->status = "active";
 
         }
         $user->roles()->attach($role);
