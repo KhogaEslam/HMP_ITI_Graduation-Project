@@ -35,7 +35,7 @@ class User extends Authenticatable //Entrust configuration needs User model to e
     }
 
     public function role() {
-        return $this->belongsTo("\App\Role", "role_id");
+        return $this->belongsToMany("\App\Role");
     }
 
     public function addresses() {
