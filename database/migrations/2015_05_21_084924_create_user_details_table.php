@@ -19,6 +19,19 @@ class CreateUserDetailsTable extends Migration
             $table->enum('gender', ["male", "female"]);
             $table->enum("status", ["active", "suspended", "blocked"]);
 
+
+            /**
+             * Foreign keys
+             */
+
+            $table->integer("user_id")->unsigned(); // foreign key on user_details table
+
+
+            $table->foreign("user_id")
+                ->on("users")
+                ->references("id")
+                ->onDelete("cascade");
+
             $table->timestamps();
         });
     }
