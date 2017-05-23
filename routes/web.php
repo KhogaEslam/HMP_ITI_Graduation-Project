@@ -80,3 +80,9 @@ Route::group(["middleware" => ["role:vendor"]], function() {
 
     Route::post("vendor/category/{category}/product/{product}/unpublish", "VendorController@unPublishProduct");
 });
+
+Route::get("customer", "CustomerController@index");
+
+Route::get("customer/category/{category}/products", "CustomerController@products");
+
+Route::get("customer/category/{category}/products/{product}", "CustomerController@productDetails");
