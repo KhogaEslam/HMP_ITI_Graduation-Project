@@ -1,7 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: mohamed
- * Date: 5/23/17
- * Time: 12:04 PM
- */
+<p>Product name: {{$product->name}}</p>
+<p>Product price: {{$product->price}}</p>
+<p>Product quantity: {{$product->quantity}}</p>
+<p>Category: {{$category->name}}</p>

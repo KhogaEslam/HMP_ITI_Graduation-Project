@@ -25,7 +25,7 @@ class VendorController extends Controller
         $products = $category->products;
         return view("shop.products", [
             "products" => $products,
-            "category" => $category
+            "category" => $category,
         ]);
     }
 
@@ -38,7 +38,14 @@ class VendorController extends Controller
         $product->user()->associate(\Auth::user());
         $product->category()->associate($category);
         $product->save();
-        return redirect("Vendor@category", ["id" => $category->id]);
+        return redirect()->action("Vendor@category", ["id" => $category->id]);
+    }
+
+    public function productDetails(Category $category, Product $product) {
+        return view("shop.product", [
+            "product" => $product,
+            "category" => $category,
+        ]);
     }
 
 
