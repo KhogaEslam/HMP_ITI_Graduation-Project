@@ -31,3 +31,15 @@ Route::group(['prefix' => 'customer'], function(){
     Auth::routes();
 });
 
+//================================= Admin dashboard Routes =====================================//
+
+Route::get('/admin/categories', 'AdminController@listCategories');
+Route::get('/admin/categories/new', 'AdminController@newCategory');
+Route::post('/admin/categories/create', 'AdminController@createCategory');
+Route::get('/admin/categories/{category_id}/edit', 'AdminController@editCategory');
+Route::post('/admin/categories/{category_id}/update', 'AdminController@updateCategory');
+Route::post('/admin/categories/{category_id}/delete', 'AdminController@deleteCategory');
+
+
+
+
