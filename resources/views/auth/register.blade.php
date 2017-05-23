@@ -79,9 +79,11 @@
 
                             <div class="col-md-6">
                                <span>Male</span>
-                                <input id="gender" type="radio" name="gender" value="male" checked required />
+                                <input id="gender" type="radio" name="gender" value="0" checked required />
                                 <span>Female</span>
-                                <input id="gender" type="radio" name="gender" value="female" required />
+                                <input id="gender" type="radio" name="gender" value="1" required />
+                                <span>Other</span>
+                                <input id="gender" type="radio" name="gender" value="2" required />
 
                                 @if ($errors->has('date_of_birth'))
                                     <span class="help-block">

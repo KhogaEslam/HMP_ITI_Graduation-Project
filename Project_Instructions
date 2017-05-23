@@ -1,0 +1,17 @@
+This file includes project used codes
+
+# User roles
+0 -> site owner
+1 -> site admin
+2 -> vendor
+3 -> customer
+
+# User gender
+0 -> male
+1 -> female
+2 -> other
+
+# User Status codes
+0 -> active
+1 -> suspended
+3 -> blocked
