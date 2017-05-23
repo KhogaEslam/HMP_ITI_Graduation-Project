@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
-class User extends Authenticatable
+class User extends Authenticatable //Entrust configuration needs User model to extends "Eloquent" !
 {
     use EntrustUserTrait;
     use Notifiable;
@@ -35,10 +35,14 @@ class User extends Authenticatable
     }
 
     public function role() {
-        return $this->belongsToMany("\App\Role");
+        return $this->belongsTo("\App\Role");
     }
 
     public function addresses() {
         return $this->hasMany("\App\UserAddress");
+    }
+
+    public function products() {
+        return $this->hasMany("\App\Product");
     }
 }

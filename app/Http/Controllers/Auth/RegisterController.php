@@ -84,6 +84,13 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
+
+        if(Request::route()->getPrefix() == "/admin") {
+            return redirect("/admin/login");
+        }
+        else if(Request::route()->getPrefix() == "/owner") {
+            return redirect("/owner/login");
+        }
         return view('auth.register', [
             "prefix" => Request::route()->getPrefix(),
         ]);
@@ -110,19 +117,16 @@ class RegisterController extends Controller
         $userDetail = new UserDetail;
 
         if(Request::route()->getPrefix() == "/vendor") {
-            $role = \App\Role::all()->where("name", "=", "vendor")->first();
-            $userDetail->status = "suspended";
+            $role = \App\Role::all()->where("name", "=", 'vendor')->first();
+            $userDetail->status = '1'; //set status to suspended until admin acceptance
             
             $registrationRequest = new RegistrationRequest;
             $registrationRequest->user()->associate($user);
             $registrationRequest->save();
         }
-        else if(Request::route()->getPrefix() == "/admin") {
-
-        }
         else if(Request::route()->getPrefix() == "/customer") {
-            $role = \App\Role::all()->where("name", "=", "customer")->first();
-            $userDetail->status = "active";
+            $role = \App\Role::all()->where("name", "=", 'customer')->first();
+            $userDetail->status = '0'; //set status to active
 
         }
         $user->roles()->attach($role);
@@ -133,12 +137,20 @@ class RegisterController extends Controller
         $userDetail->user()->associate($user);
         try {
             $userDetail->save();
-
         }
         catch(Exception $e) {
             echo $e->getMessage();
         }
 
-        return redirect()->view('auth/register');
+        return $this->registered(Request::instance(), $user)
+            ?: redirect($this->redirectPath());
+    }
+
+    protected function registered($request, $user)
+    {
+        if($request->route()->getPrefix() == "/vendor") {
+            Request::session()->flush();
+            return redirect("vendor/login");
+        }
     }
 }

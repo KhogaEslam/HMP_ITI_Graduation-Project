@@ -61,10 +61,23 @@ class LoginController extends Controller
 
         $prefix = substr(Request::route()->getPrefix(), 1);
         $role = Role::all()->where("name", "=", $prefix)->first();
+        $user = $role->users()->where("email", "=", $request->input("email"));
+        $exist = $user->get()->count();
 
-        $exist = $role->users()->where("email", "=", $request->input("email"))->get()->count();
         if($exist == 0) {
             return $this->sendFailedLoginResponse($request);
+        }
+
+        //check suspended account
+        if($prefix != 'owner'){
+            $status = $user->first()->userDetails->status;
+            if($status == 1){
+                return $this->sendFailedLoginResponse($request);
+            }
+            //check blocked account
+            if($status == 2){
+                return $this->sendFailedLoginResponse($request);
+            }
         }
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
@@ -86,5 +99,10 @@ class LoginController extends Controller
         $this->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
+    }
+
+    protected function authenticated($request, $user)
+    {
+        return redirect($request->route()->getPrefix());
     }
 }

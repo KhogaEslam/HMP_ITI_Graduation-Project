@@ -16,8 +16,8 @@ class CreateUserDetailsTable extends Migration
         Schema::create('user_details', function (Blueprint $table) {
             $table->increments('id');
             $table->date("date_of_birth");
-            $table->enum('gender', ["male", "female"]);
-            $table->enum("status", ["active", "suspended", "blocked"]);
+            $table->enum('gender', [0, 1, 2]);
+            $table->enum('status', [0, 1, 2])->default(0);
 
 
             /**
