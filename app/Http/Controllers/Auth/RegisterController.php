@@ -117,16 +117,16 @@ class RegisterController extends Controller
         $userDetail = new UserDetail;
 
         if(Request::route()->getPrefix() == "/vendor") {
-            $role = \App\Role::all()->where("name", "=", "vendor")->first();
-            $userDetail->status = "suspended";
+            $role = \App\Role::all()->where("name", "=", 'vendor')->first();
+            $userDetail->status = '1'; //set status to suspended until admin acceptance
             
             $registrationRequest = new RegistrationRequest;
             $registrationRequest->user()->associate($user);
             $registrationRequest->save();
         }
         else if(Request::route()->getPrefix() == "/customer") {
-            $role = \App\Role::all()->where("name", "=", "customer")->first();
-            $userDetail->status = "active";
+            $role = \App\Role::all()->where("name", "=", 'customer')->first();
+            $userDetail->status = '0'; //set status to active
 
         }
         $user->roles()->attach($role);
@@ -137,7 +137,6 @@ class RegisterController extends Controller
         $userDetail->user()->associate($user);
         try {
             $userDetail->save();
-
         }
         catch(Exception $e) {
             echo $e->getMessage();
