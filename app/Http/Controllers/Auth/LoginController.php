@@ -87,4 +87,10 @@ class LoginController extends Controller
 
         return $this->sendFailedLoginResponse($request);
     }
+
+    protected function authenticated($request, $user)
+    {
+
+        return redirect($request->route()->getPrefix());
+    }
 }

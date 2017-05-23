@@ -15,7 +15,7 @@ class CreateBannerRequestsTables extends Migration
     {
         Schema::create('banner_requests', function (Blueprint $table) {
             $table->increments('id');
-            $table->boolean("status")->defaults(false);
+            $table->boolean("status")->default(false);
             $table->timestamp("start_date")->nullable();
             $table->timestamp("end_date")->nullable();
             $table->timestamps();

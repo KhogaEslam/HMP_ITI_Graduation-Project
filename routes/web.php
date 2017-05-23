@@ -31,3 +31,11 @@ Route::group(['prefix' => 'customer'], function(){
     Auth::routes();
 });
 
+Route::get("vendor", "VendorController@index");
+
+Route::get("vendor/category/{category}/products", "VendorController@category");
+
+Route::get("vendor/category/{category}/new_product", "VendorController@showNewProductForm");
+
+Route::post("vendor/category/{category}/new_product", "VendorController@newProduct");
+

@@ -17,7 +17,7 @@ class CreateUserDetailsTable extends Migration
             $table->increments('id');
             $table->date("date_of_birth");
             $table->enum('gender', ["male", "female"]);
-            $table->enum("status", ["active", "suspended", "blocked"]);
+            $table->enum("status", ["active", "suspended", "blocked"])->default("active");
 
 
             /**
