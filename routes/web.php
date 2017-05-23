@@ -48,3 +48,9 @@ Route::get("vendor/category/{category}/new_product", "VendorController@showNewPr
 Route::post("vendor/category/{category}/new_product", "VendorController@newProduct");
 
 Route::get("vendor/category/{category}/product/{product}", "VendorController@productDetails");
+
+Route::get("vendor/category/{category}/product/{product}/edit", "VendorController@showEditProductForm");
+
+Route::post("vendor/category/{category}/product/{product}/edit", "VendorController@editProduct");
+
+Route::post("vendor/category/{category}/product/{product}/delete", "VendorController@deleteProduct");

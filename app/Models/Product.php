@@ -20,4 +20,12 @@ class Product extends Model
     public function user() {
         return $this->belongsTo("\App\User");
     }
+
+    public function scopeOwned($query) {
+        $query->where("user_id", "=", \Auth::user()->id);
+    }
+
+    public function images() {
+        return $this->hasMany("\App\ProductImage");
+    }
 }

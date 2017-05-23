@@ -41,4 +41,8 @@ class User extends Authenticatable //Entrust configuration needs User model to e
     public function addresses() {
         return $this->hasMany("\App\UserAddress");
     }
+
+    public function products() {
+        return $this->hasMany("\App\Product");
+    }
 }
