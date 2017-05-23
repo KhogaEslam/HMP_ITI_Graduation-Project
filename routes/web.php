@@ -15,9 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['prefix' => 'owner'], function(){
+    Auth::routes();
+});
 
 Route::group(['prefix' => 'admin'], function(){
     Auth::routes();
@@ -36,10 +40,23 @@ Route::group(['prefix' => 'customer'], function(){
 Route::get('/admin/categories', 'AdminController@listCategories');
 Route::get('/admin/categories/new', 'AdminController@newCategory');
 Route::post('/admin/categories/create', 'AdminController@createCategory');
-Route::get('/admin/categories/{category_id}/edit', 'AdminController@editCategory');
-Route::post('/admin/categories/{category_id}/update', 'AdminController@updateCategory');
-Route::post('/admin/categories/{category_id}/delete', 'AdminController@deleteCategory');
+Route::get('/admin/categories/{category}/edit', 'AdminController@editCategory');
+Route::post('/admin/categories/{category}/update', 'AdminController@updateCategory');
+Route::post('/admin/categories/{category}/delete', 'AdminController@deleteCategory');
+
+//===============================    End Route  =================================================//
 
 
+Route::group(['prefix' => 'owner'], function(){
+    Auth::routes();
+});
 
+Route::get("vendor", "VendorController@index");
 
+Route::get("vendor/category/{category}/products", "VendorController@category");
+
+Route::get("vendor/category/{category}/new_product", "VendorController@showNewProductForm");
+
+Route::post("vendor/category/{category}/new_product", "VendorController@newProduct");
+
+Route::get("vendor/category/{category}/product/{product}", "VendorController@productDetails");

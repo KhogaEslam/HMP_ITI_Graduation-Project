@@ -84,6 +84,13 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
+
+        if(Request::route()->getPrefix() == "/admin") {
+            return redirect("/admin/login");
+        }
+        else if(Request::route()->getPrefix() == "/owner") {
+            return redirect("/owner/login");
+        }
         return view('auth.register', [
             "prefix" => Request::route()->getPrefix(),
         ]);
@@ -117,9 +124,6 @@ class RegisterController extends Controller
             $registrationRequest->user()->associate($user);
             $registrationRequest->save();
         }
-        else if(Request::route()->getPrefix() == "/admin") {
-
-        }
         else if(Request::route()->getPrefix() == "/customer") {
             $role = \App\Role::all()->where("name", "=", "customer")->first();
             $userDetail->status = "active";
@@ -139,8 +143,15 @@ class RegisterController extends Controller
             echo $e->getMessage();
         }
 
-
         return $this->registered(Request::instance(), $user)
             ?: redirect($this->redirectPath());
+    }
+
+    protected function registered($request, $user)
+    {
+        if($request->route()->getPrefix() == "/vendor") {
+            Request::session()->flush();
+            return redirect("vendor/login");
+        }
     }
 }

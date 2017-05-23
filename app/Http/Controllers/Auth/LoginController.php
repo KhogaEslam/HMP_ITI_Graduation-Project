@@ -61,9 +61,9 @@ class LoginController extends Controller
 
         $prefix = substr(Request::route()->getPrefix(), 1);
         $role = Role::all()->where("name", "=", $prefix)->first();
-
-        $exist = $role->users()->where("email", "=", $request->input("email"))->get()->count();
-        if($exist == 0) {
+        $user = $role->users()->where("email", "=", $request->input("email"));
+        $exist = $user->get()->count();
+        if($exist == 0 || $user->first()->userDetails->status != "active") {
             return $this->sendFailedLoginResponse($request);
         }
 
@@ -86,5 +86,11 @@ class LoginController extends Controller
         $this->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
+    }
+
+    protected function authenticated($request, $user)
+    {
+
+        return redirect($request->route()->getPrefix());
     }
 }

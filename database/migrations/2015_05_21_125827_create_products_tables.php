@@ -19,7 +19,7 @@ class CreateProductsTables extends Migration
             $table->string("description");
             $table->integer("quantity")->unsigned();
             $table->double("price");
-            $table->double("avg_rate");
+            $table->double("avg_rate")->default(0);
             $table->integer("user_id")->unsigned();
             $table->integer("category_id")->unsigned();
 

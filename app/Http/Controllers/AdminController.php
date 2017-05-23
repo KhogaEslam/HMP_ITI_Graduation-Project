@@ -45,7 +45,7 @@ class AdminController extends Controller
         $cat = new Category();
         $cat->name = $request->name;
         $cat->save();
-        return back();
+        return redirect('/admin/categories');
 
     }
 
@@ -71,7 +71,7 @@ class AdminController extends Controller
     public function updateCategory(Request $request , Category $cat)
     {
         $cat->update($request->all());
-        return back();
+        return redirect('/admin/categories');
     }
 
     /**
@@ -81,10 +81,9 @@ class AdminController extends Controller
      * @param: Category object -  Request object
      * @return: view
      */
-    public function deleteCategory(Request $request ,  $cat_id )
+    public function deleteCategory(Request $request ,  Category $category )
     {
-        dd($cat_id);
-        $cat->delete();
+        $category->delete();
         return back();
     }
 }
