@@ -120,4 +120,18 @@ class VendorController extends Controller
         }
     }
 
+    public function publishProduct(Category $category, Product $product) {
+        $product = $category->products()->owned()->findOrFail($product)->first();
+        $product->published = true;
+        $product->save();
+        return back();
+    }
+
+    public function unPublishProduct(Category $category, Product $product) {
+        $product = $category->products()->owned()->findOrFail($product)->first();
+        $product->published = false;
+        $product->save();
+        return back();
+    }
+
 }

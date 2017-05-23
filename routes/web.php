@@ -37,6 +37,8 @@ Route::group(['prefix' => 'customer'], function(){
 
 //================================= Admin dashboard Routes =====================================//
 
+//Entrust::routeNeedsRole("admin/*", "admin");
+
 Route::get('/admin/categories', 'AdminController@listCategories');
 Route::get('/admin/categories/new', 'AdminController@newCategory');
 Route::post('/admin/categories/create', 'AdminController@createCategory');
@@ -51,18 +53,26 @@ Route::group(['prefix' => 'owner'], function(){
     Auth::routes();
 });
 
-Route::get("vendor", "VendorController@index");
+//Entrust::routeNeedsRole("vendor/*", "vendor", Redirect::to("vendor/login"));
 
-Route::get("vendor/category/{category}/products", "VendorController@category");
+Route::group(["middleware" => ["role:vendor"]], function() {
+    Route::get("vendor", "VendorController@index");
 
-Route::get("vendor/category/{category}/new_product", "VendorController@showNewProductForm");
+    Route::get("vendor/category/{category}/products", "VendorController@category");
 
-Route::post("vendor/category/{category}/new_product", "VendorController@newProduct");
+    Route::get("vendor/category/{category}/new_product", "VendorController@showNewProductForm");
 
-Route::get("vendor/category/{category}/product/{product}", "VendorController@productDetails");
+    Route::post("vendor/category/{category}/new_product", "VendorController@newProduct");
 
-Route::get("vendor/category/{category}/product/{product}/edit", "VendorController@showEditProductForm");
+    Route::get("vendor/category/{category}/product/{product}", "VendorController@productDetails");
 
-Route::post("vendor/category/{category}/product/{product}/edit", "VendorController@editProduct");
+    Route::get("vendor/category/{category}/product/{product}/edit", "VendorController@showEditProductForm");
 
-Route::post("vendor/category/{category}/product/{product}/delete", "VendorController@deleteProduct");
+    Route::post("vendor/category/{category}/product/{product}/edit", "VendorController@editProduct");
+
+    Route::post("vendor/category/{category}/product/{product}/delete", "VendorController@deleteProduct");
+
+    Route::post("vendor/category/{category}/product/{product}/publish", "VendorController@publishProduct");
+
+    Route::post("vendor/category/{category}/product/{product}/unpublish", "VendorController@unPublishProduct");
+});
