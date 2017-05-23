@@ -139,8 +139,6 @@ class RegisterController extends Controller
             echo $e->getMessage();
         }
 
-
-        return $this->registered(Request::instance(), $user)
-            ?: redirect($this->redirectPath());
+        return redirect()->view('auth/register');
     }
 }

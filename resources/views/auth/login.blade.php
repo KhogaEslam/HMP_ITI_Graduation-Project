@@ -53,6 +53,9 @@
                                 <button type="submit" class="btn btn-primary">
                                     Login
                                 </button>
+                                <a class="loginBtn loginBtn--facebook" href="{{route('facebook.login')}}">
+                                    Login with Facebook
+                                </a>
 
                                 <a class="btn btn-link" href="{{ route('password.request') }}">
                                     Forgot Your Password?
