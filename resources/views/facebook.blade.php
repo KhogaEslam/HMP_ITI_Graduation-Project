@@ -64,8 +64,9 @@
                                 <label for="date_of_birth" class="col-md-4 control-label">Birth Date</label>
 
                                 <div class="col-md-6">
-                                    {{--{!! dd($date_of_birth) !!}--}}
-                                    <input id="date_of_birth" type="date" class="form-control" name="date_of_birth" value="{{ $date_of_birth }}" required>
+                                    {{--<input id="date_of_birth" type="date" class="form-control" name="date_of_birth" value="{{ $date_of_birth }}" required>--}}
+                                    {{--{!! dd($date_of_birth)!!}--}}
+                                    {!! Form::date("date_of_birth",\Carbon\Carbon::parse($date_of_birth)->format('mm/dd/yyyy')) !!}
 
                                     @if ($errors->has('date_of_birth'))
                                         <span class="help-block">

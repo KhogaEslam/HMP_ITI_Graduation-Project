@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 
-Route::get('auth/facebook', 'FacebookController@redirectToProvider')->name('facebook.login');
+Route::get('auth/facebook', 'FacebookController@redirectToProvider')->name('facebook.login')->prefix("customer");
 Route::get('auth/facebook/callback', 'FacebookController@handleProviderCallback');
 
 //Auth::routes();

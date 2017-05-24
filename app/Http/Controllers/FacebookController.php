@@ -8,6 +8,7 @@ use Socialite;
 
 use App\User;
 use Request;
+use Carbon\Carbon;
 class FacebookController extends Controller
 {
     /**
@@ -46,12 +47,17 @@ class FacebookController extends Controller
             // $user->token;
         }
         else{
+            $date = date_create_from_format('M/d/Y', $user->user['birthday']);
+            dd($date);
+            $d=$date->getTimestamp();
+
+            $date_of_birth = Carbon::parse($user->user['birthday'])->format('m-d-Y');
 
             return view("facebook", [
-                "prefix" =>Request::route()->getPrefix(),
+                "prefix" =>"/customer",
                 "email" => $user->email,
                 "name" => $user->name,
-                "date_of_birth" => $user->user['birthday'],
+                "date_of_birth" => $date_of_birth,
                 "gender"=>$user->user['gender']
             ]);
         }
