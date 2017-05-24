@@ -7,6 +7,7 @@ use Mockery\Exception;
 use Socialite;
 
 use App\User;
+use Request;
 class FacebookController extends Controller
 {
     /**
@@ -16,7 +17,11 @@ class FacebookController extends Controller
      */
     public function redirectToProvider()
     {
-        return Socialite::driver('facebook')->redirect();
+        return  Socialite::driver('facebook')->fields([
+            'name', 'email', 'gender', 'birthday'
+        ])->scopes([
+            'email', 'user_birthday'
+        ])->redirect();
     }
 
     /**
@@ -28,7 +33,9 @@ class FacebookController extends Controller
     {
 
         try{
-        $user = Socialite::driver('facebook')->user();
+        $user =Socialite::driver('facebook')->fields([
+            'name', 'email', 'gender', 'birthday'
+        ])->user();
         }catch (Exception $ex){
             return redirect('facebook.login');
         }
@@ -39,7 +46,15 @@ class FacebookController extends Controller
             // $user->token;
         }
         else{
-            return redirect()->action("Auth\RegisterController@showRegistrationForm");
+
+            return view("facebook", [
+                "prefix" =>Request::route()->getPrefix(),
+                "email" => $user->email,
+                "name" => $user->name,
+                "date_of_birth" => $user->user['birthday'],
+                "gender"=>$user->user['gender']
+            ]);
         }
     }
+
 }
