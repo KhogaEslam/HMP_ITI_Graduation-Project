@@ -17,7 +17,7 @@ class CustomerController extends Controller
     }
 
     public function products(Category $category) {
-        $products = $category->products;
+        $products = $category->products()->published()->get();
         return view("customer.products", [
             "products" => $products,
             "category" => $category,

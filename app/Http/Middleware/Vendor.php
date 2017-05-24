@@ -15,6 +15,9 @@ class Vendor
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
+        if(\Auth::check() && \Auth::user()->hasRole("vendor")) {
+            return $next($request);
+        }
+        return response("You're forbidden", 403);
     }
 }

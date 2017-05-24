@@ -59,27 +59,25 @@ Route::group(['prefix' => 'owner'], function(){
 
 //Entrust::routeNeedsRole("vendor/*", "vendor", Redirect::to("vendor/login"));
 
-Route::group(["middleware" => ["role:vendor"]], function() {
-    Route::get("vendor", "VendorController@index");
+Route::get("vendor", "VendorController@index");
 
-    Route::get("vendor/category/{category}/products", "VendorController@category");
+Route::get("vendor/category/{category}/products", "VendorController@category");
 
-    Route::get("vendor/category/{category}/new_product", "VendorController@showNewProductForm");
+Route::get("vendor/category/{category}/new_product", "VendorController@showNewProductForm");
 
-    Route::post("vendor/category/{category}/new_product", "VendorController@newProduct");
+Route::post("vendor/category/{category}/new_product", "VendorController@newProduct");
 
-    Route::get("vendor/category/{category}/product/{product}", "VendorController@productDetails");
+Route::get("vendor/category/{category}/product/{product}", "VendorController@productDetails");
 
-    Route::get("vendor/category/{category}/product/{product}/edit", "VendorController@showEditProductForm");
+Route::get("vendor/category/{category}/product/{product}/edit", "VendorController@showEditProductForm");
 
-    Route::post("vendor/category/{category}/product/{product}/edit", "VendorController@editProduct");
+Route::post("vendor/category/{category}/product/{product}/edit", "VendorController@editProduct");
 
-    Route::post("vendor/category/{category}/product/{product}/delete", "VendorController@deleteProduct");
+Route::post("vendor/category/{category}/product/{product}/delete", "VendorController@deleteProduct");
 
-    Route::post("vendor/category/{category}/product/{product}/publish", "VendorController@publishProduct");
+Route::post("vendor/category/{category}/product/{product}/publish", "VendorController@publishProduct");
 
-    Route::post("vendor/category/{category}/product/{product}/unpublish", "VendorController@unPublishProduct");
-});
+Route::post("vendor/category/{category}/product/{product}/unpublish", "VendorController@unPublishProduct");
 
 Route::get("customer", "CustomerController@index");
 

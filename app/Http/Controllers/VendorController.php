@@ -10,11 +10,17 @@ use Validator;
 
 class VendorController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware(["vendor.auth"]);
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         if(\Auth::check() && \Auth::user()->hasRole("vendor")) {
