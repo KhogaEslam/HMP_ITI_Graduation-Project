@@ -41,6 +41,8 @@ Route::group(['prefix' => 'customer'], function(){
 
 //================================= Admin dashboard Routes =====================================//
 
+//Entrust::routeNeedsRole("admin/*", "admin");
+
 Route::get('/admin/categories', 'AdminController@listCategories');
 Route::get('/admin/categories/new', 'AdminController@newCategory');
 Route::post('/admin/categories/create', 'AdminController@createCategory');
@@ -54,6 +56,8 @@ Route::post('/admin/categories/{category}/delete', 'AdminController@deleteCatego
 Route::group(['prefix' => 'owner'], function(){
     Auth::routes();
 });
+
+//Entrust::routeNeedsRole("vendor/*", "vendor", Redirect::to("vendor/login"));
 
 Route::get("vendor", "VendorController@index");
 
@@ -70,3 +74,13 @@ Route::get("vendor/category/{category}/product/{product}/edit", "VendorControlle
 Route::post("vendor/category/{category}/product/{product}/edit", "VendorController@editProduct");
 
 Route::post("vendor/category/{category}/product/{product}/delete", "VendorController@deleteProduct");
+
+Route::post("vendor/category/{category}/product/{product}/publish", "VendorController@publishProduct");
+
+Route::post("vendor/category/{category}/product/{product}/unpublish", "VendorController@unPublishProduct");
+
+Route::get("customer", "CustomerController@index");
+
+Route::get("customer/category/{category}/products", "CustomerController@products");
+
+Route::get("customer/category/{category}/products/{product}", "CustomerController@productDetails");

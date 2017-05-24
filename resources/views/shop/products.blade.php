@@ -4,6 +4,15 @@
 {!! Form::open(["action" => ["VendorController@deleteProduct", $category, $product]]) !!}
     {!! Form::submit("delete product") !!}
 {!! Form::close() !!}
+@if($product->published)
+    {!! Form::open(["action" => ["VendorController@unPublishProduct", $category, $product]]) !!}
+    {!! Form::submit("Unpublish") !!}
+    {!! Form::close() !!}
+@else
+    {!! Form::open(["action" => ["VendorController@publishProduct", $category, $product]]) !!}
+    {!! Form::submit("Publish") !!}
+    {!! Form::close() !!}
+@endif
 <br>
 @empty
     <h1 style="color: red;">No products yet</h1>

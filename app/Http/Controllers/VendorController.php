@@ -10,11 +10,17 @@ use Validator;
 
 class VendorController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware(["vendor.auth"]);
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         if(\Auth::check() && \Auth::user()->hasRole("vendor")) {
@@ -118,6 +124,20 @@ class VendorController extends Controller
             \Auth::user()->products()->find($product)->first()->delete();
             return back();
         }
+    }
+
+    public function publishProduct(Category $category, Product $product) {
+        $product = $category->products()->owned()->findOrFail($product)->first();
+        $product->published = true;
+        $product->save();
+        return back();
+    }
+
+    public function unPublishProduct(Category $category, Product $product) {
+        $product = $category->products()->owned()->findOrFail($product)->first();
+        $product->published = false;
+        $product->save();
+        return back();
     }
 
 }
