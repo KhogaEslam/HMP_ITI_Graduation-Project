@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    //================================= Constructor ==================================== //
+    public function __construct()
+    {
+        $this->middleware(["admin.auth"]);
+    }
+
     //================================= Categories ===================================== //
     /**
      * listCategories
@@ -42,6 +48,7 @@ class AdminController extends Controller
      */
     public function createCategory(Request $request)
     {
+        $this->validate($request, ['name' => 'required']);
         $cat = new Category();
         $cat->name = $request->name;
         $cat->save();
@@ -70,6 +77,7 @@ class AdminController extends Controller
      */
     public function updateCategory(Request $request , Category $cat)
     {
+        $this->validate($request, ['name' => 'required']);
         $cat->update($request->all());
         return redirect('/admin/categories');
     }
