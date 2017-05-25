@@ -44,21 +44,35 @@ class FacebookController extends Controller
         if ($authUser){
             Auth::login($authUser,true);
             return redirect()->route('home');
-            // $user->token;
         }
         else{
-            $date = date_create_from_format('M/d/Y', $user->user['birthday']);
-            dd($date);
-            $d=$date->getTimestamp();
+            if ($user->user['birthday']){
+                $date_of_birth = Carbon::parse($user->user['birthday'])->format('m-d-Y');
+            }
+            else{
+                $date_of_birth="";
+            }
 
-            $date_of_birth = Carbon::parse($user->user['birthday'])->format('m-d-Y');
+            if ($user->email){
+                $email=$user->email;
+            }
+            else{
+                $email="";
+            }
+
+            if ($user->user['gender']){
+                $gender=$user->user['gender'];
+            }
+            else{
+                $gender="";
+            }
 
             return view("facebook", [
                 "prefix" =>"/customer",
-                "email" => $user->email,
+                "email" => $email,
                 "name" => $user->name,
                 "date_of_birth" => $date_of_birth,
-                "gender"=>$user->user['gender']
+                "gender"=>$gender
             ]);
         }
     }

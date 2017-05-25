@@ -21,5 +21,3 @@
 <div class="form-control">
     {!! Form::submit($submitButton) !!}
 </div>
-
-{!! var_dump($errors) !!}
