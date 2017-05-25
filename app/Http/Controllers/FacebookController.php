@@ -53,14 +53,14 @@ class FacebookController extends Controller
                 $date_of_birth="";
             }
 
-            if ($user->email){
+            if (isset($user->email)){
                 $email=$user->email;
             }
             else{
                 $email="";
             }
 
-            if ($user->user['gender']){
+            if (isset($user->user['gender'])){
                 $gender=$user->user['gender'];
             }
             else{
