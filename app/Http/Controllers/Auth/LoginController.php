@@ -60,9 +60,18 @@ class LoginController extends Controller
          */
 
         $prefix = substr(Request::route()->getPrefix(), 1);
-        $role = Role::all()->where("name", "=", $prefix)->first();
-        $user = $role->users()->where("email", "=", $request->input("email"));
-        $exist = $user->get()->count();
+//        $role = Role::all()->where("name", "=", $prefix)->first();
+//        $user = $role->users()->where("email", "=", $request->input("email"));
+//        $exist = $user->get()->count();
+        $exist = 0;
+        $user = User::all()->where("email", "=", $request->input("email"))->first();
+
+        if($prefix == "admin" && $user->hasRole("owner"))
+            $exist = 1;
+        else if($prefix == "vendor" && $user->hasRole("employee"))
+            $exist = 1;
+        else if($user->hasRole($prefix))
+            $exist = 1;
 
         if($exist == 0) {
             return $this->sendFailedLoginResponse($request);
@@ -70,7 +79,7 @@ class LoginController extends Controller
 
         //check suspended account
         if($prefix != 'owner'){
-            $status = $user->first()->userDetails->status;
+            $status = $user->userDetails->status;
             if($status == 1){
                 return $this->sendFailedLoginResponse($request);
             }

@@ -45,4 +45,8 @@ class User extends Authenticatable //Entrust configuration needs User model to e
     public function products() {
         return $this->hasMany("\App\Product");
     }
+
+    public function employee() {
+        return $this->hasMany("App\Employee");
+    }
 }

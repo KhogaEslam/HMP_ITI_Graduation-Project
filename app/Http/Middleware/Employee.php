@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class Admin
+class Employee
 {
     /**
      * Handle an incoming request.
@@ -15,9 +15,9 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if(\Auth::check() && (\Auth::user()->hasRole("admin") )) {
+        if(\Auth::check() && (\Auth::user()->hasRole("vendor") || \Auth::user()->hasRole("employee"))) {
             return $next($request);
         }
-        return response("You're forbidden", 403);
+        return response("You're forbidden to handle manager work", 403);
     }
 }

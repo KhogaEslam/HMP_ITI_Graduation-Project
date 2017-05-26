@@ -1,0 +1,12 @@
+/***************** General Styles ********************/
+.bordered-heading{
+    border-bottom: 1px solid white;
+    margin-bottom: 50px;
+    padding-bottom: 20px;
+}
+.panel-title{
+    font-size: 24px;
+}
+.btn-outline-secondary:hover{
+    color: #000;
+}

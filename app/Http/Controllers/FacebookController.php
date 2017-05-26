@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Mockery\Exception;
-use Socialite;
+use Laravel\Socialite\Facades\Socialite;
 
 use App\User;
-use Request;
+use Illuminate\Http\Request;
 use Carbon\Carbon;
 class FacebookController extends Controller
 {
@@ -46,21 +46,21 @@ class FacebookController extends Controller
             return redirect()->route('home');
         }
         else{
-            if ($user->user['birthday']){
+            if (isset($user->user['birthday'])){
                 $date_of_birth = Carbon::parse($user->user['birthday'])->format('m-d-Y');
             }
             else{
                 $date_of_birth="";
             }
 
-            if ($user->email){
+            if (isset($user->email)){
                 $email=$user->email;
             }
             else{
                 $email="";
             }
 
-            if ($user->user['gender']){
+            if (isset($user->user['gender'])){
                 $gender=$user->user['gender'];
             }
             else{
