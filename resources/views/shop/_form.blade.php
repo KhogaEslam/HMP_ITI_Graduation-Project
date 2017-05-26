@@ -8,18 +8,17 @@
 </div>
 <div class="form-group">
     {!! Form::label("quantity") !!}
-    {!! Form::number("quantity") !!}
+    {!! Form::number("quantity", 1, ["class" => "form-control", "min" => 1]) !!}
 </div>
 <div class="form-group">
     {!! Form::label("price") !!}
-    {!! Form::number("price", null, ["class" => "form-control", "step" => "any"]) !!}
+    {!! Form::number("price", 0, ["class" => "form-control", "step" => "any", "min" => 0]) !!}
 </div>
 <div class="form-group">
     {!! Form::label("images") !!}
     {!! Form::file('images[]', array('multiple'=>true)) !!}
 </div>
+
 <div class="form-control">
     {!! Form::submit($submitButton) !!}
 </div>
-
-{!! var_dump($errors) !!}

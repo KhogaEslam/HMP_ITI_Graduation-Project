@@ -32,4 +32,8 @@ class Product extends Model
     public function scopePublished($query) {
         $query->where("published", "=", true);
     }
+
+    public function getUserIdAttribute() {
+        return $this->attributes['user_id'];
+    }
 }
