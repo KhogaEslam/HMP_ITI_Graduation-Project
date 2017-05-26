@@ -29,6 +29,7 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::model("category", \App\Category::class);
         Route::model("product", \App\Product::class);
+        Route::model("employee", \App\Employee::class);
     }
 
     /**

@@ -84,3 +84,18 @@ Route::get("customer", "CustomerController@index");
 Route::get("customer/category/{category}/products", "CustomerController@products");
 
 Route::get("customer/category/{category}/products/{product}", "CustomerController@productDetails");
+
+Route::group(["prefix" => "vendor/employees", "middleware" => "vendor.auth"], function() {
+
+    Route::get("/", "VendorController@showEmployees");
+
+    Route::get("new_employee", "VendorController@showNewEmployeeForm");
+
+    Route::post("new_employee", "VendorController@newEmployee");
+
+    Route::get("{employee}/edit_employee", "VendorController@showEditEmployeeForm");
+
+    Route::post("{employee}/edit_employee", "VendorController@editEmployee");
+
+    Route::post("{employee}/delete_employee", "VendorController@deleteEmployee");
+});
