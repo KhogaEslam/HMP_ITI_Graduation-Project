@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+Route::get('mail', 'MailController@requestRegisterMail');
 Route::get('auth/facebook', 'FacebookController@redirectToProvider')->name('facebook.login')->prefix("customer");
 Route::get('auth/facebook/callback', 'FacebookController@handleProviderCallback');
 
