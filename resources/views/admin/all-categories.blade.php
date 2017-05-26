@@ -1,8 +1,14 @@
-
-<div class="container">
+@extends('layouts.admin')
+@section('title')
+    Admin Panel | All categories
+@endsection
+@section('content')
     <div class="row">
-        <div class="col-md-12">
-            <a href="/admin/categories/new"> New Category </a>
+        <div  class="col-md-12">
+            <h1 class="bordered-heading">
+                All Categories
+            </h1>
+            <a style="margin-bottom: 20px;" href="/admin/categories/new" class="btn btn-primary"> New Category </a>
             <table class="table table-striped">
                 <thead>
                     <th>
@@ -34,4 +40,4 @@
             </table>
         </div>
     </div>
-</div>
+@endsection

@@ -42,7 +42,10 @@ Route::group(['prefix' => 'customer'], function(){
 //================================= Admin dashboard Routes =====================================//
 
 //Entrust::routeNeedsRole("admin/*", "admin");
+//===================   Home     ======================//
+Route::get('/admin', 'AdminController@index');
 
+//=================== Categories ======================//
 Route::get('/admin/categories', 'AdminController@listCategories');
 Route::get('/admin/categories/new', 'AdminController@newCategory');
 Route::post('/admin/categories/create', 'AdminController@createCategory');
