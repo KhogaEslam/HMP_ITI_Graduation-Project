@@ -1,3 +1,6 @@
+@extends("layouts.admin")
+@section("content")
+
 <div class="container">
     <div class="row">
         {!! Form::open(["action" => ["VendorController@newProduct", $category], "enctype" => "multipart/form-data"]) !!}
@@ -5,3 +8,5 @@
         {!! Form::close() !!}
     </div>
 </div>
+
+@endsection

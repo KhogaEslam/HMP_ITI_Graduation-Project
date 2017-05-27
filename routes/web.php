@@ -100,3 +100,19 @@ Route::group(["prefix" => "vendor/employees", "middleware" => "vendor.auth"], fu
 
     Route::post("{employee}/delete_employee", "VendorController@deleteEmployee");
 });
+
+Route::get('images/{filename}', function($filename){
+    $path = resource_path() . '/img/' . $filename;
+
+    if(!File::exists($path)) {
+        return response()->json(['message' => 'Image not found.'], 404);
+    }
+
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+
+    return $response;
+})->name("image");

@@ -84,19 +84,21 @@ class VendorController extends Controller
         $files = $request->images;
         $files_count = count($files);
         $uploaded_files = 0;
-        foreach ($files as $file) {
-            $rules = array('file' => 'mimes:png,jpeg');
-            $validator = Validator::make(array('file' => $file), $rules);
-            if ($validator->passes()) {
-                $filename = $file->getClientOriginalName();
-                $fileNameStored = sha1(\Auth::user()->email . (string)time() . $filename);
-                $upload_success = $file->move($upload_to, $fileNameStored);
-                $productImage = new ProductImage;
-                $productImage->image_name = $filename;
-                $productImage->stored_name = $fileNameStored;
-                $productImage->product()->associate($product);
-                $productImage->save();
-                $uploaded_files++;
+        if($files_count > 0) {
+            foreach ($files as $file) {
+                $rules = array('file' => 'mimes:png,jpeg');
+                $validator = Validator::make(array('file' => $file), $rules);
+                if ($validator->passes()) {
+                    $filename = $file->getClientOriginalName();
+                    $fileNameStored = sha1(\Auth::user()->email . (string)time() . $filename);
+                    $upload_success = $file->move($upload_to, $fileNameStored);
+                    $productImage = new ProductImage;
+                    $productImage->image_name = $filename;
+                    $productImage->stored_name = $fileNameStored;
+                    $productImage->product()->associate($product);
+                    $productImage->save();
+                    $uploaded_files++;
+                }
             }
         }
         if ($uploaded_files == $files_count) {
@@ -121,15 +123,41 @@ class VendorController extends Controller
 
     public function editProduct(Request $request, Category $category, Product $product)
     {
-        if($product->userId == \Auth::user()->id) {
+        if($product->user->id == \Auth::user()->id) {
+            $upload_to = resource_path("img");
             $product->update($request->all());
-            return redirect()->action("VendorController@productDetails", ["category" => $category, "product" => $product]);
+            $files = $request->images;
+            $files_count = count($files);
+            $uploaded_files = 0;
+            if($files_count > 0) {
+                foreach ($files as $file) {
+                    $rules = array('file' => 'mimes:png,jpeg');
+                    $validator = Validator::make(array('file' => $file), $rules);
+                    if ($validator->passes()) {
+                        $filename = $file->getClientOriginalName();
+                        $fileNameStored = sha1(\Auth::user()->email . (string)time() . $filename);
+                        $upload_success = $file->move($upload_to, $fileNameStored);
+                        $productImage = new ProductImage;
+                        $productImage->image_name = $filename;
+                        $productImage->stored_name = $fileNameStored;
+                        $productImage->product()->associate($product);
+                        $productImage->save();
+                        $uploaded_files++;
+                    }
+                }
+            }
+            if ($uploaded_files == $files_count) {
+                return redirect()->action("VendorController@productDetails", ["category" => $category, "product" => $product]);
+            } else {
+                return back()->withInput()->withErrors($validator);
+            }
+
         }
     }
 
     public function deleteProduct(Category $category, Product $product)
     {
-        if($product->userId == \Auth::user()->id) {
+        if($product->user->id == \Auth::user()->id) {
             $product->delete();
             return back();
         }
@@ -140,7 +168,7 @@ class VendorController extends Controller
 
     public function publishProduct(Category $category, Product $product)
     {
-        if($product->userId == \Auth::user()->id) {
+        if($product->user->id == \Auth::user()->id) {
             $product->published = true;
             $product->save();
             return back();
@@ -152,7 +180,7 @@ class VendorController extends Controller
 
     public function unPublishProduct(Category $category, Product $product)
     {
-        if($product->userId == \Auth::user()->id) {
+        if($product->user->id == \Auth::user()->id) {
             $product->published = false;
             $product->save();
             return back();
