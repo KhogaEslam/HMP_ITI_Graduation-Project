@@ -7,12 +7,14 @@ use App\User;
 use Mail;
 class MailController extends Controller
 {
-    public function mail($user)
+    public function requestRegisterMail()
     {
+        $user = User::find(2)->toArray();
         if ($user){
             Mail::send('emails.mailEvent', $user, function($message) use ($user) {
-                $message->to($user->emil);
-                $message->subject('Mailgun Testing');
+                $message->to($user['email']);
+                $message->subject('Verify Account');
+                $message->setBody('My <em>amazing</em> body', 'text/html');
             });
             dd('Mail Send Successfully');
         }

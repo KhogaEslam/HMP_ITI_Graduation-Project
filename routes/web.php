@@ -11,12 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('customer.index');
+//});
+Route::get('/', 'CustomerController@index');
+
 
 Route::get('mail', 'MailController@requestRegisterMail');
-Route::get('auth/facebook', 'FacebookController@redirectToProvider')->name('facebook.login')->prefix("customer");
+Route::get('auth/facebook', 'FacebookController@redirectToProvider')
+    ->name('facebook.login')
+    ->prefix("customer");
 Route::get('auth/facebook/callback', 'FacebookController@handleProviderCallback');
 
 //Auth::routes();
@@ -55,10 +59,6 @@ Route::post('/admin/categories/{category}/delete', 'AdminController@deleteCatego
 
 //===============================    End Route  =================================================//
 
-
-Route::group(['prefix' => 'owner'], function(){
-    Auth::routes();
-});
 
 //Entrust::routeNeedsRole("vendor/*", "vendor", Redirect::to("vendor/login"));
 
