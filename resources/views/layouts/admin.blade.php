@@ -15,6 +15,7 @@
     <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
 
     <link href="{{ asset('css/toolkit-inverse.css')}}" rel="stylesheet">
+    <link href="{{asset("css/font-awesome.min.css")}}" rel="stylesheet">
 
 
     <link href="{{ asset('css/panel.css') }}" rel="stylesheet">
