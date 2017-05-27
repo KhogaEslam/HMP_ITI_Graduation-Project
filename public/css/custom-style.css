@@ -10,3 +10,21 @@
 .btn-outline-secondary:hover{
     color: #000;
 }
+.myNav{
+    background-color: #434857;
+    margin-bottom: 20px;
+}
+.myNav> ul >li >a{
+    text-decoration: none;
+    color:white;
+    padding-left: 15px;
+}
+.dropdown-menu{
+    background-color: #434857;
+
+}
+.dropdown-menu>li>a{
+    color:white;
+    text-decoration: none;
+    padding-left: 15px;
+}

@@ -33,6 +33,23 @@
 
 
 <body>
+<nav class="navbar navbar-default myNav">
+
+    <ul class="nav navbar-nav container">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Welcome Ahmed <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li>
+                    <form method="POST" action="{{action("LoginController@logout")}}">
+                        {!! csrf_field() !!}
+                        <button type="submit" class="btn btn-danger"> Logout </button>
+                    </form>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+</nav>
 <div class="container">
     <div class="row">
         <div class="col-md-3 sidebar">
