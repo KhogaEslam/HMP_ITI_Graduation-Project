@@ -8,7 +8,7 @@ use Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Role;
-
+use App\Category;
 
 class LoginController extends Controller
 {
@@ -44,8 +44,10 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
+        $categories = Category::all();
         return view('auth.login', [
-            "prefix" => Request::route()->getPrefix()
+            "prefix" => Request::route()->getPrefix(),
+            "categories" => $categories,
         ]);
     }
 

@@ -11,9 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('customer.index');
+//});
+Route::get('/', 'CustomerController@index');
+
 
 Route::get('mail', 'MailController@requestRegisterMail');
 Route::get('auth/facebook', 'FacebookController@redirectToProvider')

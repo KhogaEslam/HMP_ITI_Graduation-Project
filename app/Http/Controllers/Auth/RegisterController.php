@@ -12,6 +12,7 @@ use App\RegistrationRequest;
 use Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
+use App\Category;
 
 class RegisterController extends Controller
 {
@@ -84,6 +85,7 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
+        $categories = Category::all();
 
         if(Request::route()->getPrefix() == "/admin") {
             return redirect("/admin/login");
@@ -93,6 +95,7 @@ class RegisterController extends Controller
         }
         return view('auth.register', [
             "prefix" => Request::route()->getPrefix(),
+            "categories" => $categories,
         ]);
     }
 

@@ -1,0 +1,414 @@
+@font-face {
+    font-family: roboto;
+    src: url(Roboto-Regular);
+}
+body{
+    margin: 0px;
+    font-family: roboto;
+    background-color: #f2f2f2;
+}
+
+
+.logo{
+    width:100px;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{
+    color: #555;
+    background-color: #62d5c8;
+}
+.navbar-default{
+    height:50px;
+    background-color: #3f4140;
+    width:100%;
+}
+
+
+h3{
+    text-align: center;
+}
+
+.nav1 .navbar-nav  > li > a{
+    color: white;
+}
+.nav1  .navbar-nav  > li > a:hover{
+    color: #62d5c8;
+}
+.nav2  .navbar-nav  > li > a:hover{
+    color: #62d5c8;
+}
+.navbar{
+    margin-bottom: 0px;
+    border: 0px;
+}
+.nav1{
+    height:40px;
+}
+
+.nav2{
+    background-color: white;
+}
+.count{
+    background-color: #62d5c8;
+    border-radius: 5px;
+    padding:  5px 10px;
+}
+
+.fa-shopping-cart:before{
+    font-size: 22px;
+    padding: 0px;
+}
+.nav1 .navbar-nav  > li > a{
+    padding-right:0px;
+}
+.stylish-input-group .input-group-addon{
+    background: white !important;
+}
+.stylish-input-group .form-control{
+    border-right:0;
+    box-shadow:0 0 0;
+    border-color:#ccc;
+}
+.stylish-input-group button{
+    border:0;
+    background:transparent;
+}
+
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus{
+
+    background-color: #62d5c8;
+    padding: 15px;
+}
+.glyphicon-user:before{
+    padding-left: 10px;
+}
+.dropdown-menu > li > a{
+    padding: 10px 20px;
+
+}
+.dropdown-menu .divider{
+    margin: 0px;
+}
+.nav1  .navbar-nav  > li > a:visited{
+    color:white;
+}
+ul.nav.navbar-nav.navbar-right
+> li{
+    float: right;
+    padding-right: 0px;
+}
+#pullet > li > a{
+    padding: 5px 15px;
+}
+.myslider{
+    display: inline-block;
+    position: relative;
+}
+.myheader{
+    width:100%;
+    display: inline-block;
+}
+.myButton{
+    border: 0px;
+    color:white;
+    height: 50px;
+    width:150px;
+    background-color: #62d5c8;
+}
+.shop{
+    position: relative;
+    bottom: 160px;
+    left:785px;
+}
+.allProducts{
+    display: flex;
+}
+.product{
+    width:25%;
+    background-color: white;
+    margin: 20px;
+
+}
+
+.rate{
+    width: 90px;
+    float:right;
+    padding-right: 10px;
+}
+.rate::before{
+    content: " ";
+
+}
+.price{
+    padding-left: 10px;
+}
+.myTitle{
+    padding-left: 10px;
+}
+.add{
+    width:100%;
+}
+.banner{
+    width:100%;
+}
+
+
+
+fieldset, label { margin: 0; padding: 0; }
+
+h1 { font-size: 1.5em; margin: 10px; }
+
+
+
+.nav1 .navbar-nav  > li > a >i{
+    font-size: 22px;
+    padding:0px;
+}
+.row{
+    margin: 0px;
+}
+#myCarousel .nav a small {
+    display:block;
+}
+#myCarousel .nav {
+    background:#eee;
+}
+#myCarousel .nav a {
+    border-radius:0px;
+}
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus{
+    background-color: #62d5c8;
+}
+
+
+/*footer*/
+
+.full {
+    width: 100%;
+}
+.gap {
+    height: 30px;
+    width: 100%;
+    clear: both;
+    display: block;
+}
+.footer {
+    background-color:#3f4140;
+    height: auto;
+    padding-bottom: 30px;
+    position: relative;
+    width: 100%;
+    border-bottom: 1px solid #CCCCCC;
+    border-top: 1px solid #DDDDDD;
+}
+.footer p {
+    margin: 0;
+}
+.footer img {
+    max-width: 100%;
+}
+.footer h3 {
+    border-bottom: 1px solid #BAC1C8;
+    color: #54697E;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 27px;
+    padding: 40px 0 10px;
+    text-transform: uppercase;
+}
+.footer ul {
+    font-size: 13px;
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 0;
+    margin-top: 15px;
+    color: #7F8C8D;
+}
+.footer ul li a {
+    padding: 0 0 5px 0;
+    display: block;
+}
+.footer a {
+    color: #78828D
+}
+.supportLi h4 {
+    font-size: 20px;
+    font-weight: lighter;
+    line-height: normal;
+    margin-bottom: 0 !important;
+    padding-bottom: 0;
+}
+.newsletter-box input#appendedInputButton {
+    background: #FFFFFF;
+    display: inline-block;
+    float: left;
+    height: 30px;
+    clear: both;
+    width: 100%;
+}
+.newsletter-box .btn {
+    border: medium none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    display: inline-block;
+    height: 40px;
+    padding: 0;
+    width: 100%;
+    color: #fff;
+}
+.newsletter-box {
+    overflow: hidden;
+}
+.bg-gray {
+    background-image: -moz-linear-gradient(center bottom, #BBBBBB 0%, #F0F0F0 100%);
+    box-shadow: 0 1px 0 #B4B3B3;
+}
+.social li {
+    background: none repeat scroll 0 0 #B5B5B5;
+    border: 2px solid #B5B5B5;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -o-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
+    float: left;
+    height: 36px;
+    line-height: 36px;
+    margin: 0 8px 0 0;
+    padding: 0;
+    text-align: center;
+    width: 36px;
+    transition: all 0.5s ease 0s;
+    -moz-transition: all 0.5s ease 0s;
+    -webkit-transition: all 0.5s ease 0s;
+    -ms-transition: all 0.5s ease 0s;
+    -o-transition: all 0.5s ease 0s;
+}
+.social li:hover {
+    transform: scale(1.15) rotate(360deg);
+    -webkit-transform: scale(1.1) rotate(360deg);
+    -moz-transform: scale(1.1) rotate(360deg);
+    -ms-transform: scale(1.1) rotate(360deg);
+    -o-transform: scale(1.1) rotate(360deg);
+}
+.social li a {
+    color: #EDEFF1;
+}
+.social li:hover {
+    border: 2px solid #2c3e50;
+    background: #2c3e50;
+}
+.social li a i {
+    font-size: 16px;
+    margin: 0 0 0 5px;
+    color: #EDEFF1 !important;
+}
+.footer-bottom {
+    background: #E3E3E3;
+    border-top: 1px solid #DDDDDD;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.footer-bottom p.pull-left {
+    padding-top: 6px;
+}
+.payments {
+    font-size: 1.5em;
+}
+
+/*Sign-Up*/
+
+.sign-up{
+    width:500px;
+    padding: 50px;
+}
+.sign{
+    width:100%;
+    height:30px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: solid 1px #cccccc;
+}
+
+
+.sign:hover{
+    /*    background-color: rgba(98, 213, 200, 0.4);*/
+    background-color: rgba(98, 213, 200, 0.5);
+
+}
+.signb{
+    width:200px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.signb:hover{
+    background-color:  rgba(255, 230, 109, 0.7);
+    /*    background-color: #FFE66D;*/
+
+}
+
+/*
+.signb :active{
+   background-color:  rgba(98, 213, 200, 0.4);
+    background-color: #FFE66D;
+
+}
+*/
+.btn-primary:focus, .btn-primary.focus {
+    background-color:  rgba(98, 213, 200, 0.4);
+}
+.btn-primary:active, .btn-primary.active {
+    background-color:  rgba(98, 213, 200, 0.4);
+}
+
+
+.loginBtn {
+    box-sizing: border-box;
+    position: relative;
+    /* width: 150px;  - apply for fixed size */
+    padding: 0px 28px 0 44px;
+    border: none;
+    text-align: left;
+    line-height: 34px;
+    white-space: nowrap;
+    border-radius: 0.2em;
+    font-size: 14px;
+    color: #FFF;
+    height: 50px;
+}
+.loginBtn:before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 34px;
+    height: 100%;
+}
+.loginBtn:focus {
+    outline: none;
+}
+.loginBtn:active {
+    box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
+}
+
+
+/* Facebook */
+.loginBtn--facebook {
+    background-color: #4C69BA;
+
+    /*font-family: "Helvetica neue", Helvetica Neue, Helvetica, Arial, sans-serif;*/
+    text-shadow: 0 -1px 0 #354C8C;
+}
+.loginBtn--facebook:before {
+    border-right: #364e92 1px solid;
+    background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_facebook.png') 6px 6px no-repeat;
+}
+.loginBtn--facebook:hover,
+.loginBtn--facebook:focus {
+    background-color: #5B7BD5;
+}
