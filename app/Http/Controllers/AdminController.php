@@ -26,7 +26,7 @@ class AdminController extends Controller
         return view('admin.index');
     }
 
-    //================================= Categories ===================================== //
+    //=================================  Categories  ===================================== //
     /**
      * listCategories
      * The function uses Category model to list all categories
@@ -107,4 +107,25 @@ class AdminController extends Controller
         $category->delete();
         return back();
     }
+
+    //=================================  Subscription Requests  ===================================== //
+
+    /**
+     * acceptSubscriptionRequest
+     * The function is used to accept vendor subscription requests
+     * @author Mohamed Magdy
+     * @param Request $request
+     * @return  view
+     */
+
+    public function acceptSubscriptionRequest( )
+    {
+
+    }
+    public function rejectSubscriptionRequest()
+    {
+
+    }
+
+
 }
