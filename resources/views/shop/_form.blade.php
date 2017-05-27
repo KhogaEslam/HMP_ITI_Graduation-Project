@@ -4,7 +4,7 @@
 </div>
 <div class="form-group">
     {!! Form::label("description", "Description") !!}
-    {!! Form::textarea("description", null, ["class" => "form-control", "cols" => 40, "rows" => 3, "style" => "resize: none;"]) !!}
+    {!! Form::textarea("description", null, ["class" => "form-control", "cols" => 40, "rows" => 8, "style" => "resize: none;"]) !!}
 </div>
 <div class="form-group">
     {!! Form::label("quantity") !!}
@@ -19,6 +19,4 @@
     {!! Form::file('images[]', array('multiple'=>true)) !!}
 </div>
 
-<div class="form-control">
-    {!! Form::submit($submitButton) !!}
-</div>
+{!! Form::submit($submitButton, ["class" => "btn btn-block btn-info"]) !!}

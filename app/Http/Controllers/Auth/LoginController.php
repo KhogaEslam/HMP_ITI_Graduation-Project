@@ -79,7 +79,10 @@ class LoginController extends Controller
 
         //check suspended account
         if($prefix != 'owner'){
-            $status = $user->userDetails->status;
+            $status = 0;
+            if(! $user->hasRole("owner")) {
+                $status = $user->userDetails->status;
+            }
             if($status == 1){
                 return $this->sendFailedLoginResponse($request);
             }
