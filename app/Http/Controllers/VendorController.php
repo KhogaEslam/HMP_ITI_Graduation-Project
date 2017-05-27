@@ -31,12 +31,10 @@ class VendorController extends Controller
 
     public function index()
     {
-        if (\Auth::check() && \Auth::user()->hasRole("vendor")) {
-            $categories = Category::all();
-            return view("shop.index", [
-                "categories" => $categories
-            ]);
-        }
+        $categories = Category::all();
+        return view("shop.index", [
+            "categories" => $categories
+        ]);
     }
 
     /**
@@ -47,13 +45,11 @@ class VendorController extends Controller
 
     public function category(Category $category)
     {
-        if (\Auth::check() && \Auth::user()->hasRole("vendor")) {
-            $products = $category->products()->owned()->get();
-            return view("shop.products", [
-                "products" => $products,
-                "category" => $category,
-            ]);
-        }
+        $products = $category->products()->owned()->get();
+        return view("shop.products", [
+            "products" => $products,
+            "category" => $category,
+        ]);
     }
 
     /**
@@ -76,9 +72,13 @@ class VendorController extends Controller
 
     public function newProduct(Request $request, Category $category)
     {
+        $user = \Auth::user();
+        if(\Auth::user()->hasRole("employee")) {
+            $user = $user->employee->where("employee_id", "=", $user->id)->first()->manager;
+        }
         $upload_to = resource_path("img");
         $product = new Product($request->all());
-        $product->user()->associate(\Auth::user());
+        $product->user()->associate($user);
         $product->category()->associate($category);
         $product->save();
         $files = $request->images;
