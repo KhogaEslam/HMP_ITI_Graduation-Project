@@ -22,7 +22,11 @@ class Product extends Model
     }
 
     public function scopeOwned($query) {
-        $query->where("user_id", "=", \Auth::user()->id);
+        $user = \Auth::user();
+        if($user->hasRole("employee")) {
+            $user = $user->employee->where("employee_id", "=", $user->id)->first()->manager;
+        }
+        $query->where("user_id", "=", $user->id);
     }
 
     public function images() {
