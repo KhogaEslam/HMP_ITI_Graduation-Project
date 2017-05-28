@@ -119,6 +119,10 @@ Route::get('images/{filename}', function($filename){
     return $response;
 })->name("image");
 
+Route::get("admin/new_offer", "AdminController@showAddOfferForm");
+
+Route::post("admin/new_offer", "AdminController@addOffer");
+
 
 //add discount
 Route::get("vendor/product/{product}/discount", "VendorController@showDiscountProductForm");
@@ -129,3 +133,4 @@ Route::post("vendor/product/{product}/add_discount", "VendorController@newDiscou
 Route::get("vendor/product/{product}/discount/edit", "VendorController@showEditDiscountProductForm");
 
 Route::post("vendor/product/{product}/edit_discount", "VendorController@editDiscount");
+
