@@ -32,6 +32,7 @@ class CustomerController extends Controller
         return view("customer.product_details", [
             "product" => $product,
             "category" => $category,
+            "categories" => Category::all(),
         ]);
     }
 
@@ -54,6 +55,19 @@ class CustomerController extends Controller
 
     public function viewCart() {
         $cartDetails = \Auth::user()->cart->cartDetails;
-        dd($cartDetails);
+        $total = 0;
+        foreach($cartDetails as $cartDetail) {
+            $total += $cartDetail->product->price * $cartDetail->quantity;
+        }
+        return view("customer.cart", [
+            "cartDetails" => $cartDetails,
+            "categories" => Category::all(),
+            "total" => $total,
+        ]);
+    }
+
+    public function deleteProductFromCart(Request $request, CartDetail $cartDetail) {
+        $cartDetail->delete();
+        return back();
     }
 }

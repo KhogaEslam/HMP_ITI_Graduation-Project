@@ -127,4 +127,15 @@ Route::post("customer/{product}/add_to_cart", "CustomerController@addToCart");
 
 Route::post("customer/{cart_detail}/edit_cart", "CustomerController@editCart");
 
+//add discount
+Route::get("vendor/product/{product}/discount", "VendorController@showDiscountProductForm");
+
 Route::get("customer/cart", "CustomerController@viewCart");
+Route::post("vendor/product/{product}/add_discount", "VendorController@newDiscount");
+
+//edit discount
+Route::get("vendor/product/{product}/discount/edit", "VendorController@showEditDiscountProductForm");
+
+Route::post("vendor/product/{product}/edit_discount", "VendorController@editDiscount");
+
+Route::post("customer/cart/{cart_detail}/delete", "CustomerController@deleteProductFromCart");
