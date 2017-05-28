@@ -129,8 +129,7 @@ Route::get("vendor/product/{product}/discount", "VendorController@showDiscountPr
 
 Route::post("vendor/product/{product}/add_discount", "VendorController@newDiscount");
 
-//edit discount
-Route::get("vendor/product/{product}/discount/edit", "VendorController@showEditDiscountProductForm");
+//delete discount
+Route::get("vendor/product/{discount}/discount/delete", "VendorController@deleteDiscount");
 
-Route::post("vendor/product/{product}/edit_discount", "VendorController@editDiscount");
 

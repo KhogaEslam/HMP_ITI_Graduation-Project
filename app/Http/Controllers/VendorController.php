@@ -111,7 +111,7 @@ class VendorController extends Controller
 
     public function productDetails(Category $category, Product $product)
     {
-        $discount=Discount::where("product_id","=",$product->id)->get();
+        $discount=Discount::where("product_id","=",$product->id)->first();
         return view("shop.product", [
             "product" => $product,
             "category" => $category,
@@ -284,26 +284,11 @@ class VendorController extends Controller
 
     }
 
-    public function showEditDiscountProductForm(Product $product)
+    public function deleteDiscount(Discount $discount)
     {
-        $discount=Discount::where("product_id","=",$product->id)->first();
-        return view("shop.edit_discount",[
-            'product' => $product,
-            'discount' =>$discount
-        ]);
+            $discount->delete();
+            return back();
     }
 
-//    public function editDiscount(Request $request, Product $product)
-//    {
-//        $discount=new Discount();
-//        $discount->percentage = $request->input('percentage');
-//        $discount->start_date = $request->input('start_date');
-//        $discount->end_date = $request->input('end_date');
-//        $discount->product_id = $product->id;
-//        $discount->save();
-//
-//        return redirect()->action("VendorController@category",[$product->category_id]);
-//
-//    }
 
 }
