@@ -132,4 +132,6 @@ Route::post("vendor/product/{product}/add_discount", "VendorController@newDiscou
 //delete discount
 Route::get("vendor/product/{discount}/discount/delete", "VendorController@deleteDiscount");
 
+//Featured Item Request
+Route::get("vendor/product/{product}/featuredItem", "VendorController@makeFeaturedItemRequest");
 

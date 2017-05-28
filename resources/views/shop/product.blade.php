@@ -17,6 +17,11 @@
     <p>Discount: {{$discount->percentage}} %</p>
     <p>Start date : {{$discount->start_date}} </p>
     <p>End date : {{$discount->end_date}} </p>
-    <p><a href="{{action("VendorController@deleteDiscount", [$discount])}}" class="btn btn-primary btn-block">Delete Discount</a></p>
+    <p><a href="{{action("VendorController@deleteDiscount", [$discount])}}" class="btn btn-danger btn-block">Delete Discount</a></p>
 @endif
+
+@if (!isset($featuredItem))
+    <p><a href="{{action("VendorController@makeFeaturedItemRequest", [$product])}}" class="btn btn-success btn-block">Make Featured Items</a></p>
+@endif
+
 @endsection

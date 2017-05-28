@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
 use App\Discount;
+use App\FeaturedItem;
 use Validator;
 use App\Employee;
 use \App\Role;
@@ -112,10 +113,12 @@ class VendorController extends Controller
     public function productDetails(Category $category, Product $product)
     {
         $discount=Discount::where("product_id","=",$product->id)->first();
+        $featuredItem=FeaturedItem::where("product_id","=",$product->id)->first();
         return view("shop.product", [
             "product" => $product,
             "category" => $category,
-            "discount"=>$discount
+            "discount" => $discount,
+            "featuredItem" => $featuredItem
         ]);
     }
 
@@ -280,7 +283,9 @@ class VendorController extends Controller
         $discount->product_id = $product->id;
         $discount->save();
 
-        return redirect()->action("VendorController@category",[$product->category_id]);
+        return redirect()->action("VendorController@productDetails", ["category" => $product->category_id, "product" => $product]);
+
+//        return redirect()->action("VendorController@category",[$product->category_id]);
 
     }
 
@@ -288,6 +293,17 @@ class VendorController extends Controller
     {
             $discount->delete();
             return back();
+    }
+
+    public function makeFeaturedItemRequest($product)
+    {
+        $featuredItem=new FeaturedItem();
+        $featuredItem->product_id=$product->id;
+        $featuredItem->user_id=\Auth::user()->id;
+        $featuredItem->save();
+
+        return back();
+
     }
 
 
