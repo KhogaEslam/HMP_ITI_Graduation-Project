@@ -118,3 +118,7 @@ Route::get('images/{filename}', function($filename){
 
     return $response;
 })->name("image");
+
+Route::get("admin/new_offer", "AdminController@showAddOfferForm");
+
+Route::post("admin/new_offer", "AdminController@addOffer");
