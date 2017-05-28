@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\CartDetail;
 use Illuminate\Http\Request;
 
 use App\Product;
 use App\Category;
+use \App\Http\Requests\CartRequest;
 
 class CustomerController extends Controller
 {
@@ -31,5 +33,27 @@ class CustomerController extends Controller
             "product" => $product,
             "category" => $category,
         ]);
+    }
+
+    public function addToCart(CartRequest $request, Product $product) {
+        $cartDetail = new CartDetail;
+
+        $cartDetail->product()->associate($product);
+        $cartDetail->cart()->associate(\Auth::user()->cart);
+
+        $cartDetail->quantity = $request->input("quantity");
+        $cartDetail->save();
+        return back();
+    }
+
+    public function editCart(CartRequest $request, CartDetail $cart) {
+        $cart->quantity = $request->input("quantity");
+        $cart->save();
+        return back();
+    }
+
+    public function viewCart() {
+        $cartDetails = \Auth::user()->cart->cartDetails;
+        dd($cartDetails);
     }
 }

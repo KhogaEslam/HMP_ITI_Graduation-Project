@@ -36,4 +36,9 @@ class Product extends Model
     public function scopePublished($query) {
         $query->where("published", "=", true);
     }
+
+    public function carts() {
+        return $this->hasMany("\App\CartDetail", "product_id");
+    }
+
 }

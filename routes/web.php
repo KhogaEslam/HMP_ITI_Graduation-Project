@@ -84,9 +84,9 @@ Route::post("vendor/category/{category}/product/{product}/unpublish", "VendorCon
 
 Route::get("customer", "CustomerController@index");
 
-Route::get("customer/category/{category}/products", "CustomerController@products");
+Route::get("category/{category}/products", "CustomerController@products");
 
-Route::get("customer/category/{category}/products/{product}", "CustomerController@productDetails");
+Route::get("category/{category}/products/{product}", "CustomerController@productDetails");
 
 Route::group(["prefix" => "vendor/employees", "middleware" => "vendor.auth"], function() {
 
@@ -122,3 +122,9 @@ Route::get('images/{filename}', function($filename){
 Route::get("admin/new_offer", "AdminController@showAddOfferForm");
 
 Route::post("admin/new_offer", "AdminController@addOffer");
+
+Route::post("customer/{product}/add_to_cart", "CustomerController@addToCart");
+
+Route::post("customer/{cart_detail}/edit_cart", "CustomerController@editCart");
+
+Route::get("customer/cart", "CustomerController@viewCart");
