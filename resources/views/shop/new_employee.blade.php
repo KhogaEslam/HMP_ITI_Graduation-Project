@@ -1,4 +1,7 @@
 @extends("layouts.admin")
+@section("title")
+    New Employee
+@endsection
 @section("content")
 
 {!! Form::open(["action" => ["VendorController@newEmployee"]]) !!}

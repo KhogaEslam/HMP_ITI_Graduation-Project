@@ -118,3 +118,14 @@ Route::get('images/{filename}', function($filename){
 
     return $response;
 })->name("image");
+
+
+//add discount
+Route::get("vendor/product/{product}/discount", "VendorController@showDiscountProductForm");
+
+Route::post("vendor/product/{product}/add_discount", "VendorController@newDiscount");
+
+//edit discount
+Route::get("vendor/product/{product}/discount/edit", "VendorController@showEditDiscountProductForm");
+
+Route::post("vendor/product/{product}/edit_discount", "VendorController@editDiscount");

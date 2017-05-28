@@ -36,4 +36,8 @@ class Product extends Model
     public function scopePublished($query) {
         $query->where("published", "=", true);
     }
+
+    public function discount() {
+        return $this->hasone("\App\Discount");
+    }
 }
