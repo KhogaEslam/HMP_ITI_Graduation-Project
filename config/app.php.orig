@@ -240,7 +240,10 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Paypalpayment' => Anouar\Paypalpayment\Facades\PaypalPayment::class,
+<<<<<<< HEAD
         'Helpers' => App\Helpers\Helpers::class,
+=======
+>>>>>>> 9d9d16468db6473528cc4371be0391c521c4d0f7
     ],
 
 ];

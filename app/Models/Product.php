@@ -40,7 +40,19 @@ class Product extends Model
     public function discount() {
         return $this->hasone("\App\Discount");
     }
-    
+
+
+    public function featured()
+    {
+        return $this->hasone("\App\FeaturedItem");
+    }
+
+    public function featuredProduct()
+    {
+        return $this->hasone("\App\FeaturedProduct");
+    }
+
+
     public function carts() {
         return $this->hasMany("\App\CartDetail", "product_id");
     }

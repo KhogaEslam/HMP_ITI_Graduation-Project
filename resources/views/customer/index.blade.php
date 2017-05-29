@@ -67,48 +67,20 @@
     <div class="row">
         <div class="allProducts container">
 
-            <div class="product">
+            @foreach($newArrivals as $newProduct)
+                <div class="product">
+                    @if(! $newProduct->images()->get()->isEmpty())
+                        <center><img  width="245" height="158"  src="{{route("image", [$newProduct->images()->get()->first()->stored_name])}}" class="product1" alt="{{$newProduct->name}}"></center>
+                    @else
+                        <center><img  width="245" height="158" alt="No image provided"></center>
+                    @endif
+                    <h4 class="myTitle">{{$newProduct->name}}</h4>
+                    <span class="price">{{$newProduct->price}} LE</span>
+                    <img class="rate" src="images/stars.png">
+                    <button class="myButton add">Add To Cart</button>
+                </div>
+            @endforeach
 
-                <img class="product1" src="images/cam.jpg">
-                <h4 class="myTitle">Canon EOS 1200D</h4>
-                <span class="price">5290 LE</span>
-                <img class="rate" src="images/stars%20(2).png">
-                <button class="myButton add">Add To Cart</button>
-            </div>
-
-
-            <div class="product">
-
-                <img class="product1" src="images/laptop.jpg">
-                <h4 class="myTitle">Lenovo Ideapad 300</h4>
-                <span class="price">6550 LE</span>
-                <img class="rate" src="images/stars%20(2).png">
-
-
-
-                <button class="myButton add">Add To Cart</button>
-            </div>
-
-            <div class="product">
-
-                <img class="product1" src="images/mobile.jpg">
-                <h4 class="myTitle">Lenovo TAB 2 A7-30 Tablet</h4>
-                <span class="price">1480 LE</span>
-                <img class="rate" src="images/stars%20(2).png">
-
-
-                <button class="myButton add">Add To Cart</button>
-            </div>
-
-            <div class="product">
-
-                <img class="product1" src="images/tablet2.jpg">
-                <h4 class="myTitle">Innjoo F4 Pro Dual Sim</h4>
-                <span class="price">1589 LE</span>
-                <img class="rate" src="images/stars%20(2).png">
-
-                <button class="myButton add">Add To Cart</button>
-            </div>
         </div>
     </div>
 

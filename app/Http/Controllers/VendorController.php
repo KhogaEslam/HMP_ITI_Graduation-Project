@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
 use App\Discount;
+use App\FeaturedItem;
 use Validator;
 use App\Employee;
 use \App\Role;
@@ -111,11 +112,13 @@ class VendorController extends Controller
 
     public function productDetails(Category $category, Product $product)
     {
-        $discount=Discount::where("product_id","=",$product->id)->get();
+        $discount=Discount::where("product_id","=",$product->id)->first();
+        $featuredItem=FeaturedItem::where("product_id","=",$product->id)->first();
         return view("shop.product", [
             "product" => $product,
             "category" => $category,
-            "discount"=>$discount
+            "discount" => $discount,
+            "featuredItem" => $featuredItem
         ]);
     }
 
@@ -280,30 +283,28 @@ class VendorController extends Controller
         $discount->product_id = $product->id;
         $discount->save();
 
-        return redirect()->action("VendorController@category",[$product->category_id]);
+        return redirect()->action("VendorController@productDetails", ["category" => $product->category_id, "product" => $product]);
 
-    }
-
-    public function showEditDiscountProductForm(Product $product)
-    {
-        $discount=Discount::where("product_id","=",$product->id)->first();
-        return view("shop.edit_discount",[
-            'product' => $product,
-            'discount' =>$discount
-        ]);
-    }
-
-//    public function editDiscount(Request $request, Product $product)
-//    {
-//        $discount=new Discount();
-//        $discount->percentage = $request->input('percentage');
-//        $discount->start_date = $request->input('start_date');
-//        $discount->end_date = $request->input('end_date');
-//        $discount->product_id = $product->id;
-//        $discount->save();
-//
 //        return redirect()->action("VendorController@category",[$product->category_id]);
-//
-//    }
+
+    }
+
+    public function deleteDiscount(Discount $discount)
+    {
+            $discount->delete();
+            return back();
+    }
+
+    public function makeFeaturedItemRequest($product)
+    {
+        $featuredItem=new FeaturedItem();
+        $featuredItem->product_id=$product->id;
+        $featuredItem->user_id=\Auth::user()->id;
+        $featuredItem->save();
+
+        return back();
+
+    }
+
 
 }
