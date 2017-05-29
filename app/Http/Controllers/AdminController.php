@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\FeaturedProduct;
 use Illuminate\Http\Request;
 use App\Http\Requests\OfferRequest;
 use App\Offer;
 use \Carbon\Carbon;
+use App\FeaturedItem;
 
 class AdminController extends Controller
 {
@@ -152,5 +154,26 @@ class AdminController extends Controller
         return redirect(action("AdminController@index"));
     }
 
+    public function viewFeaturedRequests() {
+        $featuredRequests = FeaturedItem::all();
+        return view("admin.featured_requests", [
+            "featuredRequests" => $featuredRequests,
+        ]);
+    }
+
+    public function acceptFeaturedRequest(FeaturedItem $item) {
+        if(FeaturedProduct::find($item->product)->isEmpty()) {
+            $featuredProduct = new FeaturedProduct;
+            $featuredProduct->product()->associate($item->product);
+            $featuredProduct->save();
+            $item->delete();
+        }
+        return back();
+    }
+
+    public function rejectFeaturedRequest(FeaturedItem $item) {
+        $item->delete();
+        return back();
+    }
 
 }

@@ -20,7 +20,7 @@ class CustomerController extends Controller
     {
         $categories = Category::all();
         $inCart = 0;
-        if (\Auth::check()) {
+        if (\Auth::check() && \Auth::user()->hasRole("customer")) {
             $inCart = \Auth::user()->cart()->first()->cartDetails->count();
         }
         $newArrivals = Product::latest('created_at')->limit(4)->published()->get();
@@ -40,7 +40,7 @@ class CustomerController extends Controller
         $products = $category->products()->published()->get();
         $categories = Category::all();
         $inCart = 0;
-        if (\Auth::check()) {
+        if (\Auth::check() && \Auth::user()->hasRole("customer")) {
             $inCart = \Auth::user()->cart()->first()->cartDetails->count();
         }
         return view("customer.products", [
@@ -53,7 +53,8 @@ class CustomerController extends Controller
 
     public function productDetails(Category $category, Product $product) {
         $inCart = 0;
-        if (\Auth::check()) {
+
+        if (\Auth::check() && \Auth::user()->hasRole("customer")) {
             $inCart = \Auth::user()->cart()->first()->cartDetails->count();
         }
 

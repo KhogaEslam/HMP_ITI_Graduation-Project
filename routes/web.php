@@ -140,3 +140,9 @@ Route::get("vendor/product/{discount}/discount/delete", "VendorController@delete
 Route::get("vendor/product/{product}/featuredItem", "VendorController@makeFeaturedItemRequest");
 
 Route::post("customer/cart/{cart_detail}/delete", "CustomerController@deleteProductFromCart");
+
+Route::get("admin/featured_requests", "AdminController@viewFeaturedRequests");
+
+Route::post("admin/featured_request/{featured_request}/accept", "AdminController@acceptFeaturedRequest");
+
+Route::post("admin/featured_request/{featured_request}/reject", "AdminController@rejectFeaturedRequest");
