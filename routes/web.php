@@ -84,9 +84,9 @@ Route::post("vendor/category/{category}/product/{product}/unpublish", "VendorCon
 
 Route::get("customer", "CustomerController@index");
 
-Route::get("customer/category/{category}/products", "CustomerController@products");
+Route::get("category/{category}/products", "CustomerController@products");
 
-Route::get("customer/category/{category}/products/{product}", "CustomerController@productDetails");
+Route::get("category/{category}/products/{product}", "CustomerController@productDetails");
 
 Route::group(["prefix" => "vendor/employees", "middleware" => "vendor.auth"], function() {
 
@@ -123,10 +123,14 @@ Route::get("admin/new_offer", "AdminController@showAddOfferForm");
 
 Route::post("admin/new_offer", "AdminController@addOffer");
 
+Route::post("customer/{product}/add_to_cart", "CustomerController@addToCart");
+
+Route::post("customer/{cart_detail}/edit_cart", "CustomerController@editCart");
 
 //add discount
 Route::get("vendor/product/{product}/discount", "VendorController@showDiscountProductForm");
 
+Route::get("customer/cart", "CustomerController@viewCart");
 Route::post("vendor/product/{product}/add_discount", "VendorController@newDiscount");
 
 //delete discount
@@ -135,3 +139,4 @@ Route::get("vendor/product/{discount}/discount/delete", "VendorController@delete
 //Featured Item Request
 Route::get("vendor/product/{product}/featuredItem", "VendorController@makeFeaturedItemRequest");
 
+Route::post("customer/cart/{cart_detail}/delete", "CustomerController@deleteProductFromCart");

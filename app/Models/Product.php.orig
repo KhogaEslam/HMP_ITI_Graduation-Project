@@ -37,29 +37,14 @@ class Product extends Model
         $query->where("published", "=", true);
     }
 
-    public function discount() {
-        return $this->hasone("\App\Discount");
-    }
-
-
-    public function featured()
-    {
-        return $this->hasone("\App\Discount");
-    }
-
-    
+<<<<<<< HEAD
     public function carts() {
         return $this->hasMany("\App\CartDetail", "product_id");
     }
 
-    public function getPriceAttribute() {
-        $price = $this->attributes['price'];
-        if(! Offer::current()->get()->isEmpty()) {
-            $price *= Offer::all()->current->first()->percentage / 100.0;
-        }
-        if(! $this->discount()->get()->isEmpty()) {
-            $price *= $this->discount()->first()->percentage / 100;
-        }
-        return $price;
+=======
+    public function discount() {
+        return $this->hasone("\App\Discount");
     }
+>>>>>>> 29ab715bb1afcd39e2360435a5643b9e097494aa
 }

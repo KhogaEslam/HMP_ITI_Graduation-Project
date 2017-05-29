@@ -124,7 +124,17 @@
 
                 <li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
 
-                <li><a href="#"><span class="count" >0</span></a></li>
+                <li>
+                    <a href="#">
+                        <span class="count" >
+                            @if(isset($inCartProducts))
+                                {{$inCartProducts}}
+                            @else
+                                0
+                            @endif
+                        </span>
+                    </a>
+                </li>
                 <form class="navbar-form navbar-right mySearch">
 
                     <div class="input-group stylish-input-group">

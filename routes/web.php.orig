@@ -11,12 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('customer.index');
+//});
+Route::get('/', 'CustomerController@index');
+
 
 Route::get('mail', 'MailController@requestRegisterMail');
-Route::get('auth/facebook', 'FacebookController@redirectToProvider')->name('facebook.login')->prefix("customer");
+Route::get('auth/facebook', 'FacebookController@redirectToProvider')
+    ->name('facebook.login')
+    ->prefix("customer");
 Route::get('auth/facebook/callback', 'FacebookController@handleProviderCallback');
 
 //Auth::routes();
@@ -56,10 +60,6 @@ Route::post('/admin/categories/{category}/delete', 'AdminController@deleteCatego
 //===============================    End Route  =================================================//
 
 
-Route::group(['prefix' => 'owner'], function(){
-    Auth::routes();
-});
-
 //Entrust::routeNeedsRole("vendor/*", "vendor", Redirect::to("vendor/login"));
 
 Route::get("vendor", "VendorController@index");
@@ -84,9 +84,9 @@ Route::post("vendor/category/{category}/product/{product}/unpublish", "VendorCon
 
 Route::get("customer", "CustomerController@index");
 
-Route::get("customer/category/{category}/products", "CustomerController@products");
+Route::get("category/{category}/products", "CustomerController@products");
 
-Route::get("customer/category/{category}/products/{product}", "CustomerController@productDetails");
+Route::get("category/{category}/products/{product}", "CustomerController@productDetails");
 
 Route::group(["prefix" => "vendor/employees", "middleware" => "vendor.auth"], function() {
 
@@ -102,7 +102,6 @@ Route::group(["prefix" => "vendor/employees", "middleware" => "vendor.auth"], fu
 
     Route::post("{employee}/delete_employee", "VendorController@deleteEmployee");
 });
-<<<<<<< HEAD
 
 Route::get('images/{filename}', function($filename){
     $path = resource_path() . '/img/' . $filename;
@@ -119,5 +118,27 @@ Route::get('images/{filename}', function($filename){
 
     return $response;
 })->name("image");
+
+Route::get("admin/new_offer", "AdminController@showAddOfferForm");
+
+Route::post("admin/new_offer", "AdminController@addOffer");
+
+<<<<<<< HEAD
+Route::post("customer/{product}/add_to_cart", "CustomerController@addToCart");
+
+Route::post("customer/{cart_detail}/edit_cart", "CustomerController@editCart");
+
+Route::get("customer/cart", "CustomerController@viewCart");
 =======
->>>>>>> 699c294a431f742a1a0257c0bafb476065ab8965
+
+//add discount
+Route::get("vendor/product/{product}/discount", "VendorController@showDiscountProductForm");
+
+Route::post("vendor/product/{product}/add_discount", "VendorController@newDiscount");
+
+//edit discount
+Route::get("vendor/product/{product}/discount/edit", "VendorController@showEditDiscountProductForm");
+
+Route::post("vendor/product/{product}/edit_discount", "VendorController@editDiscount");
+
+>>>>>>> 29ab715bb1afcd39e2360435a5643b9e097494aa
