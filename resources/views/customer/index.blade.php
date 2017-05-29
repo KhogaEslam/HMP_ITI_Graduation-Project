@@ -70,9 +70,9 @@
             @foreach($newArrivals as $newProduct)
                 <div class="product">
                     @if(! $newProduct->images()->get()->isEmpty())
-                        <img  width="245" height="158"  src="{{route("image", [$newProduct->images()->get()->first()->stored_name])}}" class="product1" alt="{{$newProduct->name}}">
+                        <center><img  width="245" height="158"  src="{{route("image", [$newProduct->images()->get()->first()->stored_name])}}" class="product1" alt="{{$newProduct->name}}"></center>
                     @else
-                        <img  width="245" height="158" alt="No image provided">
+                        <center><img  width="245" height="158" alt="No image provided"></center>
                     @endif
                     <h4 class="myTitle">{{$newProduct->name}}</h4>
                     <span class="price">{{$newProduct->price}} LE</span>

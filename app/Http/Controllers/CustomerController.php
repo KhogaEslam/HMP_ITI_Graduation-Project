@@ -13,7 +13,7 @@ class CustomerController extends Controller
 {
     public function index() {
         $categories = Category::all();
-        $newArrivals = Product::latest('created_at')->limit(4)->get();
+        $newArrivals = Product::latest('created_at')->limit(4)->published()->get();
         return view("customer.index", [
             "categories" => $categories,
             "newArrivals" => $newArrivals,
