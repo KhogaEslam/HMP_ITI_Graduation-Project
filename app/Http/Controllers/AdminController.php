@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\OfferRequest;
 use App\Offer;
 use \Carbon\Carbon;
+use App\Http\Controllers\MailController;
 
 class AdminController extends Controller
 {
@@ -143,6 +144,7 @@ class AdminController extends Controller
     {
 //        $userDetails  = UserDetail::all();
 //        dd($userDetails);
+        MailController::acceptRegistrationMail($regReq->user);
         $regReq->user->userDetails->status='0';
         $regReq->user->userDetails->save();
         $regReq->delete();
@@ -159,10 +161,15 @@ class AdminController extends Controller
      */
     public function rejectRegRequest(Request $request, RegistrationRequest $regReq)
     {
+        MailController::rejectRegistrationMail($regReq->user);
         $regReq->user->delete();
         $regReq->delete();
         return back();
     }
+
+
+
+    //============================================ Offers ==================================/
 
     public function showAddOfferForm() {
         return view("admin.new_offer");

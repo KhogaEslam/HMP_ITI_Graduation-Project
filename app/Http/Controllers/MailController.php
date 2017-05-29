@@ -19,4 +19,23 @@ class MailController extends Controller
             dd('Mail Send Successfully');
         }
     }
+
+    public static function acceptRegistrationMail(User $user)
+    {
+        $user=$user->toArray();
+        Mail::send('emails.mailEvent', $user, function($message) use ($user) {
+            $message->to($user['email']);
+            $message->subject('Registration Accpetance');
+            $message->setBody('Congratulation. We accept your registration. You can login at the following link : <br> http://localhost:8000/vendor/login', 'text/html');
+        });
+    }
+    public static function rejectRegistrationMail(User $user)
+    {
+        $user=$user->toArray();
+        Mail::send('emails.mailEvent', $user, function($message) use ($user) {
+            $message->to($user['email']);
+            $message->subject('Registration Reject');
+            $message->setBody(' We are sorry to reject your registration request.', 'text/html');
+        });
+    }
 }
