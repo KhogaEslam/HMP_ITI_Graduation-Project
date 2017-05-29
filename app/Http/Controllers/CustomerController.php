@@ -83,4 +83,10 @@ class CustomerController extends Controller
         $cartDetail->delete();
         return back();
     }
+
+
+    public function showWishList()
+    {
+        dd('hena');
+    }
 }

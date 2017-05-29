@@ -51,7 +51,7 @@ class Product extends Model
     {
         return $this->hasone("\App\FeaturedProduct");
     }
-    
+
     public function wishlists()
     {
         return $this->hasone("\App\WishList");
