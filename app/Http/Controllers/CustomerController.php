@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CartDetail;
+use App\FeaturedProduct;
 use Illuminate\Http\Request;
 
 use App\Product;
@@ -14,9 +15,14 @@ class CustomerController extends Controller
     public function index() {
         $categories = Category::all();
         $newArrivals = Product::latest('created_at')->limit(4)->published()->get();
+        $featuredProducts = FeaturedProduct::all();
+        $bestSellings = Product::orderBy('sales_counter','desc')->limit(4)->published()->get();
+
         return view("customer.index", [
             "categories" => $categories,
             "newArrivals" => $newArrivals,
+            "featuredProducts" => $featuredProducts,
+            "bestSellings" => $bestSellings,
         ]);
     }
 

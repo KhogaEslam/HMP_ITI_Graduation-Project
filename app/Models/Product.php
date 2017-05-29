@@ -37,6 +37,10 @@ class Product extends Model
         $query->where("published", "=", true);
     }
 
+    public function isPublished() {
+        return $this->published;
+    }
+
     public function discount() {
         return $this->hasone("\App\Discount");
     }
