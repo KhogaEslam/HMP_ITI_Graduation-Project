@@ -39,7 +39,7 @@ class CustomerController extends Controller
     public function products(Category $category) {
         $products = $category->products()->published()->get();
         $categories = Category::all();
-
+        $inCart = 0;
         if (\Auth::check()) {
             $inCart = \Auth::user()->cart()->first()->cartDetails->count();
         }
@@ -52,7 +52,7 @@ class CustomerController extends Controller
     }
 
     public function productDetails(Category $category, Product $product) {
-
+        $inCart = 0;
         if (\Auth::check()) {
             $inCart = \Auth::user()->cart()->first()->cartDetails->count();
         }
