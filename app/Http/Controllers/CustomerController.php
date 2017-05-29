@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\CartDetail;
 use Illuminate\Http\Request;
 
 use App\Product;
 use App\Category;
+use \App\Http\Requests\CartRequest;
 
 class CustomerController extends Controller
 {
@@ -32,6 +34,42 @@ class CustomerController extends Controller
         return view("customer.product_details", [
             "product" => $product,
             "category" => $category,
+            "categories" => Category::all(),
         ]);
+    }
+
+    public function addToCart(CartRequest $request, Product $product) {
+        $cartDetail = new CartDetail;
+
+        $cartDetail->product()->associate($product);
+        $cartDetail->cart()->associate(\Auth::user()->cart);
+
+        $cartDetail->quantity = $request->input("quantity");
+        $cartDetail->save();
+        return back();
+    }
+
+    public function editCart(CartRequest $request, CartDetail $cart) {
+        $cart->quantity = $request->input("quantity");
+        $cart->save();
+        return back();
+    }
+
+    public function viewCart() {
+        $cartDetails = \Auth::user()->cart->cartDetails;
+        $total = 0;
+        foreach($cartDetails as $cartDetail) {
+            $total += $cartDetail->product->price * $cartDetail->quantity;
+        }
+        return view("customer.cart", [
+            "cartDetails" => $cartDetails,
+            "categories" => Category::all(),
+            "total" => $total,
+        ]);
+    }
+
+    public function deleteProductFromCart(Request $request, CartDetail $cartDetail) {
+        $cartDetail->delete();
+        return back();
     }
 }

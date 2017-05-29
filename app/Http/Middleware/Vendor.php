@@ -18,6 +18,11 @@ class Vendor
         if(\Auth::check() && \Auth::user()->hasRole("vendor")) {
             return $next($request);
         }
-        return response("You're forbidden", 403);
+        else if(\Auth::check()) {
+            return response("You're not authorized", 403);
+        }
+        else {
+            return redirect("vendor/login");
+        }
     }
 }

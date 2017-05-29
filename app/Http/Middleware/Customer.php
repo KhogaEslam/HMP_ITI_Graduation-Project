@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class Employee
+class Customer
 {
     /**
      * Handle an incoming request.
@@ -15,14 +15,12 @@ class Employee
      */
     public function handle($request, Closure $next)
     {
-        if (\Auth::check() && (\Auth::user()->hasRole("vendor") || \Auth::user()->hasRole("employee"))) {
+        if(\Auth::check() && \Auth::user()->hasRole("customer")) {
             return $next($request);
         }
-        else if (\Auth::check()) {
-            return response("You're forbidden to handle vendor work", 403);
+        else if(\Auth::check()) {
+            return response("You're forbidden", 403);
         }
-        else {
-            return redirect("vendor/login");
-        }
+        return redirect("customer/login");
     }
 }
