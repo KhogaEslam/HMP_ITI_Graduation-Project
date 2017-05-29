@@ -55,8 +55,6 @@ class CustomerController extends Controller
     public function productDetails(Category $category, Product $product) {
         $inCart = 0;
 
-        $inCart = 0;
-
         if (\Auth::check() && \Auth::user()->hasRole("customer")) {
             $inCart = \Auth::user()->cart()->first()->cartDetails->count();
         }

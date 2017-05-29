@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CartDetail;
+use App\FeaturedProduct;
 use Illuminate\Http\Request;
 
 use App\Product;
@@ -11,27 +12,41 @@ use \App\Http\Requests\CartRequest;
 
 class CustomerController extends Controller
 {
-    public function index() {
+    public function __construct() {
+        $this->middleware("customer.auth")->except(["index", "products", "productDetails"]);
+    }
+
+    public function index()
+    {
         $categories = Category::all();
-<<<<<<< HEAD
-        $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+        $inCart = 0;
+        if (\Auth::check() && \Auth::user()->hasRole("customer")) {
+            $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+        }
+        $newArrivals = Product::latest('created_at')->limit(4)->published()->get();
+        $featuredProducts = FeaturedProduct::all();
+        $bestSellings = Product::orderBy('sales_counter','desc')->limit(4)->published()->get();
+
         return view("customer.index", [
             "categories" => $categories,
             "inCart" => $inCart,
-=======
-        $newArrivals = Product::latest('created_at')->limit(4)->published()->get();
-        return view("customer.index", [
-            "categories" => $categories,
             "newArrivals" => $newArrivals,
->>>>>>> 5b0568d24559e2b4729ee7f7447319a0d4cef3ac
+            "featuredProducts" => $featuredProducts,
+            "bestSellings" => $bestSellings,
         ]);
     }
 
     public function products(Category $category) {
         $products = $category->products()->published()->get();
         $categories = Category::all();
-        $inCart = \Auth::user()->cart()->first()->cartDetails->count();
-
+        $inCart = 0;
+<<<<<<< HEAD
+        if (\Auth::check()) {
+=======
+        if (\Auth::check() && \Auth::user()->hasRole("customer")) {
+>>>>>>> 52ceff80be43521d64da58a4ef6247338d195035
+            $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+        }
         return view("customer.products", [
             "categories" => $categories,
             "products" => $products,
@@ -41,7 +56,17 @@ class CustomerController extends Controller
     }
 
     public function productDetails(Category $category, Product $product) {
-        $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+<<<<<<< HEAD
+        $inCart = 0;
+        if (\Auth::check()) {
+=======
+
+        $inCart = 0;
+
+        if (\Auth::check() && \Auth::user()->hasRole("customer")) {
+>>>>>>> 52ceff80be43521d64da58a4ef6247338d195035
+            $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+        }
 
         return view("customer.product_details", [
             "product" => $product,
