@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CartDetail;
 use App\WishList;
+use App\FeaturedProduct;
 use Illuminate\Http\Request;
 
 use App\Product;
@@ -20,14 +21,19 @@ class CustomerController extends Controller
     {
         $categories = Category::all();
         $inCart = 0;
-        if (\Auth::check()) {
+        if (\Auth::check() && \Auth::user()->hasRole("customer")) {
             $inCart = \Auth::user()->cart()->first()->cartDetails->count();
         }
         $newArrivals = Product::latest('created_at')->limit(4)->published()->get();
+        $featuredProducts = FeaturedProduct::all();
+        $bestSellings = Product::orderBy('sales_counter','desc')->limit(4)->published()->get();
+
         return view("customer.index", [
             "categories" => $categories,
             "inCart" => $inCart,
             "newArrivals" => $newArrivals,
+            "featuredProducts" => $featuredProducts,
+            "bestSellings" => $bestSellings,
         ]);
     }
 
@@ -35,8 +41,7 @@ class CustomerController extends Controller
         $products = $category->products()->published()->get();
         $categories = Category::all();
         $inCart = 0;
-
-        if (\Auth::check()) {
+        if (\Auth::check() && \Auth::user()->hasRole("customer")) {
             $inCart = \Auth::user()->cart()->first()->cartDetails->count();
         }
         return view("customer.products", [
@@ -50,7 +55,9 @@ class CustomerController extends Controller
     public function productDetails(Category $category, Product $product) {
         $inCart = 0;
 
-        if (\Auth::check()) {
+        $inCart = 0;
+
+        if (\Auth::check() && \Auth::user()->hasRole("customer")) {
             $inCart = \Auth::user()->cart()->first()->cartDetails->count();
         }
 

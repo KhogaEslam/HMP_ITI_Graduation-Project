@@ -141,8 +141,14 @@ Route::get("vendor/product/{product}/featuredItem", "VendorController@makeFeatur
 
 Route::post("customer/cart/{cart_detail}/delete", "CustomerController@deleteProductFromCart");
 
+
 //WishList
 Route::get("customer/wishlist/show", "CustomerController@showWishList");
 Route::get("customer/{product}/wishlist/add", "CustomerController@addToWishList");
 Route::get("customer/{item}/wishlist/delete", "CustomerController@deleteFromWishList");
 
+Route::get("admin/featured_requests", "AdminController@viewFeaturedRequests");
+
+Route::post("admin/featured_request/{featured_request}/accept", "AdminController@acceptFeaturedRequest");
+
+Route::post("admin/featured_request/{featured_request}/reject", "AdminController@rejectFeaturedRequest");
