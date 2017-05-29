@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CartDetail;
+use App\WishList;
 use App\FeaturedProduct;
 use Illuminate\Http\Request;
 
@@ -86,10 +87,15 @@ class CustomerController extends Controller
     public function viewCart() {
         $cartDetails = \Auth::user()->cart->cartDetails;
         $total = 0;
+        $inCart = 0;
+
         foreach($cartDetails as $cartDetail) {
             $total += ($cartDetail->product->price - $cartDetail->product->offer / 100.0 * $cartDetail->product->price - $cartDetail->product->discount / 100.0 * $cartDetail->product->price) * $cartDetail->quantity;
         }
-        $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+
+        if (\Auth::check()) {
+            $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+        }
 
         return view("customer.cart", [
             "cartDetails" => $cartDetails,
@@ -103,4 +109,34 @@ class CustomerController extends Controller
         $cartDetail->delete();
         return back();
     }
+
+
+    public function showWishList()
+    {
+//        $wishList=WishList::all()->where("user_id", "=", \Auth::user()->id);
+        $wishList=\Auth::user()->wishlists;
+        return view("customer.wishlist", [
+            "wishList" => $wishList,
+            "categories" => Category::all(),
+
+        ]);
+
+    }
+
+    public function addToWishList($product)
+    {
+        $wishlist=new WishList();
+        $wishlist->product_id=$product->id;
+        $wishlist->user_id=\Auth::user()->id;
+        $wishlist->save();
+
+        return back();
+    }
+
+    public function deleteFromWishList(WishList $item)
+    {
+        $item->delete();
+        return back();
+    }
+
 }

@@ -34,8 +34,11 @@
         </div>
         {!! Form::submit("Edit cart") !!}
         {!! Form::close() !!}
-
     @endif
+
+@if(\Auth::user())
+    <p><a href="{{action("CustomerController@addToWishList", [$product])}}" class="btn btn-success btn-group-lg">Add to My Wishlist</a></p>
+@endif
 @endrole
 
 @endsection

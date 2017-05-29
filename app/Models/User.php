@@ -56,6 +56,11 @@ class User extends Authenticatable //Entrust configuration needs User model to e
         return $this->hasone("\App\Discount");
     }
 
+    public function wishlists()
+    {
+        return $this->hasMany("\App\WishList");
+    }
+
     public function cart() {
         return $this->hasOne("App\ShoppingCart");
 

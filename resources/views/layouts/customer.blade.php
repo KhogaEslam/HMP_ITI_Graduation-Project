@@ -43,7 +43,7 @@
                                     <li class="divider"></li>
                                     <li class="divider"></li>
 
-                                    <li><a href="#">Wishlist <span class="glyphicon glyphicon-heart pull-right"></span></a></li>
+                                    <li><a href="/customer/wishlist/show">Wishlist <span class="glyphicon glyphicon-heart pull-right"></span></a></li>
 
                                     <li class="divider"></li>
                                     <li class="divider"></li>
