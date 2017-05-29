@@ -239,7 +239,8 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-        'Paypalpayment'   => Anouar\Paypalpayment\Facades\PaypalPayment::class,
+        'Paypalpayment' => Anouar\Paypalpayment\Facades\PaypalPayment::class,
+        'Helpers' => App\Helpers\Helpers::class,
     ],
 
 ];
