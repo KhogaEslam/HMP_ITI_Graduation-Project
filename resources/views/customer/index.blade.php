@@ -70,14 +70,20 @@
             @foreach($newArrivals as $newProduct)
                 <div class="product">
                     @if(! $newProduct->images()->get()->isEmpty())
+                        <a href="{{action("CustomerController@productDetails", [$newProduct->category, $newProduct->id])}}">
                         <center><img  width="245" height="158"  src="{{route("image", [$newProduct->images()->get()->first()->stored_name])}}" class="product1" alt="{{$newProduct->name}}"></center>
+                        </a>
                     @else
+                        <a href="{{action("CustomerController@productDetails", [$newProduct->category, $newProduct->id])}}">
                         <center><img  width="245" height="158" alt="No image provided"></center>
+                        </a>
                     @endif
-                    <h4 class="myTitle">{{$newProduct->name}}</h4>
-                    <span class="price">{{$newProduct->price}} LE</span>
-                    <img class="rate" src="images/stars.png">
-                    <button class="myButton add">Add To Cart</button>
+                        <a href="{{action("CustomerController@productDetails", [$newProduct->category, $newProduct->id])}}">
+                        <h4 class="myTitle">{{$newProduct->name}}</h4>
+                        </a>
+                        <span class="price">{{$newProduct->price}} LE</span>
+                        <img class="rate" src="images/stars.png">
+                        <button class="myButton add">Add To Cart</button>
                 </div>
             @endforeach
 
@@ -95,11 +101,17 @@
             @foreach($bestSellings as $bestSelling)
                 <div class="product">
                     @if(! $bestSelling->images()->get()->isEmpty())
+                        <a href="{{action("CustomerController@productDetails", [$bestSelling->category, $bestSelling->id])}}">
                         <center><img  width="245" height="158"  src="{{route("image", [$bestSelling->images()->get()->first()->stored_name])}}" class="product1" alt="{{$bestSelling->name}}"></center>
+                        </a>
                     @else
+                                <a href="{{action("CustomerController@productDetails", [$bestSelling->category, $bestSelling->id])}}">
                         <center><img  width="245" height="158" alt="No image provided"></center>
+                                </a>
                     @endif
+                                    <a href="{{action("CustomerController@productDetails", [$bestSelling->category, $bestSelling->id])}}">
                     <h4 class="myTitle">{{$bestSelling->name}}</h4>
+                                    </a>
                     <span class="price">{{$bestSelling->price}} LE</span>
                     <img class="rate" src="images/stars.png">
                     <button class="myButton add">Add To Cart</button>
@@ -116,11 +128,17 @@
                 @if($featuredProduct->product->isPublished())
                     <div class="product">
                         @if(! $featuredProduct->product->images()->get()->isEmpty())
+                            <a href="{{action("CustomerController@productDetails", [$featuredProduct->category, $featuredProduct->id])}}">
                             <center><img  width="245" height="158"  src="{{route("image", [$featuredProduct->product->images()->get()->first()->stored_name])}}" class="product1" alt="{{$featuredProduct->product->name}}"></center>
+                            </a>
                         @else
+                                    <a href="{{action("CustomerController@productDetails", [$featuredProduct->category, $featuredProduct->id])}}">
                             <center><img  width="245" height="158" alt="No image provided"></center>
+                                    </a>
                         @endif
+                                        <a href="{{action("CustomerController@productDetails", [$featuredProduct->category, $featuredProduct->id])}}">
                         <h4 class="myTitle">{{$featuredProduct->product->name}}</h4>
+                                        </a>
                         <span class="price">{{$featuredProduct->product->price}} LE</span>
                         <img class="rate" src="images/stars.png">
                         <button class="myButton add">Add To Cart</button>
