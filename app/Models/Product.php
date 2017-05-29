@@ -47,6 +47,11 @@ class Product extends Model
         return $this->hasone("\App\Discount");
     }
 
+    public function wishlists()
+    {
+        return $this->hasone("\App\WishList");
+    }
+
     
     public function carts() {
         return $this->hasMany("\App\CartDetail", "product_id");
