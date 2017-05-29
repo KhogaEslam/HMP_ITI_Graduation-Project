@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\RegistrationRequest;
+use App\UserDetail;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -10,7 +12,7 @@ class AdminController extends Controller
     //================================= Constructor ==================================== //
     public function __construct()
     {
-        $this->middleware(["admin.auth"]);
+//        $this->middleware(["admin.auth"]);
     }
 
     //=================================    Home     =====================================//
@@ -19,7 +21,7 @@ class AdminController extends Controller
      * Home
      * The function is for rendering the home page for admin panel
      * @author: Mohamed Magdy
-     * @return: view
+     * @return:  \Illuminate\Http\RedirectResponse
      */
     public function index()
     {
@@ -30,8 +32,8 @@ class AdminController extends Controller
     /**
      * listCategories
      * The function uses Category model to list all categories
-     * @author: Mohamed Magdy
-     * @return: view
+     * @author Mohamed Magdy
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function listCategories()
     {
@@ -43,8 +45,8 @@ class AdminController extends Controller
     /**
      * newCategory
      * The function is used to render the view of creating new category
-     * @author: Mohamed Magdy
-     * @return: view
+     * @author Mohamed Magdy
+     * @return  \Illuminate\Http\RedirectResponse
      */
 
     public function newCategory()
@@ -55,9 +57,9 @@ class AdminController extends Controller
     /**
      * createCategory
      * The function is used to receive the requests from new category view and save the data in the database
-     * @author: Mohamed Magdy
-     * @param : Request object
-     * @return: view
+     * @author Mohamed Magdy
+     * @param  Request $request
+     * @return  \Illuminate\Http\RedirectResponse
      */
     public function createCategory(Request $request)
     {
@@ -72,9 +74,9 @@ class AdminController extends Controller
     /**
      * editCategory
      * The function is used to render the view of editing existing category
-     * @author: Mohamed Magdy
-     * @param: Category object
-     * @return: view
+     * @author Mohamed Magdy
+     * @param Category $cat
+     * @return  \Illuminate\Http\RedirectResponse
      */
     public function editCategory(Category $cat)
     {
@@ -84,9 +86,10 @@ class AdminController extends Controller
     /**
      * updateCategory
      * The function is used to receive the requests from edit category view and update this category in the database
-     * @author: Mohamed Magdy
-     * @param: Category object -  Request object
-     * @return: view
+     * @author Mohamed Magdy
+     * @param Request $request
+     * @param Category $category
+     * @return  \Illuminate\Http\RedirectResponse
      */
     public function updateCategory(Request $request , Category $cat)
     {
@@ -98,9 +101,10 @@ class AdminController extends Controller
     /**
      * deleteCategory
      * The function is used to delete specific category from the database records
-     * @author: Mohamed Magdy
-     * @param: Category object -  Request object
-     * @return: view
+     * @author Mohamed Magdy
+     * @param  Request $request
+     * @param Category $category
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteCategory(Request $request ,  Category $category )
     {
@@ -108,23 +112,53 @@ class AdminController extends Controller
         return back();
     }
 
-    //=================================  Subscription Requests  ===================================== //
+    //=================================  Registeration Requests  ===================================== //
 
     /**
-     * acceptSubscriptionRequest
-     * The function is used to accept vendor subscription requests
+     * viewALlRegRequests
+     * The function is used to view all vendor registeration requests
      * @author Mohamed Magdy
-     * @param Request $request
-     * @return  view
+     * @param Request $request , RegistrationRequest $regReq
+     * @return  \Illuminate\Http\RedirectResponse
      */
-
-    public function acceptSubscriptionRequest( )
+    public function viewAllRegRequests()
     {
+        $regRequests = RegistrationRequest::all();
+        return view('admin.all-registration-requests', ['regRequests' => $regRequests]);
 
     }
-    public function rejectSubscriptionRequest()
-    {
 
+    /**
+     * acceptRegRequest
+     * The function is used to accept specific vendor registeration request
+     * @author Mohamed Magdy
+     * @param Request $request
+     * @param
+     * @return  \Illuminate\Http\RedirectResponse
+     */
+    public function acceptRegRequest(Request $request, RegistrationRequest $regReq)
+    {
+//        $userDetails  = UserDetail::all();
+//        dd($userDetails);
+        $regReq->user->userDetails->status='0';
+        $regReq->user->userDetails->save();
+        $regReq->delete();
+        return back();
+    }
+
+    /**
+     * rejectRegRequest
+     * The function is used to reject specific vendor registeration request
+     * @author Mohamed Magdy
+     * @param Request $request
+     * @param RegistrationRequest $regReq
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function rejectRegRequest(Request $request, RegistrationRequest $regReq)
+    {
+        $regReq->user->delete();
+        $regReq->delete();
+        return back();
     }
 
 
