@@ -142,4 +142,4 @@ Route::get("vendor/product/{product}/featuredItem", "VendorController@makeFeatur
 Route::post("customer/cart/{cart_detail}/delete", "CustomerController@deleteProductFromCart");
 
 //WishList
-Route::get("customer/wishlist/show", "CustomerController@makeFeaturedItemRequest");
+Route::get("customer/wishlist/show", "CustomerController@showWishList");

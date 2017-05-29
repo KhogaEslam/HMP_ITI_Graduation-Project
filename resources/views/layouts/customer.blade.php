@@ -122,13 +122,13 @@
 
             <ul class="nav navbar-nav navbar-right">
 
-                <li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                <li><a href="{{action("CustomerController@viewCart")}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
 
                 <li>
                     <a href="#">
                         <span class="count" >
-                            @if(isset($inCartProducts))
-                                {{$inCartProducts}}
+                            @if(isset($inCart))
+                                {{$inCart}}
                             @else
                                 0
                             @endif

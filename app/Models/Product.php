@@ -44,27 +44,47 @@ class Product extends Model
 
     public function featured()
     {
-        return $this->hasone("\App\Discount");
+        return $this->hasone("\App\FeaturedItem");
     }
 
+    public function featuredProduct()
+    {
+        return $this->hasone("\App\FeaturedProduct");
+    }
+    
     public function wishlists()
     {
         return $this->hasone("\App\WishList");
     }
 
-    
     public function carts() {
         return $this->hasMany("\App\CartDetail", "product_id");
     }
 
-    public function getPriceAttribute() {
-        $price = $this->attributes['price'];
-        if(! Offer::current()->get()->isEmpty()) {
-            $price *= Offer::all()->current->first()->percentage / 100.0;
-        }
+//    public function getPriceAttribute() {
+//        $price = $this->attributes['price'];
+//        if(! Offer::current()->get()->isEmpty()) {
+//            $price *= Offer::all()->current->first()->percentage / 100.0;
+//        }
+//        if(! $this->discount()->get()->isEmpty()) {
+//            $price *= $this->discount()->first()->percentage / 100;
+//        }
+//        return $price;
+//    }
+
+    public function getDiscountAttribute() {
+        $discount = 0;
         if(! $this->discount()->get()->isEmpty()) {
-            $price *= $this->discount()->first()->percentage / 100;
+            $discount = $this->discount()->first()->percentage;
         }
-        return $price;
+        return $discount;
+    }
+
+    public function getOfferAttribute() {
+        $offer = 0;
+        if(! Offer::current()->get()->isEmpty()) {
+            $offer = Offer::current()->first()->percentage;
+        }
+        return $offer;
     }
 }

@@ -13,12 +13,17 @@ class CustomerController extends Controller
 {
     public function index() {
         $categories = Category::all();
+<<<<<<< HEAD
         $inCart = \Auth::user()->cart()->first()->cartDetails->count();
-        $newArrivals = Product::latest('created_at')->limit(4)->published()->get();
         return view("customer.index", [
             "categories" => $categories,
             "inCart" => $inCart,
+=======
+        $newArrivals = Product::latest('created_at')->limit(4)->published()->get();
+        return view("customer.index", [
+            "categories" => $categories,
             "newArrivals" => $newArrivals,
+>>>>>>> 5b0568d24559e2b4729ee7f7447319a0d4cef3ac
         ]);
     }
 
