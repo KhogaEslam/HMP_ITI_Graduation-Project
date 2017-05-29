@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\CartDetail;
-use App\FeaturedProduct;
 use Illuminate\Http\Request;
 
 use App\Product;
@@ -12,37 +11,27 @@ use \App\Http\Requests\CartRequest;
 
 class CustomerController extends Controller
 {
-    public function __construct() {
-        $this->middleware("customer.auth")->except(["index", "products", "productDetails"]);
-    }
-
-    public function index()
-    {
+    public function index() {
         $categories = Category::all();
-        $inCart = 0;
-        if (\Auth::check()) {
-            $inCart = \Auth::user()->cart()->first()->cartDetails->count();
-        }
-        $newArrivals = Product::latest('created_at')->limit(4)->published()->get();
-        $featuredProducts = FeaturedProduct::all();
-        $bestSellings = Product::orderBy('sales_counter','desc')->limit(4)->published()->get();
-
+<<<<<<< HEAD
+        $inCart = \Auth::user()->cart()->first()->cartDetails->count();
         return view("customer.index", [
             "categories" => $categories,
             "inCart" => $inCart,
+=======
+        $newArrivals = Product::latest('created_at')->limit(4)->published()->get();
+        return view("customer.index", [
+            "categories" => $categories,
             "newArrivals" => $newArrivals,
-            "featuredProducts" => $featuredProducts,
-            "bestSellings" => $bestSellings,
+>>>>>>> 5b0568d24559e2b4729ee7f7447319a0d4cef3ac
         ]);
     }
 
     public function products(Category $category) {
         $products = $category->products()->published()->get();
         $categories = Category::all();
+        $inCart = \Auth::user()->cart()->first()->cartDetails->count();
 
-        if (\Auth::check()) {
-            $inCart = \Auth::user()->cart()->first()->cartDetails->count();
-        }
         return view("customer.products", [
             "categories" => $categories,
             "products" => $products,
@@ -52,10 +41,7 @@ class CustomerController extends Controller
     }
 
     public function productDetails(Category $category, Product $product) {
-
-        if (\Auth::check()) {
-            $inCart = \Auth::user()->cart()->first()->cartDetails->count();
-        }
+        $inCart = \Auth::user()->cart()->first()->cartDetails->count();
 
         return view("customer.product_details", [
             "product" => $product,

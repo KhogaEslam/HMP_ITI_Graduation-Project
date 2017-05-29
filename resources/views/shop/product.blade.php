@@ -6,6 +6,8 @@
 
 <p>Product name: {{$product->name}}</p>
 <p>Product price: {{$product->price}}</p>
+<p>Offer: {{$product->offer}}%</p>
+<p>Discount: {{$product->discount}}%</p>
 <p>Product quantity: {{$product->quantity}}</p>
 <p>Category: {{$category->name}}</p>
 <p></p>
