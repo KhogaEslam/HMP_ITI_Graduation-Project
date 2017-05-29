@@ -300,11 +300,11 @@ class VendorController extends Controller
         $featuredItem=new FeaturedItem();
         $featuredItem->product_id=$product->id;
         $featuredItem->user_id=\Auth::user()->id;
+
         $featuredItem->save();
 
         return back();
 
     }
-
 
 }

@@ -37,6 +37,10 @@ class Product extends Model
         $query->where("published", "=", true);
     }
 
+    public function isPublished() {
+        return $this->published;
+    }
+
     public function discount() {
         return $this->hasone("\App\Discount");
     }
@@ -52,6 +56,10 @@ class Product extends Model
         return $this->hasone("\App\FeaturedProduct");
     }
 
+    public function wishlists()
+    {
+        return $this->hasMany("\App\WishList");
+    }
 
     public function carts() {
         return $this->hasMany("\App\CartDetail", "product_id");
