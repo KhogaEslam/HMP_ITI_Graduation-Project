@@ -12,6 +12,8 @@ use App\RegistrationRequest;
 use Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
+use App\Category;
+use App\ShoppingCart;
 
 class RegisterController extends Controller
 {
@@ -84,6 +86,7 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
+        $categories = Category::all();
 
         if(Request::route()->getPrefix() == "/admin") {
             return redirect("/admin/login");
@@ -93,6 +96,7 @@ class RegisterController extends Controller
         }
         return view('auth.register', [
             "prefix" => Request::route()->getPrefix(),
+            "categories" => $categories,
         ]);
     }
 
@@ -127,7 +131,9 @@ class RegisterController extends Controller
         else if(Request::route()->getPrefix() == "/customer") {
             $role = \App\Role::all()->where("name", "=", 'customer')->first();
             $userDetail->status = '0'; //set status to active
-
+            $shoppingCart = new ShoppingCart;
+            $shoppingCart->user()->associate($user);
+            $shoppingCart->save();
         }
         $user->roles()->attach($role);
         $user->save();

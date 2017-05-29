@@ -6,6 +6,9 @@ use App\Category;
 use App\RegistrationRequest;
 use App\UserDetail;
 use Illuminate\Http\Request;
+use App\Http\Requests\OfferRequest;
+use App\Offer;
+use \Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -159,6 +162,28 @@ class AdminController extends Controller
         $regReq->user->delete();
         $regReq->delete();
         return back();
+    }
+
+    public function showAddOfferForm() {
+        return view("admin.new_offer");
+    }
+
+    public function addOffer(OfferRequest $request) {
+        $offers = Offer::all();
+        $incomingStartDate = Carbon::parse($request->input("start_date"));
+        $incomingEndDate = Carbon::parse($request->input("end_date"));
+        foreach($offers as $offer) {
+            $existingStartDate = Carbon::parse($offer->start_date);
+            $existingEndDate = Carbon::parse($offer->end_date);
+            if(! $existingStartDate->greaterThanOrEqualTo($incomingEndDate) && ! $existingEndDate->lessThanOrEqualTo($incomingStartDate)) {
+                return view("admin.new_offer")->withErrors([
+                    "overlapping" => "This offer overlaps existing offer [" . $existingStartDate . " - " . $existingEndDate . "]"
+                ]);
+            }
+
+        }
+        Offer::create($request->all());
+        return redirect(action("AdminController@index"));
     }
 
 

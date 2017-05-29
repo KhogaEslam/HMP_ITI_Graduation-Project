@@ -7,6 +7,7 @@ use Mockery\Exception;
 use Laravel\Socialite\Facades\Socialite;
 
 use App\User;
+use App\Category;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 class FacebookController extends Controller
@@ -66,8 +67,10 @@ class FacebookController extends Controller
             else{
                 $gender="";
             }
+            $categories = Category::all();
 
             return view("facebook", [
+                "categories" => $categories,
                 "prefix" =>"/customer",
                 "email" => $email,
                 "name" => $user->name,

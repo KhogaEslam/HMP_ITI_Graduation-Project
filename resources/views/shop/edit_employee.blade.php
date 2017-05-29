@@ -1,4 +1,7 @@
 @extends("layouts.admin")
+@section("title")
+    Edit Employee
+@endsection
 @section("content")
 
 {!! Form::model($employee->self, ["action" => ["VendorController@editEmployee", $employee]]) !!}

@@ -8,7 +8,7 @@ use Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Role;
-
+use App\Category;
 
 class LoginController extends Controller
 {
@@ -44,8 +44,10 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
+        $categories = Category::all();
         return view('auth.login', [
-            "prefix" => Request::route()->getPrefix()
+            "prefix" => Request::route()->getPrefix(),
+            "categories" => $categories,
         ]);
     }
 
@@ -65,20 +67,18 @@ class LoginController extends Controller
 //        $exist = $user->get()->count();
         $exist = 0;
         $user = User::all()->where("email", "=", $request->input("email"))->first();
-
-        if($prefix == "admin" && $user->hasRole("owner"))
+        if(isset($user) && $prefix == "admin" && $user->hasRole("owner"))
             $exist = 1;
-        else if($prefix == "vendor" && $user->hasRole("employee"))
+        else if(isset($user) && $prefix == "vendor" && $user->hasRole("employee"))
             $exist = 1;
-        else if($user->hasRole($prefix))
+        else if(isset($user) && $user->hasRole($prefix))
             $exist = 1;
-
         if($exist == 0) {
             return $this->sendFailedLoginResponse($request);
         }
 
         //check suspended account
-        if($prefix != 'owner'){
+        if($prefix != 'owner') {
             $status = 0;
             if(! $user->hasRole("owner")) {
                 $status = $user->userDetails->status;

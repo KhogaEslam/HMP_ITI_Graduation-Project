@@ -1,4 +1,7 @@
 @extends("layouts.admin");
+@section("title")
+    Vendor | Dashboard
+@endsection
 @section("content")
 <div class="container">
     <div class="row">
