@@ -14,7 +14,14 @@
                     <img src="{{route("image", $cartDetail->product->images->first()->stored_name)}}" class="img-fluid img-responsive" height="20" />
                 </div>
                 <div class="col-md-2 text-lg-center">
-                    {{$cartDetail->product->price * $cartDetail->quantity}}$
+                    @if($cartDetail->product->discount + $cartDetail->product->offer > 0)
+                        <s>{{$cartDetail->product->price * $cartDetail->quantity}}$</s>
+                    @else
+                        {{$cartDetail->product->price * $cartDetail->quantity}}$
+                    @endif
+                    @if($cartDetail->product->discount + $cartDetail->product->offer > 0)
+                        {{($cartDetail->product->price - $cartDetail->product->offer / 100.0 * $cartDetail->product->price - $cartDetail->product->discount / 100.0 * $cartDetail->product->price) * $cartDetail->quantity}}$
+                    @endif
                 </div>
                 <div class="col-md-1" style="padding-top: 80px;">
                     {!! Form::model($cartDetail, ["action", "CustomerController@editCart", $cartDetail]) !!}

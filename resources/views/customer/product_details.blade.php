@@ -4,7 +4,16 @@
 @endsection
 @section('content')
 <p>Product name: {{$product->name}}</p>
-<p>Product price: {{$product->price}}</p>
+<p>Product price:
+    @if($product->discount + $product->offer > 0)
+        <s>{{$product->price}}$</s>
+    @else
+        {{$product->price}}$
+    @endif
+@if($product->discount + $product->offer > 0)
+    {{$product->price - $product->discount / 100.0 * $product->price -  $product->offer / 100.0 * $product->price}}$
+@endif
+
 <p>Product quantity: {{$product->quantity}}</p>
 <p>Category: {{$category->name}}</p>
 

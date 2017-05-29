@@ -13,26 +13,34 @@ class CustomerController extends Controller
 {
     public function index() {
         $categories = Category::all();
+        $inCart = \Auth::user()->cart()->first()->cartDetails->count();
         return view("customer.index", [
             "categories" => $categories,
+            "inCart" => $inCart,
         ]);
     }
 
     public function products(Category $category) {
         $products = $category->products()->published()->get();
         $categories = Category::all();
+        $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+
         return view("customer.products", [
             "categories" => $categories,
             "products" => $products,
             "category" => $category,
+            "inCart" => $inCart,
         ]);
     }
 
     public function productDetails(Category $category, Product $product) {
+        $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+
         return view("customer.product_details", [
             "product" => $product,
             "category" => $category,
             "categories" => Category::all(),
+            "inCart" => $inCart,
         ]);
     }
 
@@ -57,12 +65,15 @@ class CustomerController extends Controller
         $cartDetails = \Auth::user()->cart->cartDetails;
         $total = 0;
         foreach($cartDetails as $cartDetail) {
-            $total += $cartDetail->product->price * $cartDetail->quantity;
+            $total += ($cartDetail->product->price - $cartDetail->product->offer / 100.0 * $cartDetail->product->price - $cartDetail->product->discount / 100.0 * $cartDetail->product->price) * $cartDetail->quantity;
         }
+        $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+
         return view("customer.cart", [
             "cartDetails" => $cartDetails,
             "categories" => Category::all(),
             "total" => $total,
+            "inCart" => $inCart,
         ]);
     }
 
