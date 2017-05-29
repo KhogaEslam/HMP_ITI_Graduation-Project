@@ -143,3 +143,6 @@ Route::post("customer/cart/{cart_detail}/delete", "CustomerController@deleteProd
 
 //WishList
 Route::get("customer/wishlist/show", "CustomerController@showWishList");
+Route::get("customer/{product}/wishlist/add", "CustomerController@addToWishList");
+Route::get("customer/{item}/wishlist/delete", "CustomerController@deleteFromWishList");
+

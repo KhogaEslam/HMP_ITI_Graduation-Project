@@ -54,7 +54,7 @@ class Product extends Model
 
     public function wishlists()
     {
-        return $this->hasone("\App\WishList");
+        return $this->hasMany("\App\WishList");
     }
 
     public function carts() {
