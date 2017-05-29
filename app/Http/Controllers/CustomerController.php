@@ -11,9 +11,17 @@ use \App\Http\Requests\CartRequest;
 
 class CustomerController extends Controller
 {
-    public function index() {
+    public function __construct() {
+        $this->middleware("customer.auth")->except(["index", "products", "productDetails"]);
+    }
+
+    public function index()
+    {
         $categories = Category::all();
-        $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+        $inCart = 0;
+        if (\Auth::check()) {
+            $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+        }
         $newArrivals = Product::latest('created_at')->limit(4)->published()->get();
         return view("customer.index", [
             "categories" => $categories,
@@ -25,8 +33,10 @@ class CustomerController extends Controller
     public function products(Category $category) {
         $products = $category->products()->published()->get();
         $categories = Category::all();
-        $inCart = \Auth::user()->cart()->first()->cartDetails->count();
 
+        if (\Auth::check()) {
+            $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+        }
         return view("customer.products", [
             "categories" => $categories,
             "products" => $products,
@@ -36,7 +46,10 @@ class CustomerController extends Controller
     }
 
     public function productDetails(Category $category, Product $product) {
-        $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+
+        if (\Auth::check()) {
+            $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+        }
 
         return view("customer.product_details", [
             "product" => $product,
