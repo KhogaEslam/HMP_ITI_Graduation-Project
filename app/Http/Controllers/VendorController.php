@@ -33,7 +33,7 @@ class VendorController extends Controller
 
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::paginate(9);
         return view("shop.index", [
             "categories" => $categories
         ]);
@@ -47,7 +47,7 @@ class VendorController extends Controller
 
     public function category(Category $category)
     {
-        $products = $category->products()->owned()->get();
+        $products = $category->products()->owned()->paginate(5);
         return view("shop.products", [
             "products" => $products,
             "category" => $category,
