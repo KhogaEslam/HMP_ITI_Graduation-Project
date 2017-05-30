@@ -307,4 +307,8 @@ class VendorController extends Controller
 
     }
 
+    public function showBannerRequestForm() {
+        return view("vendor.banner");
+    }
+
 }
