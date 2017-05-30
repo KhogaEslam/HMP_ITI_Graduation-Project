@@ -187,3 +187,5 @@ Route::get("admin/banner_requests", "AdminController@viewBannerRequests");
 Route::post("admin/banner_request/{banner_request}/accept", "AdminController@acceptBannerRequest");
 
 Route::post("admin/banner_request/{banner_request}/reject", "AdminController@rejectBannerRequest");
+
+Route::get("customer/vendor/{vendor_id}", "CustomerController@index");

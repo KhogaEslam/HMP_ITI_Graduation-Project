@@ -1,4 +1,4 @@
-@extends("layouts.vendor");
+@extends("layouts.vendor")
 @section("title")
     Vendor | Dashboard
 @endsection

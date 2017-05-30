@@ -90,9 +90,11 @@
         </div>
     </div>
 
-
-    <img class="banner" src="images/banner.jpg">
-
+    @if($banner->type == 0)
+        <a href="category/{{$category}}/products/{{$banner->connected_id}}"><img class="banner" src="{{route("banner", [$banner->image])}}"></a>
+    @else
+        <a href="customer/vendor/{{$banner->connected_id}}"><img class="banner" src="{{route("banner", [$banner->image])}}"></a>
+    @endif
     <!-- Best Selling  -->
     <h3>Best Selling</h3>
 

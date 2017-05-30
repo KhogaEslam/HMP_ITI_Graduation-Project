@@ -13,6 +13,9 @@ class BannerRequest extends Model
             ->where("end_date", ">=", \Carbon\Carbon::now());
     }
 
+    public function activeBanner() {
+        return $this->hasOne("\App\ActiveBanner");
+    }
     /**
      * Get all of the owning connectingTo models.
      */
