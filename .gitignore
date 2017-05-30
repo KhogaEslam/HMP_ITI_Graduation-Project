@@ -26,3 +26,5 @@ bootstrap/cache/
 .rocketeer/
 .gitignore.orig
 composer.phar
+/resources/banner/
+resources/banner/

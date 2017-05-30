@@ -124,6 +124,22 @@ Route::get('images/{filename}', function($filename){
     return $response;
 })->name("image");
 
+Route::get('banner/{filename}', function($filename){
+    $path = resource_path() . '/banner/' . $filename;
+
+    if(!File::exists($path)) {
+        return response()->json(['message' => 'Image not found.'], 404);
+    }
+
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+
+    return $response;
+})->name("banner");
+
 Route::get("admin/new_offer", "AdminController@showAddOfferForm");
 
 Route::post("admin/new_offer", "AdminController@addOffer");
@@ -164,3 +180,10 @@ Route::post("admin/featured_request/{featured_request}/reject", "AdminController
 Route::get("vendor/add_banner", "VendorController@showBannerRequestForm");
 
 Route::post("vendor/add_banner", "VendorController@addBannerRequest");
+
+
+Route::get("admin/banner_requests", "AdminController@viewBannerRequests");
+
+Route::post("admin/banner_request/{banner_request}/accept", "AdminController@acceptBannerRequest");
+
+Route::post("admin/banner_request/{banner_request}/reject", "AdminController@rejectBannerRequest");

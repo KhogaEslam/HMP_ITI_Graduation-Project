@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\BannerRequest;
 use App\Category;
 use App\RegistrationRequest;
 use App\UserDetail;
@@ -214,6 +215,22 @@ class AdminController extends Controller
 
     public function rejectFeaturedRequest(FeaturedItem $item) {
         $item->delete();
+        return back();
+    }
+
+    public function viewBannerRequests() {
+        $bannerRequests = BannerRequest::all();
+        return view("admin.banner_requests", [
+            "bannerRequests" => $bannerRequests,
+        ]);
+    }
+
+    public function acceptBannerRequest(BannerRequest $item) {
+        return back();
+    }
+
+    public function rejectBannerRequest(BannerRequest $item) {
+
         return back();
     }
 

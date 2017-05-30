@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Input;
 
 class BannerRequest extends FormRequest
 {
@@ -23,11 +24,16 @@ class BannerRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            "start_date" => "required|date|after:today",
-            "end_date" => "required|date|after:start_date",
-            "image" => "required|image"
-        ];
+        $rules = $this->rules;
+
+        if (Input::get('type') == 0 )
+        {
+            $rules['product'] = 'required';
+        }
+        $rules["start_date"] = "required|date|after:today";
+        $rules["end_date"] = "required|date|after:start_date";
+        $rules["image"] = "required|image";
+        return $rules;
     }
 
     public function messages() {
