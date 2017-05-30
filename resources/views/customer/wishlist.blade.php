@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <div class="container">
-        @foreach($wishList as $item)
+        @forelse($wishList as $item)
             <div class="row" style="margin-bottom: 20px;">
                 <div class="col-md-3" style="padding-top: 80px;">
                     {{$item->product->name}}
@@ -17,7 +17,9 @@
                     <p><a href="{{action("CustomerController@deleteFromWishList", [$item])}}" class="btn btn-danger btn-group-lg">Delete from my list</a></p>
                 </div>
             </div>
-        @endforeach
+            @empty
+                <h1 class="text-danger text-center">Your List is Empty</h1>
+        @endforelse
     </div>
 
 @endsection

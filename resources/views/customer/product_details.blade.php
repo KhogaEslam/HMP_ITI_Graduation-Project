@@ -36,7 +36,7 @@
         {!! Form::close() !!}
     @endif
 
-@if(\Auth::user())
+@if(\Auth::user() && !isset($isWish))
     <p><a href="{{action("CustomerController@addToWishList", [$product])}}" class="btn btn-success btn-group-lg">Add to My Wishlist</a></p>
 @endif
 @endrole
