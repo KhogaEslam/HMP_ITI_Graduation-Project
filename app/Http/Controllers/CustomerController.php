@@ -54,6 +54,7 @@ class CustomerController extends Controller
 
     public function productDetails(Category $category, Product $product) {
         $inCart = 0;
+        $isWish=WishList::where("product_id","=",$product->id)->first();
 
         if (\Auth::check() && \Auth::user()->hasRole("customer")) {
             $inCart = \Auth::user()->cart()->first()->cartDetails->count();
@@ -64,6 +65,7 @@ class CustomerController extends Controller
             "category" => $category,
             "categories" => Category::all(),
             "inCart" => $inCart,
+            "isWish" =>$isWish
         ]);
     }
 

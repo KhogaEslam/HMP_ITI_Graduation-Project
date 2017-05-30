@@ -57,6 +57,11 @@ Route::get('/admin/categories/{category}/edit', 'AdminController@editCategory');
 Route::post('/admin/categories/{category}/update', 'AdminController@updateCategory');
 Route::post('/admin/categories/{category}/delete', 'AdminController@deleteCategory');
 
+//============== Registration Requests ================//
+Route::get('/admin/registration-requests' , 'AdminController@viewAllRegRequests');
+Route::post('/admin/registration-requests/{regReq}/accept', 'AdminController@acceptRegRequest');
+Route::post('/admin/reregistration-requests/{regReq}/reject', 'AdminController@rejectRegRequest');
+
 //===============================    End Route  =================================================//
 
 
