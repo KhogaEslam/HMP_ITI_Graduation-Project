@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BannerRequest;
 use App\ProductImage;
 use App\User;
 use App\UserDetail;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
@@ -297,14 +299,33 @@ class VendorController extends Controller
 
     public function makeFeaturedItemRequest($product)
     {
-        $featuredItem=new FeaturedItem();
-        $featuredItem->product_id=$product->id;
-        $featuredItem->user_id=\Auth::user()->id;
-
+        $featuredItem = new FeaturedItem();
+        $featuredItem->product_id = $product->id;
+        $featuredItem->user_id = \Auth::user()->id;
         $featuredItem->save();
-
         return back();
+    }
 
+    public function showBannerRequestForm() {
+        return view("shop.banner_request");
+    }
+
+    public function addBannerRequest(BannerRequest $request) {
+        $banners = \App\BannerRequest::all();
+        $incomingStartDate = Carbon::parse($request->input("start_date"));
+        $incomingEndDate = Carbon::parse($request->input("end_date"));
+        foreach($banners as $banner) {
+            $existingStartDate = Carbon::parse($banner->start_date);
+            $existingEndDate = Carbon::parse($banner->end_date);
+            if(! $existingStartDate->greaterThanOrEqualTo($incomingEndDate) && ! $existingEndDate->lessThanOrEqualTo($incomingStartDate)) {
+                return view("admin.new_offer")->withErrors([
+                    "overlapping" => "This offer overlaps existing offer [" . $existingStartDate . " - " . $existingEndDate . "]"
+                ]);
+            }
+
+        }
+        \App\BannerRequest::create($request->all());
+        return redirect(action("VendorController@index"));
     }
 
 }
