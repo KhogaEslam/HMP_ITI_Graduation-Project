@@ -57,6 +57,15 @@
         @empty
             <h1 class="text-danger text-center">No products yet</h1>
         @endforelse
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-6">
+                    {!! $products->links() !!}
+                </div>
+            </div>
+        </div>
 
     </div><a href="{{action("VendorController@showNewProductForm", [$category])}}" class="btn btn-warning pull-right"><i class="fa fa-plus-circle"></i> Add new product</a>
 </div>

@@ -21,6 +21,12 @@
     <link href="{{ asset('css/panel.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom-style.css') }}" rel="stylesheet">
 
+
+    <script src="{{ asset('js/tether.min.js') }} "></script>
+{{--    <script src="{{ asset('js/jquery.min.js') }} "></script>--}}
+    <script src="{{asset("js/dev.js")}}"></script>
+
+
     <style>
         /* note: this is a hack for ios iframe for bootstrap themes shopify page */
         /* this chunk of css is not part of the toolkit :) */
@@ -95,8 +101,6 @@
 
 
 
-<script src="{{ asset('js/jquery.min.js') }} "></script>
-<script src="{{ asset('js/tether.min.js') }} "></script>
 <script src="{{ asset('js/chart.js') }} "></script>
 <script src="{{ asset('js/tablesorter.min.js') }} "></script>
 <script src="{{ asset('js/toolkit.js') }} "></script>

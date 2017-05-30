@@ -26,6 +26,7 @@ class BannerRequest extends FormRequest
         return [
             "start_date" => "required|date|after:today",
             "end_date" => "required|date|after:start_date",
+            "image" => "required|image"
         ];
     }
 
@@ -33,10 +34,12 @@ class BannerRequest extends FormRequest
         return [
             "start_date.required" => "Start date is required",
             "start_date.date" => "The value you entered isn't a date",
-            "start_date.after" => "Offer cannot start at the past",
+            "start_date.after" => "Banner request cannot start at the past",
             "end_date.required" => "End date is required",
             "end_date.date" => "The value you entered isn't a date",
             "end_date.after" => "End date cannot be before start date",
+            "image.required" => "Image is required",
+            "image.image" => "Uploaded file must be an image",
         ];
     }
 }

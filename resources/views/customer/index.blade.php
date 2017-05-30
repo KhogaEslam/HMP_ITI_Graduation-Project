@@ -128,15 +128,16 @@
                 @if($featuredProduct->product->isPublished())
                     <div class="product">
                         @if(! $featuredProduct->product->images()->get()->isEmpty())
-                            <a href="{{action("CustomerController@productDetails", [$featuredProduct->category, $featuredProduct->id])}}">
+                            <a href="{{action("CustomerController@productDetails", [$featuredProduct->product->category, $featuredProduct->product])}}">
                             <center><img  width="245" height="158"  src="{{route("image", [$featuredProduct->product->images()->get()->first()->stored_name])}}" class="product1" alt="{{$featuredProduct->product->name}}"></center>
                             </a>
                         @else
-                                    <a href="{{action("CustomerController@productDetails", [$featuredProduct->category, $featuredProduct->id])}}">
+                                    <a href="{{action("CustomerController@productDetails", [$featuredProduct->product->category, $featuredProduct->product])}}">
                             <center><img  width="245" height="158" alt="No image provided"></center>
                                     </a>
                         @endif
-                                        <a href="{{action("CustomerController@productDetails", [$featuredProduct->category, $featuredProduct->id])}}">
+
+                        <a href="{{action("CustomerController@productDetails", [$featuredProduct->product->category, $featuredProduct->product])}}">
                         <h4 class="myTitle">{{$featuredProduct->product->name}}</h4>
                                         </a>
                         <span class="price">{{$featuredProduct->product->price}} LE</span>

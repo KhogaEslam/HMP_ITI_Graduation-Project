@@ -7,16 +7,21 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                {!! Form::open(["action" => "VendorController@addBannerRequest"]) !!}
+                {!! Form::open(["action" => "VendorController@addBannerRequest", "enctype" => "multipart/form-data"]) !!}
 
                 <div class="form-group">
                     <label>Banner Type</label>
-                    {!! Form::select('type', array(0 => 'Banner For Product', 1 => 'Banner For My Shop'), 0) !!}
+                    {!! Form::select('type', array(0 => 'Banner For Product', 1 => 'Banner For My Shop'), 0, ["class" => "form-control"]) !!}
+                </div>
+
+                <div class="form-group product">
+                    {!! Form::label("Products") !!}
+                    {!! Form::select('product', $products, 0, ["class" => "form-control"]) !!}
                 </div>
 
                 <div class="form-group">
                     <label>Banner Image</label>
-                    {!! Form::file('image') !!}
+                    {!! Form::file('image', null, ["class" => "form-control"]) !!}
                 </div>
 
                 <div class="form-group">
@@ -42,5 +47,19 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $("select[name=type]").change(function(e) {
+                var option = $("select[name=type] :selected").val();
+                if(option == 0) {
+                    $(".product").slideDown();
+                }
+                else {
+                    $(".product").slideUp();
+                }
+            });
+        });
+    </script>
 
 @endsection

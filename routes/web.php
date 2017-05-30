@@ -136,6 +136,7 @@ Route::post("customer/{cart_detail}/edit_cart", "CustomerController@editCart");
 Route::get("vendor/product/{product}/discount", "VendorController@showDiscountProductForm");
 
 Route::get("customer/cart", "CustomerController@viewCart");
+
 Route::post("vendor/product/{product}/add_discount", "VendorController@newDiscount");
 
 //delete discount
@@ -149,7 +150,9 @@ Route::post("customer/cart/{cart_detail}/delete", "CustomerController@deleteProd
 
 //WishList
 Route::get("customer/wishlist/show", "CustomerController@showWishList");
+
 Route::get("customer/{product}/wishlist/add", "CustomerController@addToWishList");
+
 Route::get("customer/{item}/wishlist/delete", "CustomerController@deleteFromWishList");
 
 Route::get("admin/featured_requests", "AdminController@viewFeaturedRequests");
