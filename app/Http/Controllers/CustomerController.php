@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\CartDetail;
+use App\ProductImage;
 use App\WishList;
 use App\FeaturedProduct;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 use App\Product;
@@ -14,7 +16,7 @@ use \App\Http\Requests\CartRequest;
 class CustomerController extends Controller
 {
     public function __construct() {
-        $this->middleware("customer.auth")->except(["index", "products", "productDetails"]);
+        $this->middleware("customer.auth")->except(["index", "products", "productDetails", "search"]);
     }
 
     public function index()
@@ -139,6 +141,18 @@ class CustomerController extends Controller
     {
         $item->delete();
         return back();
+    }
+
+
+    public function search(Request $request) {
+        $products = new \Illuminate\Database\Eloquent\Collection;
+        $categories = Category::all();
+        $search_name = $request->input("search_name");
+//        dd($search_name);
+        if(! empty($search_name)) {
+            $products = Product::where('name', 'like', '%' . $search_name . '%')->get();
+        }
+        return view("customer.search_results", compact("products", "categories"));
     }
 
 }

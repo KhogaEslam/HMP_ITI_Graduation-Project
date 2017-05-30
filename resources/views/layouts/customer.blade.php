@@ -135,10 +135,10 @@
                         </span>
                     </a>
                 </li>
-                <form class="navbar-form navbar-right mySearch">
+                <form class="navbar-form navbar-right mySearch" action="{{action("CustomerController@search")}}" method="get">
 
                     <div class="input-group stylish-input-group">
-                        <input type="text" class="form-control"  placeholder="Search" >
+                        <input name="search_name" type="text" class="form-control"  placeholder="Search" >
                         <span class="input-group-addon">
                         <button type="submit">
                             <span class="glyphicon glyphicon-search"></span>

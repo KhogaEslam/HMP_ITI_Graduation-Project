@@ -164,3 +164,5 @@ Route::post("admin/featured_request/{featured_request}/reject", "AdminController
 Route::get("vendor/add_banner", "VendorController@showBannerRequestForm");
 
 Route::post("vendor/add_banner", "VendorController@addBannerRequest");
+
+Route::get("customer/search", "CustomerController@search");
