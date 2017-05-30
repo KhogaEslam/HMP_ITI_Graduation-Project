@@ -12,4 +12,12 @@ class BannerRequest extends Model
         $query->where("start_date", "<=", \Carbon\Carbon::now())
             ->where("end_date", ">=", \Carbon\Carbon::now());
     }
+
+    /**
+     * Get all of the owning connectingTo models.
+     */
+//    public function connected()
+//    {
+//        return $this->morphTo();
+//    }
 }
