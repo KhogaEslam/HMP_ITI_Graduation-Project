@@ -1,4 +1,7 @@
-@extends("layouts.admin");
+@extends("layouts.admin")
+@section("title")
+    New Offer
+@endsection
 @section("content")
 
     <div class="container">

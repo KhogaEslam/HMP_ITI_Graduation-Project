@@ -15,3 +15,7 @@ This file includes project used codes
 0 -> active
 1 -> suspended
 3 -> blocked
+
+# Banner Types
+0 -> Product
+1 -> Shop

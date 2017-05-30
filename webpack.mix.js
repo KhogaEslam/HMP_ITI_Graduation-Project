@@ -13,3 +13,9 @@ const { mix } = require('laravel-mix');
 
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css');
+
+mix.scripts([
+    "public/js/jquery-3.2.1.js",
+    "node_modules/select2/dist/js/select2.js",
+], "public/js/dev.js");
+
