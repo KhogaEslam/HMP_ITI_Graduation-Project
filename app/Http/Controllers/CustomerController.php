@@ -35,6 +35,8 @@ class CustomerController extends Controller
         if(isset($bannerDetails->first()->banner))
             $bannerDetails = $bannerDetails->first()->banner;
         $category = 0;
+        if(!isset($bannerDetails->type))
+            $bannerDetails->type = 2;
         if($bannerDetails->type == 0){
             $category = Product::find($bannerDetails->connected_id)->category->id;
         }
