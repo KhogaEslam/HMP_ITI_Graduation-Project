@@ -190,3 +190,6 @@ Route::post("admin/banner_request/{banner_request}/accept", "AdminController@acc
 Route::post("admin/banner_request/{banner_request}/reject", "AdminController@rejectBannerRequest");
 
 Route::get("customer/vendor/{vendor_id}", "CustomerController@index");
+
+//PayPal
+Route::resource("payment","PaymentController");
