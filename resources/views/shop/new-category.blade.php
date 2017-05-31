@@ -8,7 +8,7 @@
             <h1 class="bordered-heading">
                 Request New Category
             </h1>
-           <form method="POST" action = "{{action("VendorController@newCategory")}}">
+           <form method="POST" action = "{{action("VendorController@requestCategory")}}">
                {!! csrf_field() !!}
                 <div class="form-group">
                     <input  class="form-control" type="text" placeholder="Category name" name="name">

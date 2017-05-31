@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\BannerRequest;
 use App\Category;
 use App\CategoryRequest;
 use App\RegistrationRequest;
@@ -13,13 +14,14 @@ use App\Offer;
 use \Carbon\Carbon;
 use App\Http\Controllers\MailController;
 use App\FeaturedItem;
+use App\User;
 
 class AdminController extends Controller
 {
     //================================= Constructor ==================================== //
     public function __construct()
     {
-     // $this->middleware(["admin.auth"]);
+        //$this->middleware(["admin.auth"]);
     }
 
     //=================================    Home     =====================================//
@@ -176,7 +178,7 @@ class AdminController extends Controller
     {
         if (\Auth::user()->hasRole('owner'))
         {
-            $users = User::all();
+            $users = User::all()->where("id", "!=", \Auth::user()->id);
 
         }
         else
@@ -186,22 +188,22 @@ class AdminController extends Controller
              })->get();
 
         }
-        return view('admin.all-users', ['users' => $users]);
+        return view('admin.users', ['users' => $users]);
     }
 
     public function  suspendUser(User $user)
     {
         if (\Auth::user()->hasRole('owner'))
         {
-            $user->userDetails()->status = '1';
-            $user->userDetails()->save();
+            $user->userDetails->status = '1';
+            $user->userDetails->save();
         }
         else
         {
             if($user->hasRole('employee') || $user->hasRole('vendor') || $user->hasRole('customer'))
             {
-                $user->userDetails()->status = '1';
-                $user->userDetails()->save();
+                $user->userDetails->status = '1';
+                $user->userDetails->save();
             }
         }
 
@@ -212,15 +214,16 @@ class AdminController extends Controller
     {
         if (\Auth::user()->hasRole('owner'))
         {
-            $user->userDetails()->status = '2';
-            $user->userDetails()->save();
+//            dd($user->userDetails);
+            $user->userDetails->status = '2';
+            $user->userDetails->save();
         }
         else
         {
             if($user->hasRole('employee') || $user->hasRole('vendor') || $user->hasRole('customer'))
             {
-                $user->userDetails()->status = '2';
-                $user->userDetails()->save();
+                $user->userDetails->status = '2';
+                $user->userDetails->save();
             }
         }
 
@@ -232,12 +235,12 @@ class AdminController extends Controller
         if($user->userDetails()->status == '1')
         {
             if (\Auth::user()->hasRole('owner')) {
-                $user->userDetails()->status = '0';
-                $user->userDetails()->save();
+                $user->userDetails->status = '0';
+                $user->userDetails->save();
             } else {
                 if ($user->hasRole('employee') || $user->hasRole('vendor') || $user->hasRole('customer')) {
-                    $user->userDetails()->status = '0';
-                    $user->userDetails()->save();
+                    $user->userDetails->status = '0';
+                    $user->userDetails->save();
                 }
             }
         }
@@ -337,5 +340,28 @@ class AdminController extends Controller
         return back();
     }
 
+
+ // ====================================== Banner Requests ===================================//
+
+    public function viewBannerRequests() {
+        $bannerRequests = BannerRequest::all()->where('status','==',false);
+        return view("admin.banner_requests", [
+            "bannerRequests" => $bannerRequests,
+        ]);
+    }
+
+    public function acceptBannerRequest($id) {
+        $item = BannerRequest::find($id);
+        $item->status = true;
+        $item->save();
+        return back();
+    }
+
+    public function rejectBannerRequest($id) {
+        $item = BannerRequest::find($id);
+        $item->status = false;
+        $item->save();
+        return back();
+    }
 
 }

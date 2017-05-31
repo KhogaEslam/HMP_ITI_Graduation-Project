@@ -1,4 +1,4 @@
-@extends("layouts.admin");
+@extends("layouts.vendor")
 @section("title")
     Vendor | Dashboard
 @endsection
@@ -21,6 +21,11 @@
             <h1 class="text-lg-center text-danger">Empty Category</h1>
         @endforelse
 
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {{$categories->links()}}
+        </div>
     </div>
 </div>
 @endsection

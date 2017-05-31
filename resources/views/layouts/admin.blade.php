@@ -87,7 +87,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/admin/users">Users</a>
                         </li>
+                        <li>
 
+                            <a class="nav-link" href="/admin/banner_requests">Banner Requests</a>
+                        </li>
 
                     </ul>
                     <hr class="visible-xs mt-3">

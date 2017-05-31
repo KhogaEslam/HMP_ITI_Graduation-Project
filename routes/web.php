@@ -69,9 +69,9 @@ Route::post('/admin/category-requests/{catReq}/reject',  'AdminController@reject
 
 //=====================    Users  ==========================//
 Route::get('/admin/users','AdminController@listUsers');
-Route::post('/admin/users/{user_id}/block', 'AdminController@blockUser');
-Route::post('/admin/users/{user_id}/suspend', 'AdminController@suspendUser');
-Route::post('/admin/users/{user_id}/resume', 'AdminController@unsuspendUser');
+Route::post('/admin/users/{user}/block', 'AdminController@blockUser');
+Route::post('/admin/users/{user}/suspend', 'AdminController@suspendUser');
+Route::post('/admin/users/{user}/resume', 'AdminController@unsuspendUser');
 
 
 //===============================    End Route  =================================================//
@@ -140,6 +140,22 @@ Route::get('images/{filename}', function($filename){
     return $response;
 })->name("image");
 
+Route::get('banner/{filename}', function($filename){
+    $path = resource_path() . '/banner/' . $filename;
+
+    if(!File::exists($path)) {
+        return response()->json(['message' => 'Image not found.'], 404);
+    }
+
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+
+    return $response;
+})->name("banner");
+
 Route::get("admin/new_offer", "AdminController@showAddOfferForm");
 
 Route::post("admin/new_offer", "AdminController@addOffer");
@@ -152,6 +168,7 @@ Route::post("customer/{cart_detail}/edit_cart", "CustomerController@editCart");
 Route::get("vendor/product/{product}/discount", "VendorController@showDiscountProductForm");
 
 Route::get("customer/cart", "CustomerController@viewCart");
+
 Route::post("vendor/product/{product}/add_discount", "VendorController@newDiscount");
 
 //delete discount
@@ -165,7 +182,9 @@ Route::post("customer/cart/{cart_detail}/delete", "CustomerController@deleteProd
 
 //WishList
 Route::get("customer/wishlist/show", "CustomerController@showWishList");
+
 Route::get("customer/{product}/wishlist/add", "CustomerController@addToWishList");
+
 Route::get("customer/{item}/wishlist/delete", "CustomerController@deleteFromWishList");
 
 Route::get("admin/featured_requests", "AdminController@viewFeaturedRequests");
@@ -173,3 +192,19 @@ Route::get("admin/featured_requests", "AdminController@viewFeaturedRequests");
 Route::post("admin/featured_request/{featured_request}/accept", "AdminController@acceptFeaturedRequest");
 
 Route::post("admin/featured_request/{featured_request}/reject", "AdminController@rejectFeaturedRequest");
+
+Route::get("vendor/add_banner", "VendorController@showBannerRequestForm");
+
+Route::post("vendor/add_banner", "VendorController@addBannerRequest");
+
+
+Route::get("admin/banner_requests", "AdminController@viewBannerRequests");
+
+Route::post("admin/banner_request/{banner_request}/accept", "AdminController@acceptBannerRequest");
+
+Route::post("admin/banner_request/{banner_request}/reject", "AdminController@rejectBannerRequest");
+
+Route::get("customer/vendor/{vendor_id}", "CustomerController@index");
+
+//PayPal
+Route::resource("payment","PaymentController");

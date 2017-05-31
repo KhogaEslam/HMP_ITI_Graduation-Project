@@ -65,4 +65,12 @@ class User extends Authenticatable //Entrust configuration needs User model to e
         return $this->hasOne("App\ShoppingCart");
 
     }
+
+    /**
+     * Get all of the user's Banners.
+     */
+//    public function banners()
+//    {
+//        return $this->morphMany('App\BannerRequest', 'connected');
+//    }
 }

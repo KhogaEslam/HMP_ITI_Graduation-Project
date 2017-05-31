@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\CategoryRequest;
+use App\Http\Requests\BannerRequest;
 use App\ProductImage;
 use App\User;
 use App\UserDetail;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
@@ -34,7 +36,7 @@ class VendorController extends Controller
 
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::paginate(9);
         return view("shop.index", [
             "categories" => $categories
         ]);
@@ -77,7 +79,7 @@ class VendorController extends Controller
 
     public function category(Category $category)
     {
-        $products = $category->products()->owned()->get();
+        $products = $category->products()->owned()->paginate(5);
         return view("shop.products", [
             "products" => $products,
             "category" => $category,
@@ -327,14 +329,53 @@ class VendorController extends Controller
 
     public function makeFeaturedItemRequest($product)
     {
-        $featuredItem=new FeaturedItem();
-        $featuredItem->product_id=$product->id;
-        $featuredItem->user_id=\Auth::user()->id;
-
+        $featuredItem = new FeaturedItem();
+        $featuredItem->product_id = $product->id;
+        $featuredItem->user_id = \Auth::user()->id;
         $featuredItem->save();
-
         return back();
+    }
 
+    public function showBannerRequestForm() {
+        $products = Product::owned()->get()->pluck("name", "id");
+        return view("shop.banner_request", compact("products"));
+    }
+
+    public function addBannerRequest(BannerRequest $request) {
+        $products = Product::owned()->get()->pluck("name", "id");
+        $upload_to = resource_path("banner");
+
+        $banners = \App\BannerRequest::all();
+        $incomingStartDate = Carbon::parse($request->input("start_date"));
+        $incomingEndDate = Carbon::parse($request->input("end_date"));
+        foreach($banners as $banner) {
+            $existingStartDate = Carbon::parse($banner->start_date);
+            $existingEndDate = Carbon::parse($banner->end_date);
+            if(! $existingStartDate->greaterThanOrEqualTo($incomingEndDate) && ! $existingEndDate->lessThanOrEqualTo($incomingStartDate)) {
+                return view("shop.banner_request", compact("products"))->withErrors([
+                    "overlapping" => "This request overlaps another [" . $existingStartDate . " - " . $existingEndDate . "]"
+                ]);
+            }
+
+        }
+        $banner = new \App\BannerRequest;
+        $banner->start_date = $request->input("start_date");
+        $banner->end_date = $request->input("end_date");
+        $banner->status = 0;
+        $file = $request->file("image");
+        $banner->image = sha1(\Auth::user()->email . (string)time() . $file->getClientOriginalName());
+        $file->move($upload_to, $banner->image);
+
+        $banner->type = $request->input("type");
+        if($banner->type == 0) {
+            $banner->connected_id = $request->input("product");
+        }
+        else if($banner->type == 1) {
+            $banner->connected_id = \Auth::user()->id;
+        }
+        $banner->save();
+        return redirect(action("VendorController@index"));
     }
 
 }
+

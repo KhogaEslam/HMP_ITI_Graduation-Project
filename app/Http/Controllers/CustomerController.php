@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ActiveBanner;
 use App\CartDetail;
 use App\WishList;
 use App\FeaturedProduct;
@@ -28,12 +29,23 @@ class CustomerController extends Controller
         $featuredProducts = FeaturedProduct::all();
         $bestSellings = Product::orderBy('sales_counter','desc')->limit(4)->published()->get();
 
+        $bannerDetails = ActiveBanner::all();
+        if(isset($bannerDetails->first()->banner))
+            $bannerDetails = $bannerDetails->first()->banner;
+        $category = 0;
+        if(!isset($bannerDetails->type))
+            $bannerDetails->type = 2;
+        if($bannerDetails->type == 0){
+            $category = Product::find($bannerDetails->connected_id)->category->id;
+        }
         return view("customer.index", [
             "categories" => $categories,
             "inCart" => $inCart,
             "newArrivals" => $newArrivals,
             "featuredProducts" => $featuredProducts,
             "bestSellings" => $bestSellings,
+            "banner" => $bannerDetails,
+            "category" => $category,
         ]);
     }
 

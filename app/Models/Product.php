@@ -80,4 +80,12 @@ class Product extends Model
         }
         return $offer;
     }
+
+    /**
+     * Get all of the Product's Banners.
+     */
+//    public function banners()
+//    {
+//        return $this->morphMany('App\BannerRequest', 'connected');
+//    }
 }
