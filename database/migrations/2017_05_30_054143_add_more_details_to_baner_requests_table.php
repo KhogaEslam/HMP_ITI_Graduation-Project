@@ -17,6 +17,7 @@ class AddMoreDetailsToBanerRequestsTable extends Migration
             $table->enum('type',[0,1]);
             $table->string("image");
             $table->integer('connected_id')->unsigned();
+//            $table->string('connected_type');
         });
     }
 

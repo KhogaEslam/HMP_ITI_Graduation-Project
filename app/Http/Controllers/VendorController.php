@@ -333,8 +333,8 @@ class VendorController extends Controller
         $banner->end_date = $request->input("end_date");
         $banner->status = 0;
         $file = $request->file("image");
-        $file->move($upload_to, $banner->image);
         $banner->image = sha1(\Auth::user()->email . (string)time() . $file->getClientOriginalName());
+        $file->move($upload_to, $banner->image);
 
         $banner->type = $request->input("type");
         if($banner->type == 0) {

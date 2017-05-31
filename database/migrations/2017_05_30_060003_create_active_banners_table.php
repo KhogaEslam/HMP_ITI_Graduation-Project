@@ -13,7 +13,7 @@ class CreateActiveBannersTable extends Migration
      */
     public function up()
     {
-        Schema::create('active_banner', function (Blueprint $table) {
+        Schema::create('active_banners', function (Blueprint $table) {
             $table->increments('id');
 
             $table->integer('banner_id')->unsigned();
