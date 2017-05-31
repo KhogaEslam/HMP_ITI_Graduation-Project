@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CategoryRequest;
 use App\Http\Requests\BannerRequest;
 use App\ProductImage;
 use App\User;
@@ -39,6 +40,35 @@ class VendorController extends Controller
         return view("shop.index", [
             "categories" => $categories
         ]);
+    }
+
+    /**
+     * newCategory
+     * The function is used to render the view of creating new category
+     * @author Mohamed Magdy
+     * @return  \Illuminate\Http\RedirectResponse
+     */
+
+    public function newCategory()
+    {
+        return view( 'shop.new-category');
+    }
+
+    /**
+     * createCategory
+     * The function is used to receive the requests from new category view and save the data in the database
+     * @author Mohamed Magdy
+     * @param  Request $request
+     * @return  \Illuminate\Http\RedirectResponse
+     */
+    public function requestCategory(Request $request)
+    {
+        $this->validate($request, ['name' => 'required']);
+        $catRequest = new CategoryRequest();
+        $catRequest->name = $request->name;
+        $catRequest->user()->associate(\Auth::user());
+        $catRequest->save();
+        return redirect('/vendor');
     }
 
     /**

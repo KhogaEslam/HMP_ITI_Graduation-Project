@@ -33,6 +33,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::model("cart_detail", \App\CartDetail::class);
         Route::model("item", \App\WishList::class);
         Route::model("featured_request", \App\FeaturedItem::class);
+        Route::model("user", \App\User::class);
     }
 
     /**

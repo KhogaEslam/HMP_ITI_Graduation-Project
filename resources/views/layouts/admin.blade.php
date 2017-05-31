@@ -79,6 +79,16 @@
                             <a class="nav-link" href="/admin/categories">Categries</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="/admin/registration-requests">Registration Requests</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/category-requests">Category Requests</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/users">Users</a>
+                        </li>
+                        <li>
+
                             <a class="nav-link" href="/admin/banner_requests">Banner Requests</a>
                         </li>
 
