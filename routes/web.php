@@ -62,12 +62,28 @@ Route::get('/admin/registration-requests' , 'AdminController@viewAllRegRequests'
 Route::post('/admin/registration-requests/{regReq}/accept', 'AdminController@acceptRegRequest');
 Route::post('/admin/reregistration-requests/{regReq}/reject', 'AdminController@rejectRegRequest');
 
+//=============== Category creation requests ===============//
+Route::get('/admin/category-requests', 'AdminController@viewAllCatCreationRequests');
+Route::post('/admin/category-requests/{catReq}/accept' , 'AdminController@acceptCatCreationRequest');
+Route::post('/admin/category-requests/{catReq}/reject',  'AdminController@rejectCatCreationRequest');
+
+//=====================    Users  ==========================//
+Route::get('/admin/users','AdminController@listUsers');
+Route::post('/admin/users/{user_id}/block', 'AdminController@blockUser');
+Route::post('/admin/users/{user_id}/suspend', 'AdminController@suspendUser');
+Route::post('/admin/users/{user_id}/resume', 'AdminController@unsuspendUser');
+
+
 //===============================    End Route  =================================================//
 
 
 //Entrust::routeNeedsRole("vendor/*", "vendor", Redirect::to("vendor/login"));
 
 Route::get("vendor", "VendorController@index");
+
+Route::get('vendor/category/new' , 'VendorController@newCategory');
+
+Route::post('vender/category/request', 'VendorController@requestCategory');
 
 Route::get("vendor/category/{category}/products", "VendorController@category");
 
