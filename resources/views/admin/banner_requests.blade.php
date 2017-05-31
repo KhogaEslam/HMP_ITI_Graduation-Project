@@ -23,12 +23,12 @@
                     <img src="{{route("banner", [$bannerRequest->image])}}" width="300px">
                 </td>
                 <td>
-                    {!! Form::open(["action" => ["AdminController@acceptBannerRequest", $bannerRequest]]) !!}
+                    {!! Form::open(["action" => ["AdminController@acceptBannerRequest", $bannerRequest->id]]) !!}
                     {!! Form::submit("Accept", ["class" => "btn btn-success"]) !!}
                     {!! Form::close() !!}
                 </td>
                 <td>
-                    {!! Form::open(["action" => ["AdminController@rejectBannerRequest", $bannerRequest]]) !!}
+                    {!! Form::open(["action" => ["AdminController@rejectBannerRequest", $bannerRequest->id]]) !!}
                     {!! Form::submit("Reject", ["class" => "btn btn-danger"]) !!}
                     {!! Form::close() !!}
                 </td>

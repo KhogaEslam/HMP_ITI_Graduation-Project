@@ -219,18 +219,23 @@ class AdminController extends Controller
     }
 
     public function viewBannerRequests() {
-        $bannerRequests = BannerRequest::all();
+        $bannerRequests = BannerRequest::all()->where('status','==',false);
         return view("admin.banner_requests", [
             "bannerRequests" => $bannerRequests,
         ]);
     }
 
-    public function acceptBannerRequest(BannerRequest $item) {
+    public function acceptBannerRequest($id) {
+        $item = BannerRequest::find($id);
+        $item->status = true;
+        $item->save();
         return back();
     }
 
-    public function rejectBannerRequest(BannerRequest $item) {
-
+    public function rejectBannerRequest($id) {
+        $item = BannerRequest::find($id);
+        $item->status = false;
+        $item->save();
         return back();
     }
 
