@@ -82,20 +82,40 @@ class CustomerController extends Controller
     }
 
     public function addToCart(CartRequest $request, Product $product) {
+
         $cartDetail = new CartDetail;
 
-        $cartDetail->product()->associate($product);
-        $cartDetail->cart()->associate(\Auth::user()->cart);
+        $quantity = $request->input("quantity");
+        $available = $cartDetail->product->quantity;
 
-        $cartDetail->quantity = $request->input("quantity");
-        $cartDetail->save();
-        return back();
+        if($quantity <= $available) {
+            $cartDetail->product()->associate($product);
+            $cartDetail->cart()->associate(\Auth::user()->cart);
+
+            $cartDetail->quantity = $request->input("quantity");
+            $cartDetail->save();
+            return back();
+        }
+        else {
+            return back()->withErrors([
+                "quantity" => "Only " . $available . " items left in the shop"
+            ]);
+        }
     }
 
     public function editCart(CartRequest $request, CartDetail $cart) {
-        $cart->quantity = $request->input("quantity");
-        $cart->save();
-        return back();
+        $quantity = $request->input("quantity");
+        $available = $cart->product->quantity;
+        if($quantity <= $available) {
+            $cart->quantity = $quantity;
+            $cart->save();
+            return back();
+        }
+        else {
+            return back()->withErrors([
+                "quantity" => "Only " . $available . " items left in the shop"
+            ]);
+        }
     }
 
     public function viewCart() {
