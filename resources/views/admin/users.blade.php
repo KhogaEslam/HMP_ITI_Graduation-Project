@@ -8,6 +8,9 @@
             <h1 class="bordered-heading">
                 All Users
             </h1>
+            <div>
+                <a href="/admin/users/new-admin" class="btn btn-primary"> New Admin </a>
+            </div>
             <table class="table table-striped">
                 <thead>
                 <th>
@@ -22,6 +25,9 @@
                 </th>
                 <th>
                     Birth of date
+                </th>
+                <th>
+                    Role
                 </th>
                 <th>
                     Status
@@ -45,6 +51,9 @@
                         </td>
                         <td>
                             {{$user->userDetails->birth_of_date}}
+                        </td>
+                        <td>
+                            {{$user->roles[0]->name}}
                         </td>
                         @if ( $user->userDetails->status == '0')
                             <td>

@@ -72,6 +72,9 @@ Route::get('/admin/users','AdminController@listUsers');
 Route::post('/admin/users/{user}/block', 'AdminController@blockUser');
 Route::post('/admin/users/{user}/suspend', 'AdminController@suspendUser');
 Route::post('/admin/users/{user}/resume', 'AdminController@unsuspendUser');
+Route::get('/admin/users/new-admin','AdminController@newAdminUser');
+Route::post('/admin/users/create-admin', 'AdminController@createAdminUser');
+
 
 
 //===============================    End Route  =================================================//

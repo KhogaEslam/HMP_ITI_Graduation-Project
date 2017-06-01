@@ -26,22 +26,22 @@ class PaymentController extends Controller
         // Base Address object used as shipping or billing
         // address in a payment. [Optional]
         $addr= Paypalpayment::address();
-        $addr->setLine1("3909 Witmer Road");
-        $addr->setLine2("Niagara Falls");
-        $addr->setCity("Niagara Falls");
-        $addr->setState("NY");
+        $addr->setLine1("ITI");
+        $addr->setLine2("Mahatet Masr");
+        $addr->setCity("Alexandria");
+        $addr->setState("Al-Iskandria");
         $addr->setPostalCode("14305");
-        $addr->setCountryCode("US");
-        $addr->setPhone("716-298-1822");
+        $addr->setCountryCode("EG");
+        $addr->setPhone("000-000-000");
 
         // ### CreditCard
         $card = Paypalpayment::creditCard();
         $card->setType("visa")
-            ->setNumber("4758411877817150")
-            ->setExpireMonth("05")
+            ->setNumber("1111111111111111")
+            ->setExpireMonth("01")
             ->setExpireYear("2019")
-            ->setCvv2("456")
-            ->setFirstName("Merna");
+            ->setCvv2("123")
+            ->setFirstName("Gadgetly");
 
         // ### FundingInstrument
         // A resource representing a Payer's funding instrument.
