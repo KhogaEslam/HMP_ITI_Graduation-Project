@@ -13,24 +13,24 @@ class CreateEventForActiveBanner extends Migration
      */
     public function up()
     {
+        DB::unprepared('SET GLOBAL event_scheduler = ON');
+
         DB::unprepared('
-            delimiter |
             CREATE EVENT `update_current_active_banner`
             ON SCHEDULE
                 EVERY 1 DAY
-            COMMENT \'Updating Current Active Banner.\'    
-            
+                STARTS (TIMESTAMP(CURRENT_DATE))             
             DO
                 BEGIN
                     TRUNCATE TABLE `active_banners`;
                     
-                    INSERT INTO `hmp.active_banners` (banner_id)
-                        SELECT id
-                            FROM hmp.banner_requests
-                            WHERE ;                                                       
-                END |
-            
-            delimiter ;    
+                    INSERT INTO `active_banners` (`active_banners`.`banner_id`)
+                        SELECT `banner_requests`.`id`
+                            FROM `banner_requests`
+                            WHERE DATE(`banner_requests`.`start_date`) = CURDATE()
+                            AND `banner_requests`.`status` = 1
+                            LIMIT 1;                                                       
+                END        
         ');
     }
 
@@ -41,6 +41,6 @@ class CreateEventForActiveBanner extends Migration
      */
     public function down()
     {
-        DB::unprepared('DROP EVENT IF EXIST `update_current_active_banner`');
+        DB::unprepared('DROP EVENT update_current_active_banner');
     }
 }
