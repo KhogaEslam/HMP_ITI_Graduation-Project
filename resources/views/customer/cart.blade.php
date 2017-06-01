@@ -11,7 +11,9 @@
                     {{$cartDetail->product->name}}
                 </div>
                 <div class="col-md-4">
+                    @if($cartDetail->product->images->first() !== null)
                     <img src="{{route("image", $cartDetail->product->images->first()->stored_name)}}" class="img-fluid img-responsive" height="20" />
+                    @endif
                 </div>
                 <div class="col-md-2 text-lg-center">
                     @if($cartDetail->product->discount + $cartDetail->product->offer > 0)
@@ -57,26 +59,35 @@
             </div>
             {{-- check out --}}
             <div class="col-md-4 text-center">
-                <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-                    <input type="hidden" name="cmd" value="_xclick">
+                <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+                    <input TYPE="hidden" name="charset" value="utf-8">
+                    <input type="hidden" name="cmd" value="_cart">
+                    <input type="hidden" name="upload" value="1">
                     <input type="hidden" name="business" value="mgmhardwaremarketplace@gmail.com">
 
-                    <input type="hidden" name="item_name_1" value="Donation">
-                    <input type="hidden" name="item_number_1" value="1">
-                    <input type="hidden" name="amount_1" value="9.00">
-                    <input type="hidden" name="no_shipping_1" value="0">
+                    @if($cartDetails->first()->product->offer >= 0)
+                        <input type="hidden" name="discount_rate_cart" value="{{$cartDetail->product->offer}}">
+                    @endif
 
-                    <input type="hidden" name="item_name_2" value="Donation">
-                    <input type="hidden" name="item_number_2" value="1">
-                    <input type="hidden" name="amount_1" value="9.00">
-                    <input type="hidden" name="no_shipping_1" value="0">
+                    <?php $counter=1; ?>
+                    @foreach($cartDetails as $cartDetail)
+                        <input type="hidden" name="item_name_{{$counter}}" value="{{$cartDetail->product->name}}">
+                        <input type="hidden" name="quantity_{{$counter}}" value="{{$cartDetail->quantity}}">
+                        <input type="hidden" name="amount_{{$counter}}" value="{{$cartDetail->product->price}}">
 
-                    <input type="hidden" name="no_note" value="1">
-                    <input type="hidden" name="currency_code" value="USD">
-                    <input type="hidden" name="lc" value="AU">
-                    <input type="hidden" name="bn" value="PP-BuyNowBF">
-                    <input type="image" src="https://www.paypal.com/en_AU/i/btn/btn_buynow_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online.">
+                        @if($cartDetail->product->discount >= 0)
+                            <input type="hidden" name="discount_rate_{{$counter}}" value="{{$cartDetail->product->discount}}">
+                            <input type="hidden" name="discount_amount_{{$counter}}" value="{{$cartDetail->product->discount}}">
+                        @endif
+
+                        <?php $counter++; ?>
+                    @endforeach
+
+                    <input type="hidden" name="shopping_url" value="{{ url('/') }}">
+                    <input TYPE="hidden" name="return" value="{{ url('/') }}">
+                    <input TYPE="hidden" name="cancel_return" value="{{ url('customer/cart') }}">
                     <img alt="" border="0" src="https://www.paypal.com/en_AU/i/scr/pixel.gif" width="1" height="1">
+                    <input type="image" src="https://www.paypal.com/en_AU/i/btn/btn_buynow_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online.">
                 </form>
             </div>
         </div>
