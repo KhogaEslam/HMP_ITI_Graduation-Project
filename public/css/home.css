@@ -61,7 +61,7 @@ h3 {
 }
 
 nav.navbar.navbar-default.nav2 {
-    z-index: 1000;
+    z-index: 100;
 }
 
 .brand-wrapper >button.navbar-toggle {
