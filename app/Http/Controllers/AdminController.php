@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\BannerRequest;
 use App\Category;
 use App\CategoryRequest;
+use App\Http\Requests\AdminRequest;
 use App\RegistrationRequest;
+use App\Role;
 use App\UserDetail;
 use App\FeaturedProduct;
 use Illuminate\Http\Request;
@@ -21,7 +23,7 @@ class AdminController extends Controller
     //================================= Constructor ==================================== //
     public function __construct()
     {
-        //$this->middleware(["admin.auth"]);
+        $this->middleware(["admin.auth"]);
     }
 
     //=================================    Home     =====================================//
@@ -189,6 +191,30 @@ class AdminController extends Controller
 
         }
         return view('admin.users', ['users' => $users]);
+    }
+
+    public function newAdminUser()
+    {
+        return view('admin.new-admin');
+    }
+
+    public function createAdminUser(AdminRequest $request)
+    {
+        $role = Role::all()->where("name", "=", "admin")->first();
+
+        $user = new User;
+        $user->email = $request->input('email');
+        $user->password = bcrypt($request->input("password"));
+        $user->name = $request->input("name");
+        $user->save();
+        $user->roles()->attach($role);
+
+        $userDetail = new UserDetail;
+        $userDetail->date_of_birth = $request->input("date_of_birth");
+        $userDetail->user()->associate($user);
+        $userDetail->save();
+
+        return back();
     }
 
     public function  suspendUser(User $user)
