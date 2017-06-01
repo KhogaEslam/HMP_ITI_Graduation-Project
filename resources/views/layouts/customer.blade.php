@@ -69,7 +69,8 @@ pull-right"></span></a></li>
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-                <span class="icon-bar"></span> </button>             <a href="{{url('/')}}"><img class="logo" src="{{ asset('images/logo.png')}}"></a> </div>
+                <span class="icon-bar"></span> </button>
+            <a href="{{url('/')}}"><img class="logo" src="{{ asset('images/logo.png')}}"></a> </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
@@ -87,8 +88,7 @@ pull-right"></span></a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{action("CustomerController@viewCart")}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
-                <li><a href="#"><span class="count" >
+                <li><a href="{{action("CustomerController@viewCart")}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="count" >
                             @if(isset($inCart))
                                 {{$inCart}}
                             @else
@@ -181,6 +181,7 @@ pull-right"></span></a></li>
             <p class="pull-left"> Copyright © Footer E-commerce Plugin 2014. All right reserved. </p>
             <div class="pull-right">
                 <ul class="nav nav-pills payments">
+
                     <li><i class="fa fa-cc-paypal"></i></li>
                 </ul>
             </div>
