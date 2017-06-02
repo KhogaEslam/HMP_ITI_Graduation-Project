@@ -139,7 +139,7 @@ class CustomerController extends Controller
 
     public function addToWishList($product)
     {
-        $wishlist=new WishList();
+        $wishlist = new WishList();
         $wishlist->product_id=$product->id;
         $wishlist->user_id=\Auth::user()->id;
         $wishlist->save();
@@ -150,6 +150,10 @@ class CustomerController extends Controller
     public function deleteFromWishList(WishList $item)
     {
         $item->delete();
+        return back();
+    }
+
+    public function addFeedBack(){
         return back();
     }
 
