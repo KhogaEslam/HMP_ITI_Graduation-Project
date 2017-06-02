@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\BannerRequest;
 use App\Category;
+use App\CategoryRequest;
+use App\Http\Requests\AdminRequest;
 use App\RegistrationRequest;
+use App\Role;
 use App\UserDetail;
 use App\FeaturedProduct;
 use Illuminate\Http\Request;
@@ -13,6 +16,7 @@ use App\Offer;
 use \Carbon\Carbon;
 use App\Http\Controllers\MailController;
 use App\FeaturedItem;
+use App\User;
 
 class AdminController extends Controller
 {
@@ -147,7 +151,7 @@ class AdminController extends Controller
     {
 //        $userDetails  = UserDetail::all();
 //        dd($userDetails);
-        MailController::acceptRegistrationMail($regReq->user);
+//        MailController::acceptRegistrationMail($regReq->user);
         $regReq->user->userDetails->status='0';
         $regReq->user->userDetails->save();
         $regReq->delete();
@@ -170,6 +174,105 @@ class AdminController extends Controller
         return back();
     }
 
+    //===========================================    Users  ====================================//
+
+    public function listUsers()
+    {
+        if (\Auth::user()->hasRole('owner'))
+        {
+            $users = User::all()->where("id", "!=", \Auth::user()->id);
+
+        }
+        else
+        {
+             $users= User::whereHas('roles', function($q){
+                $q->where('name', '!=' ,'admin');
+             })->get();
+
+        }
+        return view('admin.users', ['users' => $users]);
+    }
+
+    public function newAdminUser()
+    {
+        return view('admin.new-admin');
+    }
+
+    public function createAdminUser(AdminRequest $request)
+    {
+        $role = Role::all()->where("name", "=", "admin")->first();
+
+        $user = new User;
+        $user->email = $request->input('email');
+        $user->password = bcrypt($request->input("password"));
+        $user->name = $request->input("name");
+        $user->save();
+        $user->roles()->attach($role);
+
+        $userDetail = new UserDetail;
+        $userDetail->date_of_birth = $request->input("date_of_birth");
+        $userDetail->user()->associate($user);
+        $userDetail->save();
+
+        return back();
+    }
+
+    public function  suspendUser(User $user)
+    {
+        if (\Auth::user()->hasRole('owner'))
+        {
+            $user->userDetails->status = '1';
+            $user->userDetails->save();
+        }
+        else
+        {
+            if($user->hasRole('employee') || $user->hasRole('vendor') || $user->hasRole('customer'))
+            {
+                $user->userDetails->status = '1';
+                $user->userDetails->save();
+            }
+        }
+
+        return back();
+    }
+
+    public function blockUser(User $user)
+    {
+        if (\Auth::user()->hasRole('owner'))
+        {
+//            dd($user->userDetails);
+            $user->userDetails->status = '2';
+            $user->userDetails->save();
+        }
+        else
+        {
+            if($user->hasRole('employee') || $user->hasRole('vendor') || $user->hasRole('customer'))
+            {
+                $user->userDetails->status = '2';
+                $user->userDetails->save();
+            }
+        }
+
+        return back();
+    }
+
+    public function unsuspendUser(User $user)
+    {
+        if($user->userDetails()->status == '1')
+        {
+            if (\Auth::user()->hasRole('owner')) {
+                $user->userDetails->status = '0';
+                $user->userDetails->save();
+            } else {
+                if ($user->hasRole('employee') || $user->hasRole('vendor') || $user->hasRole('customer')) {
+                    $user->userDetails->status = '0';
+                    $user->userDetails->save();
+                }
+            }
+        }
+
+        return back();
+    }
 
 
     //============================================ Offers ==================================/
@@ -217,6 +320,54 @@ class AdminController extends Controller
         $item->delete();
         return back();
     }
+
+    //============================================ Category Requests ==================================/
+
+    /**
+     * viewAllCatCreationRequests
+     * The function is used to view all vendor category creation requests
+     * @author Mohamed Magdy
+     * @return  \Illuminate\Http\RedirectResponse
+     */
+    public function viewAllCatCreationRequests()
+    {
+        $catRequests = CategoryRequest::all();
+        return view('admin.category-requests', ['catRequests' => $catRequests]);
+    }
+
+    /**
+     * acceptCatCreationRequest
+     * The function is used to accept specific vendor category creation request
+     * @author Mohamed Magdy
+     * @param Request $request
+     * @param CategoryCreationRequest $catReq
+     * @return  \Illuminate\Http\RedirectResponse
+     */
+    public function acceptCatCreationRequest(Request $request, CategoryRequest $catReq)
+    {
+        $cat = new Category();
+        $cat->name = $catReq->name;
+        $cat->save();
+        $catReq->delete();
+        return back();
+    }
+
+    /**
+     * rejectCatCreationRequest
+     * The function is used to reject specific vendor category creation request
+     * @author Mohamed Magdy
+     * @param Request $request
+     * @param CategoryCreationRequest $catReq
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function rejectCatCreationRequest(Request $request, CategoryRequest $catReq)
+    {
+        $catReq->delete();
+        return back();
+    }
+
+
+ // ====================================== Banner Requests ===================================//
 
     public function viewBannerRequests() {
         $bannerRequests = BannerRequest::all()->where('status','==',false);

@@ -93,15 +93,25 @@ pull-right"></span></a></li>
                                 {{$inCart}}
                             @else
                                 0
-                            @endif</span></a></li>
+<<<<<<< HEAD
+                            @endif
+                        </span>
+                    </a>
+                </li>
                 <form class="navbar-form navbar-right mySearch" action="{{action("CustomerController@search")}}" method="get">
+
                     <div class="input-group stylish-input-group">
                         <input name="search_name" type="text" class="form-control"  placeholder="Search" >
                         <span class="input-group-addon">
+=======
+                            @endif</span></a></li>
+                <form class="navbar-form navbar-right mySearch">
+                    <div class="input-group stylish-input-group">
+                        <input type="text" class="form-control" placeholder="Search"> <span class="input-group-addon">
+>>>>>>> e5d02aeb164d71ae8997e7ff377907b570761247
                         <button type="submit">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                    </span>
+                            <span class="glyphicon glyphicon-search"></span> </button>
+                            </span>
                     </div>
                 </form>
             </ul>

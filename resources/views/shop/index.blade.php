@@ -5,6 +5,9 @@
 @section("content")
 <div class="container">
     <div class="row">
+        <div>
+        <a class="btn btn-primary" href="/vendor/category/new"> New Category </a>
+        </div>
         @forelse($categories as $category)
 
             <div class="col-sm-6 col-md-4">

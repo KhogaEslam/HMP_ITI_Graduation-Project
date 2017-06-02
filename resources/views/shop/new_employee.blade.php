@@ -1,6 +1,6 @@
-@extends("layouts.admin")
+@extends("layouts.vendor")
 @section("title")
-    New Employee
+   Shop Panel | New Employee
 @endsection
 @section("content")
 
