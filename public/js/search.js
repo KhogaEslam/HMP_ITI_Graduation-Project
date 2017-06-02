@@ -39,4 +39,9 @@ $(document).ready(function() {
             });
         }
     });
+
+    $(document).on('click', ".search_result", function(e) {
+        console.log($(e.target).html());
+        $("input[name=search_name]").val($(e.target).html());
+    });
 });
