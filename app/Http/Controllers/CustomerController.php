@@ -4,18 +4,21 @@ namespace App\Http\Controllers;
 
 use App\ActiveBanner;
 use App\CartDetail;
+use App\ProductImage;
 use App\WishList;
 use App\FeaturedProduct;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 use App\Product;
 use App\Category;
 use \App\Http\Requests\CartRequest;
+use App\Helpers\Trie;
 
 class CustomerController extends Controller
 {
     public function __construct() {
-        $this->middleware("customer.auth")->except(["index", "products", "productDetails"]);
+        $this->middleware("customer.auth")->except(["index", "products", "productDetails", "search", "searchPrefix"]);
     }
 
     public function index()
@@ -82,20 +85,40 @@ class CustomerController extends Controller
     }
 
     public function addToCart(CartRequest $request, Product $product) {
+
         $cartDetail = new CartDetail;
 
-        $cartDetail->product()->associate($product);
-        $cartDetail->cart()->associate(\Auth::user()->cart);
+        $quantity = $request->input("quantity");
+        $available = $cartDetail->product->quantity;
 
-        $cartDetail->quantity = $request->input("quantity");
-        $cartDetail->save();
-        return back();
+        if($quantity <= $available) {
+            $cartDetail->product()->associate($product);
+            $cartDetail->cart()->associate(\Auth::user()->cart);
+
+            $cartDetail->quantity = $request->input("quantity");
+            $cartDetail->save();
+            return back();
+        }
+        else {
+            return back()->withErrors([
+                "quantity" => "Only " . $available . " items left in the shop"
+            ]);
+        }
     }
 
     public function editCart(CartRequest $request, CartDetail $cart) {
-        $cart->quantity = $request->input("quantity");
-        $cart->save();
-        return back();
+        $quantity = $request->input("quantity");
+        $available = $cart->product->quantity;
+        if($quantity <= $available) {
+            $cart->quantity = $quantity;
+            $cart->save();
+            return back();
+        }
+        else {
+            return back()->withErrors([
+                "quantity" => "Only " . $available . " items left in the shop"
+            ]);
+        }
     }
 
     public function viewCart() {
@@ -151,6 +174,24 @@ class CustomerController extends Controller
     {
         $item->delete();
         return back();
+    }
+
+
+    public function search(Request $request) {
+        $products = new \Illuminate\Database\Eloquent\Collection;
+        $categories = Category::all();
+        $search_name = $request->input("search_name");
+//        dd($search_name);
+        if(! empty($search_name)) {
+            $products = Product::where('name', 'like', '%' . $search_name . '%')->get();
+        }
+        return view("customer.search_results", compact("products", "categories"));
+    }
+
+    public function searchPrefix(Request $request) {
+        $trie = Trie::getInstance();
+        $prefix = $request->input("prefix");
+        return $trie->results($prefix, 20);
     }
 
 }

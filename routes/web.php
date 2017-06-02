@@ -200,6 +200,7 @@ Route::get("vendor/add_banner", "VendorController@showBannerRequestForm");
 
 Route::post("vendor/add_banner", "VendorController@addBannerRequest");
 
+Route::get("customer/search", "CustomerController@search");
 
 Route::get("admin/banner_requests", "AdminController@viewBannerRequests");
 

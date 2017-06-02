@@ -18,6 +18,7 @@ use App\Employee;
 use \App\Role;
 use \App\Http\Requests\EmployeeRequest;
 use \App\Http\Requests\EditEmployeeRequest;
+use \App\Helpers\Trie;
 
 class VendorController extends Controller
 {
@@ -164,6 +165,7 @@ class VendorController extends Controller
         if($product->user->id == \Auth::user()->id) {
             $upload_to = resource_path("img");
             $product->update($request->all());
+            Trie::getInstance()->addProduct($product->name);
             $files = $request->images;
             $files_count = count($files);
             $uploaded_files = 0;
@@ -196,6 +198,7 @@ class VendorController extends Controller
     public function deleteProduct(Category $category, Product $product)
     {
         if($product->user->id == \Auth::user()->id) {
+            Trie::getInstance()->deleteProduct($product->name);
             $product->delete();
             return back();
         }
@@ -208,6 +211,7 @@ class VendorController extends Controller
     {
         if($product->user->id == \Auth::user()->id) {
             $product->published = true;
+            Trie::getInstance()->addProduct($product->name);
             $product->save();
             return back();
         }
@@ -220,6 +224,7 @@ class VendorController extends Controller
     {
         if($product->user->id == \Auth::user()->id) {
             $product->published = false;
+            Trie::getInstance()->deleteProduct($product->name);
             $product->save();
             return back();
         }

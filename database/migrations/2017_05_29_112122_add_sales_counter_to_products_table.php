@@ -14,8 +14,8 @@ class AddSalesCounterToProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->integer("sales_counter")->unsigned();
-            $table->double("revenue")->unsigned();
+            $table->integer("sales_counter")->unsigned()->default(0);
+            $table->double("revenue")->unsigned()->default(0);
         });
     }
 
