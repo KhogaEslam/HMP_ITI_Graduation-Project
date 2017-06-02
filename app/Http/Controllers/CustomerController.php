@@ -13,11 +13,12 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Category;
 use \App\Http\Requests\CartRequest;
+use App\Helpers\Trie;
 
 class CustomerController extends Controller
 {
     public function __construct() {
-        $this->middleware("customer.auth")->except(["index", "products", "productDetails", "search"]);
+        $this->middleware("customer.auth")->except(["index", "products", "productDetails", "search", "searchPrefix"]);
     }
 
     public function index()
@@ -185,6 +186,12 @@ class CustomerController extends Controller
             $products = Product::where('name', 'like', '%' . $search_name . '%')->get();
         }
         return view("customer.search_results", compact("products", "categories"));
+    }
+
+    public function searchPrefix(Request $request) {
+        $trie = Trie::getInstance();
+        $prefix = $request->input("prefix");
+        return $trie->results($prefix, 20);
     }
 
 }

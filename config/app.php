@@ -231,7 +231,7 @@ return [
         'Storage' => Illuminate\Support\Facades\Storage::class,
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
-        'View' => Illuminate\Support\Facades\View::class,
+        'View' => Illuminate\Support\facades\View::class,
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         /**
          * Extra plugins
@@ -241,6 +241,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Paypalpayment' => Anouar\Paypalpayment\Facades\PaypalPayment::class,
         'Helpers' => App\Helpers\Helpers::class,
+        'Trie' => \App\Helpers\Trie::class,
     ],
 
 ];

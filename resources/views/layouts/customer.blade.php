@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css')}}"/>
     <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{ asset('css/home.css')}}"/>
+    <link rel="stylesheet" href="{{ asset("css/search.css") }}" />
 
     <title> @yield('title')</title>
 </head>
@@ -98,10 +99,13 @@ pull-right"></span></a></li>
                     <div class="input-group stylish-input-group">
                         <input name="search_name" type="text" class="form-control"  placeholder="Search" >
                         <span class="input-group-addon">
-                        <button type="submit">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                    </span>
+                            <button type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                        <ul class="results" style="display: none;" >
+
+                        </ul>
                     </div>
                 </form>
             </ul>
@@ -194,6 +198,7 @@ pull-right"></span></a></li>
 <script src="{{ asset('js/jquery.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.js')}}"></script>
 <script src="{{ asset('js/slider.js')}}"></script>
+<script src="{{ asset('js/search.js') }}"></script>
 
 </body>
 </html>
