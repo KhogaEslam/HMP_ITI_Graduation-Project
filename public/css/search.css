@@ -9,14 +9,6 @@
 
 .search_result:hover { text-decoration: underline }
 
-.container, .main {
-    width: 640px;
-    margin-left: auto;
-    margin-right: auto;
-    height: 300px;
-}
-
-.main { margin-top: 50px }
 
 input[name=search_name] {
     font-family: 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;

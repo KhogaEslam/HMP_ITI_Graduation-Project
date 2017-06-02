@@ -137,7 +137,6 @@ class VendorController extends Controller
             }
         }
         if ($uploaded_files == $files_count) {
-            Trie::getInstance()->addProduct($product->name);
             return redirect()->action("VendorController@category", [$category->id]);
         } else {
             return back()->withInput()->withErrors($validator);
@@ -166,6 +165,7 @@ class VendorController extends Controller
         if($product->user->id == \Auth::user()->id) {
             $upload_to = resource_path("img");
             $product->update($request->all());
+            Trie::getInstance()->addProduct($product->name);
             $files = $request->images;
             $files_count = count($files);
             $uploaded_files = 0;
@@ -211,6 +211,7 @@ class VendorController extends Controller
     {
         if($product->user->id == \Auth::user()->id) {
             $product->published = true;
+            Trie::getInstance()->addProduct($product->name);
             $product->save();
             return back();
         }
@@ -223,6 +224,7 @@ class VendorController extends Controller
     {
         if($product->user->id == \Auth::user()->id) {
             $product->published = false;
+            Trie::getInstance()->deleteProduct($product->name);
             $product->save();
             return back();
         }

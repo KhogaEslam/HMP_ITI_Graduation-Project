@@ -72,9 +72,9 @@ class Trie {
     }
 
     private function index() {
-        $products = Product::all();
+        $products = Product::published()->get();
         foreach($products as $product) {
-            $this->insert($this->root, strtolower(trim($product->name)));
+            $this->addProduct(strtolower(trim($product->name)));
         }
     }
 
@@ -130,8 +130,6 @@ class Trie {
 
     private function search($root, $prefix, $limit, $i, $word) {
         $n = strlen($prefix);
-        $result = [];
-        $foundSoFar = null;
         if($i < $n) {
             if($root->letterExist($prefix[$i])) {
                 $this->search($root->getLetter($prefix[$i]), $prefix, $limit, $i + 1, $word . $prefix[$i]);
@@ -141,11 +139,13 @@ class Trie {
             if($root->isLeaf()) {
                 array_push($this->result, $word);
             }
-            else {
-                foreach($root->getCurrentState() as $key => $value) {
+            foreach($root->getCurrentState() as $key => $value) {
                     $this->search($value, $prefix, $limit, $i + 1, $word . $key);
-                }
             }
         }
+    }
+
+    public function dumpRoot() {
+        return $this->root;
     }
 }
