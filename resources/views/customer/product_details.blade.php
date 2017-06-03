@@ -90,4 +90,8 @@
     <p><a href="{{action("CustomerController@addToWishList", [$product])}}" class="btn btn-success btn-group-lg">Add to My Wishlist</a></p>
 @endif
 @endrole
+@include('comments::comments-react', [
+'content_type' => App\Product::class,
+'content_id' => $product->id
+])
 @endsection

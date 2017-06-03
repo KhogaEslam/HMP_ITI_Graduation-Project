@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravelista\Comments\Comments\Traits\Comments;
 
 class Product extends Model
 {
+    use Comments;
+
     protected $fillable = [
         "name",
         "description",
