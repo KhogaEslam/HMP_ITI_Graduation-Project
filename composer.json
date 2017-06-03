@@ -16,7 +16,7 @@
         "omnipay/paypal": "~2.0",
         "laravelista/comments": "^1.1",
         "paypal/rest-api-sdk-php": "^1.11",
-        "anouar/paypalpayment": "~2.0",
+        "anouar/paypalpayment": "~2.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.3",
