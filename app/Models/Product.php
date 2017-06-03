@@ -61,6 +61,11 @@ class Product extends Model
         return $this->hasMany("\App\WishList");
     }
 
+    public function ratings()
+    {
+        return $this->hasMany("\App\Rating");
+    }
+
     public function carts() {
         return $this->hasMany("\App\CartDetail", "product_id");
     }

@@ -19,7 +19,7 @@
 
 @role("customer")
     <div class="stars">
-        <form action="">
+        <form action="{{action("CustomerController@submitRating")}}>
             <input class="star star-5" id="star-5" type="radio" name="star"/>
             <label class="star star-5" for="star-5"></label>
             <input class="star star-4" id="star-4" type="radio" name="star"/>
@@ -30,6 +30,9 @@
             <label class="star star-2" for="star-2"></label>
             <input class="star star-1" id="star-1" type="radio" name="star"/>
             <label class="star star-1" for="star-1"></label>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary"> Submit rating </button>
+            </div>
         </form>
     </div>
     @if(\Auth::user()->cart->cartDetails()->quantity($product->id)->get()->isEmpty())

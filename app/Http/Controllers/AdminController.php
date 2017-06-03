@@ -258,7 +258,7 @@ class AdminController extends Controller
 
     public function unsuspendUser(User $user)
     {
-        if($user->userDetails()->status == '1')
+        if($user->userDetails->status == '1')
         {
             if (\Auth::user()->hasRole('owner')) {
                 $user->userDetails->status = '0';
