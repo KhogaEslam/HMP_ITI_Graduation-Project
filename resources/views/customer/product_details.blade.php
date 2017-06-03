@@ -18,23 +18,27 @@
 <p>Category: {{$category->name}}</p>
 
 @role("customer")
-    <div class="stars">
-        <form action="/customer/{{$product->id}}/rating/add">
-            <input class="star star-5" id="star-5" type="radio" name="star"/>
-            <label class="star star-5" for="star-5"></label>
-            <input class="star star-4" id="star-4" type="radio" name="star"/>
-            <label class="star star-4" for="star-4"></label>
-            <input class="star star-3" id="star-3" type="radio" name="star"/>
-            <label class="star star-3" for="star-3"></label>
-            <input class="star star-2" id="star-2" type="radio" name="star"/>
-            <label class="star star-2" for="star-2"></label>
-            <input class="star star-1" id="star-1" type="radio" name="star"/>
-            <label class="star star-1" for="star-1"></label>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary"> Submit rating </button>
-            </div>
-        </form>
-    </div>
+    @if(emptyArray($product->ratings->where('user_id','=' , \Auth::user()->id )))
+        <div class="stars">
+            <form method='post' action="{{action("CustomerController@submitRating", [$product])}}">
+                {!! csrf_field() !!}
+                <input class="star star-5" id="star-5" value ="5" type="radio" name="star"/>
+                <label class="star star-5" for="star-5"></label>
+                <input class="star star-4"  value="4" id="star-4" type="radio" name="star"/>
+                <label class="star star-4" for="star-4"></label>
+                <input class="star star-3"  value="3" id="star-3" type="radio" name="star"/>
+                <label class="star star-3" for="star-3"></label>
+                <input class="star star-2" value="2" id="star-2" type="radio" name="star"/>
+                <label class="star star-2" for="star-2"></label>
+                <input class="star star-1" value="1" id="star-1" type="radio" name="star"/>
+                <label class="star star-1" for="star-1"></label>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary"> Submit rating </button>
+                </div>
+            </form>
+        </div>
+    @endif
+
     @if(\Auth::user()->cart->cartDetails()->quantity($product->id)->get()->isEmpty())
         {{--{!! Form::open(["action" => ["CustomerController@addToCart", $product]]) !!}--}}
         {{--<div class="form-group">--}}
@@ -107,4 +111,8 @@
     <p><a href="{{action("CustomerController@addToWishList", [$product])}}" class="btn btn-success btn-group-lg">Add to My Wishlist</a></p>
 @endif
 @endrole
+@include('comments::comments-react', [
+'content_type' => App\Product::class,
+'content_id' => $product->id
+])
 @endsection

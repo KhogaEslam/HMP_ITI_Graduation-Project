@@ -5,17 +5,16 @@ namespace App\Http\Controllers;
 use App\ActiveBanner;
 use App\CartDetail;
 use App\ProductImage;
-use App\Rating;
+use App\ProductRate;
 use App\WishList;
 use App\FeaturedProduct;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
-
+use DB;
 use App\Product;
 use App\Category;
 use \App\Http\Requests\CartRequest;
 use App\Helpers\Trie;
-use DB;
 
 class CustomerController extends Controller
 {
@@ -87,14 +86,16 @@ class CustomerController extends Controller
     }
 
     public function submitRating(Request $request , Product $product){
-        $rating = new Rating();
+        $rating = new ProductRate();
         $rating->product()->associate($product);
         $rating->user()->associate(\Auth::user());
         $rating->rate = $request->star;
         $rating->save();
-        $rating->product->avg_rate = $rating->product()->avg('rate');
+        $rating->product->avg_rate = round(DB::table('product_rates')
+                                     ->select(DB::raw('avg(rate) as avg_rate'))
+                                     ->groupBy('product_id')
+                                     ->havingRaw("product_id = $product->id")->first()->avg_rate);
         $rating->product->save();
-        $rating->user->save();
         return back();
     }
 
@@ -176,7 +177,7 @@ class CustomerController extends Controller
 
     public function addToWishList($product)
     {
-        $wishlist=new WishList();
+        $wishlist = new WishList();
         $wishlist->product_id=$product->id;
         $wishlist->user_id=\Auth::user()->id;
         $wishlist->save();
@@ -187,6 +188,10 @@ class CustomerController extends Controller
     public function deleteFromWishList(WishList $item)
     {
         $item->delete();
+        return back();
+    }
+
+    public function addFeedBack(){
         return back();
     }
 
