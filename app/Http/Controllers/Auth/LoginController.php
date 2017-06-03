@@ -69,7 +69,7 @@ class LoginController extends Controller
         $user = User::all()->where("email", "=", $request->input("email"))->first();
         if(isset($user) && $prefix == "admin" && $user->hasRole("owner"))
             $exist = 1;
-        else if(isset($user) && $prefix == "vendor" && $user->hasRole("employee"))
+        else if(isset($user) && $prefix == "shop" && $user->hasRole("employee"))
             $exist = 1;
         else if(isset($user) && $user->hasRole($prefix))
             $exist = 1;

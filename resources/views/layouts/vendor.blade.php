@@ -65,7 +65,7 @@
                     <button class="nav-toggler nav-toggler-md sidebar-toggler" type="button" data-toggle="collapse" data-target="#nav-toggleable-md">
                         <span class="sr-only">Toggle nav</span>
                     </button>
-                    <a class="sidebar-brand img-responsive" href="/vendor">
+                    <a class="sidebar-brand img-responsive" href="/shop">
                         <span class="icon icon-leaf sidebar-brand-icon"><span class="panel-title">Admin Panel </span></span>
                     </a>
                 </div>
@@ -79,10 +79,10 @@
                     </form>
                     <ul class="nav nav-pills nav-stacked flex-column">
                         <li class="nav-item">
-                            <a class="nav-link dashboard-link" href="/vendor" > Dashboard</a>
+                            <a class="nav-link dashboard-link" href="/shop" > Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/vendor/add_banner">Request Banner</a>
+                            <a class="nav-link" href="/shop/add_banner">Request Banner</a>
                         </li>
 
 

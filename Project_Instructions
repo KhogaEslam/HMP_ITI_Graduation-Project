@@ -3,7 +3,7 @@ This file includes project used codes
 # User roles
 0 -> site owner
 1 -> site admin
-2 -> vendor
+2 -> shop
 3 -> customer
 
 # User gender

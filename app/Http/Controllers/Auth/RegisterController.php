@@ -120,8 +120,8 @@ class RegisterController extends Controller
         $role = null;
         $userDetail = new UserDetail;
 
-        if(Request::route()->getPrefix() == "/vendor") {
-            $role = \App\Role::all()->where("name", "=", 'vendor')->first();
+        if(Request::route()->getPrefix() == "/shop") {
+            $role = \App\Role::all()->where("name", "=", 'shop')->first();
             $userDetail->status = '1'; //set status to suspended until admin acceptance
             
             $registrationRequest = new RegistrationRequest;
@@ -154,9 +154,9 @@ class RegisterController extends Controller
 
     protected function registered($request, $user)
     {
-        if($request->route()->getPrefix() == "/vendor") {
+        if($request->route()->getPrefix() == "/shop") {
             Request::session()->flush();
-            return redirect("vendor/login");
+            return redirect("shop/login");
         }
     }
 }

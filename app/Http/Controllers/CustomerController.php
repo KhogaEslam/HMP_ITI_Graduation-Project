@@ -213,4 +213,15 @@ class CustomerController extends Controller
         return $trie->results($prefix, 20);
     }
 
+    public function showPopularCategories(){
+        $categories = DB::table("products")->select("category_id", DB::raw('SUM(sales_counter) as sales'))
+            ->groupBy('category_id')
+            ->orderBy('sales', 'DESC')
+            ->get();
+
+        return view("customer.popular_categories", [
+            "categories" => $categories
+        ]);
+    }
+
 }
