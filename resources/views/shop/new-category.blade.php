@@ -1,6 +1,6 @@
 @extends('layouts.vendor')
 @section('title')
-    Vendor Panel | Request New Category
+    Shop Panel | Request New Category
 @endsection
 @section('content')
     <div class="row">

@@ -69,11 +69,11 @@ class VendorController extends Controller
         $catRequest->name = $request->name;
         $catRequest->user()->associate(\Auth::user());
         $catRequest->save();
-        return redirect('/vendor');
+        return redirect('/shop');
     }
 
     /**
-     * Listing all the products inside certain category that belongs to the current vendor
+     * Listing all the products inside certain category that belongs to the current shop
      * @param Category $category
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

@@ -15,14 +15,14 @@ class Vendor
      */
     public function handle($request, Closure $next)
     {
-        if(\Auth::check() && \Auth::user()->hasRole("vendor")) {
+        if(\Auth::check() && \Auth::user()->hasRole("shop")) {
             return $next($request);
         }
         else if(\Auth::check()) {
             return response("You're not authorized", 403);
         }
         else {
-            return redirect("vendor/login");
+            return redirect("shop/login");
         }
     }
 }

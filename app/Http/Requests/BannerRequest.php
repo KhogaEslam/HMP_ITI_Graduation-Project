@@ -14,7 +14,7 @@ class BannerRequest extends FormRequest
      */
     public function authorize()
     {
-        return (\Auth::user()->hasRole("vendor"));
+        return (\Auth::user()->hasRole("shop"));
     }
 
     /**

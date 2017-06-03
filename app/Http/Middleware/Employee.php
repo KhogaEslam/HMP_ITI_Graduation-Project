@@ -15,14 +15,14 @@ class Employee
      */
     public function handle($request, Closure $next)
     {
-        if (\Auth::check() && (\Auth::user()->hasRole("vendor") || \Auth::user()->hasRole("employee"))) {
+        if (\Auth::check() && (\Auth::user()->hasRole("shop") || \Auth::user()->hasRole("employee"))) {
             return $next($request);
         }
         else if (\Auth::check()) {
-            return response("You're forbidden to handle vendor work", 403);
+            return response("You're forbidden to handle shop work", 403);
         }
         else {
-            return redirect("vendor/login");
+            return redirect("shop/login");
         }
     }
 }

@@ -35,7 +35,7 @@ Route::group(['prefix' => 'admin'], function(){
     Auth::routes();
 });
 
-Route::group(['prefix' => 'vendor'], function(){
+Route::group(['prefix' => 'shop'], function(){
     Auth::routes();
 });
 
@@ -65,27 +65,27 @@ Route::post('/admin/reregistration-requests/{regReq}/reject', 'AdminController@r
 //===============================    End Route  =================================================//
 
 
-//Entrust::routeNeedsRole("vendor/*", "vendor", Redirect::to("vendor/login"));
+//Entrust::routeNeedsRole("shop/*", "shop", Redirect::to("shop/login"));
 
-Route::get("vendor", "VendorController@index");
+Route::get("shop", "VendorController@index");
 
-Route::get("vendor/category/{category}/products", "VendorController@category");
+Route::get("shop/category/{category}/products", "VendorController@category");
 
-Route::get("vendor/category/{category}/new_product", "VendorController@showNewProductForm");
+Route::get("shop/category/{category}/new_product", "VendorController@showNewProductForm");
 
-Route::post("vendor/category/{category}/new_product", "VendorController@newProduct");
+Route::post("shop/category/{category}/new_product", "VendorController@newProduct");
 
-Route::get("vendor/category/{category}/product/{product}", "VendorController@productDetails");
+Route::get("shop/category/{category}/product/{product}", "VendorController@productDetails");
 
-Route::get("vendor/category/{category}/product/{product}/edit", "VendorController@showEditProductForm");
+Route::get("shop/category/{category}/product/{product}/edit", "VendorController@showEditProductForm");
 
-Route::post("vendor/category/{category}/product/{product}/edit", "VendorController@editProduct");
+Route::post("shop/category/{category}/product/{product}/edit", "VendorController@editProduct");
 
-Route::post("vendor/category/{category}/product/{product}/delete", "VendorController@deleteProduct");
+Route::post("shop/category/{category}/product/{product}/delete", "VendorController@deleteProduct");
 
-Route::post("vendor/category/{category}/product/{product}/publish", "VendorController@publishProduct");
+Route::post("shop/category/{category}/product/{product}/publish", "VendorController@publishProduct");
 
-Route::post("vendor/category/{category}/product/{product}/unpublish", "VendorController@unPublishProduct");
+Route::post("shop/category/{category}/product/{product}/unpublish", "VendorController@unPublishProduct");
 
 Route::get("customer", "CustomerController@index");
 
@@ -93,9 +93,9 @@ Route::get("category/{category}/products", "CustomerController@products");
 
 Route::get("category/{category}/products/{product}", "CustomerController@productDetails");
 
-Route::group(["prefix" => "vendor/employees", "middleware" => "vendor.auth"], function() {
+Route::group(["prefix" => "shop/employees", "middleware" => "vendor.auth"], function() {
 
-    Route::get("/", "VendorController@showEmployees");
+    Route::get("/", "vendorController@showEmployees");
 
     Route::get("new_employee", "VendorController@showNewEmployeeForm");
 
@@ -149,17 +149,17 @@ Route::post("customer/{product}/add_to_cart", "CustomerController@addToCart");
 Route::post("customer/{cart_detail}/edit_cart", "CustomerController@editCart");
 
 //add discount
-Route::get("vendor/product/{product}/discount", "VendorController@showDiscountProductForm");
+Route::get("shop/product/{product}/discount", "VendorController@showDiscountProductForm");
 
 Route::get("customer/cart", "CustomerController@viewCart");
 
-Route::post("vendor/product/{product}/add_discount", "VendorController@newDiscount");
+Route::post("shop/product/{product}/add_discount", "VendorController@newDiscount");
 
 //delete discount
-Route::get("vendor/product/{discount}/discount/delete", "VendorController@deleteDiscount");
+Route::get("shop/product/{discount}/discount/delete", "VendorController@deleteDiscount");
 
 //Featured Item Request
-Route::get("vendor/product/{product}/featuredItem", "VendorController@makeFeaturedItemRequest");
+Route::get("shop/product/{product}/featuredItem", "VendorController@makeFeaturedItemRequest");
 
 Route::post("customer/cart/{cart_detail}/delete", "CustomerController@deleteProductFromCart");
 
@@ -177,9 +177,9 @@ Route::post("admin/featured_request/{featured_request}/accept", "AdminController
 
 Route::post("admin/featured_request/{featured_request}/reject", "AdminController@rejectFeaturedRequest");
 
-Route::get("vendor/add_banner", "VendorController@showBannerRequestForm");
+Route::get("shop/add_banner", "VendorController@showBannerRequestForm");
 
-Route::post("vendor/add_banner", "VendorController@addBannerRequest");
+Route::post("shop/add_banner", "VendorController@addBannerRequest");
 
 <<<<<<< HEAD
 Route::get("customer/search", "CustomerController@search");
@@ -191,5 +191,5 @@ Route::post("admin/banner_request/{banner_request}/accept", "AdminController@acc
 
 Route::post("admin/banner_request/{banner_request}/reject", "AdminController@rejectBannerRequest");
 
-Route::get("customer/vendor/{vendor_id}", "CustomerController@index");
+Route::get("customer/shop/{vendor_id}", "CustomerController@index");
 >>>>>>> bd2f82061d6593015deaa5693132087cfd3491de
