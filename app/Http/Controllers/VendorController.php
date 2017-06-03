@@ -25,7 +25,6 @@ class VendorController extends Controller
 
     public function __construct()
     {
-        $this->middleware(["vendor.auth"])->only("showAddEmployeeForm", "addEmployee", "showEditEmployeeForm", "editEmployee", "deleteEmployee");
         $this->middleware(["employee.auth"]);
     }
 
@@ -38,6 +37,7 @@ class VendorController extends Controller
     public function index()
     {
         $categories = Category::paginate(9);
+        dd($categories);
         return view("shop.index", [
             "categories" => $categories
         ]);
@@ -390,7 +390,12 @@ class VendorController extends Controller
         ]);
     }
 
-    public function
+    public function mostProfitableProduct() {
+        $products = Product::topProfit()->paginate(20);
+        return view("shop.top_profit", [
+            "products" => $products
+        ]);
+    }
 
 }
 

@@ -99,7 +99,7 @@ Route::post("admin/featured_request/{featured_request}/reject", "AdminController
 //================================== Vendor Routes  ==================================================//
 
     //=====================   Home =====================//
-Route::get("vendor", "VendorController@index");
+Route::get("vendor/", "VendorController@index");
 
     //==================== Categories ==================//
 Route::get('vendor/category/new' , 'VendorController@newCategory');
