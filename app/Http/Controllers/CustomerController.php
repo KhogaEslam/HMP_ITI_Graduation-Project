@@ -104,7 +104,7 @@ class CustomerController extends Controller
         $cartDetail = new CartDetail;
 
         $quantity = $request->input("quantity");
-        $available = $cartDetail->product->quantity;
+        $available = $product->quantity;
 
         if($quantity <= $available) {
             $cartDetail->product()->associate($product);

@@ -26,7 +26,7 @@
                     @endif
                 </div>
                 <div class="col-md-1" style="padding-top: 80px;">
-                    {!! Form::model($cartDetail, ["action", "CustomerController@editCart", $cartDetail]) !!}
+                    {!! Form::model($cartDetail, ["action" => ["CustomerController@editCart", $cartDetail]]) !!}
                         <div class="form-group">
                             {!! Form::label("Quantity") !!}
                             {!! Form::text("quantity", null, ["class" => "form-control"]) !!}
