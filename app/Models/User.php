@@ -77,4 +77,9 @@ class User extends Authenticatable //Entrust configuration needs User model to e
 //    {
 //        return $this->morphMany('App\BannerRequest', 'connected');
 //    }
+
+    public function comments()
+    {
+        return $this->hasMany(\Laravelista\Comments\Comments\Comment::class);
+    }
 }

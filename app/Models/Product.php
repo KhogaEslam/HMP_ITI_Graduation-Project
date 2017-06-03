@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravelista\Comments\Comments\Traits\Comments;
 
 class Product extends Model
 {
+    use Comments;
+
     protected $fillable = [
         "name",
         "description",
@@ -63,7 +66,7 @@ class Product extends Model
 
     public function ratings()
     {
-        return $this->hasMany("\App\Rating");
+        return $this->hasMany("\App\ProductRate");
     }
 
     public function carts() {

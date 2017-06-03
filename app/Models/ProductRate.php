@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Rating extends Model
+class ProductRate extends Model
 {
     protected  $fillable = [
         'user_id',
