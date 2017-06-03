@@ -7,6 +7,10 @@
     "require": {
         "php": ">=5.6.4",
         "Zizaco/entrust": "^1.8",
+<<<<<<< HEAD
+        "actuallymab/laravel-comment": "^0.3.0",
+=======
+>>>>>>> 6aa0deff722fa5d8d8b067ffbb7923d7c7fcece1
         "anouar/paypalpayment": "~2.0",
         "doctrine/dbal": "^2.5",
         "laravel/framework": "5.4.*",
@@ -14,9 +18,11 @@
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4",
         "omnipay/paypal": "~2.0",
-        "laravelista/comments": "^1.1",
-        "paypal/rest-api-sdk-php": "^1.11",
-        "anouar/paypalpayment": "~2.0",
+<<<<<<< HEAD
+        "laravelista/comments": "^1.1"
+=======
+        "paypal/rest-api-sdk-php": "^1.11"
+>>>>>>> 6aa0deff722fa5d8d8b067ffbb7923d7c7fcece1
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.3",

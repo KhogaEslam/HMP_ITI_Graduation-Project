@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Africa/Cairo',
 
     /*
     |--------------------------------------------------------------------------
@@ -184,6 +184,7 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Anouar\Paypalpayment\PaypalpaymentServiceProvider::class,
+        Laravelista\Comments\Providers\CommentsServiceProvider::class,
     ],
 
     /*
