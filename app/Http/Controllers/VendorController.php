@@ -384,11 +384,13 @@ class VendorController extends Controller
     }
 
     public function mostSoldProducts() {
-        $products = Product::top()->sale()->paginate(20);
-        return view("shop.top_sale.php", [
+        $products = Product::topSale()->paginate(20);
+        return view("shop.top_sale", [
             "products" => $products,
         ]);
     }
+
+    public function
 
 }
 

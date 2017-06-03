@@ -138,6 +138,11 @@ Route::group(["prefix" => "vendor/employees", "middleware" => "vendor.auth"], fu
     Route::post("{employee}/delete_employee", "VendorController@deleteEmployee");
 });
 
+    //====================  Statistics  ===================//
+Route::group(["prefix" => "vendor/statistics", "middleware" => "vendor.auth"], function() {
+    Route::get("top_sale", "VendorController@mostSoldProducts");
+});
+
 
 //================================= End Vendor Routes ========================================================//
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ActiveBanner;
 use App\CartDetail;
 use App\ProductImage;
+use App\Rating;
 use App\WishList;
 use App\FeaturedProduct;
 use Illuminate\Database\Eloquent\Collection;
@@ -82,6 +83,18 @@ class CustomerController extends Controller
             "inCart" => $inCart,
             "isWish" =>$isWish
         ]);
+    }
+
+    public function submitRating(Request $request , Product $product){
+        $rating = new Rating();
+        $rating->product()->associate($product);
+        $rating->user()->associate(\Auth::user());
+        $rating->rate = $request->star;
+        $rating->save();
+        $rating->product->avg_rate = $rating->product()->avg('rate');
+        $rating->product->save();
+        $rating->user->save();
+        return back();
     }
 
     public function addToCart(CartRequest $request, Product $product) {
