@@ -15,6 +15,7 @@ use App\Product;
 use App\Category;
 use \App\Http\Requests\CartRequest;
 use App\Helpers\Trie;
+use DB;
 
 class CustomerController extends Controller
 {
@@ -205,6 +206,17 @@ class CustomerController extends Controller
         $trie = Trie::getInstance();
         $prefix = $request->input("prefix");
         return $trie->results($prefix, 20);
+    }
+
+    public function showPopularCategories(){
+        $categories = DB::table("products")->select("category_id", DB::raw('SUM(sales_counter) as sales'))
+            ->groupBy('category_id')
+            ->orderBy('sales', 'DESC')
+            ->get();
+
+        return view("customer.popular_categories", [
+            "categories" => $categories
+        ]);
     }
 
 }

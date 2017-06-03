@@ -19,7 +19,7 @@
 
 @role("customer")
     <div class="stars">
-        <form action="{{action("CustomerController@submitRating")}}>
+        <form action="/customer/{{$product->id}}/rating/add">
             <input class="star star-5" id="star-5" type="radio" name="star"/>
             <label class="star star-5" for="star-5"></label>
             <input class="star star-4" id="star-4" type="radio" name="star"/>
