@@ -78,7 +78,7 @@ Route::get('/admin/users/new-admin','AdminController@newAdminUser');
 Route::post('/admin/users/create-admin', 'AdminController@createAdminUser');
 
     //=====================   Banner Requests  =========================//
-Route::get("admin/banner_requests", "AdminController@viewBannerRequests")
+Route::get("admin/banner_requests", "AdminController@viewBannerRequests");
 Route::post("admin/banner_request/{banner_request}/accept", "AdminController@acceptBannerRequest");
 Route::post("admin/banner_request/{banner_request}/reject", "AdminController@rejectBannerRequest");
 
@@ -165,6 +165,9 @@ Route::post("customer/cart/{cart_detail}/delete", "CustomerController@deleteProd
 Route::get("customer/wishlist/show", "CustomerController@showWishList");
 Route::get("customer/{product}/wishlist/add", "CustomerController@addToWishList");
 Route::get("customer/{item}/wishlist/delete", "CustomerController@deleteFromWishList");
+
+    //===================  Rating =======================//
+Route::post('customer/{product}/rating/add','CustomerController@submitRating');
 
     //==================== Search ======================//
 Route::get("customer/search", "CustomerController@search");

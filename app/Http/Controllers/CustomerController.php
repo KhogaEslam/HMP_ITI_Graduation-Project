@@ -84,6 +84,7 @@ class CustomerController extends Controller
             "isWish" =>$isWish
         ]);
     }
+
     public function submitRating(Request $request , Product $product){
         $rating = new Rating();
         $rating->product()->associate($product);
@@ -93,6 +94,7 @@ class CustomerController extends Controller
         $rating->product->avg_rate = $rating->product()->avg('rate');
         $rating->product->save();
         $rating->user->save();
+        return back();
     }
 
     public function addToCart(CartRequest $request, Product $product) {
