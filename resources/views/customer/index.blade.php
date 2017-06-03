@@ -76,12 +76,12 @@
                             <span class="price">{{$newProduct->price}} LE</span>
                             <div class="star-rating-container aggregate">
                                 <div class="star-rating" title="Rated <?= $newProduct->avg_rate ?> out of 5">
-                                    <?php for ($i=0; $i< $newProduct->avg_rate ; $i++ ): ?>
+                                    @for ($i=0; $i< $newProduct->avg_rate ; $i++ )
                                     <span class="star filled"> </span>
-                                    <?php endfor; ?>
-                                    <?php  for ($i= $newProduct->avg_rate; $i < 5; $i++): ?>
+                                    @endfor
+                                    @for ($i= $newProduct->avg_rate; $i < 5; $i++)
                                     <span class="star"> </span>
-                                    <?php endfor; ?>
+                                    @endfor
                                 </div>
                             </div>
                             <button class="myButton add">Add To Cart</button>
@@ -121,13 +121,13 @@
                         <div class="caption">
                             <span class="price">{{$bestSelling->price}} LE</span>
                             <div class="star-rating-container aggregate">
-                                <div class="star-rating" title="Rated <?= $bestSelling->avg_rate ?> out of 5">
-                                    <?php for ($i=0; $i< $bestSelling->avg_rate ; $i++ ): ?>
-                                    <span class="star filled"> </span>
-                                    <?php endfor; ?>
-                                    <?php  for ($i= $bestSelling->avg_rate; $i < 5; $i++): ?>
-                                    <span class="star"> </span>
-                                    <?php endfor; ?>
+                                <div class="star-rating" title="Rated {{ $bestSelling->avg_rate }} out of 5">
+                                    @for ($i=0; $i< $bestSelling->avg_rate ; $i++ )
+                                        <span class="star filled"> </span>
+                                    @endfor
+                                    @for ($i= $bestSelling->avg_rate; $i < 5; $i++)
+                                        <span class="star"> </span>
+                                    @endfor
                                 </div>
                             </div>
                             <button class="myButton add">Add To Cart</button>
@@ -161,13 +161,13 @@
                                 </a>
                                 <span class="price">{{$featuredProduct->product->price}} LE</span>
                                 <div class="star-rating-container aggregate">
-                                    <div class="star-rating" title="Rated <?= $featuredProduct->product->avg_rate ?> out of 5">
-                                        <?php for ($i=0; $featuredProduct->product->avg_rate ; $i++ ): ?>
-                                        <span class="star filled"> </span>
-                                        <?php endfor; ?>
-                                        <?php  for ($i= $featuredProduct->product->avg_rate; $i < 5; $i++): ?>
-                                        <span class="star"> </span>
-                                        <?php endfor; ?>
+                                    <div class="star-rating" title="Rated {{$featuredProduct->product->avg_rate }} out of 5">
+                                        @for ($i=0; $featuredProduct->product->avg_rate ; $i++ )
+                                            <span class="star filled"> </span>
+                                        @endfor
+                                        @for ($i= $featuredProduct->product->avg_rate; $i < 5; $i++)
+                                            <span class="star"> </span>
+                                        @endfor
                                     </div>
                                 </div>
                                 <button class="myButton add">Add To Cart</button>
