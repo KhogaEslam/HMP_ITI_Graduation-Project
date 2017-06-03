@@ -127,7 +127,7 @@ class AdminController extends Controller
 
     /**
      * viewALlRegRequests
-     * The function is used to view all vendor registeration requests
+     * The function is used to view all shop registeration requests
      * @author Mohamed Magdy
      * @param Request $request , RegistrationRequest $regReq
      * @return  \Illuminate\Http\RedirectResponse
@@ -141,7 +141,7 @@ class AdminController extends Controller
 
     /**
      * acceptRegRequest
-     * The function is used to accept specific vendor registeration request
+     * The function is used to accept specific shop registeration request
      * @author Mohamed Magdy
      * @param Request $request
      * @param
@@ -160,7 +160,7 @@ class AdminController extends Controller
 
     /**
      * rejectRegRequest
-     * The function is used to reject specific vendor registeration request
+     * The function is used to reject specific shop registeration request
      * @author Mohamed Magdy
      * @param Request $request
      * @param RegistrationRequest $regReq
@@ -226,7 +226,7 @@ class AdminController extends Controller
         }
         else
         {
-            if($user->hasRole('employee') || $user->hasRole('vendor') || $user->hasRole('customer'))
+            if($user->hasRole('employee') || $user->hasRole('shop') || $user->hasRole('customer'))
             {
                 $user->userDetails->status = '1';
                 $user->userDetails->save();
@@ -246,7 +246,7 @@ class AdminController extends Controller
         }
         else
         {
-            if($user->hasRole('employee') || $user->hasRole('vendor') || $user->hasRole('customer'))
+            if($user->hasRole('employee') || $user->hasRole('shop') || $user->hasRole('customer'))
             {
                 $user->userDetails->status = '2';
                 $user->userDetails->save();
@@ -264,7 +264,7 @@ class AdminController extends Controller
                 $user->userDetails->status = '0';
                 $user->userDetails->save();
             } else {
-                if ($user->hasRole('employee') || $user->hasRole('vendor') || $user->hasRole('customer')) {
+                if ($user->hasRole('employee') || $user->hasRole('shop') || $user->hasRole('customer')) {
                     $user->userDetails->status = '0';
                     $user->userDetails->save();
                 }
@@ -325,7 +325,7 @@ class AdminController extends Controller
 
     /**
      * viewAllCatCreationRequests
-     * The function is used to view all vendor category creation requests
+     * The function is used to view all shop category creation requests
      * @author Mohamed Magdy
      * @return  \Illuminate\Http\RedirectResponse
      */
@@ -337,7 +337,7 @@ class AdminController extends Controller
 
     /**
      * acceptCatCreationRequest
-     * The function is used to accept specific vendor category creation request
+     * The function is used to accept specific shop category creation request
      * @author Mohamed Magdy
      * @param Request $request
      * @param CategoryCreationRequest $catReq
@@ -354,7 +354,7 @@ class AdminController extends Controller
 
     /**
      * rejectCatCreationRequest
-     * The function is used to reject specific vendor category creation request
+     * The function is used to reject specific shop category creation request
      * @author Mohamed Magdy
      * @param Request $request
      * @param CategoryCreationRequest $catReq

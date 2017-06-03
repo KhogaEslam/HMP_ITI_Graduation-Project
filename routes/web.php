@@ -25,7 +25,7 @@ Route::group(['prefix' => 'owner'], function(){
 Route::group(['prefix' => 'admin'], function(){
     Auth::routes();
 });
-Route::group(['prefix' => 'vendor'], function(){
+Route::group(['prefix' => 'shop'], function(){
     Auth::routes();
 });
 Route::group(['prefix' => 'customer'], function(){
@@ -69,33 +69,33 @@ Route::get("admin/featured_requests", "AdminController@viewFeaturedRequests");
 Route::post("admin/featured_request/{featured_request}/accept", "AdminController@acceptFeaturedRequest");
 Route::post("admin/featured_request/{featured_request}/reject", "AdminController@rejectFeaturedRequest");
 //===============================    End Admin Route  =================================================//
-//================================== Vendor Routes  ==================================================//
+//================================== Shop Routes  ==================================================//
 //=====================   Home =====================//
-Route::get("vendor", "VendorController@index");
+Route::get("shop", "VendorController@index");
 //==================== Categories ==================//
-Route::get('vendor/category/new' , 'VendorController@newCategory');
-Route::post('vender/category/request', 'VendorController@requestCategory');
+Route::get('shop/category/new' , 'VendorController@newCategory');
+Route::post('shop/category/request', 'VendorController@requestCategory');
 //====================   Products =====================//
-Route::get("vendor/category/{category}/products", "VendorController@category");
-Route::get("vendor/category/{category}/new_product", "VendorController@showNewProductForm");
-Route::post("vendor/category/{category}/new_product", "VendorController@newProduct");
-Route::get("vendor/category/{category}/product/{product}", "VendorController@productDetails");
-Route::get("vendor/category/{category}/product/{product}/edit", "VendorController@showEditProductForm");
-Route::post("vendor/category/{category}/product/{product}/edit", "VendorController@editProduct");
-Route::post("vendor/category/{category}/product/{product}/delete", "VendorController@deleteProduct");
-Route::post("vendor/category/{category}/product/{product}/publish", "VendorController@publishProduct");
-Route::post("vendor/category/{category}/product/{product}/unpublish", "VendorController@unPublishProduct");
+Route::get("shop/category/{category}/products", "VendorController@category");
+Route::get("shop/category/{category}/new_product", "VendorController@showNewProductForm");
+Route::post("shop/category/{category}/new_product", "VendorController@newProduct");
+Route::get("shop/category/{category}/product/{product}", "VendorController@productDetails");
+Route::get("shop/category/{category}/product/{product}/edit", "VendorController@showEditProductForm");
+Route::post("shop/category/{category}/product/{product}/edit", "VendorController@editProduct");
+Route::post("shop/category/{category}/product/{product}/delete", "VendorController@deleteProduct");
+Route::post("shop/category/{category}/product/{product}/publish", "VendorController@publishProduct");
+Route::post("shop/category/{category}/product/{product}/unpublish", "VendorController@unPublishProduct");
 //===================== Discounts ====================//
-Route::get("vendor/product/{product}/discount", "VendorController@showDiscountProductForm");
-Route::get("vendor/product/{discount}/discount/delete", "VendorController@deleteDiscount");
-Route::post("vendor/product/{product}/add_discount", "VendorController@newDiscount");
+Route::get("shop/product/{product}/discount", "VendorController@showDiscountProductForm");
+Route::get("shop/product/{discount}/discount/delete", "VendorController@deleteDiscount");
+Route::post("shop/product/{product}/add_discount", "VendorController@newDiscount");
 //================  Featured Item Requests ===========//
-Route::get("vendor/product/{product}/featuredItem", "VendorController@makeFeaturedItemRequest");
+Route::get("shop/product/{product}/featuredItem", "VendorController@makeFeaturedItemRequest");
 //======================   Banners ===================//
-Route::get("vendor/add_banner", "VendorController@showBannerRequestForm");
-Route::post("vendor/add_banner", "VendorController@addBannerRequest");
+Route::get("shop/add_banner", "VendorController@showBannerRequestForm");
+Route::post("shop/add_banner", "VendorController@addBannerRequest");
 //=====================   Employees ==================//
-Route::group(["prefix" => "vendor/employees", "middleware" => "vendor.auth"], function() {
+Route::group(["prefix" => "shop/employees", "middleware" => "vendor.auth"], function() {
     Route::get("/", "VendorController@showEmployees");
     Route::get("new_employee", "VendorController@showNewEmployeeForm");
     Route::post("new_employee", "VendorController@newEmployee");
@@ -107,7 +107,7 @@ Route::group(["prefix" => "vendor/employees", "middleware" => "vendor.auth"], fu
 //===================================== Customer Routes ======================================================//
 //====================  Home  ======================//
 Route::get("customer", "CustomerController@index");
-Route::get("customer/vendor/{vendor_id}", "CustomerController@index");
+Route::get("customer/shop/{vendor_id}", "CustomerController@index");
 //==================== Products ====================//
 Route::get("category/{category}/products", "CustomerController@products");
 Route::get("category/{category}/products/{product}", "CustomerController@productDetails");

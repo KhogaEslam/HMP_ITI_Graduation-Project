@@ -851,3 +851,24 @@ label.star:before {
     content: '\f006';
     font-family: FontAwesome;
 }
+
+.star-rating span.star {
+    font-family:FontAwesome;
+    font-weight:normal;
+    font-style:normal;
+    display:inline-block;
+}
+.star-rating span.star:hover {
+    cursor:pointer;
+}
+.star-rating span.star:before {
+    content:"\f006";
+    color:#999999;
+}
+.star-rating .star.filled:before {
+    content:"\f005";
+    color: yellow;
+}
+.star-rating-container.aggregate {
+    float: right;
+}

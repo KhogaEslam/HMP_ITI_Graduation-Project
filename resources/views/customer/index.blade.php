@@ -74,7 +74,16 @@
                                 <h4 class="myTitle">{{$newProduct->name}}</h4>
                             </a>
                             <span class="price">{{$newProduct->price}} LE</span>
-                            <img class="rate" src="images/stars.png">
+                            <div class="star-rating-container aggregate">
+                                <div class="star-rating" title="Rated <?= $newProduct->avg_rate ?> out of 5">
+                                    @for ($i=0; $i< $newProduct->avg_rate ; $i++ )
+                                    <span class="star filled"> </span>
+                                    @endfor
+                                    @for ($i= $newProduct->avg_rate; $i < 5; $i++)
+                                    <span class="star"> </span>
+                                    @endfor
+                                </div>
+                            </div>
                             <button class="myButton add">Add To Cart</button>
                         </div>
                     </div>
@@ -87,7 +96,7 @@
     @if($banner->type == 0)
         <a href="category/{{$category}}/products/{{$banner->connected_id}}"><img class="banner" src="{{route("banner", [$banner->image])}}"></a>
     @elseif($banner->type == 1)
-        <a href="customer/vendor/{{$banner->connected_id}}"><img class="banner" src="{{route("banner", [$banner->image])}}"></a>
+        <a href="customer/shop/{{$banner->connected_id}}"><img class="banner" src="{{route("banner", [$banner->image])}}"></a>
     @else
         <img class="banner" src="images/banner.jpg">
     @endif
@@ -111,7 +120,16 @@
                         @endif
                         <div class="caption">
                             <span class="price">{{$bestSelling->price}} LE</span>
-                            <img class="rate" src="images/stars.png">
+                            <div class="star-rating-container aggregate">
+                                <div class="star-rating" title="Rated {{ $bestSelling->avg_rate }} out of 5">
+                                    @for ($i=0; $i< $bestSelling->avg_rate ; $i++ )
+                                        <span class="star filled"> </span>
+                                    @endfor
+                                    @for ($i= $bestSelling->avg_rate; $i < 5; $i++)
+                                        <span class="star"> </span>
+                                    @endfor
+                                </div>
+                            </div>
                             <button class="myButton add">Add To Cart</button>
                         </div>
                     </div>
@@ -142,7 +160,16 @@
                                     <h4 class="myTitle">{{$featuredProduct->product->name}}</h4>
                                 </a>
                                 <span class="price">{{$featuredProduct->product->price}} LE</span>
-                                <img class="rate" src="images/stars.png">
+                                <div class="star-rating-container aggregate">
+                                    <div class="star-rating" title="Rated {{$featuredProduct->product->avg_rate }} out of 5">
+                                        @for ($i=0; $featuredProduct->product->avg_rate ; $i++ )
+                                            <span class="star filled"> </span>
+                                        @endfor
+                                        @for ($i= $featuredProduct->product->avg_rate; $i < 5; $i++)
+                                            <span class="star"> </span>
+                                        @endfor
+                                    </div>
+                                </div>
                                 <button class="myButton add">Add To Cart</button>
                             </div>
                         </div>
