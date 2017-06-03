@@ -11,21 +11,20 @@
 |
 */
 
-//Route::get('/', function () {
-//    return view('customer.index');
-//});
-Route::get('/', 'CustomerController@index');
+//============================= Main Home Routes ====================================//
 
+Route::get('/', 'CustomerController@index');
+Route::get('/home', 'HomeController@index')->name('home');
+
+//=============================   End main home routes ===============================//
+
+//====================== Registration and login with social media ====================//
 
 Route::get('mail', 'MailController@requestRegisterMail');
 Route::get('auth/facebook', 'FacebookController@redirectToProvider')
     ->name('facebook.login')
     ->prefix("customer");
 Route::get('auth/facebook/callback', 'FacebookController@handleProviderCallback');
-
-//Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'owner'], function(){
     Auth::routes();
@@ -43,13 +42,16 @@ Route::group(['prefix' => 'customer'], function(){
     Auth::routes();
 });
 
-//================================= Admin dashboard Routes =====================================//
+//=====================End Registration and login with social media ===================//
 
-//Entrust::routeNeedsRole("admin/*", "admin");
-//===================   Home     ======================//
+
+
+//================================= Admin Routes =====================================//
+
+    //===================   Home     ======================//
 Route::get('/admin', 'AdminController@index');
 
-//=================== Categories ======================//
+    //=================== Categories ======================//
 Route::get('/admin/categories', 'AdminController@listCategories');
 Route::get('/admin/categories/new', 'AdminController@newCategory');
 Route::post('/admin/categories/create', 'AdminController@createCategory');
@@ -57,17 +59,17 @@ Route::get('/admin/categories/{category}/edit', 'AdminController@editCategory');
 Route::post('/admin/categories/{category}/update', 'AdminController@updateCategory');
 Route::post('/admin/categories/{category}/delete', 'AdminController@deleteCategory');
 
-//============== Registration Requests ================//
+    //============== Registration Requests  ================//
 Route::get('/admin/registration-requests' , 'AdminController@viewAllRegRequests');
 Route::post('/admin/registration-requests/{regReq}/accept', 'AdminController@acceptRegRequest');
 Route::post('/admin/reregistration-requests/{regReq}/reject', 'AdminController@rejectRegRequest');
 
-//=============== Category creation requests ===============//
+    //=============== Category creation requests ===============//
 Route::get('/admin/category-requests', 'AdminController@viewAllCatCreationRequests');
 Route::post('/admin/category-requests/{catReq}/accept' , 'AdminController@acceptCatCreationRequest');
 Route::post('/admin/category-requests/{catReq}/reject',  'AdminController@rejectCatCreationRequest');
 
-//=====================    Users  ==========================//
+    //=====================    Users  ==========================//
 Route::get('/admin/users','AdminController@listUsers');
 Route::post('/admin/users/{user}/block', 'AdminController@blockUser');
 Route::post('/admin/users/{user}/suspend', 'AdminController@suspendUser');
@@ -75,139 +77,141 @@ Route::post('/admin/users/{user}/resume', 'AdminController@unsuspendUser');
 Route::get('/admin/users/new-admin','AdminController@newAdminUser');
 Route::post('/admin/users/create-admin', 'AdminController@createAdminUser');
 
+    //=====================   Banner Requests  =========================//
+Route::get("admin/banner_requests", "AdminController@viewBannerRequests");
+Route::post("admin/banner_request/{banner_request}/accept", "AdminController@acceptBannerRequest");
+Route::post("admin/banner_request/{banner_request}/reject", "AdminController@rejectBannerRequest");
+
+    //=====================       Offers       =========================//
+Route::get("admin/new_offer", "AdminController@showAddOfferForm");
+Route::post("admin/new_offer", "AdminController@addOffer");
+
+    //=====================     Featured Requests =======================//
+Route::get("admin/featured_requests", "AdminController@viewFeaturedRequests");
+Route::post("admin/featured_request/{featured_request}/accept", "AdminController@acceptFeaturedRequest");
+Route::post("admin/featured_request/{featured_request}/reject", "AdminController@rejectFeaturedRequest");
 
 
-//===============================    End Route  =================================================//
+//===============================    End Admin Route  =================================================//
 
 
-//Entrust::routeNeedsRole("vendor/*", "vendor", Redirect::to("vendor/login"));
 
+//================================== Vendor Routes  ==================================================//
+
+    //=====================   Home =====================//
 Route::get("vendor", "VendorController@index");
 
+    //==================== Categories ==================//
 Route::get('vendor/category/new' , 'VendorController@newCategory');
-
 Route::post('vender/category/request', 'VendorController@requestCategory');
 
+    //====================   Products =====================//
 Route::get("vendor/category/{category}/products", "VendorController@category");
-
 Route::get("vendor/category/{category}/new_product", "VendorController@showNewProductForm");
-
 Route::post("vendor/category/{category}/new_product", "VendorController@newProduct");
-
 Route::get("vendor/category/{category}/product/{product}", "VendorController@productDetails");
-
 Route::get("vendor/category/{category}/product/{product}/edit", "VendorController@showEditProductForm");
-
 Route::post("vendor/category/{category}/product/{product}/edit", "VendorController@editProduct");
-
 Route::post("vendor/category/{category}/product/{product}/delete", "VendorController@deleteProduct");
-
 Route::post("vendor/category/{category}/product/{product}/publish", "VendorController@publishProduct");
-
 Route::post("vendor/category/{category}/product/{product}/unpublish", "VendorController@unPublishProduct");
 
-Route::get("customer", "CustomerController@index");
+    //===================== Discounts ====================//
+Route::get("vendor/product/{product}/discount", "VendorController@showDiscountProductForm");
+Route::get("vendor/product/{discount}/discount/delete", "VendorController@deleteDiscount");
+Route::post("vendor/product/{product}/add_discount", "VendorController@newDiscount");
 
-Route::get("category/{category}/products", "CustomerController@products");
+    //================  Featured Item Requests ===========//
+Route::get("vendor/product/{product}/featuredItem", "VendorController@makeFeaturedItemRequest");
 
-Route::get("category/{category}/products/{product}", "CustomerController@productDetails");
+    //======================   Banners ===================//
+Route::get("vendor/add_banner", "VendorController@showBannerRequestForm");
+Route::post("vendor/add_banner", "VendorController@addBannerRequest");
 
+    //=====================   Employees ==================//
 Route::group(["prefix" => "vendor/employees", "middleware" => "vendor.auth"], function() {
-
     Route::get("/", "VendorController@showEmployees");
-
     Route::get("new_employee", "VendorController@showNewEmployeeForm");
-
     Route::post("new_employee", "VendorController@newEmployee");
-
     Route::get("{employee}/edit_employee", "VendorController@showEditEmployeeForm");
-
     Route::post("{employee}/edit_employee", "VendorController@editEmployee");
-
     Route::post("{employee}/delete_employee", "VendorController@deleteEmployee");
 });
 
-Route::get('images/{filename}', function($filename){
-    $path = resource_path() . '/img/' . $filename;
 
-    if(!File::exists($path)) {
-        return response()->json(['message' => 'Image not found.'], 404);
-    }
+//================================= End Vendor Routes ========================================================//
 
-    $file = File::get($path);
-    $type = File::mimeType($path);
 
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
 
-    return $response;
-})->name("image");
+//===================================== Customer Routes ======================================================//
 
-Route::get('banner/{filename}', function($filename){
-    $path = resource_path() . '/banner/' . $filename;
+    //====================  Home  ======================//
+Route::get("customer", "CustomerController@index");
+Route::get("customer/vendor/{vendor_id}", "CustomerController@index");
 
-    if(!File::exists($path)) {
-        return response()->json(['message' => 'Image not found.'], 404);
-    }
 
-    $file = File::get($path);
-    $type = File::mimeType($path);
+    //==================== Products ====================//
+Route::get("category/{category}/products", "CustomerController@products");
+Route::get("category/{category}/products/{product}", "CustomerController@productDetails");
 
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
-
-    return $response;
-})->name("banner");
-
-Route::get("admin/new_offer", "AdminController@showAddOfferForm");
-
-Route::post("admin/new_offer", "AdminController@addOffer");
-
+    //==================== Cart =========================//
 Route::post("customer/{product}/add_to_cart", "CustomerController@addToCart");
-
 Route::post("customer/{cart_detail}/edit_cart", "CustomerController@editCart");
-
-//add discount
-Route::get("vendor/product/{product}/discount", "VendorController@showDiscountProductForm");
-
 Route::get("customer/cart", "CustomerController@viewCart");
-
-Route::post("vendor/product/{product}/add_discount", "VendorController@newDiscount");
-
-//delete discount
-Route::get("vendor/product/{discount}/discount/delete", "VendorController@deleteDiscount");
-
-//Featured Item Request
-Route::get("vendor/product/{product}/featuredItem", "VendorController@makeFeaturedItemRequest");
-
 Route::post("customer/cart/{cart_detail}/delete", "CustomerController@deleteProductFromCart");
 
 
-//WishList
+    //=================== WishList ======================//
 Route::get("customer/wishlist/show", "CustomerController@showWishList");
-
 Route::get("customer/{product}/wishlist/add", "CustomerController@addToWishList");
-
 Route::get("customer/{item}/wishlist/delete", "CustomerController@deleteFromWishList");
 
-Route::get("admin/featured_requests", "AdminController@viewFeaturedRequests");
+    //===================  Rating =======================//
+Route::post('customer/{product}/rating/add','CustomerController@submitRating');
 
-Route::post("admin/featured_request/{featured_request}/accept", "AdminController@acceptFeaturedRequest");
-
-Route::post("admin/featured_request/{featured_request}/reject", "AdminController@rejectFeaturedRequest");
-
-Route::get("vendor/add_banner", "VendorController@showBannerRequestForm");
-
-Route::post("vendor/add_banner", "VendorController@addBannerRequest");
+    //==================== Search ======================//
+Route::get("customer/search", "CustomerController@search");
 
 
-Route::get("admin/banner_requests", "AdminController@viewBannerRequests");
 
-Route::post("admin/banner_request/{banner_request}/accept", "AdminController@acceptBannerRequest");
+//=================================== End Customer Routes =======================================================//
 
-Route::post("admin/banner_request/{banner_request}/reject", "AdminController@rejectBannerRequest");
 
-Route::get("customer/vendor/{vendor_id}", "CustomerController@index");
 
-//PayPal
+//===================================    Files Routes  ===========================================================//
+
+    //================= product images ==================//
+Route::get('images/{filename}', function($filename){
+    $path = resource_path() . '/img/' . $filename;
+    if(!File::exists($path)) {
+        return response()->json(['message' => 'Image not found.'], 404);
+    }
+    $file = File::get($path);
+    $type = File::mimeType($path);
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+    return $response;
+})->name("image");
+
+    //================= Banner files ====================//
+Route::get('banner/{filename}', function($filename){
+    $path = resource_path() . '/banner/' . $filename;
+    if(!File::exists($path)) {
+        return response()->json(['message' => 'Image not found.'], 404);
+    }
+    $file = File::get($path);
+    $type = File::mimeType($path);
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+    return $response;
+})->name("banner");
+
+
+//===================================  End files Routes ==============================================================//
+
+
+//=====================================    Paypal ===================================================================//
+
 Route::resource("payment","PaymentController");
+
+//=====================================   End Paypal Routes ========================================================///

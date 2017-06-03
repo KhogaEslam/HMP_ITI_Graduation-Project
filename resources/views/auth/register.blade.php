@@ -30,7 +30,7 @@
             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                 <label for="email">E-Mail Address</label>
 
-                <div>
+                    <div>
                     <input id="email" type="email" class="center-block sign" name="email" value="{{ old('email') }}"
                            required>
 
