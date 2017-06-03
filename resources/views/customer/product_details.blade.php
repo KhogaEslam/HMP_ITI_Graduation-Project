@@ -1,6 +1,6 @@
 @extends('layouts.customer')
 @section('title')
-    Products
+    Product
 @endsection
 @section('content')
 <p>Product name: {{$product->name}}</p>
