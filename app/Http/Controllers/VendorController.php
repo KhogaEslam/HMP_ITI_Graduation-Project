@@ -164,6 +164,7 @@ class VendorController extends Controller
     {
         if($product->user->id == \Auth::user()->id) {
             $upload_to = resource_path("img");
+            Trie::getInstance()->deleteProduct($product->name);
             $product->update($request->all());
             Trie::getInstance()->addProduct($product->name);
             $files = $request->images;
@@ -380,6 +381,13 @@ class VendorController extends Controller
         }
         $banner->save();
         return redirect(action("VendorController@index"));
+    }
+
+    public function mostSoldProducts() {
+        $products = Product::top()->sale()->paginate(20);
+        return view("shop.top_sale.php", [
+            "products" => $products,
+        ]);
     }
 
 }
