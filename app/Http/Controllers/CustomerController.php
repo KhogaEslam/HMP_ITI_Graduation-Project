@@ -224,4 +224,10 @@ class CustomerController extends Controller
         ]);
     }
 
+    public function showAbout(){
+        return view("customer.about", [
+            "categories" => Category::all(),
+        ]);
+    }
+
 }
