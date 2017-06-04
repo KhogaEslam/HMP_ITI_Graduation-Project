@@ -2,14 +2,15 @@
 <html>
 <head>
 
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.css')}}"/>
-    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('css/home.css')}}"/>
-    <link rel="stylesheet" href="{{ asset("css/search.css") }}" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/icon.min.css" rel="stylesheet">
     <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/comment.min.css" rel="stylesheet">
     <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/form.min.css" rel="stylesheet">
     <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/button.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.css')}}"/>
+    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/home.css')}}"/>
+    <link rel="stylesheet" href="{{ asset("css/search.css") }}" />
     <link rel="stylesheet" href="{{ asset("css/like_and_comment.css") }}" />
 
 
