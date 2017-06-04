@@ -38,6 +38,7 @@
             </form>
         </div>
     @endif
+
     @if(\Auth::user()->cart->cartDetails()->quantity($product->id)->get()->isEmpty())
         {{--{!! Form::open(["action" => ["CustomerController@addToCart", $product]]) !!}--}}
         {{--<div class="form-group">--}}

@@ -11,7 +11,7 @@
             <table class="table table-striped">
                 <thead>
                 <th>
-                    Vendor Name
+                    Shop Name
                 </th>
                 <th>
                     Category Name

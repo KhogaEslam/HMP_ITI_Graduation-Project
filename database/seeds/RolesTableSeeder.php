@@ -14,7 +14,7 @@ class RolesTableSeeder extends Seeder
         $roles = [
             ['name' => 'owner', 'display_name' => 'Site Owner', 'description' => 'The Site Owner'],
             ['name' => 'admin', 'display_name' => 'Site Administrator', 'description' => 'The Site Administrator'],
-            ['name' => 'vendor', 'display_name' => 'Shop Owner', 'description' => 'The Shop Owner'],
+            ['name' => 'shop', 'display_name' => 'Shop Owner', 'description' => 'The Shop Owner'],
             ['name' => 'employee', 'display_name' => 'Employee', 'description' => 'Managing products'],
             ['name' => 'customer', 'display_name' => 'Site Customer', 'description' => 'The site Customer'],
         ];

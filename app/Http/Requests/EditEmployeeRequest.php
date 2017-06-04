@@ -13,7 +13,7 @@ class EditEmployeeRequest extends FormRequest
      */
     public function authorize()
     {
-        return \Auth::check() && (\Auth::user()->hasRole("vendor") || \Auth::user()->hasRole("employee"));
+        return \Auth::check() && (\Auth::user()->hasRole("shop") || \Auth::user()->hasRole("employee"));
     }
 
     /**
