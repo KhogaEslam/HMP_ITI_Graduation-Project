@@ -82,4 +82,22 @@ class User extends Authenticatable //Entrust configuration needs User model to e
     {
         return $this->hasMany(\Laravelista\Comments\Comments\Comment::class);
     }
+
+    /**
+     * Return the user attributes.
+
+     * @return array
+     */
+    public static function getAuthor($id)
+    {
+        $user = self::find($id);
+        return [
+            'id'     => $user->id,
+            'name'   => $user->name,
+            'email'  => $user->email,
+            'url'    => '',  // Optional
+            'avatar' => 'gravatar',  // Default avatar
+            'admin'  => $user->role === 'admin', // bool
+        ];
+    }
 }

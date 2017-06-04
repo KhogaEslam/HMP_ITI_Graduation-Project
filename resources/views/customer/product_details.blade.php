@@ -110,9 +110,9 @@
 @if(\Auth::user() && !isset($isWish))
     <p><a href="{{action("CustomerController@addToWishList", [$product])}}" class="btn btn-success btn-group-lg">Add to My Wishlist</a></p>
 @endif
+
 @endrole
-@include('comments::comments-react', [
-'content_type' => App\Product::class,
-'content_id' => $product->id
-])
+
+@include('laravelLikeComment::like', ['like_item_id' => $product->id])
+@include('laravelLikeComment::comment', ['comment_item_id' => $product->id])
 @endsection

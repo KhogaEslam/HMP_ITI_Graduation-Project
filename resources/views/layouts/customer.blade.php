@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{ asset('css/home.css')}}"/>
     <link rel="stylesheet" href="{{ asset("css/search.css") }}" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/icon.min.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/comment.min.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/form.min.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/button.min.css" rel="stylesheet">
+    <link href="{{ asset('/vendor/laravelLikeComment/css/style.css') }}" rel="stylesheet">
 
     <title> @yield('title')</title>
 </head>
@@ -199,6 +204,7 @@ pull-right"></span></a></li>
 <script src="{{ asset('js/bootstrap.js')}}"></script>
 <script src="{{ asset('js/slider.js')}}"></script>
 <script src="{{ asset('js/search.js') }}"></script>
+<script src="{{ asset('/vendor/laravelLikeComment/js/script.js') }}" type="text/javascript"></script>
 
 </body>
 </html>
