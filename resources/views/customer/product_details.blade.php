@@ -22,12 +22,21 @@
                 </div>
             </div>
             <div class="col-md-4 col-sm-12">
-                <h2>{{$product->name}}</h2>
+                <h3>{{$product->name}}</h3>
+                <div class=" star-rating-container aggregate">
+                    <div class="rate2 star-rating" title="Rated {{ $product->avg_rate }} out of 5">
+                        @for ($i=0; $i< $product->avg_rate ; $i++ )
+                            <span class="star filled"> </span>
+                        @endfor
+                        @for ($i= $product->avg_rate; $i < 5; $i++)
+                            <span class="star"> </span>
+                        @endfor
+                    </div>
+                </div>
                 <p>
 
                     @if($product->discount + $product->offer > 0)
-                        <span class="item_price">{{$product->price - $product->discount / 100.0 * $product->price -  $product->offer / 100.0 * $product->price}}
-                            $ &nbsp;&nbsp;</span>
+                        <span class="item_price">{{$product->price - $product->discount / 100.0 * $product->price -  $product->offer / 100.0 * $product->price}}$ &nbsp;&nbsp;</span>
                         <del>{{$product->price}} $</del>
                     @else
                         <span class="item_price">{{$product->price}} $ &nbsp;&nbsp;</span>
@@ -37,6 +46,7 @@
                 @role("customer")
                 @if($product->ratings->where('user_id','=' , \Auth::user()->id )->isEmpty())
                     <div class="stars">
+                        <h4>Rate this product</h4>
                         <form method='post' action="{{action("CustomerController@submitRating", [$product])}}">
                             {!! csrf_field() !!}
                             <div>
@@ -56,17 +66,6 @@
                             </div>
                         </form>
                     </div>
-                @else
-                    <div class="star-rating-container aggregate">
-                        <div class="star-rating" title="Rated {{ $product->avg_rate }} out of 5">
-                            @for ($i=0; $i< $product->avg_rate ; $i++ )
-                                <span class="star filled"> </span>
-                            @endfor
-                            @for ($i= $product->avg_rate; $i < 5; $i++)
-                                <span class="star"> </span>
-                            @endfor
-                        </div>
-                    </div>
                 @endif
                 @endrole
 
@@ -76,6 +75,7 @@
                     <h4>Description</h4>
                     <p>{{$product->description}}</p>
                 </div>
+
                 @role("customer")
 
                 @if(\Auth::user() && !isset($isWish))
@@ -186,10 +186,6 @@
         </div>
     </div>
 
-
-
-    @include('comments::comments-react', [
-    'content_type' => App\Product::class,
-    'content_id' => $product->id
-    ])
+@include('laravelLikeComment::like', ['like_item_id' => $product->id])
+@include('laravelLikeComment::comment', ['comment_item_id' => $product->id])
 @endsection
