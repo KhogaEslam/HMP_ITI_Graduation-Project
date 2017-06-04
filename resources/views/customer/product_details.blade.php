@@ -18,10 +18,11 @@
 <p>Category: {{$category->name}}</p>
 
 @role("customer")
-    @if(emptyArray($product->ratings->where('user_id','=' , \Auth::user()->id )))
+    @if($product->ratings->where('user_id','=' , \Auth::user()->id )->isEmpty())
         <div class="stars">
             <form method='post' action="{{action("CustomerController@submitRating", [$product])}}">
                 {!! csrf_field() !!}
+                <div>
                 <input class="star star-5" id="star-5" value ="5" type="radio" name="star"/>
                 <label class="star star-5" for="star-5"></label>
                 <input class="star star-4"  value="4" id="star-4" type="radio" name="star"/>
@@ -32,6 +33,7 @@
                 <label class="star star-2" for="star-2"></label>
                 <input class="star star-1" value="1" id="star-1" type="radio" name="star"/>
                 <label class="star star-1" for="star-1"></label>
+                </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary"> Submit rating </button>
                 </div>
@@ -60,7 +62,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             {!! Form::label("Quantity") !!}
-                            {!! Form::number("quantity", null, ["class" => "form-control"]) !!}
+                            {!! Form::number("quantity", null, ["class" => "form-control" , "min" => 1 , "max" => $product->quantity]) !!}
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -93,7 +95,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             {!! Form::label("Quantity") !!}
-                            {!! Form::number("quantity", \Auth::user()->cart->cartDetails()->quantity($product->id)->first()->quantity, ["class" => "form-control"]) !!}
+                            {!! Form::number("quantity", \Auth::user()->cart->cartDetails()->quantity($product->id)->first()->quantity, ["class" => "form-control",  "min" => 1 , "max" => $product->quantity]) !!}
                         </div>
                     </div>
                     <div class="modal-footer">
