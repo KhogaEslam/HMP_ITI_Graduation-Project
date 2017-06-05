@@ -1,0 +1,17 @@
+.laravelLike-icon{
+    cursor: pointer;
+}
+.laravelLike-icon.up{
+    color: #27ae61;
+}
+.laravelLike-icon.down{
+    color: #c0392b;
+    padding-left: 10px;
+}
+.comment{
+    display: none;
+}
+
+.ui.basic.button, .ui.basic.buttons .button{
+
+}

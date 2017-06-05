@@ -71,6 +71,7 @@ Route::post("admin/featured_request/{featured_request}/reject", "AdminController
 //=====================     Statistics      =========================//
 Route::get("admin/statistics/top_rated", "AdminController@topRatedProducts");
 Route::get("admin/statistics/top_sale", "AdminController@topSellingProducts");
+Route::get("admin/statistics/top_categories", "AdminController@topCategories");
 //===============================    End Admin Route  =================================================//
 //================================== Shop Routes  ==================================================//
 //=====================   Home =====================//
@@ -111,6 +112,7 @@ Route::group(["prefix" => "shop/employees", "middleware" => "vendor.auth"], func
 Route::group(["prefix" => "shop/statistics", "middleware" => "vendor.auth"], function() {
     Route::get("top_sale", "VendorController@mostSoldProducts");
     Route::get("top_categories", "VendorController@mostProfitableCategories");
+    Route::get("top_profit", "VendorController@mostProfitableProducts");
 });
 
 //================================= Shop details =================================//

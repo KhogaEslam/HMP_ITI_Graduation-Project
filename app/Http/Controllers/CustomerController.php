@@ -104,7 +104,7 @@ class CustomerController extends Controller
         $cartDetail = new CartDetail;
 
         $quantity = $request->input("quantity");
-        $available = $cartDetail->product->quantity;
+        $available = $product->quantity;
 
         if($quantity <= $available) {
             $cartDetail->product()->associate($product);
@@ -142,7 +142,7 @@ class CustomerController extends Controller
         $inCart = 0;
 
         foreach($cartDetails as $cartDetail) {
-            $total += ($cartDetail->product->price - $cartDetail->product->offer / 100.0 * $cartDetail->product->price - $cartDetail->product->discount / 100.0 * $cartDetail->product->price) * $cartDetail->quantity;
+            $total += ($cartDetail->product->price - $cartDetail->product->discount / 100.0 * $cartDetail->product->price) * $cartDetail->quantity;
         }
 
         if (\Auth::check()) {

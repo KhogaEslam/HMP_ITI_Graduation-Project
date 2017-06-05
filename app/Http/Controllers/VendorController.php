@@ -387,15 +387,23 @@ class VendorController extends Controller
 
     public function mostSoldProducts() {
         $products = Product::owned()->topSale()->paginate(20);
+        $total = Product::owned()->sum("sales_counter");
+        if($total == 0)
+            $total = 1;
         return view("shop.top_sale", [
             "products" => $products,
+            "total" => $total
         ]);
     }
 
     public function mostProfitableProducts() {
         $products = Product::owned()->topProfit()->paginate(20);
+        $total = Product::owned()->sum("revenue");
+        if($total == 0)
+            $total = 1;
         return view("shop.top_profit", [
-            "products" => $products
+            "products" => $products,
+            "total" => $total
         ]);
     }
 
@@ -406,8 +414,13 @@ class VendorController extends Controller
             ->orderBy("total_revenue", "desc")
             ->paginate(20);
 
+        $total = Product::owned()->sum('revenue');
+        if($total == 0)
+            $total = 1;
+
         return view("shop.top_categories", [
-            "products" => $products
+            "products" => $products,
+            "total" => $total
         ]);
     }
 

@@ -1,4 +1,4 @@
-{
+    {
     "name": "laravel/laravel",
     "description": "The Laravel Framework.",
     "keywords": ["framework", "laravel"],
@@ -15,7 +15,8 @@
         "laravelcollective/html": "^5.4",
         "omnipay/paypal": "~2.0",
         "laravelista/comments": "^1.1",
-        "paypal/rest-api-sdk-php": "^1.11"
+        "paypal/rest-api-sdk-php": "^1.11",
+        "risul/laravel-like-comment": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.3",

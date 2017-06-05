@@ -18,6 +18,7 @@ use App\Http\Controllers\MailController;
 use App\FeaturedItem;
 use App\User;
 use App\Product;
+use DB;
 
 class AdminController extends Controller
 {
@@ -402,6 +403,16 @@ class AdminController extends Controller
         $products = Product::orderBy("sales_counter", "desc")->paginate(20);
         return view("admin.top_sale", [
             "products" => $products
+        ]);
+    }
+
+    public function topCategories() {
+        $categories = Product::select("category_id", DB::raw('SUM(sales_counter) as sales'), DB::raw("sum(revenue) as revenue"))
+            ->groupBy('category_id')
+            ->orderBy('sales', 'DESC')
+            ->paginate(20);
+        return view("admin.top_categories", [
+            "categories" => $categories
         ]);
     }
 

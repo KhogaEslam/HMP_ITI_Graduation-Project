@@ -1,3 +1,9 @@
+//$('.carousel').carousel()
+//
+//$('.carousel').carousel({
+//  interval: 2000
+//})
+
 $( document ).ready(function() {
     $(".fav i").click(function(){
         $(this).toggleClass("fa-star-o");
