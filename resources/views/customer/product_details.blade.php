@@ -144,48 +144,6 @@
             </div>
         </div>
     </div>
-
-    {{--comments--}}
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-10 col-sm-offset-1">
-                <div class="page-header">
-                    <h3 class="reviews">Comments</h3></div>
-                <ul class="media-list">
-                    <li class="media">
-                        <a class="pull-left" href="#"> <img class="media-object img-circle"
-                                                            src="https://s3.amazonaws.com/uifaces/faces/twitter/dancounsell/128.jpg"
-                                                            alt="profile"> </a>
-                        <div class="media-body">
-                            <div class="well well-lg">
-                                <h4 class="media-heading text-uppercase reviews">Marco </h4>
-                                <ul class="media-date text-uppercase reviews list-inline">
-                                    <li class="dd">22</li>
-                                    <li class="mm">09</li>
-                                    <li class="aaaa">2014</li>
-                                </ul>
-                                <p class="media-comment"> Great snippet! Thanks for sharing. </p>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <form action="#" method="post" class="form-horizontal" id="commentForm" role="form">
-                    <div class="form-group">
-                        <label for="email" class="col-sm-2 control-label">Comment</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control" name="addComment" id="addComment" rows="5"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button class="myButton  text-uppercase" type="submit" id="submitComment">Comment</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-@include('laravelLikeComment::like', ['like_item_id' => $product->id])
+{{--@include('laravelLikeComment::like', ['like_item_id' => $product->id])--}}
 @include('laravelLikeComment::comment', ['comment_item_id' => $product->id])
 @endsection

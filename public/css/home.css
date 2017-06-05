@@ -177,7 +177,11 @@ ul.nav.navbar-nav.navbar-right > li:before {
     height: 50px;
     width: 150px;
     background-color: #62d5c8;
-    font-size: 18px;
+    font-size: 16px;
+}
+
+.myButton:hover {
+    background-color: #86dfd5;
 }
 
 .carousel slide {
@@ -903,7 +907,7 @@ label.star:before {
     width: 100%;
 }
 
-span.glyphicon.glyphicon-heart {
+.wishlist span.glyphicon.glyphicon-heart {
     color: red;
     font-size: 20px;
     padding: 0px 10px;
@@ -983,4 +987,104 @@ p.media-comment {
 
 .well-lg {
     padding: 10px 20px;
+}
+/*Cart page*/
+
+.cart {
+    background-color: #3f4140;
+    padding: 20px;
+}
+
+.cart h4,
+h5 {
+    color: white;
+    margin: 0px;
+}
+
+.cart h5 {
+    text-align: center;
+    padding: 10px;
+}
+
+.cart ul {
+    padding: 5px 10px;
+    margin-bottom: 20px;
+}
+
+.cart .myButton {
+    width: 230px;
+    margin-top: 45px;
+}
+
+.totalp {
+    float: right;
+}
+
+.totalp::before {
+    content: " ";
+    clear: both;
+}
+
+.paypalbutton {
+    background-color: white;
+    color: #2980B9;
+    border-radius: 2%;
+    cursor: pointer;
+    font-size: 15px;
+    padding: 15px 24px;
+    width: 230px;
+    border: 0px;
+}
+
+.pay {
+    width: 72px;
+    padding-left: 4px;
+}
+
+span.paypallogo {
+    display: inline-block;
+    width: 75px;
+    height: 40px;
+    background-position: 0 -27px;
+    position: relative;
+    left: 2px;
+}
+
+.allCart {
+    margin-top: 40px;
+}
+
+.remove {
+    background-color: #F7F7F7;
+    color: #3f4140;
+    padding: 0px;
+    width: 80px;
+    border: 1px solid #E5E5E5;
+    height: 30px;
+}
+
+.remove:hover {
+    background-color: white;
+}
+
+h4 a,
+h5 a {
+    color: #3f4140;
+}
+
+strong,
+h5.media-heading {
+    color: #3f4140;
+}
+
+.con {
+    border: solid 2px #62d5c8;
+    background-color: transparent;
+    width: 180px;
+    height: 50px;
+    border-radius: 0px;
+}
+
+.con:hover {
+    color: #62d5c8;
 }

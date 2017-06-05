@@ -146,6 +146,8 @@ Route::get("customer/{item}/wishlist/delete", "CustomerController@deleteFromWish
 Route::post('customer/{product}/rating/add','CustomerController@submitRating');
 //==================== Search ======================//
 Route::get("customer/search", "CustomerController@search");
+//==================== About ======================//
+Route::get("customer/about", "CustomerController@showAbout");
 //=================================== End Customer Routes =======================================================//
 //===================================    Files Routes  ===========================================================//
 //================= product images ==================//
