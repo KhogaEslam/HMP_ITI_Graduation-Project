@@ -68,46 +68,18 @@ Route::post("admin/new_offer", "AdminController@addOffer");
 Route::get("admin/featured_requests", "AdminController@viewFeaturedRequests");
 Route::post("admin/featured_request/{featured_request}/accept", "AdminController@acceptFeaturedRequest");
 Route::post("admin/featured_request/{featured_request}/reject", "AdminController@rejectFeaturedRequest");
-//===============================    End Admin Route  =================================================//
 <<<<<<< HEAD
-
-
-
-//================================== Vendor Routes  ==================================================//
-
-    //=====================   Home =====================//
-Route::get("vendor/", "VendorController@index");
-
-    //==================== Categories ==================//
-Route::get('vendor/category/new' , 'VendorController@newCategory');
-Route::post('vender/category/request', 'VendorController@requestCategory');
-
-    //====================   Products =====================//
-Route::get("vendor/category/{category}/products", "VendorController@category");
-Route::get("vendor/category/{category}/new_product", "VendorController@showNewProductForm");
-Route::post("vendor/category/{category}/new_product", "VendorController@newProduct");
-Route::get("vendor/category/{category}/product/{product}", "VendorController@productDetails");
-Route::get("vendor/category/{category}/product/{product}/edit", "VendorController@showEditProductForm");
-Route::post("vendor/category/{category}/product/{product}/edit", "VendorController@editProduct");
-Route::post("vendor/category/{category}/product/{product}/delete", "VendorController@deleteProduct");
-Route::post("vendor/category/{category}/product/{product}/publish", "VendorController@publishProduct");
-Route::post("vendor/category/{category}/product/{product}/unpublish", "VendorController@unPublishProduct");
-
-    //===================== Discounts ====================//
-Route::get("vendor/product/{product}/discount", "VendorController@showDiscountProductForm");
-Route::get("vendor/product/{discount}/discount/delete", "VendorController@deleteDiscount");
-Route::post("vendor/product/{product}/add_discount", "VendorController@newDiscount");
-
-    //================  Featured Item Requests ===========//
-Route::get("vendor/product/{product}/featuredItem", "VendorController@makeFeaturedItemRequest");
-
-    //======================   Banners ===================//
-Route::get("vendor/add_banner", "VendorController@showBannerRequestForm");
-Route::post("vendor/add_banner", "VendorController@addBannerRequest");
-
-    //=====================   Employees ==================//
-Route::group(["prefix" => "vendor/employees", "middleware" => "vendor.auth"], function() {
+//=====================     Statistics      =========================//
+Route::get("admin/statistics/top_rated", "AdminController@topRatedProducts");
+Route::get("admin/statistics/top_sale", "AdminController@topSellingProducts");
+Route::get("admin/statistics/top_categories", "AdminController@topCategories");
 =======
+//=====================       About       =========================//
+Route::get("admin/about/show", "AdminController@showAboutPage");
+Route::get("admin/about/edit", "AdminController@showEditAboutPage");
+Route::post("admin/about/edit", "AdminController@editAboutPage");
+>>>>>>> af981978a84ad03e38929a559992a8ef8c16925c
+//===============================    End Admin Route  =================================================//
 //================================== Shop Routes  ==================================================//
 //=====================   Home =====================//
 Route::get("shop", "VendorController@index");
@@ -135,7 +107,6 @@ Route::get("shop/add_banner", "VendorController@showBannerRequestForm");
 Route::post("shop/add_banner", "VendorController@addBannerRequest");
 //=====================   Employees ==================//
 Route::group(["prefix" => "shop/employees", "middleware" => "vendor.auth"], function() {
->>>>>>> 31a4b52097348aaffea8502c7bc076aaedc8f491
     Route::get("/", "VendorController@showEmployees");
     Route::get("new_employee", "VendorController@showNewEmployeeForm");
     Route::post("new_employee", "VendorController@newEmployee");
@@ -143,16 +114,28 @@ Route::group(["prefix" => "shop/employees", "middleware" => "vendor.auth"], func
     Route::post("{employee}/edit_employee", "VendorController@editEmployee");
     Route::post("{employee}/delete_employee", "VendorController@deleteEmployee");
 });
-<<<<<<< HEAD
 
     //====================  Statistics  ===================//
-Route::group(["prefix" => "vendor/statistics", "middleware" => "vendor.auth"], function() {
+Route::group(["prefix" => "shop/statistics", "middleware" => "vendor.auth"], function() {
     Route::get("top_sale", "VendorController@mostSoldProducts");
+    Route::get("top_categories", "VendorController@mostProfitableCategories");
+    Route::get("top_profit", "VendorController@mostProfitableProducts");
 });
 
-
-=======
->>>>>>> 31a4b52097348aaffea8502c7bc076aaedc8f491
+//================================= Shop details =================================//
+Route::get("shop/address/new", "VendorController@showNewAddressesForm");
+Route::get("shop/phone/new", "VendorController@showNewPhonesForm");
+Route::post("shop/address/new", "VendorController@newAddress");
+Route::post("shop/phone/new", "VendorController@newPhones");
+Route::post("shop/address/{address}/delete", "VendorController@deleteAddress");
+Route::post("shop/phone/{phone}/delete", "VendorController@deletePhone");
+Route::get("shop/phone", "VendorController@phones");
+Route::get("shop/address", "VendorController@addresses");
+// ============================== Checkout ==================================== //
+Route::get("shop/checkouts", "VendorController@viewCheckouts");
+Route::post("shop/update/{checkout}/checkout_status", "VendorController@updateCheckoutStatus");
+Route::get("customer/cart/track", "CustomerController@trackCheckout");
+Route::post("/customer/cart/{checkout}/checkout_status", "CustomerController@changeCheckoutStatus");
 //================================= End Vendor Routes ========================================================//
 //===================================== Customer Routes ======================================================//
 //====================  Home  ======================//
@@ -167,6 +150,7 @@ Route::post("customer/{product}/add_to_cart", "CustomerController@addToCart");
 Route::post("customer/{cart_detail}/edit_cart", "CustomerController@editCart");
 Route::get("customer/cart", "CustomerController@viewCart");
 Route::post("customer/cart/{cart_detail}/delete", "CustomerController@deleteProductFromCart");
+Route::post("customer/cart/checkout", "CustomerController@cashCheckout");
 //=================== WishList ======================//
 Route::get("customer/wishlist/show", "CustomerController@showWishList");
 Route::get("customer/{product}/wishlist/add", "CustomerController@addToWishList");
@@ -175,6 +159,8 @@ Route::get("customer/{item}/wishlist/delete", "CustomerController@deleteFromWish
 Route::post('customer/{product}/rating/add','CustomerController@submitRating');
 //==================== Search ======================//
 Route::get("customer/search", "CustomerController@search");
+//==================== About ======================//
+Route::get("customer/about", "CustomerController@showAbout");
 //=================================== End Customer Routes =======================================================//
 //===================================    Files Routes  ===========================================================//
 //================= product images ==================//
@@ -203,5 +189,6 @@ Route::get('banner/{filename}', function($filename){
 })->name("banner");
 //===================================  End files Routes ==============================================================//
 //=====================================    Paypal ===================================================================//
+//Route::post("payment/confirm","CustomerController@verifyPayPalPayment");
 Route::resource("payment","PaymentController");
 //=====================================   End Paypal Routes ========================================================///

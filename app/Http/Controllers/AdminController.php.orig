@@ -392,6 +392,7 @@ class AdminController extends Controller
         return back();
     }
 
+<<<<<<< HEAD
     public function topRatedProducts() {
         $products = Product::orderBy("avg_rate", "desc")->paginate(20);
         return view("admin.top_rated", [
@@ -414,8 +415,7 @@ class AdminController extends Controller
         return view("admin.top_categories", [
             "categories" => $categories
         ]);
-    }
-
+=======
 
     // ====================================== About ===================================//
 
@@ -431,6 +431,7 @@ class AdminController extends Controller
 
     public function editAboutPage(Request $request){
 
+>>>>>>> af981978a84ad03e38929a559992a8ef8c16925c
     }
 
 }
