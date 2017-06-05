@@ -30,33 +30,34 @@
                                 @endif
                                 <div class="media-body">
                                     <h4 class="media-heading"><a href="#"> {{$cartDetail->product->name}}</a></h4>
-                                    <h5 class="media-heading"> In <a href="#">{{$cartDetail->product->category->name}}</a></h5> <span>Status: </span><span class="text-success"><strong>In Stock</strong></span> </div>
+                                    <h5 class="media-heading"> In <a href="#">{{$cartDetail->product->category->name}}e</a></h5> <span>Status: </span><span class="text-success"><strong>In Stock</strong></span> </div>
                             </div>
                         </td>
                         <td class="" style="text-align: center">
-                            {{--<input type="number" class="form-control" value="{{$cartDetail->quantity}}">--}}
-                            {!! Form::model($cartDetail, ["action" => ["CustomerController@editCart", $cartDetail]]) !!}
-                                {!! Form::number("quantity", null, ["class" => "form-control"]) !!}
-                                {!! Form::submit("Submit", ["class" => "btn myButton submit-q"] )!!}
-                            {!! Form::close() !!}
-                        </td>
+                            <input type="number" class="form-control" value="{{$cartDetail->quantity}}"> </td>
                         <td class=" text-center"><strong>{{$cartDetail->product->price}}$</strong></td>
 
                         @if($cartDetail->product->discount > 0)
                             <td class="-1 text-center"><strong><s>{{$cartDetail->product->price * $cartDetail->quantity}}$</s></strong></td>
-                            <td class="-1 text-center"><strong>{{($cartDetail->product->price - $cartDetail->product->discount / 100.0 * $cartDetail->product->price) * $cartDetail->quantity}}$</strong>
-                                {!! Form::open(["action" => ["CustomerController@deleteProductFromCart", $cartDetail]]) !!}
-                                {!! Form::button("Remove",["type" => "submit","class" => "btn remove"])!!}
-                                {!! Form::close() !!}
-                            </td>
+                            <td class="-1 text-center"><strong>{{($cartDetail->product->price - $cartDetail->product->discount / 100.0 * $cartDetail->product->price) * $cartDetail->quantity}}</strong></td>
                         @else
-                            <td>&nbsp;&nbsp;---</td>
-                            <td class="-1 text-center"><strong>{{$cartDetail->product->price * $cartDetail->quantity}}$</strong>
-                                {!! Form::open(["action" => ["CustomerController@deleteProductFromCart", $cartDetail]]) !!}
-                                {!! Form::button("Remove",["type" => "submit","class" => "btn remove"])!!}
-                                {!! Form::close() !!}
-                            </td>
+                            <td class="-1 text-center"><strong>{{$cartDetail->product->price * $cartDetail->quantity}}$</strong></td>
+                            <td></td>
                         @endif
+
+                        <td class="">
+                            {!! Form::open(["action" => ["CustomerController@deleteProductFromCart", $cartDetail]]) !!}
+                            {!! Form::button
+                            (
+                                "Remove",
+                                 [
+                                    "type" => "submit",
+                                    "class" => "btn remove"
+                                 ]
+                            )
+                            !!}
+                            {!! Form::close() !!}
+                        </td>
                     </tr>
                     @endforeach
                     </tbody>
@@ -83,7 +84,7 @@
                         <input TYPE="hidden" name="charset" value="utf-8">
                         <input type="hidden" name="cmd" value="_cart">
                         <input type="hidden" name="upload" value="1">
-                        <input type="hidden" name="business" value="gbusiness@gadget.ly">
+                        <input type="hidden" name="business" value="mgmhardwaremarketplace@gmail.com">
 
                         @if($offer >= 0)
                             <input type="hidden" name="discount_rate_cart" value="{{$offer}}">
@@ -106,7 +107,6 @@
                         <input type="hidden" name="shopping_url" value="{{ url('/') }}">
                         <input TYPE="hidden" name="return" value="{{ url('/') }}">
                         <input TYPE="hidden" name="cancel_return" value="{{ url('customer/cart') }}">
-                        <input type="hidden" name="notify_url" value="{{ url('api/payment/confirm') }}">
                         <button type="submit" class="paypalbutton center-block"> <span>Check out with</span> <span>
 
                     <img class="pay" src="{{asset('images/PayPal.svg.png')}}">

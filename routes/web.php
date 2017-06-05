@@ -159,5 +159,6 @@ Route::get('banner/{filename}', function($filename){
 })->name("banner");
 //===================================  End files Routes ==============================================================//
 //=====================================    Paypal ===================================================================//
+//Route::post("payment/confirm","CustomerController@verifyPayPalPayment");
 Route::resource("payment","PaymentController");
 //=====================================   End Paypal Routes ========================================================///
