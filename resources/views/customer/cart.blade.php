@@ -30,34 +30,33 @@
                                 @endif
                                 <div class="media-body">
                                     <h4 class="media-heading"><a href="#"> {{$cartDetail->product->name}}</a></h4>
-                                    <h5 class="media-heading"> In <a href="#">{{$cartDetail->product->category->name}}e</a></h5> <span>Status: </span><span class="text-success"><strong>In Stock</strong></span> </div>
+                                    <h5 class="media-heading"> In <a href="#">{{$cartDetail->product->category->name}}</a></h5> <span>Status: </span><span class="text-success"><strong>In Stock</strong></span> </div>
                             </div>
                         </td>
                         <td class="" style="text-align: center">
-                            <input type="number" class="form-control" value="{{$cartDetail->quantity}}"> </td>
+                            {{--<input type="number" class="form-control" value="{{$cartDetail->quantity}}">--}}
+                            {!! Form::model($cartDetail, ["action" => ["CustomerController@editCart", $cartDetail]]) !!}
+                                {!! Form::number("quantity", null, ["class" => "form-control"]) !!}
+                                {!! Form::submit("Submit", ["class" => "btn myButton submit-q"] )!!}
+                            {!! Form::close() !!}
+                        </td>
                         <td class=" text-center"><strong>{{$cartDetail->product->price}}$</strong></td>
 
                         @if($cartDetail->product->discount > 0)
                             <td class="-1 text-center"><strong><s>{{$cartDetail->product->price * $cartDetail->quantity}}$</s></strong></td>
-                            <td class="-1 text-center"><strong>{{($cartDetail->product->price - $cartDetail->product->discount / 100.0 * $cartDetail->product->price) * $cartDetail->quantity}}</strong></td>
+                            <td class="-1 text-center"><strong>{{($cartDetail->product->price - $cartDetail->product->discount / 100.0 * $cartDetail->product->price) * $cartDetail->quantity}}$</strong>
+                                {!! Form::open(["action" => ["CustomerController@deleteProductFromCart", $cartDetail]]) !!}
+                                {!! Form::button("Remove",["type" => "submit","class" => "btn remove"])!!}
+                                {!! Form::close() !!}
+                            </td>
                         @else
-                            <td class="-1 text-center"><strong>{{$cartDetail->product->price * $cartDetail->quantity}}$</strong></td>
-                            <td></td>
+                            <td>&nbsp;&nbsp;---</td>
+                            <td class="-1 text-center"><strong>{{$cartDetail->product->price * $cartDetail->quantity}}$</strong>
+                                {!! Form::open(["action" => ["CustomerController@deleteProductFromCart", $cartDetail]]) !!}
+                                {!! Form::button("Remove",["type" => "submit","class" => "btn remove"])!!}
+                                {!! Form::close() !!}
+                            </td>
                         @endif
-
-                        <td class="">
-                            {!! Form::open(["action" => ["CustomerController@deleteProductFromCart", $cartDetail]]) !!}
-                            {!! Form::button
-                            (
-                                "Remove",
-                                 [
-                                    "type" => "submit",
-                                    "class" => "btn remove"
-                                 ]
-                            )
-                            !!}
-                            {!! Form::close() !!}
-                        </td>
                     </tr>
                     @endforeach
                     </tbody>

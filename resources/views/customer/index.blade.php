@@ -1,6 +1,6 @@
 @extends('layouts.customer')
 @section('title')
-    Index
+    Gadgetly
 @endsection
 @section('content')
     <div class="container">

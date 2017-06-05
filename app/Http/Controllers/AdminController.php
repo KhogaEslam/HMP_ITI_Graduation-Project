@@ -390,4 +390,21 @@ class AdminController extends Controller
         return back();
     }
 
+
+    // ====================================== About ===================================//
+
+    public function showAboutPage(){
+        //get about page content from database
+        return view("admin.showAbout");
+    }
+
+    public function showEditAboutPage(){
+        //get about page content from database
+        return view("admin.editAbout");
+    }
+
+    public function editAboutPage(Request $request){
+
+    }
+
 }

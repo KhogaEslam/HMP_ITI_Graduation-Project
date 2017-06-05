@@ -68,6 +68,10 @@ Route::post("admin/new_offer", "AdminController@addOffer");
 Route::get("admin/featured_requests", "AdminController@viewFeaturedRequests");
 Route::post("admin/featured_request/{featured_request}/accept", "AdminController@acceptFeaturedRequest");
 Route::post("admin/featured_request/{featured_request}/reject", "AdminController@rejectFeaturedRequest");
+//=====================       About       =========================//
+Route::get("admin/about/show", "AdminController@showAboutPage");
+Route::get("admin/about/edit", "AdminController@showEditAboutPage");
+Route::post("admin/about/edit", "AdminController@editAboutPage");
 //===============================    End Admin Route  =================================================//
 //================================== Shop Routes  ==================================================//
 //=====================   Home =====================//
