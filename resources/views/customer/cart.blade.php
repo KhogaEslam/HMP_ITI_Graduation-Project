@@ -86,8 +86,8 @@
                         <input type="hidden" name="upload" value="1">
                         <input type="hidden" name="business" value="mgmhardwaremarketplace@gmail.com">
 
-                        @if($cartDetails->first()->product->offer >= 0)
-                            <input type="hidden" name="discount_rate_cart" value="{{$cartDetail->product->offer}}">
+                        @if($offer >= 0)
+                            <input type="hidden" name="discount_rate_cart" value="{{$offer}}">
                         @endif
 
                         <?php $counter=1; ?>
@@ -116,5 +116,16 @@
             </div>
         </div>
     </div>
+
+
+    {{--<div class="col-md-1" style="padding-top: 80px;">--}}
+        {{--{!! Form::model($cartDetail, ["action", "CustomerController@editCart", $cartDetail]) !!}--}}
+        {{--<div class="form-group">--}}
+            {{--{!! Form::label("Quantity") !!}--}}
+            {{--{!! Form::text("quantity", null, ["class" => "form-control"]) !!}--}}
+        {{--</div>--}}
+        {{--{!! Form::submit("Update cart") !!}--}}
+        {{--{!! Form::close() !!}--}}
+    {{--</div>--}}
 
 @endsection
