@@ -124,6 +124,11 @@ Route::post("shop/address/{address}/delete", "VendorController@deleteAddress");
 Route::post("shop/phone/{phone}/delete", "VendorController@deletePhone");
 Route::get("shop/phone", "VendorController@phones");
 Route::get("shop/address", "VendorController@addresses");
+// ============================== Checkout ==================================== //
+Route::get("shop/checkouts", "VendorController@viewCheckouts");
+Route::post("shop/update/{checkout}/checkout_status", "VendorController@updateCheckoutStatus");
+Route::get("customer/cart/track", "CustomerController@trackCheckout");
+Route::post("/customer/cart/{checkout}/checkout_status", "CustomerController@changeCheckoutStatus");
 //================================= End Vendor Routes ========================================================//
 //===================================== Customer Routes ======================================================//
 //====================  Home  ======================//
@@ -138,6 +143,7 @@ Route::post("customer/{product}/add_to_cart", "CustomerController@addToCart");
 Route::post("customer/{cart_detail}/edit_cart", "CustomerController@editCart");
 Route::get("customer/cart", "CustomerController@viewCart");
 Route::post("customer/cart/{cart_detail}/delete", "CustomerController@deleteProductFromCart");
+Route::post("customer/cart/checkout", "CustomerController@cashCheckout");
 //=================== WishList ======================//
 Route::get("customer/wishlist/show", "CustomerController@showWishList");
 Route::get("customer/{product}/wishlist/add", "CustomerController@addToWishList");

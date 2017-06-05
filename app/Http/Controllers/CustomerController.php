@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ActiveBanner;
 use App\CartDetail;
+use App\CartHistory;
 use App\Offer;
 use App\ProductImage;
 use App\ProductRate;
@@ -239,6 +240,61 @@ class CustomerController extends Controller
         return view("customer.about", [
             "categories" => Category::all(),
         ]);
+    }
+
+    public function cashCheckout() {
+        $cart = \Auth::user()->cart;
+        $items = $cart->cartDetails;
+        foreach($items as $item) {
+            $product = $item->product;
+            $price = round(($product->price - $product->price * $product->discount / 100) * $item->quantity, 2);
+            $offer = Offer::current()->get();
+            if($offer->isEmpty()) {
+                $offer = 0;
+            }
+            else {
+                $offer = $offer->first()->percentage;
+            }
+            $price -= ($product->price * $offer) * $item->quantity;
+            $history = new CartHistory;
+            $history->price = $price;
+            $history->quantity = $item->quantity;
+            $history->user()->associate(\Auth::user());
+            $history->shop()->associate($product->user);
+            $history->product()->associate($product);
+            $history->save();
+            $item->product->quantity -= $item->quantity;
+            $item->product->save();
+            $item->delete();
+        }
+        return back();
+    }
+
+    public function trackCheckout() {
+        $orders = \Auth::user()->checkouts()->where("status", "<", 4)->orderBy("status")->paginate(20);
+        $categories = Category::all();
+        return view("customer.track_checkouts", [
+            "categories" => $categories,
+            "orders" => $orders,
+            "status" => [
+                0 => ["Pending", "shop"],
+                1 => ["Packaged", "shop"],
+                2 => ["Verify receiving", "customer"],
+                3 => ["Money on the way", "shop"],
+                4 => ["Money received by shop", "shop"]
+            ],
+        ]);
+    }
+
+    public function changeCheckoutStatus(CartHistory $checkout) {
+        if($checkout->user->id == \Auth::user()->id) {
+            if($checkout->status < 5) {
+                $checkout->status++;
+                $checkout->save();
+
+            }
+        }
+        return back();
     }
 
 }

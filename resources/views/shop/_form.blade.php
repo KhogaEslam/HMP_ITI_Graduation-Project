@@ -8,11 +8,11 @@
 </div>
 <div class="form-group">
     {!! Form::label("quantity") !!}
-    {!! Form::number("quantity", 1, ["class" => "form-control", "min" => 1]) !!}
+    {!! Form::number("quantity", null, ["class" => "form-control", "min" => 1]) !!}
 </div>
 <div class="form-group">
     {!! Form::label("price") !!}
-    {!! Form::number("price", 0, ["class" => "form-control", "step" => "any", "min" => 0]) !!}
+    {!! Form::number("price", null, ["class" => "form-control", "step" => "any", "min" => 0]) !!}
 </div>
 <div class="form-group">
     {!! Form::label("images") !!}

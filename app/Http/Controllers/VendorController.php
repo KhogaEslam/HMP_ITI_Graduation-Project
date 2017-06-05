@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CartHistory;
 use App\CategoryRequest;
 use App\Http\Requests\BannerRequest;
 use App\ProductImage;
@@ -495,6 +496,31 @@ class VendorController extends Controller
     public function deletePhone(UserPhone $phone) {
         if($phone->user_id == \Auth::user()->id) {
             $phone->delete();
+        }
+        return back();
+    }
+
+    public function viewCheckouts() {
+        $checkouts = \Auth::user()->checkoutRequests()->orderBy("status")->paginate(20);
+        return view("shop.checkouts", [
+            "checkouts" => $checkouts,
+            "status" => [
+                0 => ["Package", "shop"],
+                1 => ["Ship", "shop"],
+                2 => ["Delivered", "customer"],
+                3 => ["Recieve payment", "shop"],
+                4 => ["Payment Received", "none"],
+            ]
+        ]);
+    }
+
+    public function updateCheckoutStatus(CartHistory $checkout) {
+        if($checkout->shop->id == \Auth::user()->id) {
+            if($checkout->status < 5) {
+                $checkout->status++;
+                $checkout->save();
+
+            }
         }
         return back();
     }

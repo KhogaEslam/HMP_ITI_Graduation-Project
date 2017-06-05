@@ -87,6 +87,14 @@ class User extends Authenticatable //Entrust configuration needs User model to e
         return $this->hasMany(\Laravelista\Comments\Comments\Comment::class);
     }
 
+    public function checkouts() {
+        return $this->hasMany("\App\CartHistory", "user_id");
+    }
+
+    public function checkoutRequests() {
+        return $this->hasMany("\App\CartHistory", "shop_id");
+    }
+
     /**
      * Return the user attributes.
 
