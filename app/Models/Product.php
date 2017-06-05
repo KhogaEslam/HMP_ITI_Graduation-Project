@@ -82,11 +82,7 @@ class Product extends Model
     }
 
     public function getOfferAttribute() {
-        $offer = 0;
-        if(! Offer::current()->get()->isEmpty()) {
-            $offer = Offer::current()->first()->percentage;
-        }
-        return $offer;
+
     }
 
     /**

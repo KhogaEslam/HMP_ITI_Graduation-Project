@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ActiveBanner;
 use App\CartDetail;
+use App\Offer;
 use App\ProductImage;
 use App\ProductRate;
 use App\WishList;
@@ -148,9 +149,17 @@ class CustomerController extends Controller
         $inCart = 0;
 
         foreach ($cartDetails as $cartDetail) {
-            $total += ($cartDetail->product->price - $cartDetail->product->offer / 100.0 * $cartDetail->product->price - $cartDetail->product->discount / 100.0 * $cartDetail->product->price) * $cartDetail->quantity;
+            $total += ($cartDetail->product->price - $cartDetail->product->discount / 100.0 * $cartDetail->product->price) * $cartDetail->quantity;
         }
-
+        $offer = Offer::current()->get();
+        $final_total=$total;
+        if(! $offer->isEmpty()) {
+            $offer=$offer->first()->percentage;
+            $final_total -= $final_total * $offer / 100.0;
+        }
+        else{
+            $offer=0;
+        }
         if (\Auth::check()) {
             $inCart = \Auth::user()->cart()->first()->cartDetails->count();
         }
@@ -160,6 +169,8 @@ class CustomerController extends Controller
             "categories" => Category::all(),
             "total" => $total,
             "inCart" => $inCart,
+            "final_total" =>$final_total,
+            "offer"=> $offer,
         ]);
     }
 
@@ -232,6 +243,12 @@ class CustomerController extends Controller
 
         return view("customer.popular_categories", [
             "categories" => $categories
+        ]);
+    }
+
+    public function showAbout(){
+        return view("customer.about", [
+            "categories" => Category::all(),
         ]);
     }
 

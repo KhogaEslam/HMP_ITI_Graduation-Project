@@ -2,15 +2,21 @@
 <html>
 <head>
 
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.css')}}"/>
+    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/home.css')}}"/>
+    <link rel="stylesheet" href="{{ asset("css/search.css") }}" />
+
+    <link rel="stylesheet" href="{{ asset("css/icon.min.css") }}" />
+    <link rel="stylesheet" href="{{ asset("css/comment.min.css") }}" />
+    <link rel="stylesheet" href="{{ asset("css/form.min.css") }}" />
+    <link rel="stylesheet" href="{{ asset("css/button.min.css") }}" />
+
     <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/icon.min.css" rel="stylesheet">
     <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/comment.min.css" rel="stylesheet">
     <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/form.min.css" rel="stylesheet">
     <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/button.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.css')}}"/>
-    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('css/home.css')}}"/>
-    <link rel="stylesheet" href="{{ asset("css/search.css") }}" />
     <link rel="stylesheet" href="{{ asset("css/like_and_comment.css") }}" />
 
 
@@ -92,7 +98,7 @@ pull-right"></span></a></li>
                         @endforelse
                     </ul>
                 </li>
-                <li><a href="#">About</a></li>
+                <li><a href="/customer/about">About</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -129,7 +135,7 @@ pull-right"></span></a></li>
         <div class="row">
             <div class="col-sm-3">
                 <ul>
-                    <li><img class="logo2" src="{{ asset('images/logo.png')}}"></li>
+                    <li><img class="logo2" src="{{ asset('images/logo_footer.png')}}"></li>
                     <li>
                         <h5>Where you find Gadgets
                             that suits your needs.</h5> </li>
