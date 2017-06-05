@@ -58,7 +58,7 @@
                 Login with Facebook
             </a>
 
-            <div class="clearfix" class="center-block"></div>
+            <div class="clearfix center-block"></div>
 
         </form>
 
