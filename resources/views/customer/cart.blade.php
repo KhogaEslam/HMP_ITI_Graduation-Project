@@ -109,14 +109,14 @@
 
                             <?php $counter++; ?>
                         @endforeach
-                        @if(! $cartDetails->isEmpty())
-                            <input type="hidden" name="custom" value="{{$cartDetails->first()->cart->id}},{{\Auth::user()->id}}"/>
-                            <input type="hidden" name="shopping_url" value="{{ url('/') }}">
-                            <input TYPE="hidden" name="return" value="{{ url('/') }}">
-                            <input TYPE="hidden" name="cancel_return" value="{{ url('customer/cart') }}">
-                            <input type="hidden" name="notify_url" value="{{ url('api/payment/confirm') }}">
-                            <button type="submit" class="paypalbutton center-block"> <span>Check out with</span> <span>
-                        @endif
+
+                        <input type="hidden" name="custom" value="{{$cartDetails->first->cart->id}}"/>
+                        <input type="hidden" name="shopping_url" value="{{ url('/') }}">
+                        <input TYPE="hidden" name="return" value="{{ url('/') }}">
+                        <input TYPE="hidden" name="cancel_return" value="{{ url('customer/cart') }}">
+                        <input type="hidden" name="notify_url" value="{{ url('api/payment/confirm') }}">
+                        <button type="submit" class="paypalbutton center-block"> <span>Check out with</span> <span>
+
                     <img class="pay" src="{{asset('images/PayPal.svg.png')}}">
                     </span></button>
                     </form>
@@ -125,4 +125,16 @@
             </div>
         </div>
     </div>
+
+
+    {{--<div class="col-md-1" style="padding-top: 80px;">--}}
+        {{--{!! Form::model($cartDetail, ["action", "CustomerController@editCart", $cartDetail]) !!}--}}
+        {{--<div class="form-group">--}}
+            {{--{!! Form::label("Quantity") !!}--}}
+            {{--{!! Form::text("quantity", null, ["class" => "form-control"]) !!}--}}
+        {{--</div>--}}
+        {{--{!! Form::submit("Update cart") !!}--}}
+        {{--{!! Form::close() !!}--}}
+    {{--</div>--}}
+
 @endsection

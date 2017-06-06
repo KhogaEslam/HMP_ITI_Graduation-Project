@@ -78,7 +78,8 @@ class AdminController extends Controller
      */
     public function createCategory(Request $request)
     {
-        $this->validate($request, ['name' => 'required']);
+
+        $this->validate($request, ['name' => 'required|unique:categories|max:50']);
         $cat = new Category();
         $cat->name = $request->name;
         $cat->save();
@@ -108,7 +109,7 @@ class AdminController extends Controller
      */
     public function updateCategory(Request $request , Category $cat)
     {
-        $this->validate($request, ['name' => 'required']);
+        $this->validate($request, ['name' => 'required|unique:categories|max:50']);
         $cat->update($request->all());
         return redirect('/admin/categories');
     }

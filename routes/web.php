@@ -194,3 +194,7 @@ Route::get('banner/{filename}', function($filename){
 //Route::post("payment/confirm","CustomerController@verifyPayPalPayment");
 Route::resource("payment","PaymentController");
 //=====================================   End Paypal Routes ========================================================///
+//===================================== Advanced Search Route ============================================================//
+Route::get("/advanced-search", "SearchController@filter");
+
+//===================================== End Advanced Search Route ============================================================//
