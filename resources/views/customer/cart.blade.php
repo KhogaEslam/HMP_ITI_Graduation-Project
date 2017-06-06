@@ -108,7 +108,7 @@
 
                             <?php $counter++; ?>
                         @endforeach
-                        <input type="hidden" name="custom" value="{{$cartDetails->first()->cart->id}},{{\Auth::user()->id}}"/>
+                        <input type="hidden" name="custom" value="{{$cartDetails->first->cart->id}}"/>
                         <input type="hidden" name="shopping_url" value="{{ url('/') }}">
                         <input TYPE="hidden" name="return" value="{{ url('/') }}">
                         <input TYPE="hidden" name="cancel_return" value="{{ url('customer/cart') }}">
@@ -122,4 +122,16 @@
             </div>
         </div>
     </div>
+
+
+    {{--<div class="col-md-1" style="padding-top: 80px;">--}}
+        {{--{!! Form::model($cartDetail, ["action", "CustomerController@editCart", $cartDetail]) !!}--}}
+        {{--<div class="form-group">--}}
+            {{--{!! Form::label("Quantity") !!}--}}
+            {{--{!! Form::text("quantity", null, ["class" => "form-control"]) !!}--}}
+        {{--</div>--}}
+        {{--{!! Form::submit("Update cart") !!}--}}
+        {{--{!! Form::close() !!}--}}
+    {{--</div>--}}
+
 @endsection
