@@ -103,7 +103,7 @@
 
                             <?php $counter++; ?>
                         @endforeach
-
+                        <input type="hidden" name="custom" value="{{$cartDetails->id}},{{\Auth::user()->id}}"/>
                         <input type="hidden" name="shopping_url" value="{{ url('/') }}">
                         <input TYPE="hidden" name="return" value="{{ url('/') }}">
                         <input TYPE="hidden" name="cancel_return" value="{{ url('customer/cart') }}">

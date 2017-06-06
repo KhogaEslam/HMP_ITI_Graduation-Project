@@ -162,10 +162,10 @@
                                 <span class="price">{{$featuredProduct->product->price}} LE</span>
                                 <div class="star-rating-container aggregate">
                                     <div class="star-rating" title="Rated {{$featuredProduct->product->avg_rate }} out of 5">
-                                        @for ($i=0; $featuredProduct->product->avg_rate ; $i++ )
+                                        @for ($i=0; $featuredProduct->avg_rate ; $i++ )
                                             <span class="star filled"> </span>
                                         @endfor
-                                        @for ($i= $featuredProduct->product->avg_rate; $i < 5; $i++)
+                                        @for ($i= $featuredProduct->avg_rate; $i < 5; $i++)
                                             <span class="star"> </span>
                                         @endfor
                                     </div>
