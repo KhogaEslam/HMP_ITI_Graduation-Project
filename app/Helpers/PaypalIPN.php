@@ -8,6 +8,9 @@
 
 namespace app\Helpers;
 
+use App\ShoppingCart;
+use App\CartHistory;
+use App\Offer;
 use Exception;
 
 class PaypalIPN
@@ -130,11 +133,37 @@ class PaypalIPN
         curl_close($ch);
         // Check if PayPal verifies the IPN data, and if so, return true.
         if ($res == self::VALID) {
-            echo "Hello";
             return true;
         } else {
-            echo "Hello !";
             return false;
+        }
+    }
+
+    public function checkout($cartID) {
+        $cart = ShoppingCart::find($cartID);
+        $user = $cart->user;
+        $items = $cart->cartDetails;
+        foreach($items as $item) {
+            $product = $item->product;
+            $price = round(($product->price - $product->price * $product->discount / 100) * $item->quantity, 2);
+            $offer = Offer::current()->get();
+            if($offer->isEmpty()) {
+                $offer = 0;
+            }
+            else {
+                $offer = $offer->first()->percentage;
+            }
+            $price -= ($product->price * $offer) * $item->quantity;
+            $history = new CartHistory();
+            $history->price = $price;
+            $history->quantity = $item->quantity;
+            $history->user()->associate($user);
+            $history->shop()->associate($product->user);
+            $history->product()->associate($product);
+            $history->save();
+            $item->product->quantity -= $item->quantity;
+            $item->product->save();
+            $item->delete();
         }
     }
 }
