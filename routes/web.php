@@ -15,6 +15,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 //=============================   End main home routes ===============================//
 //====================== Registration and login with social media ====================//
 Route::get('mail', 'MailController@requestRegisterMail');
+
+Route::post('mail/contactUs', 'MailController@contactUsMail');
+
 Route::get('auth/facebook', 'FacebookController@redirectToProvider')
     ->name('facebook.login')
     ->prefix("customer");
@@ -157,7 +160,9 @@ Route::post('customer/{product}/rating/add','CustomerController@submitRating');
 //==================== Search ======================//
 Route::get("customer/search", "CustomerController@search");
 //==================== About ======================//
-Route::get("customer/about", "CustomerController@showAbout");
+Route::get("about", "CustomerController@showAbout");
+//==================== Contact Us ======================//
+Route::get("contactUs", "CustomerController@showContactUs");
 //=================================== End Customer Routes =======================================================//
 //===================================    Files Routes  ===========================================================//
 //================= product images ==================//

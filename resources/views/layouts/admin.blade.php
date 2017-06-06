@@ -124,11 +124,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/admin/users">Users</a>
                         </li>
-                        <li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/admin/banner_requests">Banner Requests</a>
                         </li>
 
-                        <li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/admin/about/show">About Page</a>
                         </li>
 

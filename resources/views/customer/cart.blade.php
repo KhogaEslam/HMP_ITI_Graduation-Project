@@ -75,6 +75,7 @@
                     <hr>
                     <li><span>TOTAL</span> <span class="totalp">{{$final_total}}$</span></li>
                 </ul>
+                @if(! $cartDetails->isEmpty())
                 {!! Form::open(["action" => ["CustomerController@cashCheckout"]]) !!}
                 {{--<button class="myButton center-block">CHECK OUT</button>--}}
                 {!! Form::button("Checkout", [
@@ -108,17 +109,19 @@
 
                             <?php $counter++; ?>
                         @endforeach
-                        <input type="hidden" name="custom" value="{{$cartDetails->first()->cart->id}},{{\Auth::user()->id}}"/>
-                        <input type="hidden" name="shopping_url" value="{{ url('/') }}">
-                        <input TYPE="hidden" name="return" value="{{ url('/') }}">
-                        <input TYPE="hidden" name="cancel_return" value="{{ url('customer/cart') }}">
-                        <input type="hidden" name="notify_url" value="{{ url('api/payment/confirm') }}">
-                        <button type="submit" class="paypalbutton center-block"> <span>Check out with</span> <span>
-
+                        @if(! $cartDetails->isEmpty())
+                            <input type="hidden" name="custom" value="{{$cartDetails->first()->cart->id}},{{\Auth::user()->id}}"/>
+                            <input type="hidden" name="shopping_url" value="{{ url('/') }}">
+                            <input TYPE="hidden" name="return" value="{{ url('/') }}">
+                            <input TYPE="hidden" name="cancel_return" value="{{ url('customer/cart') }}">
+                            <input type="hidden" name="notify_url" value="{{ url('api/payment/confirm') }}">
+                            <button type="submit" class="paypalbutton center-block"> <span>Check out with</span> <span>
+                        @endif
                     <img class="pay" src="{{asset('images/PayPal.svg.png')}}">
                     </span></button>
                     </form>
                 </div>
+                    @endif
             </div>
         </div>
     </div>

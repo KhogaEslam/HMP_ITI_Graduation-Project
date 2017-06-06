@@ -24,7 +24,7 @@ class CustomerController extends Controller
 {
     public function __construct()
     {
-        $this->middleware("customer.auth")->except(["index", "verifyPayPalPayment", "products", "productDetails", "search", "searchPrefix","showAbout"]);
+        $this->middleware("customer.auth")->except(["index", "verifyPayPalPayment", "products", "productDetails", "search", "searchPrefix","showAbout","showContactUs"]);
     }
 
     public function index()
@@ -326,6 +326,15 @@ class CustomerController extends Controller
         }
         // Reply with an empty 200 response to indicate to paypal the IPN was received correctly.
         header("HTTP/1.1 200 OK");
+    }
+
+    public function showContactUs(){
+//        $aboutPage = About::all()->last();
+        return view("customer.contactUs", [
+            "categories" => Category::all(),
+//            "aboutPage" => $aboutPage
+        ]);
+
     }
     //    public function verifyPayPalPayment()
     //    {

@@ -12,10 +12,10 @@
     <link rel="stylesheet" href="{{ asset("css/form.min.css") }}" />
     <link rel="stylesheet" href="{{ asset("css/button.min.css") }}" />
 
-    {{--<link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/icon.min.css" rel="stylesheet">--}}
-    {{--<link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/comment.min.css" rel="stylesheet">--}}
-    {{--<link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/form.min.css" rel="stylesheet">--}}
-    {{--<link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/button.min.css" rel="stylesheet">--}}
+    <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/icon.min.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/comment.min.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/form.min.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/button.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset("css/like_and_comment.css") }}" />
 
@@ -98,8 +98,8 @@ pull-right"></span></a></li>
                         @endforelse
                     </ul>
                 </li>
-                <li><a href="/customer/about">About</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contactUs">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="{{action("CustomerController@viewCart")}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="count" >

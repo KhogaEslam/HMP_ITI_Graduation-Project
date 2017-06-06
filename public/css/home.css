@@ -1,5 +1,9 @@
 @font-face {
     font-family: roboto;
+    src: url('/fonts/Roboto-Regular.ttf');
+}
+@font-face {
+    font-family: roboto;
     src: url(Roboto-Regular);
 }
 
@@ -233,11 +237,13 @@ label {
     margin: 0;
     padding: 0;
 }
-
+/*
 h1 {
     font-size: 1.5em;
     margin: 10px;
 }
+
+*/
 
 .nav1 > li > a >i {
     font-size: 22px;
@@ -343,7 +349,7 @@ footer {
 
 .panel-footer {
     background-color: #3f4140;
-    padding: 30px;
+    padding: 15px;
 }
 
 ul,
@@ -1143,5 +1149,66 @@ p {
 }
 
 .submit-q:hover {
+    color: white;
+}
+/*Contact*/
+
+.contact-us {
+    background-image: url("/images/contact_us.jpg");
+    height: 450px;
+    background-color: rgba(98, 213, 200, 0.5);
+    position: relative;
+}
+
+.contact-us h1,
+.contact-us h3 {
+    color: white;
+    margin: 0px;
+    text-align: center;
+    padding: 10px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .4);
+}
+
+.contact-us h1 {
+    font-size: 40px;
+}
+
+.contact-us h3 {
+    font-weight: 400;
+}
+
+.headl {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.inTouch {
+    text-align: center;
+    margin: 40px;
+    font-size: 25px;
+}
+
+.info2 {
+    padding-bottom: 50px;
+    padding-left: 30px;
+    font-size: 16px;
+}
+
+.info2 img {
+    width: 250px;
+    margin-bottom: 20px;
+}
+
+.info2 a {
+    color: #3f4140;
+}
+
+.info2 i {
+    color: #62d5c8;
+}
+
+.modalb:hover {
     color: white;
 }
