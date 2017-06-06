@@ -1,5 +1,9 @@
 @font-face {
     font-family: roboto;
+    src: url('/fonts/Roboto-Regular.ttf');
+}
+@font-face {
+    font-family: roboto;
     src: url(Roboto-Regular);
 }
 
@@ -233,11 +237,13 @@ label {
     margin: 0;
     padding: 0;
 }
-
+/*
 h1 {
     font-size: 1.5em;
     margin: 10px;
 }
+
+*/
 
 .nav1 > li > a >i {
     font-size: 22px;
@@ -343,7 +349,7 @@ footer {
 
 .panel-footer {
     background-color: #3f4140;
-    padding: 30px;
+    padding: 15px;
 }
 
 ul,
@@ -1073,7 +1079,115 @@ span.paypallogo {
     height: 30px;
     margin-top: 32px;
 }
+.star-rating-container.aggregate {
+    float: right;
+}
+.side-menu-container {
+    padding: 10px;
+}
+.side-menu-container .nav li {
+    padding-bottom: 15px;
+    color : #000;
+}
+.side-menu-container .nav li h3{
+    display:block;
+    color: #000;
+    font-size: 15px;
+    text-align:left;
+    font-weight: bold;
+    margin: 0 0 15px 0;
+    padding : 10px 0;
 
+}
+.side-menu-container .nav [type='radio'] {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    font-size: 18px;
+
+    position: relative;
+    background-color: #fff;
+    border: 2px solid #37a000;
+}
+.navbar-form {
+    padding: 0px !important;
+}
+
+.radio-toolbar input {
+    vertical-align: bottom;
+    margin-right: 10px;
+}
+.radio-toolbar label input[type="radio"] ~ i.fa.fa-circle-o{
+        color: #3F4140;    display: inline;
+}
+.radio-toolbar label input[type="radio"] ~ i.fa.fa-dot-circle-o{
+    display: none;
+}
+.radio-toolbar label input[type="radio"]:checked ~ i.fa.fa-circle-o{
+    display: none;
+}
+.radio-toolbar label input[type="radio"]:checked ~ i.fa.fa-dot-circle-o{
+    color:  #3F4140; display: inline;
+}
+.radio-toolbar label:hover input[type="radio"] ~ i.fa {
+    color: #3F4140;
+}
+
+.checkbox-toolbar label input[type="checkbox"] ~ i.fa.fa-square-o{
+    color: #3F4140;    display: inline;
+}
+.checkbox-toolbar label input[type="checkbox"] ~ i.fa.fa-check-square-o{
+    color: #3F4140;
+    display: none;
+}
+.checkbox-toolbar label input[type="checkbox"]:checked ~ i.fa.fa-square-o{
+    display: none;
+}
+.checkbox-toolbar label input[type="checkbox"]:checked ~ i.fa.fa-check-square-o{
+    color: #3F4140;    display: inline;
+}
+.checkbox-toolbar label:hover input[type="checkbox"] ~ i.fa {
+    color: #3F4140;
+}
+
+.radio-toolbar label , .checkbox-toolbar label {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 2em;
+    text-align: left;
+    white-space: nowrap;
+    vertical-align: top;
+    cursor: pointer;
+    background-color: none;
+    border-radius: 3px;
+    color: #3F4140;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.radio-toolbar label:hover {
+    color: #3F4140  ;
+}
+
+.radio-toolbar label:active,.checkbox-toolbar label.active {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.radio-toolbar input , .checkbox-toolbar input {
+    display: none !important;
+}
+.radio-toolbar i , .checkbox-toolbar i {
+    vertical-align: middle;
+    margin-right: 10px;
+    font-size: 16px;
+}
 .remove:hover {
     background-color: white;
 }
@@ -1143,5 +1257,66 @@ p {
 }
 
 .submit-q:hover {
+    color: white;
+}
+/*Contact*/
+
+.contact-us {
+    background-image: url("/images/contact_us.jpg");
+    height: 450px;
+    background-color: rgba(98, 213, 200, 0.5);
+    position: relative;
+}
+
+.contact-us h1,
+.contact-us h3 {
+    color: white;
+    margin: 0px;
+    text-align: center;
+    padding: 10px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .4);
+}
+
+.contact-us h1 {
+    font-size: 40px;
+}
+
+.contact-us h3 {
+    font-weight: 400;
+}
+
+.headl {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.inTouch {
+    text-align: center;
+    margin: 40px;
+    font-size: 25px;
+}
+
+.info2 {
+    padding-bottom: 50px;
+    padding-left: 30px;
+    font-size: 16px;
+}
+
+.info2 img {
+    width: 250px;
+    margin-bottom: 20px;
+}
+
+.info2 a {
+    color: #3f4140;
+}
+
+.info2 i {
+    color: #62d5c8;
+}
+
+.modalb:hover {
     color: white;
 }

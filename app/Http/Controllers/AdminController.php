@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\BannerRequest;
 use App\Category;
 use App\CategoryRequest;
+use App\Http\Requests\AboutRequest;
 use App\Http\Requests\AdminRequest;
 use App\RegistrationRequest;
 use App\Role;
@@ -17,6 +18,7 @@ use \Carbon\Carbon;
 use App\Http\Controllers\MailController;
 use App\FeaturedItem;
 use App\User;
+use App\About;
 use App\Product;
 use DB;
 
@@ -76,7 +78,8 @@ class AdminController extends Controller
      */
     public function createCategory(Request $request)
     {
-        $this->validate($request, ['name' => 'required']);
+
+        $this->validate($request, ['name' => 'required|unique:categories|max:50']);
         $cat = new Category();
         $cat->name = $request->name;
         $cat->save();
@@ -106,7 +109,7 @@ class AdminController extends Controller
      */
     public function updateCategory(Request $request , Category $cat)
     {
-        $this->validate($request, ['name' => 'required']);
+        $this->validate($request, ['name' => 'required|unique:categories|max:50']);
         $cat->update($request->all());
         return redirect('/admin/categories');
     }
@@ -420,16 +423,22 @@ class AdminController extends Controller
     // ====================================== About ===================================//
 
     public function showAboutPage(){
-        //get about page content from database
-        return view("admin.showAbout");
+        $aboutPage = About::all()->last();
+        return view("admin.showAbout",[
+            "aboutPage" => $aboutPage
+        ]);
     }
 
     public function showEditAboutPage(){
-        //get about page content from database
-        return view("admin.editAbout");
+        $aboutPage = About::all()->last();
+        return view("admin.editAbout",[
+            "aboutPage" => $aboutPage
+        ]);
     }
 
-    public function editAboutPage(Request $request){
+    public function editAboutPage(AboutRequest $request,About $aboutPage){
+        $aboutPage->update($request->all());
+        return redirect('/admin/about/show');
 
     }
 

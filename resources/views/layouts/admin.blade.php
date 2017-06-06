@@ -113,7 +113,10 @@
                             <a class="nav-link dashboard-link" href="/admin" > Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/categories">Categries</a>
+                            <a class="nav-link" href="/admin/categories">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/users">Users</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/admin/registration-requests">Registration Requests</a>
@@ -122,13 +125,14 @@
                             <a class="nav-link" href="/admin/category-requests">Category Requests</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/users">Users</a>
-                        </li>
-                        <li>
                             <a class="nav-link" href="/admin/banner_requests">Banner Requests</a>
                         </li>
 
-                        <li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/featured_requests">Feature Request</a>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link" href="/admin/about/show">About Page</a>
                         </li>
 

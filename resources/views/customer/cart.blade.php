@@ -90,6 +90,7 @@
                     <hr>
                     <li><span>TOTAL</span> <span class="totalp">{{$final_total}}$</span></li>
                 </ul>
+                @if(! $cartDetails->isEmpty())
                 {!! Form::open(["action" => ["CustomerController@cashCheckout"]]) !!}
                 {{--<button class="myButton center-block">CHECK OUT</button>--}}
                 {!! Form::button("Checkout", [
@@ -124,6 +125,7 @@
                             <?php $counter++; ?>
                         @endforeach
 
+                        <input type="hidden" name="custom" value="{{$cartDetails->first->cart->id}}"/>
                         <input type="hidden" name="shopping_url" value="{{ url('/') }}">
                         <input TYPE="hidden" name="return" value="{{ url('/') }}">
                         <input TYPE="hidden" name="cancel_return" value="{{ url('customer/cart') }}">
@@ -134,6 +136,7 @@
                     </span></button>
                     </form>
                 </div>
+                    @endif
             </div>
         </div>
     </div>

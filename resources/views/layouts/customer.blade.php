@@ -98,8 +98,8 @@ pull-right"></span></a></li>
                         @endforelse
                     </ul>
                 </li>
-                <li><a href="/customer/about">About</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contactUs">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>

@@ -15,6 +15,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 //=============================   End main home routes ===============================//
 //====================== Registration and login with social media ====================//
 Route::get('mail', 'MailController@requestRegisterMail');
+
+Route::post('mail/contactUs', 'MailController@contactUsMail');
+
 Route::get('auth/facebook', 'FacebookController@redirectToProvider')
     ->name('facebook.login')
     ->prefix("customer");
@@ -75,7 +78,7 @@ Route::get("admin/statistics/top_categories", "AdminController@topCategories");
 //=====================       About       =========================//
 Route::get("admin/about/show", "AdminController@showAboutPage");
 Route::get("admin/about/edit", "AdminController@showEditAboutPage");
-Route::post("admin/about/edit", "AdminController@editAboutPage");
+Route::post("admin/about/{aboutPage}/edit", "AdminController@editAboutPage");
 //===============================    End Admin Route  =================================================//
 //================================== Shop Routes  ==================================================//
 //=====================   Home =====================//
@@ -162,7 +165,9 @@ Route::post('customer/{product}/rating/add','CustomerController@submitRating');
 //==================== Search ======================//
 Route::get("customer/search", "CustomerController@search");
 //==================== About ======================//
-Route::get("customer/about", "CustomerController@showAbout");
+Route::get("about", "CustomerController@showAbout");
+//==================== Contact Us ======================//
+Route::get("contactUs", "CustomerController@showContactUs");
 //=================================== End Customer Routes =======================================================//
 //===================================    Files Routes  ===========================================================//
 //================= product images ==================//
@@ -194,3 +199,7 @@ Route::get('banner/{filename}', function($filename){
 //Route::post("payment/confirm","CustomerController@verifyPayPalPayment");
 Route::resource("payment","PaymentController");
 //=====================================   End Paypal Routes ========================================================///
+//===================================== Advanced Search Route ============================================================//
+Route::get("/advanced-search", "SearchController@filter");
+
+//===================================== End Advanced Search Route ============================================================//
