@@ -112,7 +112,16 @@
                                         <h4 class="myTitle">{{$product->name}}</h4>
                                     </a>
                                     <span class="price">{{$product->price}} LE</span>
-                                    <img class="rate" src="{{ asset('images/stars.png')}}">
+                                    <div class="star-rating-container aggregate">
+                                        <div class="star-rating" title="Rated {{ $product->avg_rate }} out of 5">
+                                            @for ($i=0; $i< $product->avg_rate ; $i++ )
+                                                <span class="star filled"> </span>
+                                            @endfor
+                                            @for ($i= $product->avg_rate; $i < 5; $i++)
+                                                <span class="star"> </span>
+                                            @endfor
+                                        </div>
+                                    </div>
                                     <button class="myButton add">Add To Cart</button>
                                 </div>
                             </div>

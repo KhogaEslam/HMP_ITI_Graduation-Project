@@ -26,7 +26,6 @@
 {{--    <script src="{{ asset('js/jquery.min.js') }} "></script>--}}
     <script src="{{asset("js/dev.js")}}"></script>
 
-
     <style>
         /* note: this is a hack for ios iframe for bootstrap themes shopify page */
         /* this chunk of css is not part of the toolkit :) */

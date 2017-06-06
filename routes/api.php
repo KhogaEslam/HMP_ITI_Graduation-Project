@@ -21,3 +21,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::middleware('api')->get("search", "CustomerController@searchPrefix");
 //Route::middleware('api')->get("advanced-search", "SearchController@filter");
 
+
+Route::middleware('api')->post("payment/confirm","CustomerController@verifyPayPalPayment");

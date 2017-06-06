@@ -185,6 +185,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Anouar\Paypalpayment\PaypalpaymentServiceProvider::class,
         Laravelista\Comments\Providers\CommentsServiceProvider::class,
+        risul\LaravelLikeComment\LikeCommentServiceProvider::class,
     ],
 
     /*

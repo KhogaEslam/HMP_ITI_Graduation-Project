@@ -42,6 +42,10 @@ class User extends Authenticatable //Entrust configuration needs User model to e
         return $this->hasMany("\App\UserAddress");
     }
 
+    public function phones() {
+        return $this->hasMany("\App\UserPhone");
+    }
+
     public function products() {
         return $this->hasMany("\App\Product");
     }
@@ -81,5 +85,31 @@ class User extends Authenticatable //Entrust configuration needs User model to e
     public function comments()
     {
         return $this->hasMany(\Laravelista\Comments\Comments\Comment::class);
+    }
+
+    public function checkouts() {
+        return $this->hasMany("\App\CartHistory", "user_id");
+    }
+
+    public function checkoutRequests() {
+        return $this->hasMany("\App\CartHistory", "shop_id");
+    }
+
+    /**
+     * Return the user attributes.
+
+     * @return array
+     */
+    public static function getAuthor($id)
+    {
+        $user = self::find($id);
+        return [
+            'id'     => $user->id,
+            'name'   => $user->name,
+            'email'  => $user->email,
+            'url'    => '',  // Optional
+            'avatar' => 'gravatar',  // Default avatar
+            'admin'  => $user->role === 'admin', // bool
+        ];
     }
 }

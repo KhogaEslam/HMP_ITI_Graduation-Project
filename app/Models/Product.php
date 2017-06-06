@@ -82,11 +82,15 @@ class Product extends Model
     }
 
     public function getOfferAttribute() {
-        $offer = 0;
-        if(! Offer::current()->get()->isEmpty()) {
-            $offer = Offer::current()->first()->percentage;
-        }
-        return $offer;
+
+    }
+
+    public function scopeTopSale($query) {
+        $query->orderBy("sales_counter", "desc");
+    }
+
+    public function scopeTopProfit($query) {
+        $query->orderBy("revenue", "desc");
     }
 
     /**

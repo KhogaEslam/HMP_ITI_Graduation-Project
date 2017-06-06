@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\BannerRequest;
 use App\Category;
 use App\CategoryRequest;
+use App\Http\Requests\AboutRequest;
 use App\Http\Requests\AdminRequest;
 use App\RegistrationRequest;
 use App\Role;
@@ -17,6 +18,9 @@ use \Carbon\Carbon;
 use App\Http\Controllers\MailController;
 use App\FeaturedItem;
 use App\User;
+use App\About;
+use App\Product;
+use DB;
 
 class AdminController extends Controller
 {
@@ -389,6 +393,53 @@ class AdminController extends Controller
         $item->status = false;
         $item->save();
         return back();
+    }
+
+    public function topRatedProducts() {
+        $products = Product::orderBy("avg_rate", "desc")->paginate(20);
+        return view("admin.top_rated", [
+            "products" => $products
+        ]);
+    }
+
+    public function topSellingProducts() {
+        $products = Product::orderBy("sales_counter", "desc")->paginate(20);
+        return view("admin.top_sale", [
+            "products" => $products
+        ]);
+    }
+
+    public function topCategories() {
+        $categories = Product::select("category_id", DB::raw('SUM(sales_counter) as sales'), DB::raw("sum(revenue) as revenue"))
+            ->groupBy('category_id')
+            ->orderBy('sales', 'DESC')
+            ->paginate(20);
+        return view("admin.top_categories", [
+            "categories" => $categories
+        ]);
+    }
+
+
+    // ====================================== About ===================================//
+
+    public function showAboutPage(){
+        $aboutPage = About::all()->last();
+        return view("admin.showAbout",[
+            "aboutPage" => $aboutPage
+        ]);
+    }
+
+    public function showEditAboutPage(){
+        $aboutPage = About::all()->last();
+        return view("admin.editAbout",[
+            "aboutPage" => $aboutPage
+        ]);
+    }
+
+    public function editAboutPage(AboutRequest $request,About $aboutPage){
+        $aboutPage->update($request->all());
+        return redirect('/admin/about/show');
+
     }
 
 }

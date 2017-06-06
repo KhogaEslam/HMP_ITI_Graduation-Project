@@ -7,6 +7,19 @@
     <link rel="stylesheet" href="{{ asset('css/home.css')}}"/>
     <link rel="stylesheet" href="{{ asset("css/search.css") }}" />
 
+    <link rel="stylesheet" href="{{ asset("css/icon.min.css") }}" />
+    <link rel="stylesheet" href="{{ asset("css/comment.min.css") }}" />
+    <link rel="stylesheet" href="{{ asset("css/form.min.css") }}" />
+    <link rel="stylesheet" href="{{ asset("css/button.min.css") }}" />
+
+    {{--<link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/icon.min.css" rel="stylesheet">--}}
+    {{--<link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/comment.min.css" rel="stylesheet">--}}
+    {{--<link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/form.min.css" rel="stylesheet">--}}
+    {{--<link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/button.min.css" rel="stylesheet">--}}
+
+    <link rel="stylesheet" href="{{ asset("css/like_and_comment.css") }}" />
+
+
     <title> @yield('title')</title>
 </head>
 <body>
@@ -85,7 +98,7 @@ pull-right"></span></a></li>
                         @endforelse
                     </ul>
                 </li>
-                <li><a href="#">About</a></li>
+                <li><a href="/customer/about">About</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -117,88 +130,56 @@ pull-right"></span></a></li>
 
 @yield('content')
 
-<footer>
-    <div class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-2  col-md-2 col-sm-4 col-xs-6">
-                    <h3> Lorem Ipsum </h3>
-                    <ul>
-                        <li> <a href="#"> Lorem Ipsum </a> </li>
-                        <li> <a href="#"> Lorem Ipsum </a> </li>
-                        <li> <a href="#"> Lorem Ipsum </a> </li>
-                        <li> <a href="#"> Lorem Ipsum </a> </li>
-                    </ul>
-                </div>
-                <div class="col-lg-2  col-md-2 col-sm-4 col-xs-6">
-                    <h3> Information </h3>
-                    <ul>
-                        <li> <a href="#"> Home </a> </li>
-                        <li> <a href="#"> All Categories </a> </li>
-                        <li> <a href="#"> About </a> </li>
-                        <li> <a href="#"> Contact </a> </li>
-                    </ul>
-                </div>
-                <div class="col-lg-2  col-md-2 col-sm-4 col-xs-6">
-                    <h3> Lorem Ipsum </h3>
-                    <ul>
-                        <li> <a href="#"> Lorem Ipsum </a> </li>
-                        <li> <a href="#"> Lorem Ipsum </a> </li>
-                        <li> <a href="#"> Lorem Ipsum </a> </li>
-                        <li> <a href="#"> Lorem Ipsum </a> </li>
-                    </ul>
-                </div>
-                <div class="col-lg-2  col-md-2 col-sm-4 col-xs-6">
-                    <h3> Lorem Ipsum </h3>
-                    <ul>
-                        <li> <a href="#"> Lorem Ipsum </a> </li>
-                        <li> <a href="#"> Lorem Ipsum </a> </li>
-                        <li> <a href="#"> Lorem Ipsum </a> </li>
-                        <li> <a href="#"> Lorem Ipsum </a> </li>
-                    </ul>
-                </div>
-                <div class="col-lg-3  col-md-3 col-sm-6 col-xs-12 ">
-                    <h3> Lorem Ipsum </h3>
-                    <ul>
-                        <li>
-                            <div class="input-append newsletter-box text-center">
-                                <input type="text" class="full text-center" placeholder="Email ">
-                                <button class="btn  bg-gray" type="button"> Lorem ipsum <i class="fa fa-long-arrow-right"> </i> </button>
-                            </div>
-                        </li>
-                    </ul>
-                    <ul class="social">
-                        <li> <a href="#"> <i class=" fa fa-facebook">   </i> </a> </li>
-                        <li> <a href="#"> <i class="fa fa-twitter">   </i> </a> </li>
-                        <li> <a href="#"> <i class="fa fa-google-plus">   </i> </a> </li>
-                        <li> <a href="#"> <i class="fa fa-pinterest">   </i> </a> </li>
-                        <li> <a href="#"> <i class="fa fa-youtube">   </i> </a> </li>
-                    </ul>
-                </div>
+<footer class="panel-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <ul>
+                    <li><img class="logo2" src="{{ asset('images/logo_footer.png')}}"></li>
+                    <li>
+                        <h5>Where you find Gadgets
+                            that suits your needs.</h5> </li>
+                    <li>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.</p>
+                    </li>
+                </ul>
             </div>
-            <!--/.row-->
-        </div>
-        <!--/.container-->
-    </div>
-    <!--/.footer-->
-
-    <div class="footer-bottom">
-        <div class="container">
-            <p class="pull-left"> Copyright © Footer E-commerce Plugin 2014. All right reserved. </p>
-            <div class="pull-right">
-                <ul class="nav nav-pills payments">
-
-                    <li><i class="fa fa-cc-paypal"></i></li>
+            <div class="col-sm-3">
+                <ul class="info">
+                    <h2>Information</h2>
+                    <li>Home</li>
+                    <li>Categories</li>
+                    <li>About</li>
+                    <li>Contact</li>
+                </ul>
+            </div>
+            <div class="col-sm-3">
+                <ul>
+                    <li>
+                        <h2>Follow Us</h2></li>
+                    <ul class="social">
+                        <li class="k"><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a></li>
+                    </ul>
+                </ul>
+            </div>
+            <div class="col-sm-3">
+                <ul>
+                    <li>
+                        <h2>Terms of Use</h2></li>
+                    <p>Gadgetly.local is the sole owner of information collected on this site. We will not sell, share, or rent this information to any outside parties, except as outlined in this policy....</p>
                 </ul>
             </div>
         </div>
     </div>
-    <!--/.footer-bottom-->
 </footer>
+
 <script src="{{ asset('js/jquery.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.js')}}"></script>
 <script src="{{ asset('js/slider.js')}}"></script>
 <script src="{{ asset('js/search.js') }}"></script>
+<script src="{{ asset('/vendor/laravelLikeComment/js/script.js') }}" type="text/javascript"></script>
 
 </body>
 </html>

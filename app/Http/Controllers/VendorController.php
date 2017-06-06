@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CartHistory;
 use App\CategoryRequest;
 use App\Http\Requests\BannerRequest;
 use App\ProductImage;
@@ -19,13 +20,15 @@ use \App\Role;
 use \App\Http\Requests\EmployeeRequest;
 use \App\Http\Requests\EditEmployeeRequest;
 use \App\Helpers\Trie;
+use \App\UserAddress;
+use \App\UserPhone;
+use DB;
 
 class VendorController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware(["vendor.auth"])->only("showAddEmployeeForm", "addEmployee", "showEditEmployeeForm", "editEmployee", "deleteEmployee");
         $this->middleware(["employee.auth"]);
     }
 
@@ -164,6 +167,7 @@ class VendorController extends Controller
     {
         if($product->user->id == \Auth::user()->id) {
             $upload_to = resource_path("img");
+            Trie::getInstance()->deleteProduct($product->name);
             $product->update($request->all());
             Trie::getInstance()->addProduct($product->name);
             $files = $request->images;
@@ -380,6 +384,145 @@ class VendorController extends Controller
         }
         $banner->save();
         return redirect(action("VendorController@index"));
+    }
+
+    public function mostSoldProducts() {
+        $products = Product::owned()->topSale()->paginate(20);
+        $total = Product::owned()->sum("sales_counter");
+        if($total == 0)
+            $total = 1;
+        return view("shop.top_sale", [
+            "products" => $products,
+            "total" => $total
+        ]);
+    }
+
+    public function mostProfitableProducts() {
+        $products = Product::owned()->topProfit()->paginate(20);
+        $total = Product::owned()->sum("revenue");
+        if($total == 0)
+            $total = 1;
+        return view("shop.top_profit", [
+            "products" => $products,
+            "total" => $total
+        ]);
+    }
+
+    public function mostProfitableCategories() {
+        $products = Product::owned()
+            ->select("category_id", DB::raw("sum(revenue) as total_revenue"))
+            ->groupBy("category_id")
+            ->orderBy("total_revenue", "desc")
+            ->paginate(20);
+
+        $total = Product::owned()->sum('revenue');
+        if($total == 0)
+            $total = 1;
+
+        return view("shop.top_categories", [
+            "products" => $products,
+            "total" => $total
+        ]);
+    }
+
+    public function showNewAddressesForm() {
+        $addresses = \Auth::user()->addresses;
+        $counter = $addresses->count();
+        if($counter == 0)
+            $counter++;
+        return view("shop.new_addresses", [
+            "addresses" => $addresses,
+        ]);
+    }
+
+    public function showNewPhonesForm() {
+        $phones = \Auth::user()->phones;
+        return view("shop.new_phones", [
+            "phones" => $phones
+        ]);
+    }
+
+    public function newAddress(Request $request) {
+        $this->validate($request, [
+            "addresses" => "required",
+            "addresses.*" => "required"
+        ]);
+        $addresses = $request->input("addresses");
+        foreach($addresses as $address) {
+            $userAddress = new UserAddress;
+            $userAddress->address = $address;
+            $userAddress->user()->associate(\Auth::user());
+            $userAddress->save();
+        }
+        return redirect()->action("VendorController@addresses");
+    }
+
+    public function deleteAddress(UserAddress $address) {
+        if($address->user_id == \Auth::user()->id) {
+            $address->delete();
+        }
+        return back();
+    }
+
+    public function addresses() {
+        $addresses = \Auth::user()->addresses()->paginate(20);
+        return view("shop.addresses", [
+            "addresses" => $addresses
+        ]);
+    }
+
+    public function newPhones(Request $request) {
+        $this->validate($request, [
+            "new_phones" => "required",
+            "new_phones.*" => "required|regex:/(01)[0-9]{9}/",
+        ]);
+        $phones = $request->input("new_phones");
+        foreach($phones as $phone) {
+            $userPhone = new UserPhone;
+            $userPhone->number = $phone;
+            $userPhone->user()->associate(\Auth::user());
+            $userPhone->save();
+        }
+        return redirect()->action("VendorController@phones");
+    }
+
+    public function phones() {
+        $phones = \Auth::user()->phones()->paginate(20);
+        return view("shop.phones", [
+            "phones" => $phones
+        ]);
+    }
+
+    public function deletePhone(UserPhone $phone) {
+        if($phone->user_id == \Auth::user()->id) {
+            $phone->delete();
+        }
+        return back();
+    }
+
+    public function viewCheckouts() {
+        $checkouts = \Auth::user()->checkoutRequests()->orderBy("status")->paginate(20);
+        return view("shop.checkouts", [
+            "checkouts" => $checkouts,
+            "status" => [
+                0 => ["Package", "shop"],
+                1 => ["Ship", "shop"],
+                2 => ["Delivered", "customer"],
+                3 => ["Recieve payment", "shop"],
+                4 => ["Payment Received", "none"],
+            ]
+        ]);
+    }
+
+    public function updateCheckoutStatus(CartHistory $checkout) {
+        if($checkout->shop->id == \Auth::user()->id) {
+            if($checkout->status < 5) {
+                $checkout->status++;
+                $checkout->save();
+
+            }
+        }
+        return back();
     }
 
 }
