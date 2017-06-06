@@ -5,67 +5,11 @@
         "This file is @generated automatically"
     ],
 <<<<<<< HEAD
-    "content-hash": "0339d28160e85ad716d8c6af3d2e719a",
+    "content-hash": "274b1307b4cf89529f5c37ebe3afd42d",
 =======
-    "content-hash": "b52fc6c55e7c8e400ebac7187ce8f537",
->>>>>>> 6aa0deff722fa5d8d8b067ffbb7923d7c7fcece1
+    "content-hash": "dbbba7e4f8c237a746cd714da8afd11e",
+>>>>>>> 5e83f95b8532f440bf5375a342552c9ea25ea025
     "packages": [
-        {
-            "name": "actuallymab/laravel-comment",
-            "version": "0.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/actuallymab/laravel-comment.git",
-                "reference": "e8805b3baa4f4fa4eee41e6d5b5cfe336dc65cf9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/actuallymab/laravel-comment/zipball/e8805b3baa4f4fa4eee41e6d5b5cfe336dc65cf9",
-                "reference": "e8805b3baa4f4fa4eee41e6d5b5cfe336dc65cf9",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/database": "5.4.*",
-                "php": ">=5.6.4"
-            },
-            "require-dev": {
-                "fzaninotto/faker": "~1.4",
-                "mockery/mockery": "~0.9.0",
-                "orchestra/database": "3.4.x@dev",
-                "orchestra/testbench": "~3.4",
-                "phpunit/phpunit": "5.*"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Actuallymab\\LaravelComment\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mehmet Aydin Bahadir",
-                    "email": "mehmet.aydin.bahadir@gmail.com",
-                    "homepage": "http://www.actuallymab.me",
-                    "role": "Software Engineer"
-                }
-            ],
-            "description": "Just another comment system for laravel projects.",
-            "homepage": "https://github.com/actuallymab/laravel-comment",
-            "keywords": [
-                "actuallymab",
-                "laravel-comment"
-            ],
-            "time": "2017-01-31T07:40:27+00:00"
-        },
         {
             "name": "anouar/paypalpayment",
             "version": "2.1",
@@ -2349,6 +2293,45 @@
                 "uuid"
             ],
             "time": "2017-03-26T20:37:53+00:00"
+        },
+        {
+            "name": "risul/laravel-like-comment",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/risul3/laravel-like-comment.git",
+                "reference": "a10ef5fd210aacfd3f2fb3e10c631a4b04a46c97"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/risul3/laravel-like-comment/zipball/a10ef5fd210aacfd3f2fb3e10c631a4b04a46c97",
+                "reference": "a10ef5fd210aacfd3f2fb3e10c631a4b04a46c97",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "risul\\LaravelLikeComment\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "risul",
+                    "email": "risul321@gmail.com"
+                }
+            ],
+            "description": "Ajax based site wide like and comment system for laravel.",
+            "keywords": [
+                "ajax",
+                "comment",
+                "laravel",
+                "like"
+            ],
+            "time": "2016-09-27T04:42:05+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

@@ -29,4 +29,6 @@ composer.phar
 /resources/banner/
 resources/banner/
 /app/Helpers/words3.txt
+/routes/web.php.old
 !/resources/views/vendor/
+routes/web.php.old

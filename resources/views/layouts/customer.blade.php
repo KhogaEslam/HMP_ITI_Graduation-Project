@@ -168,7 +168,7 @@ pull-right"></span></a></li>
                 <ul>
                     <li>
                         <h2>Terms of Use</h2></li>
-                    <p>Gadgetly.com is the sole owner of information collected on this site. We will not sell, share, or rent this information to any outside parties, except as outlined in this policy....</p>
+                    <p>Gadgetly.local is the sole owner of information collected on this site. We will not sell, share, or rent this information to any outside parties, except as outlined in this policy....</p>
                 </ul>
             </div>
         </div>

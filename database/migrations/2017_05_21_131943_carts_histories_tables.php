@@ -13,11 +13,10 @@ class CartsHistoriesTables extends Migration
      */
     public function up()
     {
-        Schema::create('carts_histories', function (Blueprint $table) {
+        Schema::create('cart_histories', function (Blueprint $table) {
             $table->increments('id');
             $table->integer("product_id")->unsigned();
             $table->integer("user_id")->unsigned();
-            $table->integer("cart_id")->unsigned();
             $table->double("price");
             $table->integer("quantity");
 

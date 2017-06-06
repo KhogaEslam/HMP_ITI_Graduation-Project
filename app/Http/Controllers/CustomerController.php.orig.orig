@@ -253,6 +253,7 @@ class CustomerController extends Controller
         ]);
     }
 
+<<<<<<< HEAD
     public function cashCheckout() {
         $cart = \Auth::user()->cart;
         $items = $cart->cartDetails;
@@ -307,7 +308,7 @@ class CustomerController extends Controller
         }
         return back();
     }
-
+=======
     public function verifyPayPalPayment(){
         $ipn = new PaypalIPN();
         // Use the sandbox endpoint during testing.
@@ -426,5 +427,6 @@ class CustomerController extends Controller
     //        // Reply with an empty 200 response to indicate to paypal the IPN was received correctly
     //        header("HTTP/1.1 200 OK");
     //    }
+>>>>>>> af981978a84ad03e38929a559992a8ef8c16925c
 
 }

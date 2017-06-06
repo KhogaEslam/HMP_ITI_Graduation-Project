@@ -85,6 +85,14 @@ class Product extends Model
 
     }
 
+    public function scopeTopSale($query) {
+        $query->orderBy("sales_counter", "desc");
+    }
+
+    public function scopeTopProfit($query) {
+        $query->orderBy("revenue", "desc");
+    }
+
     /**
      * Get all of the Product's Banners.
      */
