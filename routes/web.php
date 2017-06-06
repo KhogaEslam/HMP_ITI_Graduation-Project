@@ -68,6 +68,10 @@ Route::post("admin/new_offer", "AdminController@addOffer");
 Route::get("admin/featured_requests", "AdminController@viewFeaturedRequests");
 Route::post("admin/featured_request/{featured_request}/accept", "AdminController@acceptFeaturedRequest");
 Route::post("admin/featured_request/{featured_request}/reject", "AdminController@rejectFeaturedRequest");
+//=====================     Statistics      =========================//
+Route::get("admin/statistics/top_rated", "AdminController@topRatedProducts");
+Route::get("admin/statistics/top_sale", "AdminController@topSellingProducts");
+Route::get("admin/statistics/top_categories", "AdminController@topCategories");
 //=====================       About       =========================//
 Route::get("admin/about/show", "AdminController@showAboutPage");
 Route::get("admin/about/edit", "AdminController@showEditAboutPage");
@@ -107,6 +111,28 @@ Route::group(["prefix" => "shop/employees", "middleware" => "vendor.auth"], func
     Route::post("{employee}/edit_employee", "VendorController@editEmployee");
     Route::post("{employee}/delete_employee", "VendorController@deleteEmployee");
 });
+
+    //====================  Statistics  ===================//
+Route::group(["prefix" => "shop/statistics", "middleware" => "vendor.auth"], function() {
+    Route::get("top_sale", "VendorController@mostSoldProducts");
+    Route::get("top_categories", "VendorController@mostProfitableCategories");
+    Route::get("top_profit", "VendorController@mostProfitableProducts");
+});
+
+//================================= Shop details =================================//
+Route::get("shop/address/new", "VendorController@showNewAddressesForm");
+Route::get("shop/phone/new", "VendorController@showNewPhonesForm");
+Route::post("shop/address/new", "VendorController@newAddress");
+Route::post("shop/phone/new", "VendorController@newPhones");
+Route::post("shop/address/{address}/delete", "VendorController@deleteAddress");
+Route::post("shop/phone/{phone}/delete", "VendorController@deletePhone");
+Route::get("shop/phone", "VendorController@phones");
+Route::get("shop/address", "VendorController@addresses");
+// ============================== Checkout ==================================== //
+Route::get("shop/checkouts", "VendorController@viewCheckouts");
+Route::post("shop/update/{checkout}/checkout_status", "VendorController@updateCheckoutStatus");
+Route::get("customer/cart/track", "CustomerController@trackCheckout");
+Route::post("/customer/cart/{checkout}/checkout_status", "CustomerController@changeCheckoutStatus");
 //================================= End Vendor Routes ========================================================//
 //===================================== Customer Routes ======================================================//
 //====================  Home  ======================//
@@ -121,6 +147,7 @@ Route::post("customer/{product}/add_to_cart", "CustomerController@addToCart");
 Route::post("customer/{cart_detail}/edit_cart", "CustomerController@editCart");
 Route::get("customer/cart", "CustomerController@viewCart");
 Route::post("customer/cart/{cart_detail}/delete", "CustomerController@deleteProductFromCart");
+Route::post("customer/cart/checkout", "CustomerController@cashCheckout");
 //=================== WishList ======================//
 Route::get("customer/wishlist/show", "CustomerController@showWishList");
 Route::get("customer/{product}/wishlist/add", "CustomerController@addToWishList");

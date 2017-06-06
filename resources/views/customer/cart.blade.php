@@ -75,7 +75,13 @@
                     <hr>
                     <li><span>TOTAL</span> <span class="totalp">{{$final_total}}$</span></li>
                 </ul>
-                <button class="myButton center-block">CHECK OUT</button>
+                {!! Form::open(["action" => ["CustomerController@cashCheckout"]]) !!}
+                {{--<button class="myButton center-block">CHECK OUT</button>--}}
+                {!! Form::button("Checkout", [
+                    "type" => "submit",
+                    "class" => "myButton center-block"
+                ]) !!}
+                {!! Form::close() !!}
                 <h5>or</h5>
                 {{-- check out --}}
                 <div class="col-md-4 text-center">
@@ -102,7 +108,7 @@
 
                             <?php $counter++; ?>
                         @endforeach
-
+                        <input type="hidden" name="custom" value="{{$cartDetails->id}},{{\Auth::user()->id}}"/>
                         <input type="hidden" name="shopping_url" value="{{ url('/') }}">
                         <input TYPE="hidden" name="return" value="{{ url('/') }}">
                         <input TYPE="hidden" name="cancel_return" value="{{ url('customer/cart') }}">

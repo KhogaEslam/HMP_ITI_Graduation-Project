@@ -4,10 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserAddress extends Model
+class UserPhone extends Model
 {
-    protected $fillable = ["address"];
-
     public function user() {
         return $this->belongsTo("\App\User");
     }

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\BannerRequest;
 use App\Category;
 use App\CategoryRequest;
-use App\Http\Requests\AboutRequest;
 use App\Http\Requests\AdminRequest;
 use App\RegistrationRequest;
 use App\Role;
@@ -18,7 +17,6 @@ use \Carbon\Carbon;
 use App\Http\Controllers\MailController;
 use App\FeaturedItem;
 use App\User;
-use App\About;
 use App\Product;
 use DB;
 
@@ -394,6 +392,7 @@ class AdminController extends Controller
         return back();
     }
 
+<<<<<<< HEAD
     public function topRatedProducts() {
         $products = Product::orderBy("avg_rate", "desc")->paginate(20);
         return view("admin.top_rated", [
@@ -416,29 +415,23 @@ class AdminController extends Controller
         return view("admin.top_categories", [
             "categories" => $categories
         ]);
-    }
-
+=======
 
     // ====================================== About ===================================//
 
     public function showAboutPage(){
-        $aboutPage = About::all()->last();
-        return view("admin.showAbout",[
-            "aboutPage" => $aboutPage
-        ]);
+        //get about page content from database
+        return view("admin.showAbout");
     }
 
     public function showEditAboutPage(){
-        $aboutPage = About::all()->last();
-        return view("admin.editAbout",[
-            "aboutPage" => $aboutPage
-        ]);
+        //get about page content from database
+        return view("admin.editAbout");
     }
 
-    public function editAboutPage(AboutRequest $request,About $aboutPage){
-        $aboutPage->update($request->all());
-        return redirect('/admin/about/show');
+    public function editAboutPage(Request $request){
 
+>>>>>>> af981978a84ad03e38929a559992a8ef8c16925c
     }
 
 }
