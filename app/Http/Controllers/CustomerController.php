@@ -57,6 +57,9 @@ class CustomerController extends Controller
         $products = $category->products()->published()->get();
         $categories = Category::all();
         $inCart = 0;
+        $maxPrice = DB::table('products')
+                    ->selectRaw('max(price) as max_price')
+                    ->first()->max_price;
         if (\Auth::check() && \Auth::user()->hasRole("customer")) {
             $inCart = \Auth::user()->cart()->first()->cartDetails->count();
         }
@@ -65,6 +68,11 @@ class CustomerController extends Controller
             "products" => $products,
             "category" => $category,
             "inCart" => $inCart,
+            "maxPrice" => $maxPrice,
+            "pageHeading" => ucfirst($category->name ). " Products",
+            "pageTitle" => "Gadgetly | ". strtoupper($category->name ). "Products",
+            "zeroResult" => 'There are no products yet in the category',
+
         ]);
     }
 
@@ -82,6 +90,7 @@ class CustomerController extends Controller
             "categories" => Category::all(),
             "inCart" => $inCart,
             "isWish" =>$isWish
+
         ]);
     }
 

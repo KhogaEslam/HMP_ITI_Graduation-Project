@@ -64,7 +64,7 @@ class VendorController extends Controller
      */
     public function requestCategory(Request $request)
     {
-        $this->validate($request, ['name' => 'required']);
+        $this->validate($request, ['name' => 'required|unique:categories|max:50']);
         $catRequest = new CategoryRequest();
         $catRequest->name = $request->name;
         $catRequest->user()->associate(\Auth::user());

@@ -4,64 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0339d28160e85ad716d8c6af3d2e719a",
+    "content-hash": "274b1307b4cf89529f5c37ebe3afd42d",
     "packages": [
-        {
-            "name": "actuallymab/laravel-comment",
-            "version": "0.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/actuallymab/laravel-comment.git",
-                "reference": "e8805b3baa4f4fa4eee41e6d5b5cfe336dc65cf9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/actuallymab/laravel-comment/zipball/e8805b3baa4f4fa4eee41e6d5b5cfe336dc65cf9",
-                "reference": "e8805b3baa4f4fa4eee41e6d5b5cfe336dc65cf9",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/database": "5.4.*",
-                "php": ">=5.6.4"
-            },
-            "require-dev": {
-                "fzaninotto/faker": "~1.4",
-                "mockery/mockery": "~0.9.0",
-                "orchestra/database": "3.4.x@dev",
-                "orchestra/testbench": "~3.4",
-                "phpunit/phpunit": "5.*"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Actuallymab\\LaravelComment\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mehmet Aydin Bahadir",
-                    "email": "mehmet.aydin.bahadir@gmail.com",
-                    "homepage": "http://www.actuallymab.me",
-                    "role": "Software Engineer"
-                }
-            ],
-            "description": "Just another comment system for laravel projects.",
-            "homepage": "https://github.com/actuallymab/laravel-comment",
-            "keywords": [
-                "actuallymab",
-                "laravel-comment"
-            ],
-            "time": "2017-01-31T07:40:27+00:00"
-        },
         {
             "name": "anouar/paypalpayment",
             "version": "2.1",
@@ -2193,16 +2137,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.8.5",
+            "version": "v0.8.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "38a9d21406597a0440690eafbcb0222f528c8ac6"
+                "reference": "7028d6d525fb183d50b249b7c07598e3d386b27d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/38a9d21406597a0440690eafbcb0222f528c8ac6",
-                "reference": "38a9d21406597a0440690eafbcb0222f528c8ac6",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/7028d6d525fb183d50b249b7c07598e3d386b27d",
+                "reference": "7028d6d525fb183d50b249b7c07598e3d386b27d",
                 "shasum": ""
             },
             "require": {
@@ -2232,7 +2176,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-develop": "0.9.x-dev"
+                    "dev-develop": "0.8.x-dev"
                 }
             },
             "autoload": {
@@ -2262,7 +2206,7 @@
                 "interactive",
                 "shell"
             ],
-            "time": "2017-05-17T06:49:19+00:00"
+            "time": "2017-06-04T10:34:20+00:00"
         },
         {
             "name": "ramsey/uuid",
