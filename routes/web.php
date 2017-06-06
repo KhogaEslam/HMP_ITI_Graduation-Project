@@ -71,7 +71,7 @@ Route::post("admin/featured_request/{featured_request}/reject", "AdminController
 //=====================       About       =========================//
 Route::get("admin/about/show", "AdminController@showAboutPage");
 Route::get("admin/about/edit", "AdminController@showEditAboutPage");
-Route::post("admin/about/edit", "AdminController@editAboutPage");
+Route::post("admin/about/{aboutPage}/edit", "AdminController@editAboutPage");
 //===============================    End Admin Route  =================================================//
 //================================== Shop Routes  ==================================================//
 //=====================   Home =====================//

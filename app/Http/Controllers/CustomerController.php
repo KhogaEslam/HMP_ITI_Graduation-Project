@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Product;
 use App\Category;
+use App\About;
 use \App\Http\Requests\CartRequest;
 use App\Helpers\Trie;
 use App\Helpers\PaypalIPN;
@@ -22,7 +23,7 @@ class CustomerController extends Controller
 {
     public function __construct()
     {
-        $this->middleware("customer.auth")->except(["index", "verifyPayPalPayment", "products", "productDetails", "search", "searchPrefix"]);
+        $this->middleware("customer.auth")->except(["index", "verifyPayPalPayment", "products", "productDetails", "search", "searchPrefix","showAbout"]);
     }
 
     public function index()
@@ -247,8 +248,10 @@ class CustomerController extends Controller
     }
 
     public function showAbout(){
+        $aboutPage = About::all()->last();
         return view("customer.about", [
             "categories" => Category::all(),
+            "aboutPage" => $aboutPage
         ]);
     }
 
