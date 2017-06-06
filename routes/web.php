@@ -168,6 +168,10 @@ Route::get("customer/search", "CustomerController@search");
 Route::get("about", "CustomerController@showAbout");
 //==================== Contact Us ======================//
 Route::get("contactUs", "CustomerController@showContactUs");
+//==================== Profile =========================//
+Route::get("customer/profile", "CustomerController@viewProfile");
+Route::get("customer/profile/edit", "CustomerController@showEditCustomerProfileForm");
+Route::post("customer/profile/edit", "CustomerController@editCustomerProfile");
 //=================================== End Customer Routes =======================================================//
 //===================================    Files Routes  ===========================================================//
 //================= product images ==================//

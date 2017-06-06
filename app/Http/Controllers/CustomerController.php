@@ -19,6 +19,7 @@ use \App\Http\Requests\CartRequest;
 use App\Helpers\Trie;
 use App\Helpers\PaypalIPN;
 use App\Helpers\GuestCart;
+use App\Http\Requests\CustomerRequest;
 
 class CustomerController extends Controller
 {
@@ -629,5 +630,45 @@ class CustomerController extends Controller
         unset($cart[$id]);
         session()->put("user.cart", $cart);
         return back();
+    }
+
+    public function viewProfile() {
+        $user = \Auth::user();
+        $categories = \App\Category::all();
+        $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+        return view("customer.profile", [
+            "user" => $user,
+            "categories" => $categories,
+            "inCart" => $inCart,
+            "gender" => [
+                "Male",
+                "Female",
+                "Other"
+            ]
+        ]);
+    }
+
+    public function showEditCustomerProfileForm() {
+        $user = \Auth::user();
+        $categories = \App\Category::all();
+        $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+        return view("customer.edit_profile", [
+            "user" => $user,
+            "categories" => $categories,
+            "inCart" => $inCart,
+        ]);
+    }
+
+    public function editCustomerProfile(CustomerRequest $request) {
+        $user = \Auth::user();
+        $user->name = $request->input("name");
+        $userDetail = $user->userDetails->first();
+        $userDetail->date_of_birth = $request->input("date_of_birth");
+        if($request->has("password")) {
+            $user->password = bcrypt($request->input("password"));
+        }
+        $userDetail->save();
+        $user->save();
+        return redirect()->action("CustomerController@viewProfile");
     }
 }

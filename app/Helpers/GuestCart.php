@@ -33,19 +33,20 @@ class GuestCart {
             }
             unset($guestItems[$item->id]);
         }
-        foreach($guestItems as $id => $quantity) {
-            $product = Product::find($id);
-            $cartDetail = \Auth::user()->cart->cartDetails->where("product_id", "=", $id);
-            if($cartDetail->isEmpty()) {
-                $cartDetail = new CartDetail;
+        if(! is_null($guestItems) && ! empty($guestItems)) {
+            foreach ($guestItems as $id => $quantity) {
+                $product = Product::find($id);
+                $cartDetail = \Auth::user()->cart->cartDetails->where("product_id", "=", $id);
+                if ($cartDetail->isEmpty()) {
+                    $cartDetail = new CartDetail;
+                } else {
+                    $cartDetail = $cartDetail->first();
+                }
+                $cartDetail->quantity = $quantity;
+                $cartDetail->product()->associate($product);
+                $cartDetail->cart()->associate(\Auth::user()->cart);
+                $cartDetail->save();
             }
-            else {
-                $cartDetail = $cartDetail->first();
-            }
-            $cartDetail->quantity = $quantity;
-            $cartDetail->product()->associate($product);
-            $cartDetail->cart()->associate(\Auth::user()->cart);
-            $cartDetail->save();
         }
     }
 

@@ -33,7 +33,7 @@
                         @if (Auth::check())
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, {{ Auth::user()->name }}<span class="glyphicon glyphicon-user"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">My Profile <span class="glyphicon glyphicon-user pull-right"></span></a></li>
+                                <li><a href="{{action("CustomerController@viewProfile")}}">My Profile <span class="glyphicon glyphicon-user pull-right"></span></a></li>
 
                                 <li class="divider"></li>
                                 <li class="divider"></li>
