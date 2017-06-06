@@ -146,8 +146,13 @@ Route::get("category/popularCategories/show", "CustomerController@showPopularCat
 Route::post("customer/{product}/add_to_cart", "CustomerController@addToCart");
 Route::post("customer/{cart_detail}/edit_cart", "CustomerController@editCart");
 Route::get("customer/cart", "CustomerController@viewCart");
+Route::get("cart", "CustomerController@viewGuestCart");
 Route::post("customer/cart/{cart_detail}/delete", "CustomerController@deleteProductFromCart");
 Route::post("customer/cart/checkout", "CustomerController@cashCheckout");
+Route::post("cart/{product}/add_to_cart", "CustomerController@addToGuestCart");Route::post("cart/{product}/add_to_cart", "CustomerController@addToGuestCart");
+Route::post("cart/{id}/delete_item", "CustomerController@deleteFromGuestCart");
+Route::post("cart/{id}/edit_item", "CustomerController@editGuestCart");
+
 //=================== WishList ======================//
 Route::get("customer/wishlist/show", "CustomerController@showWishList");
 Route::get("customer/{product}/wishlist/add", "CustomerController@addToWishList");

@@ -89,7 +89,7 @@ pull-right"></span></a></li>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="{{url('/')}}">Home <span class="sr-only">(current)</span></a></li>
-                <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">All Ctegories<span class="caret"></span></a>
+                <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">All Categories<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         @forelse($categories as $category)
                             <li> {{link_to_action("CustomerController@products", $category->name, [$category])}}</li>
@@ -102,12 +102,19 @@ pull-right"></span></a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{action("CustomerController@viewCart")}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="count" >
-                            @if(isset($inCart))
-                                {{$inCart}}
-                            @else
-                                0
-                            @endif</span></a></li>
+                <li>
+                    @role("customer")
+                        <a href="{{action("CustomerController@viewCart")}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="count" >
+                    @endrole
+
+                    @if(!\Auth::check() || !\Auth::user()->hasRole("customer"))
+                        <a href="{{action("CustomerController@viewGuestCart")}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="count" >
+                    @endif
+                    @if(isset($inCart))
+                        {{$inCart}}
+                    @else
+                        0
+                    @endif</span></a></li>
                 <form class="navbar-form navbar-right mySearch" action="{{action("CustomerController@search")}}" method="get">
                     <div class="input-group stylish-input-group">
                         <input name="search_name" type="text" class="form-control"  placeholder="Search" >

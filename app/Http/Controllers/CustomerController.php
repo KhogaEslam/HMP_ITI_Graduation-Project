@@ -18,12 +18,13 @@ use App\Category;
 use \App\Http\Requests\CartRequest;
 use App\Helpers\Trie;
 use App\Helpers\PaypalIPN;
+use App\Helpers\GuestCart;
 
 class CustomerController extends Controller
 {
     public function __construct()
     {
-        $this->middleware("customer.auth")->except(["index", "verifyPayPalPayment", "products", "productDetails", "search", "searchPrefix"]);
+        $this->middleware("customer.auth")->except(["index", "verifyPayPalPayment", "products", "productDetails", "search", "searchPrefix", "addToGuestCart", "viewGuestCart", "editGuestCart", "deleteFromGuestCart"]);
     }
 
     public function index()
@@ -32,6 +33,9 @@ class CustomerController extends Controller
         $inCart = 0;
         if (\Auth::check() && \Auth::user()->hasRole("customer")) {
             $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+        }
+        else {
+            $inCart = GuestCart::getAllProductsCount(session("user.cart"));
         }
         $newArrivals = Product::latest('created_at')->limit(4)->published()->get();
         $featuredProducts = FeaturedProduct::all();
@@ -65,6 +69,9 @@ class CustomerController extends Controller
         if (\Auth::check() && \Auth::user()->hasRole("customer")) {
             $inCart = \Auth::user()->cart()->first()->cartDetails->count();
         }
+        else {
+            $inCart = GuestCart::getAllProductsCount(session("user.cart"));
+        }
         return view("customer.products", [
             "categories" => $categories,
             "products" => $products,
@@ -80,6 +87,9 @@ class CustomerController extends Controller
 
         if (\Auth::check() && \Auth::user()->hasRole("customer")) {
             $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+        }
+        else {
+            $inCart = GuestCart::getAllProductsCount(session("user.cart"));
         }
 
         return view("customer.product_details", [
@@ -267,14 +277,23 @@ class CustomerController extends Controller
                 $offer = $offer->first()->percentage;
             }
             $price -= ($product->price * $offer) * $item->quantity;
-            $history = new CartHistory;
-            $history->price = $price;
-            $history->quantity = $item->quantity;
+            $history = CartHistory::where("product_id", "=", $product->id)->where("status", "<", 4)->get();
+            if($history->isEmpty()) {
+                unset($history);
+                $history = new CartHistory;
+                $history->price = 0;
+                $history->quantity = 0;
+            }
+            $history = $history->first();
+            $history->price += $price;
+            $history->quantity += $item->quantity;
             $history->user()->associate(\Auth::user());
             $history->shop()->associate($product->user);
             $history->product()->associate($product);
             $history->save();
             $item->product->quantity -= $item->quantity;
+            $item->product->sales_counter += $item->quantity;
+            $item->revenue += $price;
             $item->product->save();
             $item->delete();
         }
@@ -302,7 +321,6 @@ class CustomerController extends Controller
             if($checkout->status < 5) {
                 $checkout->status++;
                 $checkout->save();
-
             }
         }
         return back();
@@ -427,4 +445,75 @@ class CustomerController extends Controller
     //        header("HTTP/1.1 200 OK");
     //    }
 
+    public function addToGuestCart(Request $request, Product $product) {
+        if(! session()->has("user.cart")) {
+            session()->put("user.cart", []);
+        }
+        $cart = session("user.cart");
+        if(! isset($cart[$product->id])) {
+            $cart[$product->id] = 0;
+        }
+        $cart[$product->id] += $request->input("quantity");
+        session()->put("user.cart", $cart);
+        return back();
+    }
+
+    public function viewGuestCart() {
+        $items = session("user.cart");
+        if(is_null($items))
+            $items = [];
+        $cartDetails = new Collection();
+        foreach($items as $id => $quantity) {
+            $product = Product::find($id);
+            $cartDetail = new CartDetail;
+            $cartDetail->quantity = $quantity;
+            $cartDetail->product()->associate($product);
+            $cartDetails->add($cartDetail);
+        }
+
+        $total = 0;
+        $inCart = 0;
+
+        foreach ($cartDetails as $cartDetail) {
+            $total += ($cartDetail->product->price - $cartDetail->product->discount / 100.0 * $cartDetail->product->price) * $cartDetail->quantity;
+        }
+        $offer = Offer::current()->get();
+        $final_total=$total;
+        if(! $offer->isEmpty()) {
+            $offer=$offer->first()->percentage;
+            $final_total -= $final_total * $offer / 100.0;
+        }
+        else{
+            $offer=0;
+        }
+        if (\Auth::check()) {
+            $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+        }
+        else {
+            $inCart = GuestCart::getAllProductsCount($items);
+        }
+
+        return view("customer.cart", [
+            "cartDetails" => $cartDetails,
+            "categories" => Category::all(),
+            "total" => $total,
+            "inCart" => $inCart,
+            "final_total" =>$final_total,
+            "offer"=> $offer,
+        ]);
+    }
+
+    public function editGuestCart(Request $request, $id) {
+        $cart = session("user.cart");
+        $cart[$id] = $request->input("quantity");
+        session()->put("user.cart", $cart);
+        return back();
+    }
+
+    public function deleteFromGuestCart($id) {
+        $cart = session("user.cart");
+        unset($cart[$id]);
+        session()->put("user.cart", $cart);
+        return back();
+    }
 }

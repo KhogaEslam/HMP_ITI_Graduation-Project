@@ -141,6 +141,32 @@
                 @endif
 
                 @endrole
+                @if(! \Auth::check())
+                    <button class="myButton add" data-toggle="modal" data-target="#addModal">Add To Cart</button>
+
+                    <div class="modal fade" id="addModal" role="dialog">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Add To Cart</h4>
+                                </div>
+                                {!! Form::open(["action" => ["CustomerController@addToGuestCart", $product]]) !!}
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        {!! Form::label("Quantity") !!}
+                                        {!! Form::number("quantity", null, ["class" => "form-control" , "min" => 1 , "max" => $product->quantity]) !!}
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    {!! Form::submit("Add to cart",["class" => "btn btn-default modalb"]) !!}
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                                {!! Form::close() !!}
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

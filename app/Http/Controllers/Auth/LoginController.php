@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Role;
 use App\Category;
+use App\Helpers\GuestCart;
 
 class LoginController extends Controller
 {
@@ -115,6 +116,7 @@ class LoginController extends Controller
 
     protected function authenticated($request, $user)
     {
+        GuestCart::merge(session("user.cart"), \Auth::user()->cart->cartDetails);
         return redirect($request->route()->getPrefix());
     }
 }
