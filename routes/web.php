@@ -15,6 +15,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 //=============================   End main home routes ===============================//
 //====================== Registration and login with social media ====================//
 Route::get('mail', 'MailController@requestRegisterMail');
+
+Route::post('mail/contactUs', 'MailController@contactUsMail');
+
 Route::get('auth/facebook', 'FacebookController@redirectToProvider')
     ->name('facebook.login')
     ->prefix("customer");
@@ -146,8 +149,13 @@ Route::get("category/popularCategories/show", "CustomerController@showPopularCat
 Route::post("customer/{product}/add_to_cart", "CustomerController@addToCart");
 Route::post("customer/{cart_detail}/edit_cart", "CustomerController@editCart");
 Route::get("customer/cart", "CustomerController@viewCart");
+Route::get("cart", "CustomerController@viewGuestCart");
 Route::post("customer/cart/{cart_detail}/delete", "CustomerController@deleteProductFromCart");
 Route::post("customer/cart/checkout", "CustomerController@cashCheckout");
+Route::post("cart/{product}/add_to_cart", "CustomerController@addToGuestCart");Route::post("cart/{product}/add_to_cart", "CustomerController@addToGuestCart");
+Route::post("cart/{id}/delete_item", "CustomerController@deleteFromGuestCart");
+Route::post("cart/{id}/edit_item", "CustomerController@editGuestCart");
+
 //=================== WishList ======================//
 Route::get("customer/wishlist/show", "CustomerController@showWishList");
 Route::get("customer/{product}/wishlist/add", "CustomerController@addToWishList");
@@ -157,7 +165,13 @@ Route::post('customer/{product}/rating/add','CustomerController@submitRating');
 //==================== Search ======================//
 Route::get("customer/search", "CustomerController@search");
 //==================== About ======================//
-Route::get("customer/about", "CustomerController@showAbout");
+Route::get("about", "CustomerController@showAbout");
+//==================== Contact Us ======================//
+Route::get("contactUs", "CustomerController@showContactUs");
+//==================== Profile =========================//
+Route::get("customer/profile", "CustomerController@viewProfile");
+Route::get("customer/profile/edit", "CustomerController@showEditCustomerProfileForm");
+Route::post("customer/profile/edit", "CustomerController@editCustomerProfile");
 //=================================== End Customer Routes =======================================================//
 //===================================    Files Routes  ===========================================================//
 //================= product images ==================//

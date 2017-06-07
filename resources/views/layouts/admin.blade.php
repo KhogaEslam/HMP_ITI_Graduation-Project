@@ -124,13 +124,15 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/admin/category-requests">Category Requests</a>
                         </li>
-                        <li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/admin/banner_requests">Banner Requests</a>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="/admin/featured_requests">Feature Request</a>
                         </li>
-                        <li>
+
+                        <li class="nav-item">
                             <a class="nav-link" href="/admin/about/show">About Page</a>
                         </li>
 

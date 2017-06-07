@@ -18,4 +18,8 @@ class CartDetail extends Model
     public function scopeQuantity($query, $product) {
         $query->where("product_id", "=", $product);
     }
+
+    public function alreadyExist($product) {
+        return $this->attributes["product_id"] == $product->id;
+    }
 }

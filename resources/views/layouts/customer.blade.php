@@ -12,10 +12,10 @@
     <link rel="stylesheet" href="{{ asset("css/form.min.css") }}" />
     <link rel="stylesheet" href="{{ asset("css/button.min.css") }}" />
 
-    {{--<link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/icon.min.css" rel="stylesheet">--}}
-    {{--<link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/comment.min.css" rel="stylesheet">--}}
-    {{--<link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/form.min.css" rel="stylesheet">--}}
-    {{--<link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/button.min.css" rel="stylesheet">--}}
+    <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/icon.min.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/comment.min.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/form.min.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/button.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset("css/like_and_comment.css") }}" />
 
@@ -33,7 +33,7 @@
                         @if (Auth::check())
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, {{ Auth::user()->name }}<span class="glyphicon glyphicon-user"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">My Profile <span class="glyphicon glyphicon-user pull-right"></span></a></li>
+                                <li><a href="{{action("CustomerController@viewProfile")}}">My Profile <span class="glyphicon glyphicon-user pull-right"></span></a></li>
 
                                 <li class="divider"></li>
                                 <li class="divider"></li>
@@ -89,7 +89,7 @@ pull-right"></span></a></li>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="{{url('/')}}">Home <span class="sr-only">(current)</span></a></li>
-                <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">All Ctegories<span class="caret"></span></a>
+                <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">All Categories<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         @forelse($categories as $category)
                             <li> {{link_to_action("CustomerController@products", $category->name, [$category])}}</li>
@@ -98,16 +98,23 @@ pull-right"></span></a></li>
                         @endforelse
                     </ul>
                 </li>
-                <li><a href="/customer/about">About</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contactUs">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{action("CustomerController@viewCart")}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="count" >
-                            @if(isset($inCart))
-                                {{$inCart}}
-                            @else
-                                0
-                            @endif</span></a></li>
+                <li>
+                    @role("customer")
+                        <a href="{{action("CustomerController@viewCart")}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="count" >
+                    @endrole
+
+                    @if(!\Auth::check() || !\Auth::user()->hasRole("customer"))
+                        <a href="{{action("CustomerController@viewGuestCart")}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="count" >
+                    @endif
+                    @if(isset($inCart))
+                        {{$inCart}}
+                    @else
+                        0
+                    @endif</span></a></li>
                 <form class="navbar-form navbar-right mySearch" action="{{action("CustomerController@search")}}" method="get">
                     <div class="input-group stylish-input-group">
                         <input name="search_name" type="text" class="form-control"  placeholder="Search" >

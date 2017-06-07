@@ -244,6 +244,7 @@ return [
         'Paypalpayment' => Anouar\Paypalpayment\Facades\PaypalPayment::class,
         'Helpers' => App\Helpers\Helpers::class,
         'Trie' => \App\Helpers\Trie::class,
+        'GuestCart' => \App\Helpers\GuestCart::class,
     ],
 
 ];

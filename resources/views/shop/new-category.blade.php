@@ -26,7 +26,7 @@
                     <button  type="submit" class="form-control btn btn-primary"> Request category </button>
                 </div>
            </form>
-            <a class="btn btn-outline-secondary" href="/admin/categories" > Back to all categories</a>
+            <a class="btn btn-outline-secondary" href="/shop" > Back to all categories</a>
         </div>
     </div>
 @endsection

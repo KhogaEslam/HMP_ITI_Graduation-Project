@@ -501,7 +501,11 @@ class VendorController extends Controller
     }
 
     public function viewCheckouts() {
-        $checkouts = \Auth::user()->checkoutRequests()->orderBy("status")->paginate(20);
+        $user = \Auth::user();
+        if($user->hasRole("employee")) {
+            $user = $user->employee->first()->manager;
+        }
+        $checkouts = $user->checkoutRequests()->orderBy("status")->paginate(20);
         return view("shop.checkouts", [
             "checkouts" => $checkouts,
             "status" => [
@@ -515,7 +519,11 @@ class VendorController extends Controller
     }
 
     public function updateCheckoutStatus(CartHistory $checkout) {
-        if($checkout->shop->id == \Auth::user()->id) {
+        $user = \Auth::user();
+        if($user->hasRole("employee")) {
+            $user = $user->employee->first()->manager;
+        }
+        if($checkout->shop->id == $user->id) {
             if($checkout->status < 5) {
                 $checkout->status++;
                 $checkout->save();

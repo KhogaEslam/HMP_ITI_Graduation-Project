@@ -13,6 +13,6 @@ class Employee extends Model
     }
 
     public function self() {
-        return $this->belongsTo("App\User", "employee_id");
+        return $this->belongsTo("App\User");
     }
 }

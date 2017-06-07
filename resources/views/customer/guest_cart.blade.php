@@ -1,6 +1,6 @@
 @extends("layouts.customer")
 @section("title")
-    {{\Auth::check() ? \Auth::user()->name : "Guest"}} Shopping cart
+    Guest Shopping cart
 @endsection
 
 @section("content")
@@ -20,59 +20,44 @@
                     </thead>
                     <tbody>
                     @foreach($cartDetails as $cartDetail)
-                    <tr>
-                        <td class="">
-                            <div class="media">
-                                <a class="thumbnail pull-left" href="#">
-                                    @if($cartDetail->product->images->first() !== null)
-                                        <img class="media-object" src="{{route("image", $cartDetail->product->images->first()->stored_name)}}" style="width: 72px; "> </a>
+                        <tr>
+                            <td class="">
+                                <div class="media">
+                                    <a class="thumbnail pull-left" href="#">
+                                        @if($cartDetail->product->images->first() !== null)
+                                            <img class="media-object" src="{{route("image", $cartDetail->product->images->first()->stored_name)}}" style="width: 72px; "> </a>
 
-                                @endif
-                                <div class="media-body">
-                                    <h4 class="media-heading"><a href="#"> {{$cartDetail->product->name}}</a></h4>
-                                    <h5 class="media-heading"> In <a href="#">{{$cartDetail->product->category->name}}</a></h5> <span>Status: </span><span class="text-success"><strong>In Stock</strong></span> </div>
-                            </div>
-                        </td>
-                        <td class="" style="text-align: center">
-                            {{--<input type="number" class="form-control" value="{{$cartDetail->quantity}}">--}}
-                            @role("customer")
-                            {!! Form::model($cartDetail, ["action" => ["CustomerController@editCart", $cartDetail]]) !!}
-                            @endrole
-                            @if(! \Auth::check() || ! \Auth::user()->hasRole("customer"))
-                            {!! Form::model($cartDetail, ["action" => ["CustomerController@editGuestCart", $cartDetail->product->id]]) !!}
-                            @endif
+                                    @endif
+                                    <div class="media-body">
+                                        <h4 class="media-heading"><a href="#"> {{$cartDetail->product->name}}</a></h4>
+                                        <h5 class="media-heading"> In <a href="#">{{$cartDetail->product->category->name}}</a></h5> <span>Status: </span><span class="text-success"><strong>In Stock</strong></span> </div>
+                                </div>
+                            </td>
+                            <td class="" style="text-align: center">
+                                {{--<input type="number" class="form-control" value="{{$cartDetail->quantity}}">--}}
+                                {!! Form::model($cartDetail, ["action" => ["CustomerController@editCart", $cartDetail]]) !!}
                                 {!! Form::number("quantity", null, ["class" => "form-control"]) !!}
                                 {!! Form::submit("Submit", ["class" => "btn myButton submit-q"] )!!}
-                            {!! Form::close() !!}
-                        </td>
-                        <td class=" text-center"><strong>{{$cartDetail->product->price}}$</strong></td>
+                                {!! Form::close() !!}
+                            </td>
+                            <td class=" text-center"><strong>{{$cartDetail->product->price}}$</strong></td>
 
-                        @if($cartDetail->product->discount > 0)
-                            <td class="-1 text-center"><strong><s>{{$cartDetail->product->price * $cartDetail->quantity}}$</s></strong></td>
-                            <td class="-1 text-center"><strong>{{($cartDetail->product->price - $cartDetail->product->discount / 100.0 * $cartDetail->product->price) * $cartDetail->quantity}}$</strong>
-                                @role("customer")
-                                {!! Form::open(["action" => ["CustomerController@deleteProductFromCart", $cartDetail]]) !!}
-                                @endrole
-                                @if(! \Auth::check() || ! \Auth::user()->hasRole("customer"))
-                                    {!! Form::open(["action" => ["CustomerController@deleteFromGuestCart", $cartDetail->product->id]]) !!}
-                                @endif
-                                {!! Form::button("Remove",["type" => "submit","class" => "btn remove"])!!}
-                                {!! Form::close() !!}
-                            </td>
-                        @else
-                            <td>&nbsp;&nbsp;---</td>
-                            <td class="-1 text-center"><strong>{{$cartDetail->product->price * $cartDetail->quantity}}$</strong>
-                                @role("customer")
-                                {!! Form::open(["action" => ["CustomerController@deleteProductFromCart", $cartDetail]]) !!}
-                                @endrole
-                                @if(! \Auth::check() || ! \Auth::user()->hasRole("customer"))
-                                    {!! Form::open(["action" => ["CustomerController@deleteFromGuestCart", $cartDetail->product->id]]) !!}
-                                @endif
-                                {!! Form::button("Remove",["type" => "submit","class" => "btn remove"])!!}
-                                {!! Form::close() !!}
-                            </td>
-                        @endif
-                    </tr>
+                            @if($cartDetail->product->discount > 0)
+                                <td class="-1 text-center"><strong><s>{{$cartDetail->product->price * $cartDetail->quantity}}$</s></strong></td>
+                                <td class="-1 text-center"><strong>{{($cartDetail->product->price - $cartDetail->product->discount / 100.0 * $cartDetail->product->price) * $cartDetail->quantity}}$</strong>
+                                    {!! Form::open(["action" => ["CustomerController@deleteProductFromCart", $cartDetail]]) !!}
+                                    {!! Form::button("Remove",["type" => "submit","class" => "btn remove"])!!}
+                                    {!! Form::close() !!}
+                                </td>
+                            @else
+                                <td>&nbsp;&nbsp;---</td>
+                                <td class="-1 text-center"><strong>{{$cartDetail->product->price * $cartDetail->quantity}}$</strong>
+                                    {!! Form::open(["action" => ["CustomerController@deleteProductFromCart", $cartDetail]]) !!}
+                                    {!! Form::button("Remove",["type" => "submit","class" => "btn remove"])!!}
+                                    {!! Form::close() !!}
+                                </td>
+                            @endif
+                        </tr>
                     @endforeach
                     </tbody>
                 </table>
@@ -90,7 +75,6 @@
                     <hr>
                     <li><span>TOTAL</span> <span class="totalp">{{$final_total}}$</span></li>
                 </ul>
-                @if(! $cartDetails->isEmpty())
                 {!! Form::open(["action" => ["CustomerController@cashCheckout"]]) !!}
                 {{--<button class="myButton center-block">CHECK OUT</button>--}}
                 {!! Form::button("Checkout", [
@@ -125,7 +109,6 @@
                             <?php $counter++; ?>
                         @endforeach
 
-                        <input type="hidden" name="custom" value="{{$cartDetails->first->cart->id}}"/>
                         <input type="hidden" name="shopping_url" value="{{ url('/') }}">
                         <input TYPE="hidden" name="return" value="{{ url('/') }}">
                         <input TYPE="hidden" name="cancel_return" value="{{ url('customer/cart') }}">
@@ -136,20 +119,19 @@
                     </span></button>
                     </form>
                 </div>
-                    @endif
             </div>
         </div>
     </div>
 
 
     {{--<div class="col-md-1" style="padding-top: 80px;">--}}
-        {{--{!! Form::model($cartDetail, ["action", "CustomerController@editCart", $cartDetail]) !!}--}}
-        {{--<div class="form-group">--}}
-            {{--{!! Form::label("Quantity") !!}--}}
-            {{--{!! Form::text("quantity", null, ["class" => "form-control"]) !!}--}}
-        {{--</div>--}}
-        {{--{!! Form::submit("Update cart") !!}--}}
-        {{--{!! Form::close() !!}--}}
+    {{--{!! Form::model($cartDetail, ["action", "CustomerController@editCart", $cartDetail]) !!}--}}
+    {{--<div class="form-group">--}}
+    {{--{!! Form::label("Quantity") !!}--}}
+    {{--{!! Form::text("quantity", null, ["class" => "form-control"]) !!}--}}
+    {{--</div>--}}
+    {{--{!! Form::submit("Update cart") !!}--}}
+    {{--{!! Form::close() !!}--}}
     {{--</div>--}}
 
 @endsection
