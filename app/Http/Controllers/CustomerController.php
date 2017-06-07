@@ -25,7 +25,7 @@ class CustomerController extends Controller
 {
     public function __construct()
     {
-        $this->middleware("customer.auth")->except(["index", "verifyPayPalPayment", "products", "productDetails", "search", "searchPrefix", "addToGuestCart", "viewGuestCart", "editGuestCart", "deleteFromGuestCart", "showAbout", "showContactUs"]);
+        $this->middleware("customer.auth")->except(["index", "verifyPayPalPayment", "catProducts", "productDetails", "search", "searchPrefix", "addToGuestCart", "viewGuestCart", "editGuestCart", "deleteFromGuestCart", "showAbout", "showContactUs"]);
     }
 
     public function index()
@@ -62,7 +62,7 @@ class CustomerController extends Controller
         ]);
     }
 
-    public function products(Category $category)
+    public function catProducts(Category $category)
     {
         $products = $category->products()->published()->get();
         $categories = Category::all();
@@ -70,12 +70,14 @@ class CustomerController extends Controller
         $maxPrice = DB::table('products')
                     ->selectRaw('max(price) as max_price')
                     ->first()->max_price;
+
         if (\Auth::check() && \Auth::user()->hasRole("customer")) {
             $inCart = \Auth::user()->cart()->first()->cartDetails->count();
         }
         else {
             $inCart = GuestCart::getAllProductsCount(session("user.cart"));
         }
+
         return view("customer.products", [
             "categories" => $categories,
             "products" => $products,
