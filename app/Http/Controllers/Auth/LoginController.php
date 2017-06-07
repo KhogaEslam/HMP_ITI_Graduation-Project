@@ -116,7 +116,9 @@ class LoginController extends Controller
 
     protected function authenticated($request, $user)
     {
-        GuestCart::merge(session("user.cart"), \Auth::user()->cart->cartDetails);
+        if(\Auth::user()->hasRole("customer")) {
+            GuestCart::merge(session("user.cart"), \Auth::user()->cart->cartDetails);
+        }
         return redirect($request->route()->getPrefix());
     }
 }
