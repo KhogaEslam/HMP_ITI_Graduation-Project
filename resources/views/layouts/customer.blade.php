@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{{ asset("css/search.css") }}" />
 
     <link rel="stylesheet" href="{{ asset("css/icon.min.css") }}" />
-    <link rel="stylesheet" href="{{ asset("css/comment.min.css") }}" />
     <link rel="stylesheet" href="{{ asset("css/form.min.css") }}" />
     <link rel="stylesheet" href="{{ asset("css/button.min.css") }}" />
 

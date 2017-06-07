@@ -142,8 +142,8 @@ Route::post("/customer/cart/{checkout}/checkout_status", "CustomerController@cha
 Route::get("customer", "CustomerController@index");
 Route::get("customer/shop/{vendor_id}", "CustomerController@index");
 //==================== Products ====================//
-Route::get("category/{category}/products", "CustomerController@products");
 Route::get("category/{category}/products/{product}", "CustomerController@productDetails");
+Route::get("category/{category}/products", "CustomerController@products");
 Route::get("category/popularCategories/show", "CustomerController@showPopularCategories");
 //==================== Cart =========================//
 Route::post("customer/{product}/add_to_cart", "CustomerController@addToCart");
