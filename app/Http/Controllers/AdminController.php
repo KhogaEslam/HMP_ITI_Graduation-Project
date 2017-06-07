@@ -20,6 +20,7 @@ use App\FeaturedItem;
 use App\User;
 use App\About;
 use App\Product;
+use App\Comment;
 use DB;
 
 class AdminController extends Controller
@@ -440,6 +441,10 @@ class AdminController extends Controller
         $aboutPage->update($request->all());
         return redirect('/admin/about/show');
 
+    }
+
+    public function showMostReviwed(){
+//        $mostReviwed=
     }
 
 }

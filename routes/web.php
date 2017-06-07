@@ -11,7 +11,21 @@
 */
 //============================= Main Home Routes ====================================//
 Route::get('/', 'CustomerController@index');
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/home', function (){
+    if(Auth::check()&& Auth::user()->hasRole("customer")){
+        return redirect()->action("CustomerController@viewProfile");
+    }
+    elseif (Auth::check()&& Auth::user()->hasRole("shop")){
+        return redirect()->action("VendorController@index");
+
+    }
+    elseif (Auth::check()&& (Auth::user()->hasRole("admin") || Auth::user()->hasRole("owner"))){
+        return redirect()->action("AdminController@index");
+    }
+});
+
 //=============================   End main home routes ===============================//
 //====================== Registration and login with social media ====================//
 Route::get('mail', 'MailController@requestRegisterMail');

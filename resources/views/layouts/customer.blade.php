@@ -33,21 +33,21 @@
                         @if (Auth::check())
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, {{ Auth::user()->name }}<span class="glyphicon glyphicon-user"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{action("CustomerController@viewProfile")}}">My Profile <span class="glyphicon glyphicon-user pull-right"></span></a></li>
+                                <li><a href="/home">My Profile <span class="glyphicon glyphicon-user pull-right"></span></a></li>
 
                                 <li class="divider"></li>
                                 <li class="divider"></li>
 
                                 <li><a href="/customer/wishlist/show">Wishlist <span class="glyphicon glyphicon-heart pull-right"></span></a></li>
 
-                                <li class="divider"></li>
-                                <li class="divider"></li>
+                                {{--<li class="divider"></li>--}}
+                                {{--<li class="divider"></li>--}}
 
-                                <li><a href="#">Settings <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
+                                {{--<li><a href="#">Settings <span class="glyphicon glyphicon-cog pull-right"></span></a></li>--}}
 
                                 <li class="divider"></li>
                                 <li class="divider"></li>
-                                <li><a href="#">Messages <span class="badge pull-right"> 42 </span></a></li>
+                                {{--<li><a href="#">Messages <span class="badge pull-right"> 42 </span></a></li>--}}
                                 <li class="divider"></li>
                                 <li class="divider"></li>
 
@@ -108,7 +108,7 @@ pull-right"></span></a></li>
                     @endrole
 
                     @if(!\Auth::check() || !\Auth::user()->hasRole("customer"))
-                        <a href="{{action("CustomerController@viewGuestCart")}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="count" >
+                                    <a href="{{action("CustomerController@viewGuestCart")}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="count" >
                     @endif
                     @if(isset($inCart))
                         {{$inCart}}

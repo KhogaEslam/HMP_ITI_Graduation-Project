@@ -9,6 +9,7 @@ use App\Offer;
 use App\ProductImage;
 use App\ProductRate;
 use App\WishList;
+use App\About;
 use App\FeaturedProduct;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -206,10 +207,17 @@ class CustomerController extends Controller
     public function showWishList()
     {
 //        $wishList=WishList::all()->where("user_id", "=", \Auth::user()->id);
+        if (\Auth::check() && \Auth::user()->hasRole("customer")) {
+            $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+        }
+        else {
+            $inCart = GuestCart::getAllProductsCount(session("user.cart"));
+        }
         $wishList = \Auth::user()->wishlists;
         return view("customer.wishlist", [
             "wishList" => $wishList,
             "categories" => Category::all(),
+            "inCart" =>$inCart
 
         ]);
 
@@ -269,8 +277,17 @@ class CustomerController extends Controller
     }
 
     public function showAbout(){
+        if (\Auth::check() && \Auth::user()->hasRole("customer")) {
+            $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+        }
+        else {
+            $inCart = GuestCart::getAllProductsCount(session("user.cart"));
+        }
+        $aboutPage = About::all()->last();
         return view("customer.about", [
             "categories" => Category::all(),
+            "aboutPage" =>$aboutPage,
+            "inCart" => $inCart
         ]);
     }
 
@@ -312,11 +329,18 @@ class CustomerController extends Controller
     }
 
     public function trackCheckout() {
+        if (\Auth::check() && \Auth::user()->hasRole("customer")) {
+            $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+        }
+        else {
+            $inCart = GuestCart::getAllProductsCount(session("user.cart"));
+        }
         $orders = \Auth::user()->checkouts()->where("status", "<", 4)->orderBy("status")->paginate(20);
         $categories = Category::all();
         return view("customer.track_checkouts", [
             "categories" => $categories,
             "orders" => $orders,
+            "inCart" => $inCart,
             "status" => [
                 0 => ["Pending", "shop"],
                 1 => ["Packaged", "shop"],
@@ -452,10 +476,15 @@ class CustomerController extends Controller
         }
 
     public function showContactUs(){
-//        $aboutPage = About::all()->last();
+        if (\Auth::check() && \Auth::user()->hasRole("customer")) {
+            $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+        }
+        else {
+            $inCart = GuestCart::getAllProductsCount(session("user.cart"));
+        }
         return view("customer.contactUs", [
             "categories" => Category::all(),
-//            "aboutPage" => $aboutPage
+            "inCart" => $inCart
         ]);
 
     }
