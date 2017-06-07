@@ -15,7 +15,10 @@ class CatName implements Filter
     {
         $category_ids=[];
         foreach ($value as $cat) {
-            $category_ids[] = Category::where('name', '=', $cat)->first()->id;
+            if (isset(Category::where('name', '=', $cat)->first()->id))
+            {
+                $category_ids[] = Category::where('name', '=', $cat)->first()->id;
+            }
         }
         return $builder->whereIn('id' ,  $category_ids);
     }

@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-3 col-xs-12">
                 <div class="side-menu">
-                    <form name="searchFilterForm" method="get" action="{{action("SearchController@filter")}}" class="navbar-form">
+                    <form method="get" action="/advanced-search" class="navbar-form" >
                         <nav class="navbar navbar-default" role="navigation">
                             <div class="navbar-header">
                                 <div class="brand-wrapper">
@@ -24,7 +24,7 @@
                                         <div class="panel-body">
                                             <div class="navbar-form" role="search">
                                                 <div class="form-group">
-                                                    <input style="width: 100%" name="name"type="text" class="form-control">
+                                                    <input style="width: 100%" name="name" type="text" class="form-control">
                                                 </div>
                                                 <button type="button" class="btn btn-default "><span class="glyphicon glyphicon-ok"></span></button>
                                             </div>
@@ -59,22 +59,22 @@
                                         <h3> Avg. customer review</h3>
                                         <div  class="radio-toolbar">
                                             <label>
-                                                <input  type="radio" name="rate" value = "4"> <i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i>  <img style="width:120px;margin-right: 20px" src="{{ asset('images/stars (2).png')}}"> & up
+                                                <input  type="radio" name="rate" value = "4"> <i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i>  <img style="width:120px;margin-right: 20px" src="{{ asset('images/stars 4.png')}}"> & up
                                             </label>
                                         </div>
                                         <div  class="radio-toolbar">
                                             <label>
-                                                <input  type="radio" name="rate" value = "3"> <i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i>  <img style="width:120px;margin-right: 20px" src="{{ asset('images/stars (2).png')}}"> & up
+                                                <input  type="radio" name="rate" value = "3"> <i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i>  <img style="width:120px;margin-right: 20px" src="{{ asset('images/stars 3.png')}}"> & up
                                             </label>
                                         </div>
                                         <div  class="radio-toolbar">
                                             <label>
-                                                <input type="radio" name="rate" value = "2"> <i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i>  <img style="width:120px;margin-right: 20px" src="{{ asset('images/stars (2).png')}}"> & up
+                                                <input type="radio" name="rate" value = "2"> <i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i>  <img style="width:120px;margin-right: 20px" src="{{ asset('images/stars 2.png')}}"> & up
                                             </label>
                                         </div>
                                         <div class="radio-toolbar">
                                             <label>
-                                                <input  type="radio" name="rate" value = "1"> <i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i>  <img style="width:120px;margin-right: 20px;" src="{{ asset('images/stars (2).png')}}"> & up
+                                                <input  type="radio" name="rate" value = "1"> <i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i>  <img style="width:120px;margin-right: 20px;" src="{{ asset('images/stars 1.png')}}"> & up
                                             </label>
                                         </div>
                                     </li>
@@ -84,8 +84,8 @@
                                 </ul>
 
                             </div>
-                            </form>
                         </nav>
+                    </form>
                     </div>
                 </div>
 
@@ -111,7 +111,7 @@
                                     <a class="text-warning" href="{{action("CustomerController@productDetails", [$category->id, $product->id])}}">
                                         <h4 class="myTitle">{{$product->name}}</h4>
                                     </a>
-                                    <span class="price">{{$product->price}} LE</span>
+                                    <span class="price">{{$product->price}} $</span>
                                     <div class="star-rating-container aggregate">
                                         <div class="star-rating" title="Rated {{ $product->avg_rate }} out of 5">
                                             @for ($i=0; $i< $product->avg_rate ; $i++ )
