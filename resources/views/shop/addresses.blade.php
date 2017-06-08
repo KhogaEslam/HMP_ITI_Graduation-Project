@@ -25,6 +25,7 @@
                         </tr>
                     @endforeach
                 </table>
+                <a href="{{action("VendorController@showNewEmployeeForm")}}" class="btn btn-default">Add new addresses</a>
             </div>
         </div>
     </div>

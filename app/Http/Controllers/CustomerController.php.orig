@@ -323,13 +323,17 @@ class CustomerController extends Controller
     }
 
     public function trackCheckout() {
+<<<<<<< HEAD
         $orders = \Auth::user()->currentCheckouts()->paginate(20);
+=======
         if (\Auth::check() && \Auth::user()->hasRole("customer")) {
             $inCart = \Auth::user()->cart()->first()->cartDetails->count();
         }
         else {
             $inCart = GuestCart::getAllProductsCount(session("user.cart"));
         }
+        $orders = \Auth::user()->checkouts()->where("status", "<", 4)->orderBy("status")->paginate(20);
+>>>>>>> 27d597c948d6b392246b20c163f092c2e842b897
         $categories = Category::all();
         return view("customer.track_checkouts", [
             "categories" => $categories,

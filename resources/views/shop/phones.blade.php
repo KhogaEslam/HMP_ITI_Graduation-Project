@@ -25,6 +25,7 @@
                         </tr>
                     @endforeach
                 </table>
+                <a href="{{action("VendorController@showNewPhonesForm")}}" class="btn btn-default">Add new phone numbers</a>
             </div>
         </div>
     </div>
