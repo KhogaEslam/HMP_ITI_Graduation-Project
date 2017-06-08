@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CartHistory;
 use App\CategoryRequest;
+use App\CurrentCheckout;
 use App\Http\Requests\BannerRequest;
 use App\ProductImage;
 use App\User;
@@ -409,7 +410,7 @@ class VendorController extends Controller
     }
 
     public function mostProfitableCategories() {
-        $products = Product::owned()
+        $categories = Product::owned()
             ->select("category_id", DB::raw("sum(revenue) as total_revenue"))
             ->groupBy("category_id")
             ->orderBy("total_revenue", "desc")
@@ -420,8 +421,55 @@ class VendorController extends Controller
             $total = 1;
 
         return view("shop.top_categories", [
-            "products" => $products,
+            "categories" => $categories,
             "total" => $total
+        ]);
+    }
+
+    public function mostProfitableCategoryProducts(Category $category) {
+        $products = $category->products()->owned()->orderBy("revenue", "desc")->paginate(20);
+        $total = $category->products()->owned()->sum("revenue");
+        if($total == 0)
+            $total = 1;
+        return view("shop.top_category_products", [
+            "products" => $products,
+            "total" => $total,
+        ]);
+    }
+
+    public function topSalesCategories() {
+        $categories = Product::owned()
+            ->select("category_id", DB::raw("sum(sales_counter) as sales"))
+            ->groupBy("category_id")
+            ->orderBy("sales", "desc")
+            ->paginate(20);
+
+        $total = Product::owned()->sum('sales_counter');
+        if($total == 0)
+            $total = 1;
+
+        return view("shop.top_sales_categories", [
+            "categories" => $categories,
+            "total" => $total
+        ]);
+    }
+
+
+    public function topSalesCategoryProducts(Category $category) {
+        $products = $category->products()->owned()->orderBy("sales_counter", "desc")->paginate(20);
+        $total = $category->products()->owned()->sum("sales_counter");
+        if($total == 0)
+            $total = 1;
+        return view("shop.top_sales_category_products", [
+            "products" => $products,
+            "total" => $total,
+        ]);
+    }
+
+    public function topRatedProducts() {
+        $products = Product::owned()->orderBy("avg_rate", "desc")->paginate(20);
+        return view("shop.top_rated_products", [
+            "products" => $products,
         ]);
     }
 
@@ -505,7 +553,7 @@ class VendorController extends Controller
         if($user->hasRole("employee")) {
             $user = $user->employee->first()->manager;
         }
-        $checkouts = $user->checkoutRequests()->orderBy("status")->paginate(20);
+        $checkouts = $user->currentCheckoutRequests()->orderBy("status")->paginate(20);
         return view("shop.checkouts", [
             "checkouts" => $checkouts,
             "status" => [
@@ -518,19 +566,40 @@ class VendorController extends Controller
         ]);
     }
 
-    public function updateCheckoutStatus(CartHistory $checkout) {
+    public function updateCheckoutStatus(CurrentCheckout $checkout) {
         $user = \Auth::user();
         if($user->hasRole("employee")) {
             $user = $user->employee->first()->manager;
         }
         if($checkout->shop->id == $user->id) {
-            if($checkout->status < 5) {
+            if($checkout->status < 4) {
+
                 $checkout->status++;
-                $checkout->save();
+                if($checkout->status == 4) {
+                    $cartHistory = new CartHistory;
+                    $cartHistory->price = $checkout->price;
+                    $cartHistory->quantity += $checkout->quantity;
+                    $cartHistory->user()->associate($checkout->user);
+                    $cartHistory->shop()->associate($user);
+                    $cartHistory->product()->associate($checkout->product);
+                    $cartHistory->save();
+                    $checkout->delete();
+                }
+                else {
+                    $checkout->save();
+                }
 
             }
         }
         return back();
+    }
+
+    public function previousOrders() {
+        $orders = CartHistory::seller()->latest()->paginate(20);
+
+        return view("shop.previous_orders", [
+            "orders" => $orders,
+        ]);
     }
 
 }

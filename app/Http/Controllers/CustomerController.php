@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ActiveBanner;
 use App\CartDetail;
 use App\CartHistory;
+use App\CurrentCheckout;
 use App\Offer;
 use App\ProductImage;
 use App\ProductRate;
@@ -286,20 +287,13 @@ class CustomerController extends Controller
                 $offer = $offer->first()->percentage;
             }
             $price -= ($product->price * $offer) * $item->quantity;
-            $history = CartHistory::where("product_id", "=", $product->id)->where("status", "<", 4)->get();
-            if($history->isEmpty()) {
-                unset($history);
-                $history = new CartHistory;
-                $history->price = 0;
-                $history->quantity = 0;
-            }
-            $history = $history->first();
-            $history->price += $price;
-            $history->quantity += $item->quantity;
-            $history->user()->associate(\Auth::user());
-            $history->shop()->associate($product->user);
-            $history->product()->associate($product);
-            $history->save();
+            $checkout = new CurrentCheckout;
+            $checkout->price = $price;
+            $checkout->quantity += $item->quantity;
+            $checkout->user()->associate(\Auth::user());
+            $checkout->shop()->associate($product->user);
+            $checkout->product()->associate($product);
+            $checkout->save();
             $item->product->quantity -= $item->quantity;
             $item->product->sales_counter += $item->quantity;
             $item->revenue += $price;
@@ -310,7 +304,7 @@ class CustomerController extends Controller
     }
 
     public function trackCheckout() {
-        $orders = \Auth::user()->checkouts()->where("status", "<", 4)->orderBy("status")->paginate(20);
+        $orders = \Auth::user()->currentCheckouts()->paginate(20);
         $categories = Category::all();
         return view("customer.track_checkouts", [
             "categories" => $categories,
@@ -325,15 +319,15 @@ class CustomerController extends Controller
         ]);
     }
 
-    public function changeCheckoutStatus(CartHistory $checkout) {
+    public function changeCheckoutStatus(CurrentCheckout $checkout) {
         if($checkout->user->id == \Auth::user()->id) {
-            if($checkout->status < 5) {
-                $checkout->status++;
-                $checkout->save();
-            }
+            $checkout->status++;
+            $checkout->save();
         }
         return back();
     }
+
+
         public function verifyPayPalPayment()
         {
             // Set this to true to use the sandbox endpoint during testing:
@@ -670,5 +664,17 @@ class CustomerController extends Controller
         $userDetail->save();
         $user->save();
         return redirect()->action("CustomerController@viewProfile");
+    }
+
+    public function previousOrders() {
+        $orders = CartHistory::buyer()->latest()->paginate(20);
+        $categories = \App\Category::all();
+        $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+
+        return view("customer.previous_orders", [
+            "orders" => $orders,
+            "inCart" => $inCart,
+            "categories" => $categories,
+        ]);
     }
 }

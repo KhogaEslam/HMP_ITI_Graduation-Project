@@ -73,6 +73,10 @@ class Product extends Model
         return $this->hasMany("\App\CartDetail", "product_id");
     }
 
+    public function currentCheckouts() {
+        return $this->hasMany("\App\CurrentCheckout", "product_id");
+    }
+
     public function getDiscountAttribute() {
         $discount = 0;
         if(! $this->discount()->get()->isEmpty()) {

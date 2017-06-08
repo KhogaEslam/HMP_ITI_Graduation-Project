@@ -37,6 +37,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::model("phone", \App\UserPhone::class);
         Route::model("address", \App\UserAddress::class);
         Route::model("checkout", \App\CartHistory::class);
+        Route::model("current_checkout", \App\CurrentCheckout::class);
     }
 
     /**
