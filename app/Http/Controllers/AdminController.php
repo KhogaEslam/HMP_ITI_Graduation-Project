@@ -393,9 +393,48 @@ class AdminController extends Controller
         return back();
     }
 
+    public function mostProfitableProducts() {
+        $products = Product::topProfit()->paginate(20);
+        $total = Product::sum("revenue");
+        if($total == 0)
+            $total = 1;
+        return view("admin.top_profit", [
+            "products" => $products,
+            "total" => $total
+        ]);
+    }
+
+    public function mostProfitableCategories() {
+        $categories = Product::select("category_id", DB::raw("sum(revenue) as total_revenue"))
+            ->groupBy("category_id")
+            ->orderBy("total_revenue", "desc")
+            ->paginate(20);
+
+        $total = Product::sum('revenue');
+        if($total == 0)
+            $total = 1;
+
+        return view("admin.top_categories", [
+            "categories" => $categories,
+            "total" => $total
+        ]);
+    }
+
+    public function mostProfitableCategoryProducts(Category $category) {
+        $products = $category->products()->orderBy("revenue", "desc")->paginate(20);
+        $total = $category->products()->sum("revenue");
+        if($total == 0)
+            $total = 1;
+        return view("admin.top_category_products", [
+            "products" => $products,
+            "total" => $total,
+        ]);
+    }
+
     public function topRatedProducts()
     {
         $products = Product::orderBy("avg_rate", "desc")->paginate(20);
+
         return view("admin.top_rated", [
             "products" => $products
         ]);
@@ -404,19 +443,72 @@ class AdminController extends Controller
     public function topSellingProducts()
     {
         $products = Product::orderBy("sales_counter", "desc")->paginate(20);
+        $total = Product::sum("sales_counter");
+        if($total == 0)
+            $total = 1;
         return view("admin.top_sale", [
-            "products" => $products
+            "products" => $products,
+            "total" => $total
         ]);
     }
 
-    public function topCategories()
+    public function topCategorySales()
     {
         $categories = Product::select("category_id", DB::raw('SUM(sales_counter) as sales'), DB::raw("sum(revenue) as revenue"))
             ->groupBy('category_id')
             ->orderBy('sales', 'DESC')
             ->paginate(20);
+        $total = Product::sum('sales_counter');
+        if($total == 0)
+            $total = 1;
         return view("admin.top_categories", [
-            "categories" => $categories
+            "categories" => $categories,
+            "total" => $total
+        ]);
+    }
+
+    public function topSalesCategoryProducts(Category $category) {
+        $products = $category->products()->orderBy("sales_counter", "desc")->paginate(20);
+        $total = $category->products()->sum("sales_counter");
+        if($total == 0)
+            $total = 1;
+        return view("admin.top_sales_category_products", [
+            "products" => $products,
+            "total" => $total,
+        ]);
+    }
+
+    public function topSalesVendor() {
+        $users = Product::select("user_id", DB::raw("sum(sales_counter) as sales"))
+            ->groupBy("user_id")
+            ->orderBy("sales", "desc")
+            ->paginate(20);
+
+        $total = Product::sum("sales_counter");
+
+        if($total == 0)
+            $total = 1;
+
+        return view("admin.top_sales_vendor", [
+            "users" => $users,
+            "total" => $total
+        ]);
+    }
+
+    public function topRevenueVendor() {
+        $users = Product::select("user_id", DB::raw("sum(revenue) as revenue"))
+            ->groupBy("user_id")
+            ->orderBy("revenue", "desc")
+            ->paginate(20);
+
+        $total = Product::sum("revenue");
+
+        if($total == 0)
+            $total = 1;
+
+        return view("admin.top_revenue_vendor", [
+            "users" => $users,
+            "total" => $total
         ]);
     }
 

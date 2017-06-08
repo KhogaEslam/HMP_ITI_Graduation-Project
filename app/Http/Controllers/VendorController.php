@@ -166,7 +166,11 @@ class VendorController extends Controller
 
     public function editProduct(Request $request, Category $category, Product $product)
     {
-        if($product->user->id == \Auth::user()->id) {
+        $user = \Auth::user();
+        if($user->hasRole("employee")) {
+            $user->employee->where("employee_id", "=", $user->id)->first()->manager;
+        }
+        if($product->user->id == $user->id) {
             $upload_to = resource_path("img");
             Trie::getInstance()->deleteProduct($product->name);
             $product->update($request->all());
@@ -600,6 +604,13 @@ class VendorController extends Controller
         return view("shop.previous_orders", [
             "orders" => $orders,
         ]);
+    }
+
+    public function deleteProductImage(Request $request, ProductImage $image) {
+        if(\Auth::user()->id == $image->product->user->id) {
+            $image->delete();
+        }
+        return back();
     }
 
 }

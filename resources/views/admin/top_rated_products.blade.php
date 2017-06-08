@@ -1,6 +1,6 @@
 @extends("layouts.admin")
 @section("title")
-    Top rated products
+    Top categories
 @endsection
 
 @section("content")
@@ -19,5 +19,4 @@
             </div>
         </div>
     </div>
-
 @endsection

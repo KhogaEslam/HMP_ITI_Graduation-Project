@@ -6,26 +6,22 @@
 @section("content")
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <table class="table table-responsive table-hover">
-                    <tr>
-                        <th>No.</th>
-                        <th>Name</th>
-                        <th>Shop</th>
-                        <th>Shop Email</th>
-                        <th>Sold pieces</th>
-                    </tr>
+            <div class="col-md-12 mb-5">
+                <div class="list-group mb-5">
+                    <h6 class="list-group-header">Product sales</h6>
                     @foreach($products as $product)
-                        <tr>
-                            <th>{{$loop->iteration}}</th>
-                            <th>{{$product->name}}</th>
-                            <th>{{$product->user->name}}</th>
-                            <th>{{$product->user->email}}</th>
-                            <th>{{$product->sales_counter}}</th>
-                        </tr>
+                        <a class="list-group-item list-group-item-action justify-content-between">
+                            <span class="list-group-progress" style="width: {{$product->sales_counter / $total * 100}}%"></span>
+                            {{$product->name}}
+                            <span class="ml-a text-muted">{{round($product->sales_counter / $total * 100, 2)}}%</span>
+                        </a>
                     @endforeach
-                </table>
-                {!! $products->links() !!}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {{$products->links()}}
             </div>
         </div>
     </div>
