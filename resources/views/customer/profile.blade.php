@@ -34,7 +34,7 @@
                 </div>
                 <div class="center-block buttons2">
                     <button class=" myButton aboutB" onclick="window.location.href='{{url('/customer/cart/track')}}';">My Oredrs</button>
-                    <button class=" myButton aboutB" onclick="window.location.href='{{url('')}}';">Shopping History</button>
+                    <button class=" myButton aboutB" onclick="window.location.href='{{url('/customer/completed_orders')}}';">Shopping History</button>
                 </div>
             </div>
         </div>

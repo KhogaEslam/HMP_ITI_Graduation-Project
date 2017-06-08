@@ -3,23 +3,44 @@
     {{\Auth::user()->name}} WishList
 @endsection
 @section('content')
-    <div class="container">
-        @forelse($wishList as $item)
-            <div class="row" style="margin-bottom: 20px;">
-                <div class="col-md-3" style="padding-top: 80px;">
-                    {{$item->product->name}}
-                </div>
-                <div class="col-md-4">
-                    <img src="{{route("image", $item->product->images->first()->stored_name)}}" class="img-fluid img-responsive" height="20" />
-                </div>
+    <div class="row allCart">
+        <div class="container">
+            <div class="col-md-9 col-sm-12">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Action</th>
+                        <th> </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @forelse($wishList as $item)
+                        <tr>
+                            <td class="">
+                                <div class="media">
+                                    <a class="thumbnail pull-left" href="#">
+                                        @if($item->product->images->first() !== null)
+                                            <img class="media-object" src="{{route("image", $item->product->images->first()->stored_name)}}" style="width: 72px; ">
+                                    @endif
+                                    </a>
 
-                <div class="col-md-3" style="padding-top: 80px;">
-                    <p><a href="{{action("CustomerController@deleteFromWishList", [$item])}}" class="btn btn-danger btn-group-lg">Delete from my list</a></p>
-                </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading"><a href="#"> {{$item->product->name}}</a></h4>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="-1 text-center" style="text-align: center">
+                                <p><a href="{{action("CustomerController@deleteFromWishList", [$item])}}" class="btn remove">Remove</a></p>
+                            </td>
+                        </tr>
+                    @empty
+                        <h1 class="text-danger text-center">Your List is Empty</h1>
+                    @endforelse
+                    </tbody>
+                </table>
             </div>
-            @empty
-                <h1 class="text-danger text-center">Your List is Empty</h1>
-        @endforelse
+        </div>
     </div>
 
 @endsection

@@ -8,16 +8,18 @@
         <div class="container single">
             <div class="col-md-8 col-sm-12">
                 <div class="col-xs-2 single-pro">
-                    <div class=" thumbnail proImg"><img class="bigger" src="images/e2.png"></div>
-                    <div class="thumbnail proImg"><img class="bigger" src="images/e3.png"></div>
-                    <div class="thumbnail proImg"><img class="bigger" src="images/e4.png"></div>
+                    {{--<div class=" thumbnail proImg"><img class="bigger" src="images/e2.png"></div>--}}
+                    {{--<div class="thumbnail proImg"><img class="bigger" src="images/e3.png"></div>--}}
+                    {{--<div class="thumbnail proImg"><img class="bigger" src="images/e4.png"></div>--}}
+                    @foreach($product->images as $image)
+                        <div class="thumbnail proImg"><img class="bigger" src="{{route("image", [$image->stored_name])}}"></div>
+                    @endforeach
                 </div>
                 <div class="col-xs-10 ">
                     @if(! $product->images()->get()->isEmpty())
                         <div class="thumbnail originalImg"><img class="bigger" src="{{route("image", [$product->images()->get()->first()->stored_name])}}"></div>
-
                     @else
-                        <img alt="No image provided">
+                        <img alt="No image provided" class="bigger">
                     @endif
                 </div>
             </div>

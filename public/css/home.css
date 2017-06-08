@@ -851,10 +851,15 @@ label.star:before {
     box-sizing: border-box;
 }
 
+.originalImg .bigger{
+    height: 100%;
+}
+
 .bigger:hover {
     transform: scale(1.1);
     transition: all .4s ease;
 }
+
 /*favourite*/
 
 .wishlist {

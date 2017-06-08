@@ -44,8 +44,8 @@
 
                                 {{--<li><a href="#">Settings <span class="glyphicon glyphicon-cog pull-right"></span></a></li>--}}
 
-                                <li class="divider"></li>
-                                <li class="divider"></li>
+                                {{--<li class="divider"></li>--}}
+                                {{--<li class="divider"></li>--}}
                                 {{--<li><a href="#">Messages <span class="badge pull-right"> 42 </span></a></li>--}}
                                 <li class="divider"></li>
                                 <li class="divider"></li>
@@ -66,8 +66,12 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Enter<span class="glyphicon glyphicon-user pull-right"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="{{ url('/customer/login') }}">Login<span class="glyphicon glyphicon-log-in pull-right"></span></a></li>
-                                <li><a href="{{ url('/customer/register') }}">Register<span class="glyphicon glyphicon-registration-mark
-pull-right"></span></a></li>
+                                <li><a href="{{ url('/customer/register') }}">Register<span class="glyphicon glyphicon-registration-mark pull-right"></span></a></li>
+
+
+                                <li class="divider"></li>
+                                <li class="divider"></li>
+                                <li><a href="{{ url('/shop/register') }}">Register as Vendor<span class="glyphicon pull-right"></span></a></li>
                             </ul>
                         @endif
                     @endif
