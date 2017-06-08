@@ -444,7 +444,20 @@ class AdminController extends Controller
     }
 
     public function showMostReviwed(){
-//        $mostReviwed=
+        $mostReviwed=DB::table('products as p')
+            ->select("p.name")
+            ->join(DB::raw('(SELECT l.item_id, COUNT(l.id) as CommentCount FROM `laravellikecomment_comments as l` GROUP BY l.item_id)'), function($join){
+                $join->on('p.id', '=', 'l.item_id');
+            })
+            ->get();
+//        $mostReviwed=Comment::select("item_id", DB::raw('COUNT(id) as CommentCount'))
+//            ->groupBy('item_id')
+//            ->orderBy('CommentCount', 'DESC')
+//            ->paginate(20);
+        dd($mostReviwed);
+        return view("admin.most_reviewed", [
+            "mostReviwed" => $mostReviwed
+        ]);
     }
 
 }

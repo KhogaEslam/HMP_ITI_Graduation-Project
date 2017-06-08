@@ -93,6 +93,10 @@ class Product extends Model
         $query->orderBy("revenue", "desc");
     }
 
+    public function comments() {
+        return $this->hasMany("\App\Comment", "item_id");
+    }
+
     /**
      * Get all of the Product's Banners.
      */

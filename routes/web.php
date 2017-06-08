@@ -89,6 +89,8 @@ Route::post("admin/featured_request/{featured_request}/reject", "AdminController
 Route::get("admin/statistics/top_rated", "AdminController@topRatedProducts");
 Route::get("admin/statistics/top_sale", "AdminController@topSellingProducts");
 Route::get("admin/statistics/top_categories", "AdminController@topCategories");
+Route::get("admin/statistics/most_reviewed", "AdminController@showMostReviwed");
+
 //=====================       About       =========================//
 Route::get("admin/about/show", "AdminController@showAboutPage");
 Route::get("admin/about/edit", "AdminController@showEditAboutPage");
