@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Http\Requests\SearchRequest;
 use App\ProductSearch\ProductSearch;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
-    public function filter(Request $request)
+    public function filter(SearchRequest $request)
     {
 
         $products = ProductSearch::apply($request);

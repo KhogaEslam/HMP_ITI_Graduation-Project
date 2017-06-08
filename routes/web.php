@@ -11,7 +11,21 @@
 */
 //============================= Main Home Routes ====================================//
 Route::get('/', 'CustomerController@index');
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/home', function (){
+    if(Auth::check()&& Auth::user()->hasRole("customer")){
+        return redirect()->action("CustomerController@viewProfile");
+    }
+    elseif (Auth::check()&& Auth::user()->hasRole("shop")){
+        return redirect()->action("VendorController@index");
+
+    }
+    elseif (Auth::check()&& (Auth::user()->hasRole("admin") || Auth::user()->hasRole("owner"))){
+        return redirect()->action("AdminController@index");
+    }
+});
+
 //=============================   End main home routes ===============================//
 //====================== Registration and login with social media ====================//
 Route::get('mail', 'MailController@requestRegisterMail');
@@ -151,7 +165,7 @@ Route::get("shop/checkouts/completed", "VendorController@previousOrders");
 Route::get("customer", "CustomerController@index");
 Route::get("customer/shop/{vendor_id}", "CustomerController@index");
 //==================== Products ====================//
-Route::get("category/{category}/products", "CustomerController@products");
+Route::get("category/{category}/products","CustomerController@catProducts");
 Route::get("category/{category}/products/{product}", "CustomerController@productDetails");
 Route::get("category/popularCategories/show", "CustomerController@showPopularCategories");
 //==================== Cart =========================//

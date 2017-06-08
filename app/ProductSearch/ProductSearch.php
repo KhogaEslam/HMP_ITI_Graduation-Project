@@ -1,5 +1,6 @@
 <?php
 namespace App\ProductSearch;
+use App\Http\Requests\SearchRequest;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;

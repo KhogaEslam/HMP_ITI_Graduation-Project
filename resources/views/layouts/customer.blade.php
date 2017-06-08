@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{{ asset("css/search.css") }}" />
 
     <link rel="stylesheet" href="{{ asset("css/icon.min.css") }}" />
-    <link rel="stylesheet" href="{{ asset("css/comment.min.css") }}" />
     <link rel="stylesheet" href="{{ asset("css/form.min.css") }}" />
     <link rel="stylesheet" href="{{ asset("css/button.min.css") }}" />
 
@@ -33,21 +32,21 @@
                         @if (Auth::check())
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, {{ Auth::user()->name }}<span class="glyphicon glyphicon-user"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{action("CustomerController@viewProfile")}}">My Profile <span class="glyphicon glyphicon-user pull-right"></span></a></li>
+                                <li><a href="/home">My Profile <span class="glyphicon glyphicon-user pull-right"></span></a></li>
 
                                 <li class="divider"></li>
                                 <li class="divider"></li>
 
                                 <li><a href="/customer/wishlist/show">Wishlist <span class="glyphicon glyphicon-heart pull-right"></span></a></li>
 
-                                <li class="divider"></li>
-                                <li class="divider"></li>
+                                {{--<li class="divider"></li>--}}
+                                {{--<li class="divider"></li>--}}
 
-                                <li><a href="#">Settings <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
+                                {{--<li><a href="#">Settings <span class="glyphicon glyphicon-cog pull-right"></span></a></li>--}}
 
                                 <li class="divider"></li>
                                 <li class="divider"></li>
-                                <li><a href="#">Messages <span class="badge pull-right"> 42 </span></a></li>
+                                {{--<li><a href="#">Messages <span class="badge pull-right"> 42 </span></a></li>--}}
                                 <li class="divider"></li>
                                 <li class="divider"></li>
 
@@ -92,7 +91,7 @@ pull-right"></span></a></li>
                 <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">All Categories<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         @forelse($categories as $category)
-                            <li> {{link_to_action("CustomerController@products", $category->name, [$category])}}</li>
+                            <li> {{link_to_action("CustomerController@catProducts", $category->name, [$category])}}</li>
                         @empty
                             <li>No categories yet</li>
                         @endforelse
@@ -108,7 +107,7 @@ pull-right"></span></a></li>
                     @endrole
 
                     @if(!\Auth::check() || !\Auth::user()->hasRole("customer"))
-                        <a href="{{action("CustomerController@viewGuestCart")}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="count" >
+                                    <a href="{{action("CustomerController@viewGuestCart")}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="count" >
                     @endif
                     @if(isset($inCart))
                         {{$inCart}}

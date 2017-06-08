@@ -15,8 +15,8 @@
                 <!-- End Item -->
                 <div class="item"> <img class="myheader" src="images/header.jpg">
                     <div class="carousel-caption">
-                        <h3>Headline</h3>
-                        <!--            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.  </p>-->
+                        {{--<h3>Headline</h3>--}}
+                        <!--<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.  </p>-->
                     </div>
                 </div>
                 <!-- End Item -->
@@ -73,7 +73,7 @@
                             <a href="{{action("CustomerController@productDetails", [$newProduct->category, $newProduct->id])}}">
                                 <h4 class="myTitle">{{$newProduct->name}}</h4>
                             </a>
-                            <span class="price">{{$newProduct->price}} LE</span>
+                            <span class="price">{{$newProduct->price}} $</span>
                             <div class="star-rating-container aggregate">
                                 <div class="star-rating" title="Rated <?= $newProduct->avg_rate ?> out of 5">
                                     @for ($i=0; $i< $newProduct->avg_rate ; $i++ )
@@ -119,7 +119,7 @@
                             </a>
                         @endif
                         <div class="caption">
-                            <span class="price">{{$bestSelling->price}} LE</span>
+                            <span class="price">{{$bestSelling->price}} $</span>
                             <div class="star-rating-container aggregate">
                                 <div class="star-rating" title="Rated {{ $bestSelling->avg_rate }} out of 5">
                                     @for ($i=0; $i< $bestSelling->avg_rate ; $i++ )
@@ -159,7 +159,7 @@
                                 <a href="{{action("CustomerController@productDetails", [$featuredProduct->product->category, $featuredProduct->product])}}">
                                     <h4 class="myTitle">{{$featuredProduct->product->name}}</h4>
                                 </a>
-                                <span class="price">{{$featuredProduct->product->price}} LE</span>
+                                <span class="price">{{$featuredProduct->product->price}} $</span>
                                 <div class="star-rating-container aggregate">
                                     <div class="star-rating" title="Rated {{$featuredProduct->product->avg_rate }} out of 5">
                                         @for ($i=0; $featuredProduct->avg_rate ; $i++ )
