@@ -88,12 +88,13 @@ Route::post("admin/featured_request/{featured_request}/reject", "AdminController
 //=====================     Statistics      =========================//
 Route::get("admin/statistics/top_rated", "AdminController@topRatedProducts");
 Route::get("admin/statistics/top_sale", "AdminController@topSellingProducts");
-Route::get("admin/statistics/top_categories", "AdminController@topCategories");
 Route::get("admin/statistics/most_reviewed", "AdminController@showMostReviwed");
 Route::get("admin/statistics/category_sales", "AdminController@topCategorySales");
-Route::get("admin/statistics/catogory_sales/{category}/products", "AdminController@topCategoryProductSales");
-Route::get("admin/statistics/category_revenue", "AdminController@topCategoryRevenue");
-Route::get("admin/statistics/category_revenue/{category}/products", "AdminController@topCategoryRevenueProducts");
+Route::get("admin/statistics/catogory_sales/{category}/products", "AdminController@topSalesCategoryProducts");
+Route::get("admin/statistics/category_revenue", "AdminController@mostProfitableCategories");
+Route::get("admin/statistics/category_revenue/{category}/products", "AdminController@mostProfitableCategoryProducts");
+Route::get("admin/statistics/top_sales_vendor", "AdminController@topSalesVendor");
+Route::get("admin/statistics/top_revenue_vendor", "AdminController@topRevenueVendor");
 //=====================       About       =========================//
 Route::get("admin/about/show", "AdminController@showAboutPage");
 Route::get("admin/about/edit", "AdminController@showEditAboutPage");
@@ -115,6 +116,7 @@ Route::post("shop/category/{category}/product/{product}/edit", "VendorController
 Route::post("shop/category/{category}/product/{product}/delete", "VendorController@deleteProduct");
 Route::post("shop/category/{category}/product/{product}/publish", "VendorController@publishProduct");
 Route::post("shop/category/{category}/product/{product}/unpublish", "VendorController@unPublishProduct");
+Route::post("shop/product_image/{product_image}/delete", "VendorController@deleteProductImage");
 //===================== Discounts ====================//
 Route::get("shop/product/{product}/discount", "VendorController@showDiscountProductForm");
 Route::get("shop/product/{discount}/discount/delete", "VendorController@deleteDiscount");
