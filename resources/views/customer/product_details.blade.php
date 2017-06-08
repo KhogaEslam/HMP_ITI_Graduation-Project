@@ -170,6 +170,8 @@
             </div>
         </div>
     </div>
+
+
 {{--@include('laravelLikeComment::like', ['like_item_id' => $product->id])--}}
 @include('laravelLikeComment::comment', ['comment_item_id' => $product->id])
 @endsection

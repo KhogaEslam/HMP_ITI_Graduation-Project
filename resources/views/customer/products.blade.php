@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-3 col-xs-12">
                 <div class="side-menu">
-                    <form name="searchFilterForm" method="get" action="{{action("SearchController@filter")}}" class="navbar-form">
+                    <form method="get" action="/advanced-search" class="navbar-form" >
                         <nav class="navbar navbar-default" role="navigation">
                             <div class="navbar-header">
                                 <div class="brand-wrapper">
@@ -24,7 +24,7 @@
                                         <div class="panel-body">
                                             <div class="navbar-form" role="search">
                                                 <div class="form-group">
-                                                    <input style="width: 100%" name="name"type="text" class="form-control">
+                                                    <input style="width: 100%" name="name" type="text" class="form-control">
                                                 </div>
                                                 <button type="button" class="btn btn-default "><span class="glyphicon glyphicon-ok"></span></button>
                                             </div>
@@ -84,8 +84,8 @@
                                 </ul>
 
                             </div>
-                            </form>
                         </nav>
+                    </form>
                     </div>
                 </div>
 

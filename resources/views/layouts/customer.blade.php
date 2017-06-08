@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{{ asset("css/search.css") }}" />
 
     <link rel="stylesheet" href="{{ asset("css/icon.min.css") }}" />
-    <link rel="stylesheet" href="{{ asset("css/comment.min.css") }}" />
     <link rel="stylesheet" href="{{ asset("css/form.min.css") }}" />
     <link rel="stylesheet" href="{{ asset("css/button.min.css") }}" />
 
@@ -92,7 +91,7 @@ pull-right"></span></a></li>
                 <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">All Categories<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         @forelse($categories as $category)
-                            <li> {{link_to_action("CustomerController@products", $category->name, [$category])}}</li>
+                            <li> {{link_to_action("CustomerController@catProducts", $category->name, [$category])}}</li>
                         @empty
                             <li>No categories yet</li>
                         @endforelse
