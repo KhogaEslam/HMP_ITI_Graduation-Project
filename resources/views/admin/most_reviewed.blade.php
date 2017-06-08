@@ -15,12 +15,11 @@
                     @foreach($mostReviwed as $item)
                         <tr>
                             <td>{{$loop->iteration}}</td>
-                            <td>{{$item->product->name}}</td>
-                            {{--<td>{{$item->sales}}</td>--}}
+                            <td>{{$item->name}}</td>
+                            <td>{{$item->CommentCount}}</td>
                         </tr>
                     @endforeach
                 </table>
-                {{$categories->links()}}
             </div>
         </div>
     </div>
