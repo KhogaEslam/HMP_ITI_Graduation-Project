@@ -300,7 +300,6 @@ class CustomerController extends Controller
 
     public function showWishList()
     {
-//        $wishList=WishList::all()->where("user_id", "=", \Auth::user()->id);
         if (\Auth::check() && \Auth::user()->hasRole("customer")) {
             $inCart = \Auth::user()->cart()->first()->cartDetails->count();
         } else {
@@ -397,6 +396,22 @@ class CustomerController extends Controller
                 $offer = $offer->first()->percentage;
             }
             $price -= ($product->price * $offer) * $item->quantity;
+<<<<<<< HEAD
+            $history = CartHistory::where("product_id", "=", $product->id)->where("status", "<", 4)->get();
+            if ($history->isEmpty()) {
+                unset($history);
+                $history = new CartHistory;
+                $history->price = 0;
+                $history->quantity = 0;
+            }
+            $history = $history->first();
+            $history->price += $price;
+            $history->quantity += $item->quantity;
+            $history->user()->associate(\Auth::user());
+            $history->shop()->associate($product->user);
+            $history->product()->associate($product);
+            $history->save();
+=======
             $checkout = new CurrentCheckout;
             $checkout->price = $price;
             $checkout->quantity += $item->quantity;
@@ -404,6 +419,7 @@ class CustomerController extends Controller
             $checkout->shop()->associate($product->user);
             $checkout->product()->associate($product);
             $checkout->save();
+>>>>>>> 0e803eb9d6b4225d987b3feb4f904e0b4d573a4d
             $item->product->quantity -= $item->quantity;
             $item->product->sales_counter += $item->quantity;
             $item->revenue += $price;
@@ -413,9 +429,13 @@ class CustomerController extends Controller
         return back();
     }
 
+<<<<<<< HEAD
     public function trackCheckout()
     {
+=======
+    public function trackCheckout() {
         $orders = \Auth::user()->currentCheckouts()->paginate(20);
+>>>>>>> 0e803eb9d6b4225d987b3feb4f904e0b4d573a4d
         if (\Auth::check() && \Auth::user()->hasRole("customer")) {
             $inCart = \Auth::user()->cart()->first()->cartDetails->count();
         } else {
@@ -436,16 +456,25 @@ class CustomerController extends Controller
         ]);
     }
 
-    public function changeCheckoutStatus(CurrentCheckout $checkout)
+<<<<<<< HEAD
+    public function changeCheckoutStatus(CartHistory $checkout)
     {
         if ($checkout->user->id == \Auth::user()->id) {
+            if ($checkout->status < 5) {
+                $checkout->status++;
+                $checkout->save();
+            }
+=======
+    public function changeCheckoutStatus(CurrentCheckout $checkout) {
+        if($checkout->user->id == \Auth::user()->id) {
             $checkout->status++;
             $checkout->save();
+>>>>>>> 0e803eb9d6b4225d987b3feb4f904e0b4d573a4d
         }
         return back();
     }
 
-
+<<<<<<< HEAD
     public function verifyPayPalPayment()
     {
         // Set this to true to use the sandbox endpoint during testing:
@@ -482,6 +511,38 @@ class CustomerController extends Controller
             if (strtolower($_POST["receiver_email"]) == strtolower($a)) {
                 $receiver_email_found = true;
                 break;
+=======
+
+        public function verifyPayPalPayment()
+        {
+            // Set this to true to use the sandbox endpoint during testing:
+            $enable_sandbox = true;
+            // Use this to specify all of the email addresses that you have attached to paypal:
+            //"seller@paypalsandbox.com","buyer@paypalsandbox.com","mgmhardwaremarketplace@gmail.com","gbuyer@buyer.com","gbusiness@gadget.ly"
+            $my_email_addresses = array();
+            // Set this to true to send a confirmation email:
+            $send_confirmation_email = false;
+            $confirmation_email_address = "Gadgetly <mgmhardwaremarketplace@gmail.com>";
+            $from_email_address = "Gadgetly <mgmhardwaremarketplace@gmail.com>";
+            // Set this to true to save a log file:
+            $save_log_file = true;
+            $log_file_dir = __DIR__ . "/logs";
+            // Here is some information on how to configure sendmail:
+            // http://php.net/manual/en/function.mail.php#118210
+
+            $ipn = new PaypalIPN();
+            if ($enable_sandbox) {
+                $ipn->useSandbox();
+            }
+            $verified = $ipn->verifyIPN();
+            $data_text = "";
+            foreach ($_POST as $key => $value) {
+                $data_text .= $key . " = " . $value . "\r\n";
+            }
+            $test_text = "";
+            if ($_POST["test_ipn"] == 1) {
+                $test_text = "Test ";
+>>>>>>> 0e803eb9d6b4225d987b3feb4f904e0b4d573a4d
             }
         }
         date_default_timezone_set("Africa/Cairo");
@@ -603,7 +664,6 @@ class CustomerController extends Controller
         }
 
         $total = 0;
-        $inCart = 0;
 
         foreach ($cartDetails as $cartDetail) {
             $total += ($cartDetail->product->price - $cartDetail->product->discount / 100.0 * $cartDetail->product->price) * $cartDetail->quantity;
@@ -691,8 +751,7 @@ class CustomerController extends Controller
         return redirect()->action("CustomerController@viewProfile");
     }
 
-    public function previousOrders()
-    {
+    public function previousOrders() {
         $orders = CartHistory::buyer()->latest()->paginate(20);
         $categories = \App\Category::all();
         $inCart = \Auth::user()->cart()->first()->cartDetails->count();

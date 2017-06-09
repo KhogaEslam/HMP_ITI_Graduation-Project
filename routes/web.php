@@ -88,7 +88,13 @@ Route::post("admin/featured_request/{featured_request}/reject", "AdminController
 //=====================     Statistics      =========================//
 Route::get("admin/statistics/top_rated", "AdminController@topRatedProducts");
 Route::get("admin/statistics/top_sale", "AdminController@topSellingProducts");
-Route::get("admin/statistics/top_categories", "AdminController@topCategories");
+Route::get("admin/statistics/most_reviewed", "AdminController@showMostReviwed");
+Route::get("admin/statistics/category_sales", "AdminController@topCategorySales");
+Route::get("admin/statistics/catogory_sales/{category}/products", "AdminController@topSalesCategoryProducts");
+Route::get("admin/statistics/category_revenue", "AdminController@mostProfitableCategories");
+Route::get("admin/statistics/category_revenue/{category}/products", "AdminController@mostProfitableCategoryProducts");
+Route::get("admin/statistics/top_sales_vendor", "AdminController@topSalesVendor");
+Route::get("admin/statistics/top_revenue_vendor", "AdminController@topRevenueVendor");
 //=====================       About       =========================//
 Route::get("admin/about/show", "AdminController@showAboutPage");
 Route::get("admin/about/edit", "AdminController@showEditAboutPage");
@@ -110,6 +116,7 @@ Route::post("shop/category/{category}/product/{product}/edit", "VendorController
 Route::post("shop/category/{category}/product/{product}/delete", "VendorController@deleteProduct");
 Route::post("shop/category/{category}/product/{product}/publish", "VendorController@publishProduct");
 Route::post("shop/category/{category}/product/{product}/unpublish", "VendorController@unPublishProduct");
+Route::post("shop/product_image/{product_image}/delete", "VendorController@deleteProductImage");
 //===================== Discounts ====================//
 Route::get("shop/product/{product}/discount", "VendorController@showDiscountProductForm");
 Route::get("shop/product/{discount}/discount/delete", "VendorController@deleteDiscount");
@@ -132,8 +139,12 @@ Route::group(["prefix" => "shop/employees", "middleware" => "vendor.auth"], func
     //====================  Statistics  ===================//
 Route::group(["prefix" => "shop/statistics", "middleware" => "vendor.auth"], function() {
     Route::get("top_sale", "VendorController@mostSoldProducts");
-    Route::get("top_categories", "VendorController@mostProfitableCategories");
+    Route::get("categories_revenue", "VendorController@mostProfitableCategories");
     Route::get("top_profit", "VendorController@mostProfitableProducts");
+    Route::get("categories_revenue/{category}/products", "VendorController@mostProfitableCategoryProducts");
+    Route::get("categories_sales", "VendorController@topSalesCategories");
+    Route::get("categories_sales/{category}/products", "VendorController@topSalesCategoryProducts");
+    Route::get("top_rated", "VendorController@topRatedProducts");
 });
 
 //================================= Shop details =================================//
@@ -147,9 +158,11 @@ Route::get("shop/phone", "VendorController@phones");
 Route::get("shop/address", "VendorController@addresses");
 // ============================== Checkout ==================================== //
 Route::get("shop/checkouts", "VendorController@viewCheckouts");
-Route::post("shop/update/{checkout}/checkout_status", "VendorController@updateCheckoutStatus");
+Route::post("shop/update/{current_checkout}/checkout_status", "VendorController@updateCheckoutStatus");
 Route::get("customer/cart/track", "CustomerController@trackCheckout");
-Route::post("/customer/cart/{checkout}/checkout_status", "CustomerController@changeCheckoutStatus");
+Route::get("customer/completed_orders", "CustomerController@previousOrders");
+Route::post("/customer/cart/{current_checkout}/checkout_status", "CustomerController@changeCheckoutStatus");
+Route::get("shop/checkouts/completed", "VendorController@previousOrders");
 //================================= End Vendor Routes ========================================================//
 //===================================== Customer Routes ======================================================//
 //====================  Home  ======================//

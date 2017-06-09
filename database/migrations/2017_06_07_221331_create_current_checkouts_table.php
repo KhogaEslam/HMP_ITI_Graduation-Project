@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductsTables extends Migration
+class CreateCurrentCheckoutsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,23 +13,29 @@ class CreateProductsTables extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('current_checkouts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string("name");
-            $table->longText("description");
-            $table->integer("quantity")->unsigned();
-            $table->double("price");
-            $table->double("avg_rate")->default(0);
+
+            $table->integer("product_id")->unsigned();
             $table->integer("user_id")->unsigned();
-            $table->integer("category_id")->unsigned();
+            $table->double("price");
+            $table->integer("quantity");
+            $table->integer("status")->unsigned()->default(0);
 
             $table->foreign("user_id")
                 ->on("users")
                 ->references("id")
                 ->onDelete("cascade");
 
-            $table->foreign("category_id")
-                ->on("categories")
+            $table->foreign("product_id")
+                ->on("products")
+                ->references("id")
+                ->onDelete("cascade");
+
+            $table->integer("shop_id")->unsigned();
+
+            $table->foreign("shop_id")
+                ->on("users")
                 ->references("id")
                 ->onDelete("cascade");
 
@@ -44,6 +50,6 @@ class CreateProductsTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('current_checkouts');
     }
 }

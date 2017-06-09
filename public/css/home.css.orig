@@ -2,6 +2,13 @@
     font-family: roboto;
     src: url('/fonts/Roboto-Regular.ttf');
 }
+<<<<<<< HEAD
+@font-face {
+    font-family: roboto;
+    src: url('/fonts/Roboto-Regular.ttf');
+}
+=======
+>>>>>>> 0e803eb9d6b4225d987b3feb4f904e0b4d573a4d
 
 body {
     margin: 0px;

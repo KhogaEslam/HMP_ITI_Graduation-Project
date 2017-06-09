@@ -14,7 +14,7 @@ class AddStatusColumnToCartHistoriesTable extends Migration
     public function up()
     {
         Schema::table('cart_histories', function (Blueprint $table) {
-            $table->integer("status")->unsigned()->default(0);
+//            $table->integer("status")->unsigned()->default(0);
         });
     }
 

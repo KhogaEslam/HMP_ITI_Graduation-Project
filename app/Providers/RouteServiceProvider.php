@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\ProductImage;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -37,6 +38,8 @@ class RouteServiceProvider extends ServiceProvider
         Route::model("phone", \App\UserPhone::class);
         Route::model("address", \App\UserAddress::class);
         Route::model("checkout", \App\CartHistory::class);
+        Route::model("current_checkout", \App\CurrentCheckout::class);
+        Route::model("product_image", \App\ProductImage::class);
     }
 
     /**
