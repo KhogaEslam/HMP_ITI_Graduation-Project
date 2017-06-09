@@ -1,4 +1,4 @@
-    {
+{
     "name": "laravel/laravel",
     "description": "The Laravel Framework.",
     "keywords": ["framework", "laravel"],
@@ -12,7 +12,9 @@
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4",
-        "risul/laravel-like-comment": "^1.0"
+        "risul/laravel-like-comment": "^1.0",
+        "spatie/laravel-robots-middleware": "^1.0",
+        "artesaos/seotools": "^0.10.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.3",

@@ -1,7 +1,5 @@
 @extends('layouts.customer')
-@section('title')
-    Product
-@endsection
+
 @section('content')
     {{-- product details --}}
     <div class="row">
