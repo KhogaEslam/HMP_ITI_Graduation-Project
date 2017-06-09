@@ -18,6 +18,8 @@
     <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/button.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset("css/like_and_comment.css") }}" />
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+
 
 
     <title> @yield('title')</title>
@@ -182,11 +184,11 @@ pull-right"></span></a></li>
     </div>
 </footer>
 
-<script src="{{ asset('js/jquery.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.js')}}"></script>
 <script src="{{ asset('js/slider.js')}}"></script>
 <script src="{{ asset('js/search.js') }}"></script>
 <script src="{{ asset('/vendor/laravelLikeComment/js/script.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/ajaxRequests.js')}}"></script>
 
 </body>
 </html>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ActiveBanner;
 use App\CartDetail;
 use App\CartHistory;
+use App\Http\Requests\RatingRequest;
 use App\Offer;
 use App\ProductImage;
 use App\ProductRate;
@@ -113,7 +114,7 @@ class CustomerController extends Controller
         ]);
     }
 
-    public function submitRating(Request $request, Product $product)
+    public function submitRating(RatingRequest $request, Product $product)
     {
         $rating = new ProductRate();
         $rating->product()->associate($product);
@@ -125,9 +126,13 @@ class CustomerController extends Controller
             ->groupBy('product_id')
             ->havingRaw("product_id = $product->id")->first()->avg_rate);
         $rating->product->save();
-        return back();
-    }
+        $response = array(
+            'msg' => 'Thanks for submitting feedback',
+            'rating'=> $rating->product->avg_rate
+        );
+        return \Response::json($response);
 
+    }
     public function addToCart(CartRequest $request, Product $product)
     {
 
@@ -230,7 +235,10 @@ class CustomerController extends Controller
         $wishlist->user_id = \Auth::user()->id;
         $wishlist->save();
 
-        return back();
+        $response = array(
+            'status' => 'success'
+        );
+        return \Response::json($response);
     }
 
     public function deleteFromWishList(WishList $item)

@@ -23,3 +23,4 @@ Route::middleware('api')->get("search", "CustomerController@searchPrefix");
 
 
 Route::middleware('api')->post("payment/confirm","CustomerController@verifyPayPalPayment");
+Route::middleware('api')->post('customer/{product}/rating/add','CustomerController@submitRating');

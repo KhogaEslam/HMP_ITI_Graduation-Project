@@ -26,10 +26,10 @@
                 <div class=" star-rating-container aggregate">
                     <div class="rate2 star-rating" title="Rated {{ $product->avg_rate }} out of 5">
                         @for ($i=0; $i< $product->avg_rate ; $i++ )
-                            <span class="star filled"> </span>
+                            <span class="star filled"></span>
                         @endfor
                         @for ($i= $product->avg_rate; $i < 5; $i++)
-                            <span class="star"> </span>
+                            <span class="star"></span>
                         @endfor
                     </div>
                 </div>
@@ -47,9 +47,7 @@
                 @if($product->ratings->where('user_id','=' , \Auth::user()->id )->isEmpty())
                     <div class="stars">
                         <h4>Rate this product</h4>
-                        <form method='post' action="{{action("CustomerController@submitRating", [$product])}}">
-                            {!! csrf_field() !!}
-                            <div>
+                        <form id= "ratingForm" method='post' action="{{action("CustomerController@submitRating", [$product])}}">
                                 <input class="star star-5" id="star-5" value="5" type="radio" name="star"/>
                                 <label class="star star-5" for="star-5"></label>
                                 <input class="star star-4" value="4" id="star-4" type="radio" name="star"/>
@@ -60,12 +58,13 @@
                                 <label class="star star-2" for="star-2"></label>
                                 <input class="star star-1" value="1" id="star-1" type="radio" name="star"/>
                                 <label class="star star-1" for="star-1"></label>
-                            </div>
+
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary"> Submit rating</button>
+                                <button disabled="true" type="submit" class="add-rating btn btn-primary"> Submit rating</button>
                             </div>
                         </form>
                     </div>
+                    <div id="ajaxResponse" style="height:80px;"></div>
                 @endif
                 @endrole
 
@@ -75,18 +74,27 @@
                     <h4>Description</h4>
                     <p>{{$product->description}}</p>
                 </div>
-
-                @role("customer")
-
-                @if(\Auth::user() && !isset($isWish))
-                    <form action="/customer/{{$product->id}}/wishlist/add">
+                @if(!isset($isWish))
+                    <form id="add-to-wishlist" action="/customer/{{$product->id}}/wishlist/add">
                         <button class="myButton wishlist">
                         <span class="glyphicon glyphicon-heart">
 
                         </span>Add to wishlist
                         </button>
                     </form>
+                @else
+                    <form id="remove-from-wishlist" action="/customer/{{$product->id}}/wishlist/add">
+                        <button class="btn btn-danger wishlist">
+                        <span class="glyphicon glyphicon-heart">
+
+                        </span>Add to wishlist
+                        </button>
+                    </form>
                 @endif
+
+                @role("customer")
+
+
 
                 @if(\Auth::user()->cart->cartDetails()->quantity($product->id)->get()->isEmpty())
                     <button class="myButton add" data-toggle="modal" data-target="#addModal">Add To Cart</button>
@@ -170,6 +178,51 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function(){
+            $('.star').change(function () {
+                $('.add-rating').removeAttr('disabled');
+            });
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $('#ratingForm').on('submit', function (e) {
+                e.preventDefault();
+                var rating = $('.star:checked').val();
+                $.ajax({
+                    type: "POST",
+                    url: '/customer/{{$product->id}}/rating/add',
+                    data: {"star": rating},
+                    datatype: 'JSON',
+                    success: function(response) {
+                        $('.stars').remove();
+                        $('#ajaxResponse').append('<div class="alert alert-success">' + response.msg + '</div>');
+                        $('.star-rating-container').empty();
+                        $('.star-rating-container').append('<div class="rate2 star-rating" title="Rated '+ response.rating +' out of 5"></div>')
+                        for (var i =0 ; i< response.rating; i++) {
+                            $('.star-rating').append('<span class="star filled"></span>')
+                        }
+                        for (var i = response.rating; i<5; i++) {
+                            $('.star-rating').append('<span class="star"></span>')
+                        }
+
+                    },
+                    error: function() {
+                        alert('error')
+                    }
+                });
+            });
+            $('#add-to-wishlist').on('submit', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: '/customer/{{$product->id}}/wishlist/add',
+                    data: {"star": rating},
+                    datatype: 'JSON',
+                    success: function(response) {
+
+                    }
+        })
+
+    </script>
 {{--@include('laravelLikeComment::like', ['like_item_id' => $product->id])--}}
 @include('laravelLikeComment::comment', ['comment_item_id' => $product->id])
 @endsection

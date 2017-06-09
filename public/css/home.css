@@ -844,7 +844,9 @@ left: 300px;
 
 .stars {
     display: inline-block;
+    height:80px;
 }
+
 
 input.star {
     display: none;
