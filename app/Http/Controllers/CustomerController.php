@@ -38,7 +38,7 @@ class CustomerController extends Controller
 {
     public function __construct()
     {
-        $this->middleware("customer.auth")->except(["index", "verifyPayPalPayment", "catProducts", "productDetails", "search", "searchPrefix", "addToGuestCart", "viewGuestCart", "editGuestCart", "deleteFromGuestCart", "showAbout", "showContactUs"]);
+        $this->middleware("customer.auth")->except(["index", "verifyPayPalPayment", "catProducts", "productDetails", "search", "searchPrefix", "addToGuestCart", "viewGuestCart", "editGuestCart", "deleteFromGuestCart", "showAbout", "showContactUs","showVendor"]);
     }
 
     public function index()
@@ -746,7 +746,12 @@ class CustomerController extends Controller
     public function showVendor($vendor_id){
 
         $categories = \App\Category::all();
-        $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+        if (\Auth::check() && \Auth::user()->hasRole("customer")) {
+            $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+        } else {
+            $inCart = GuestCart::getAllProductsCount(session("user.cart"));
+        }
+
 
         $vendorProducts=Product::where("user_id", "=", $vendor_id)->get();
         $vendorAddress=UserAddress::where("user_id", "=", $vendor_id)->get();
