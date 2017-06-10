@@ -18,6 +18,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        \App\Http\Middleware\MyRobotsMiddleware::class,
     ];
 
     /**
@@ -63,6 +64,5 @@ class Kernel extends HttpKernel
         'employee.auth' => \App\Http\Middleware\Employee::class,
         'admin.auth'=> \App\Http\Middleware\Admin::class,
         'customer.auth' => \App\Http\Middleware\Customer::class,
-        'auth.comments' => \Laravelista\Comments\Http\Middleware\Authenticate::class,
     ];
 }

@@ -19,7 +19,15 @@ class CartHistory extends Model
     }
 
     public function scopeSeller($query) {
-        $query->where("shop_id", "=", \Auth::user()->id)->where("status", "<", 4);
+        $query->where("shop_id", "=", \Auth::user()->id);
+    }
+
+    public function scopeBuyer($query) {
+        $query->where("user_id", "=", \Auth::user()->id);
+    }
+
+    public function scopeLatest($query) {
+        $query->orderBy("created_at", "desc");
     }
 }
 

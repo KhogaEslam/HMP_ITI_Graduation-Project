@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{{ asset("css/search.css") }}" />
 
     <link rel="stylesheet" href="{{ asset("css/icon.min.css") }}" />
-    <link rel="stylesheet" href="{{ asset("css/comment.min.css") }}" />
     <link rel="stylesheet" href="{{ asset("css/form.min.css") }}" />
     <link rel="stylesheet" href="{{ asset("css/button.min.css") }}" />
 
@@ -21,6 +20,10 @@
     <script src="{{ asset('js/jquery.min.js') }}"></script>
 
 
+
+    {!! SEOMeta::generate() !!}
+    {!! OpenGraph::generate() !!}
+    {!! Twitter::generate() !!}
 
     <title> @yield('title')</title>
 </head>
@@ -113,7 +116,7 @@ pull-right"></span></a></li>
                                     <a href="{{action("CustomerController@viewGuestCart")}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="count" >
                     @endif
                     @if(isset($inCart))
-                        {{$inCart}}
+                         <span class="incart-quantity"> {{$inCart}} </span>
                     @else
                         0
                     @endif</span></a></li>
@@ -177,7 +180,7 @@ pull-right"></span></a></li>
                 <ul>
                     <li>
                         <h2>Terms of Use</h2></li>
-                    <p>Gadgetly.local is the sole owner of information collected on this site. We will not sell, share, or rent this information to any outside parties, except as outlined in this policy....</p>
+                    <p>Gadgetly. local is the sole owner of information collected on this site. We will not sell, share, or rent this information to any outside parties, except as outlined in this policy....</p>
                 </ul>
             </div>
         </div>

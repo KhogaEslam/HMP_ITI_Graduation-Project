@@ -154,16 +154,25 @@ class PaypalIPN
                 $offer = $offer->first()->percentage;
             }
             $price -= ($product->price * $offer) * $item->quantity;
-            $history = new CartHistory();
-            $history->price = $price;
-            $history->quantity = $item->quantity;
+            $history = CartHistory::where("product_id", "=", $product->id)->where("status", "<", 4)->get();
+            if($history->isEmpty()) {
+                unset($history);
+                $history = new CartHistory;
+                $history->price = 0;
+                $history->quantity = 0;
+            }
+            $history = $history->first();
+            $history->price += $price;
+            $history->quantity += $item->quantity;
             $history->user()->associate($user);
             $history->shop()->associate($product->user);
             $history->product()->associate($product);
             $history->save();
             $item->product->quantity -= $item->quantity;
+            $item->product->sales_counter += $item->quantity;
+            $item->revenue += $price;
             $item->product->save();
             $item->delete();
-        }
     }
+  }
 }

@@ -24,3 +24,5 @@ Route::middleware('api')->get("search", "CustomerController@searchPrefix");
 
 Route::middleware('api')->post("payment/confirm","CustomerController@verifyPayPalPayment");
 Route::middleware('api')->post('customer/{product}/rating/add','CustomerController@submitRating');
+Route::middleware('api')->get("customer/{product}/wishlist/add", "CustomerController@addToWishList");
+Route::middleware('api')->post("customer/{product}/add_to_cart", "CustomerController@addToCart");

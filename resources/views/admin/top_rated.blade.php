@@ -1,4 +1,4 @@
-@extends("layouts.vendor")
+@extends("layouts.admin")
 @section("title")
     Top rated products
 @endsection
@@ -6,25 +6,15 @@
 @section("content")
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <table class="table table-responsive table-hover">
-                    <tr>
-                        <th>No.</th>
-                        <th>Name</th>
-                        <th>Shop</th>
-                        <th>Shop Email</th>
-                        <th>Rate</th>
-                    </tr>
-                    @foreach($products as $product)
-                        <tr>
-                            <th>{{$loop->iteration}}</th>
-                            <th>{{$product->name}}</th>
-                            <th>{{$product->user->name}}</th>
-                            <th>{{$product->user->email}}</th>
-                            <th>{{$product->avg_rate}}</th>
-                        </tr>
-                    @endforeach
-                </table>
+            <div class="col-md-12 mb-5">
+                <h6 class="list-group-header">Top Products in {{$products->first()->category->name}}</h6>
+                @foreach($products as $product)
+                    <a class="list-group-item  list-group-item-action justify-content-between">
+                        <span class="list-group-progress" style="width: {{$product->avg_rate / 5.0 * 100}}%"></span>
+                        {{$product->name}}
+                        <span class="ml-a text-muted">{{round($product->avg_rate, 2)}}</span>
+                    </a>
+                @endforeach
                 {!! $products->links() !!}
             </div>
         </div>

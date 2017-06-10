@@ -183,9 +183,8 @@ return [
         Zizaco\Entrust\EntrustServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-        Anouar\Paypalpayment\PaypalpaymentServiceProvider::class,
-        Laravelista\Comments\Providers\CommentsServiceProvider::class,
         risul\LaravelLikeComment\LikeCommentServiceProvider::class,
+        Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
     ],
 
     /*
@@ -241,10 +240,15 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-        'Paypalpayment' => Anouar\Paypalpayment\Facades\PaypalPayment::class,
         'Helpers' => App\Helpers\Helpers::class,
         'Trie' => \App\Helpers\Trie::class,
         'GuestCart' => \App\Helpers\GuestCart::class,
+
+        'SEOMeta'   => Artesaos\SEOTools\Facades\SEOMeta::class,
+        'OpenGraph' => Artesaos\SEOTools\Facades\OpenGraph::class,
+        'Twitter'   => Artesaos\SEOTools\Facades\TwitterCard::class,
+        // or
+        'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
     ],
 
 ];

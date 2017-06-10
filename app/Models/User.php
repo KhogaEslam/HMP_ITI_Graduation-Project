@@ -81,17 +81,21 @@ class User extends Authenticatable //Entrust configuration needs User model to e
 //        return $this->morphMany('App\BannerRequest', 'connected');
 //    }
 
-    public function comments()
-    {
-        return $this->hasMany(\Laravelista\Comments\Comments\Comment::class);
-    }
 
     public function checkouts() {
         return $this->hasMany("\App\CartHistory", "user_id");
     }
 
+    public function currentCheckouts() {
+        return $this->hasMany("\App\CurrentCheckout", "user_id");
+    }
+
     public function checkoutRequests() {
         return $this->hasMany("\App\CartHistory", "shop_id");
+    }
+
+    public function currentCheckoutRequests() {
+        return $this->hasMany("\App\CurrentCheckout", "shop_id");
     }
 
     /**

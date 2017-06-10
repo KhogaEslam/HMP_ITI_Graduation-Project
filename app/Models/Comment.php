@@ -8,4 +8,8 @@ class Comment extends Model
 {
 
     protected $table="laravellikecomment_comments";
+
+    public function product() {
+        return $this->belongsTo("\App\Product");
+    }
 }

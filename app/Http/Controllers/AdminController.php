@@ -46,6 +46,7 @@ class AdminController extends Controller
     }
 
     //=================================  Categories  ===================================== //
+
     /**
      * listCategories
      * The function uses Category model to list all categories
@@ -68,7 +69,7 @@ class AdminController extends Controller
 
     public function newCategory()
     {
-        return view( 'admin.new-category');
+        return view('admin.new-category');
     }
 
     /**
@@ -97,7 +98,7 @@ class AdminController extends Controller
      */
     public function editCategory(Category $cat)
     {
-        return view ('admin.edit-category',compact('cat') );
+        return view('admin.edit-category', compact('cat'));
     }
 
     /**
@@ -122,7 +123,7 @@ class AdminController extends Controller
      * @param Category $category
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function deleteCategory(Request $request ,  Category $category )
+    public function deleteCategory(Request $request, Category $category)
     {
         $category->delete();
         return back();
@@ -157,7 +158,7 @@ class AdminController extends Controller
 //        $userDetails  = UserDetail::all();
 //        dd($userDetails);
 //        MailController::acceptRegistrationMail($regReq->user);
-        $regReq->user->userDetails->status='0';
+        $regReq->user->userDetails->status = '0';
         $regReq->user->userDetails->save();
         $regReq->delete();
         return back();
@@ -183,16 +184,13 @@ class AdminController extends Controller
 
     public function listUsers()
     {
-        if (\Auth::user()->hasRole('owner'))
-        {
+        if (\Auth::user()->hasRole('owner')) {
             $users = User::all()->where("id", "!=", \Auth::user()->id);
 
-        }
-        else
-        {
-             $users= User::whereHas('roles', function($q){
-                $q->where('name', '!=' ,'admin');
-             })->get();
+        } else {
+            $users = User::whereHas('roles', function ($q) {
+                $q->where('name', '!=', 'admin');
+            })->get();
 
         }
         return view('admin.users', ['users' => $users]);
@@ -222,17 +220,13 @@ class AdminController extends Controller
         return back();
     }
 
-    public function  suspendUser(User $user)
+    public function suspendUser(User $user)
     {
-        if (\Auth::user()->hasRole('owner'))
-        {
+        if (\Auth::user()->hasRole('owner')) {
             $user->userDetails->status = '1';
             $user->userDetails->save();
-        }
-        else
-        {
-            if($user->hasRole('employee') || $user->hasRole('shop') || $user->hasRole('customer'))
-            {
+        } else {
+            if ($user->hasRole('employee') || $user->hasRole('shop') || $user->hasRole('customer')) {
                 $user->userDetails->status = '1';
                 $user->userDetails->save();
             }
@@ -243,16 +237,12 @@ class AdminController extends Controller
 
     public function blockUser(User $user)
     {
-        if (\Auth::user()->hasRole('owner'))
-        {
+        if (\Auth::user()->hasRole('owner')) {
 //            dd($user->userDetails);
             $user->userDetails->status = '2';
             $user->userDetails->save();
-        }
-        else
-        {
-            if($user->hasRole('employee') || $user->hasRole('shop') || $user->hasRole('customer'))
-            {
+        } else {
+            if ($user->hasRole('employee') || $user->hasRole('shop') || $user->hasRole('customer')) {
                 $user->userDetails->status = '2';
                 $user->userDetails->save();
             }
@@ -263,8 +253,7 @@ class AdminController extends Controller
 
     public function unsuspendUser(User $user)
     {
-        if($user->userDetails->status == '1')
-        {
+        if ($user->userDetails->status == '1') {
             if (\Auth::user()->hasRole('owner')) {
                 $user->userDetails->status = '0';
                 $user->userDetails->save();
@@ -282,18 +271,20 @@ class AdminController extends Controller
 
     //============================================ Offers ==================================/
 
-    public function showAddOfferForm() {
+    public function showAddOfferForm()
+    {
         return view("admin.new_offer");
     }
 
-    public function addOffer(OfferRequest $request) {
+    public function addOffer(OfferRequest $request)
+    {
         $offers = Offer::all();
         $incomingStartDate = Carbon::parse($request->input("start_date"));
         $incomingEndDate = Carbon::parse($request->input("end_date"));
-        foreach($offers as $offer) {
+        foreach ($offers as $offer) {
             $existingStartDate = Carbon::parse($offer->start_date);
             $existingEndDate = Carbon::parse($offer->end_date);
-            if(! $existingStartDate->greaterThanOrEqualTo($incomingEndDate) && ! $existingEndDate->lessThanOrEqualTo($incomingStartDate)) {
+            if (!$existingStartDate->greaterThanOrEqualTo($incomingEndDate) && !$existingEndDate->lessThanOrEqualTo($incomingStartDate)) {
                 return view("admin.new_offer")->withErrors([
                     "overlapping" => "This offer overlaps existing offer [" . $existingStartDate . " - " . $existingEndDate . "]"
                 ]);
@@ -304,15 +295,17 @@ class AdminController extends Controller
         return redirect(action("AdminController@index"));
     }
 
-    public function viewFeaturedRequests() {
+    public function viewFeaturedRequests()
+    {
         $featuredRequests = FeaturedItem::all();
         return view("admin.featured_requests", [
             "featuredRequests" => $featuredRequests,
         ]);
     }
 
-    public function acceptFeaturedRequest(FeaturedItem $item) {
-        if(FeaturedProduct::find($item->product)->isEmpty()) {
+    public function acceptFeaturedRequest(FeaturedItem $item)
+    {
+        if (FeaturedProduct::find($item->product)->isEmpty()) {
             $featuredProduct = new FeaturedProduct;
             $featuredProduct->product()->associate($item->product);
             $featuredProduct->save();
@@ -321,7 +314,8 @@ class AdminController extends Controller
         return back();
     }
 
-    public function rejectFeaturedRequest(FeaturedItem $item) {
+    public function rejectFeaturedRequest(FeaturedItem $item)
+    {
         $item->delete();
         return back();
     }
@@ -372,78 +366,192 @@ class AdminController extends Controller
     }
 
 
- // ====================================== Banner Requests ===================================//
+    // ====================================== Banner Requests ===================================//
 
-    public function viewBannerRequests() {
-        $bannerRequests = BannerRequest::all()->where('status','==',false);
+    public function viewBannerRequests()
+    {
+        $bannerRequests = BannerRequest::all()->where('status', '==', false);
         return view("admin.banner_requests", [
             "bannerRequests" => $bannerRequests,
         ]);
     }
 
-    public function acceptBannerRequest($id) {
+    public function acceptBannerRequest($id)
+    {
         $item = BannerRequest::find($id);
         $item->status = true;
         $item->save();
         return back();
     }
 
-    public function rejectBannerRequest($id) {
+    public function rejectBannerRequest($id)
+    {
         $item = BannerRequest::find($id);
         $item->status = false;
         $item->save();
         return back();
     }
 
-    public function topRatedProducts() {
+    public function mostProfitableProducts() {
+        $products = Product::topProfit()->paginate(20);
+        $total = Product::sum("revenue");
+        if($total == 0)
+            $total = 1;
+        return view("admin.top_profit", [
+            "products" => $products,
+            "total" => $total
+        ]);
+    }
+
+    public function mostProfitableCategories() {
+        $categories = Product::select("category_id", DB::raw("sum(revenue) as total_revenue"))
+            ->groupBy("category_id")
+            ->orderBy("total_revenue", "desc")
+            ->paginate(20);
+
+        $total = Product::sum('revenue');
+        if($total == 0)
+            $total = 1;
+
+        return view("admin.top_categories", [
+            "categories" => $categories,
+            "total" => $total
+        ]);
+    }
+
+    public function mostProfitableCategoryProducts(Category $category) {
+        $products = $category->products()->orderBy("revenue", "desc")->paginate(20);
+        $total = $category->products()->sum("revenue");
+        if($total == 0)
+            $total = 1;
+        return view("admin.top_category_products", [
+            "products" => $products,
+            "total" => $total,
+        ]);
+    }
+
+    public function topRatedProducts()
+    {
         $products = Product::orderBy("avg_rate", "desc")->paginate(20);
+
         return view("admin.top_rated", [
             "products" => $products
         ]);
     }
 
-    public function topSellingProducts() {
+    public function topSellingProducts()
+    {
         $products = Product::orderBy("sales_counter", "desc")->paginate(20);
+        $total = Product::sum("sales_counter");
+        if($total == 0)
+            $total = 1;
         return view("admin.top_sale", [
-            "products" => $products
+            "products" => $products,
+            "total" => $total
         ]);
     }
 
-    public function topCategories() {
+    public function topCategorySales()
+    {
         $categories = Product::select("category_id", DB::raw('SUM(sales_counter) as sales'), DB::raw("sum(revenue) as revenue"))
             ->groupBy('category_id')
             ->orderBy('sales', 'DESC')
             ->paginate(20);
+        $total = Product::sum('sales_counter');
+        if($total == 0)
+            $total = 1;
         return view("admin.top_categories", [
-            "categories" => $categories
+            "categories" => $categories,
+            "total" => $total
+        ]);
+    }
+
+    public function topSalesCategoryProducts(Category $category) {
+        $products = $category->products()->orderBy("sales_counter", "desc")->paginate(20);
+        $total = $category->products()->sum("sales_counter");
+        if($total == 0)
+            $total = 1;
+        return view("admin.top_sales_category_products", [
+            "products" => $products,
+            "total" => $total,
+        ]);
+    }
+
+    public function topSalesVendor() {
+        $users = Product::select("user_id", DB::raw("sum(sales_counter) as sales"))
+            ->groupBy("user_id")
+            ->orderBy("sales", "desc")
+            ->paginate(20);
+
+        $total = Product::sum("sales_counter");
+
+        if($total == 0)
+            $total = 1;
+
+        return view("admin.top_sales_vendor", [
+            "users" => $users,
+            "total" => $total
+        ]);
+    }
+
+    public function topRevenueVendor() {
+        $users = Product::select("user_id", DB::raw("sum(revenue) as revenue"))
+            ->groupBy("user_id")
+            ->orderBy("revenue", "desc")
+            ->paginate(20);
+
+        $total = Product::sum("revenue");
+
+        if($total == 0)
+            $total = 1;
+
+        return view("admin.top_revenue_vendor", [
+            "users" => $users,
+            "total" => $total
         ]);
     }
 
 
     // ====================================== About ===================================//
 
-    public function showAboutPage(){
+    public function showAboutPage()
+    {
         $aboutPage = About::all()->last();
-        return view("admin.showAbout",[
+        return view("admin.showAbout", [
             "aboutPage" => $aboutPage
         ]);
     }
 
-    public function showEditAboutPage(){
+    public function showEditAboutPage()
+    {
         $aboutPage = About::all()->last();
-        return view("admin.editAbout",[
+        return view("admin.editAbout", [
             "aboutPage" => $aboutPage
         ]);
     }
 
-    public function editAboutPage(AboutRequest $request,About $aboutPage){
+    public function editAboutPage(AboutRequest $request, About $aboutPage)
+    {
         $aboutPage->update($request->all());
         return redirect('/admin/about/show');
 
     }
 
-    public function showMostReviwed(){
-//        $mostReviwed=
+    public function showMostReviwed()
+    {
+
+        $mostReviwed = DB::table('products')
+            ->select('*')
+            ->leftJoin(DB::raw('(SELECT item_id, COUNT(id) as CommentCount FROM laravellikecomment_comments
+            GROUP BY (item_id) ) as T'), function ($join) {
+                $join->on('T.item_id', '=', 'products.id');
+            })
+            ->paginate(20);
+
+//        dd($mostReviwed);
+        return view("admin.most_reviewed", [
+            "mostReviwed" => $mostReviwed
+        ]);
     }
 
 }

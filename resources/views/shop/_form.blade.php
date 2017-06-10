@@ -20,3 +20,7 @@
 </div>
 
 {!! Form::submit($submitButton, ["class" => "btn btn-block btn-info"]) !!}
+
+@foreach($errors->all() as $error)
+    <p class="text-danger">* {{$error}}</p>
+@endforeach

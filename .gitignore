@@ -2,7 +2,7 @@
 /public/hot
 /public/storage
 /storage/*.key
-/vendor
+*.orig
 /.idea
 /.vagrant
 Homestead.json
@@ -32,3 +32,4 @@ resources/banner/
 /routes/web.php.old
 !/resources/views/vendor/
 routes/web.php.old
+!/public/vendor/
