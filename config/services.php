@@ -44,10 +44,9 @@ return [
         'redirect' => env('CALLBACK_URL'),
     ],
 
-    'mailgun' => array(
-        'domain' => 'sandbox177b9f647d1b4d3e9126759dfcc58684.mailgun.org',
-        'secret' => 'key-22f22ad0220bc2ee28fa782a5311bc48',
-    ),
-
+    'paypal' => [
+        'client_id' => env('PAYPAL_CLIENT_ID'),
+        'secret' => env('PAYPAL_CLIENT_SECRET'),
+    ],
 
 ];

@@ -229,6 +229,12 @@ Route::get('banner/{filename}', function($filename){
 //=====================================    Paypal ===================================================================//
 //Route::post("payment/confirm","CustomerController@verifyPayPalPayment");
 Route::resource("payment","PaymentController");
+Route::group(['middleware' => ['web']], function () {
+    Route::get('payPremium', ['as'=>'payPremium','uses'=>'PaypalController@payPremium']);
+    Route::post('getCheckout', ['as'=>'getCheckout','uses'=>'PaypalController@getCheckout']);
+    Route::get('getDone', ['as'=>'getDone','uses'=>'PaypalController@getDone']);
+    Route::get('getCancel', ['as'=>'getCancel','uses'=>'PaypalController@getCancel']);
+});
 //=====================================   End Paypal Routes ========================================================///
 //===================================== Advanced Search Route ============================================================//
 Route::get("/advanced-search", "SearchController@filter");

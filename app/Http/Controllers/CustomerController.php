@@ -76,8 +76,10 @@ class CustomerController extends Controller
 
         $bestSellingArr = array_column($bestSelling->toArray(), 'name');
         $keywords = array_merge($keywords, $bestSellingArr);
-
-        OpenGraph::addImage(route("banner", [$bannerDetails->image]));
+        if(isset($bannerDetails->image))
+            OpenGraph::addImage(route("banner", [$bannerDetails->image]));
+        else
+            OpenGraph::addImage(url('images/banner.jpg'));
 
         SEOMeta::setTitle('Gadgetly | Home');
 

@@ -60,11 +60,11 @@
                     <div class="thumbnail">
                         @if(! $newProduct->images()->get()->isEmpty())
                             <a href="{{action("CustomerController@productDetails", [$newProduct->category, $newProduct->id])}}">
-                                <center><img  width="245" height="158"  src="{{route("image", [$newProduct->images()->get()->first()->stored_name])}}" class="product1" alt="{{$newProduct->name}}"></center>
+                                <center><img  src="{{route("image", [$newProduct->images()->get()->first()->stored_name])}}"  alt="{{$newProduct->name}}"></center>
                             </a>
                         @else
                             <a href="{{action("CustomerController@productDetails", [$newProduct->category, $newProduct->id])}}">
-                                <center><img  width="245" height="158" alt="No image provided"></center>
+                                <center><img alt="No image provided"></center>
                             </a>
                         @endif
                         <div class="caption">
@@ -117,6 +117,9 @@
                             </a>
                         @endif
                         <div class="caption">
+                            <a href="{{action("CustomerController@productDetails", [$bestSelling->category, $bestSelling->id])}}">
+                                <h4 class="myTitle">{{$bestSelling->name}}</h4>
+                            </a>
                             <span class="price">{{$bestSelling->price}} $</span>
                             <div class="star-rating-container aggregate">
                                 <div class="star-rating" title="Rated {{ $bestSelling->avg_rate }} out of 5">

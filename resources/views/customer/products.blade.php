@@ -100,7 +100,9 @@
                             <div class="thumbnail">
                                 @if(! $product->images()->get()->isEmpty())
                                     <a href="{{action("CustomerController@productDetails", [$category->id, $product->id])}}">
-                                        <img src="{{route("image", [$product->images()->get()->first()->stored_name])}}" class="img-responsive img-fluid img-rounded" width="235" height="235" alt="No image provided">
+                                        {{--<img src="{{route("image", [$product->images()->get()->first()->stored_name])}}" class="img-responsive img-fluid img-rounded" width="235" height="235" alt="No image provided">--}}
+                                        <center><img  width="245" height="158"  src="{{route("image", [$product->images()->get()->first()->stored_name])}}" class="product1" alt="{{$product->name}}"></center>
+
                                     </a>
                                 @else
                                     <img alt="No image provided">

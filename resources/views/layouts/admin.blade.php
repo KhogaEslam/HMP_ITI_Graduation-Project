@@ -75,7 +75,7 @@
 
     <ul class="nav navbar-nav container">
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Welcome  <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Welcome {{ Auth::user()->name }}<span class="caret"></span></a>
             <ul class="dropdown-menu">
                 <li>
                     <form method="POST" action="{{route("logout")}}">

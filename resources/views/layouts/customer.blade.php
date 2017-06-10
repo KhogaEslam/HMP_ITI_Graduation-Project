@@ -42,19 +42,13 @@
 
                                 <li class="divider"></li>
                                 <li class="divider"></li>
+                                @role('customer')
 
                                 <li><a href="/customer/wishlist/show">Wishlist <span class="glyphicon glyphicon-heart pull-right"></span></a></li>
 
-                                {{--<li class="divider"></li>--}}
-                                {{--<li class="divider"></li>--}}
-
-                                {{--<li><a href="#">Settings <span class="glyphicon glyphicon-cog pull-right"></span></a></li>--}}
-
                                 <li class="divider"></li>
                                 <li class="divider"></li>
-                                {{--<li><a href="#">Messages <span class="badge pull-right"> 42 </span></a></li>--}}
-                                <li class="divider"></li>
-                                <li class="divider"></li>
+                                @endrole
 
                                 <li>
                                     <a href="{{ route('logout') }}"
@@ -72,8 +66,12 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Enter<span class="glyphicon glyphicon-user pull-right"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="{{ url('/customer/login') }}">Login<span class="glyphicon glyphicon-log-in pull-right"></span></a></li>
-                                <li><a href="{{ url('/customer/register') }}">Register<span class="glyphicon glyphicon-registration-mark
-pull-right"></span></a></li>
+                                <li><a href="{{ url('/customer/register') }}">Register<span class="glyphicon glyphicon-registration-mark pull-right"></span></a></li>
+
+
+                                <li class="divider"></li>
+                                <li class="divider"></li>
+                                <li><a href="{{ url('/shop/register') }}">Register as Vendor<span class="glyphicon pull-right"></span></a></li>
                             </ul>
                         @endif
                     @endif
@@ -89,7 +87,8 @@ pull-right"></span></a></li>
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span>
                 <span class="icon-bar"></span> </button>
-            <a href="{{url('/')}}"><img class="logo" src="{{ asset('images/logo.png')}}"></a> </div>
+            <a href="{{url('/')}}"><img class="logo" src="{{ asset('images/logo.png')}}"></a>
+        </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
