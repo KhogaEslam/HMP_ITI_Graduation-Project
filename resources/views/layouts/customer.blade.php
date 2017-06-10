@@ -40,19 +40,13 @@
 
                                 <li class="divider"></li>
                                 <li class="divider"></li>
+                                @role('customer')
 
                                 <li><a href="/customer/wishlist/show">Wishlist <span class="glyphicon glyphicon-heart pull-right"></span></a></li>
 
-                                {{--<li class="divider"></li>--}}
-                                {{--<li class="divider"></li>--}}
-
-                                {{--<li><a href="#">Settings <span class="glyphicon glyphicon-cog pull-right"></span></a></li>--}}
-
-                                {{--<li class="divider"></li>--}}
-                                {{--<li class="divider"></li>--}}
-                                {{--<li><a href="#">Messages <span class="badge pull-right"> 42 </span></a></li>--}}
                                 <li class="divider"></li>
                                 <li class="divider"></li>
+                                @endrole
 
                                 <li>
                                     <a href="{{ route('logout') }}"
@@ -195,7 +189,6 @@
 <script src="{{ asset('js/slider.js')}}"></script>
 <script src="{{ asset('js/search.js') }}"></script>
 <script src="{{ asset('/vendor/laravelLikeComment/js/script.js') }}" type="text/javascript"></script>
-<script src="{{ asset('js/custom_script.js') }}"></script>
 
 </body>
 </html>

@@ -1,3 +1,4 @@
+console.log(location.pathname.split("/")[2])
 if (location.pathname.split("/")[2]) {
     $('.sidebar-nav .nav .nav-item a[href^="/' + location.pathname.split("/")[1] + '/' + location.pathname.split("/")[2] + '"]').addClass('active');
 }
