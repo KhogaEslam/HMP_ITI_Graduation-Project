@@ -185,6 +185,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         risul\LaravelLikeComment\LikeCommentServiceProvider::class,
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
+        Netshell\Paypal\PaypalServiceProvider::class,
     ],
 
     /*
@@ -249,6 +250,7 @@ return [
         'Twitter'   => Artesaos\SEOTools\Facades\TwitterCard::class,
         // or
         'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
+        'Paypal' => Netshell\Paypal\Facades\Paypal::class,
     ],
 
 ];

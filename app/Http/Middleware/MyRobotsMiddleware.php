@@ -13,8 +13,11 @@ class MyRobotsMiddleware extends RobotsMiddleware
      */
     protected function shouldIndex(Request $request)
     {
-        return $request->route()->getPrefix() !== "/admin"
-            || $request->route()->getPrefix() !== "/owner"
-            || $request->route()->getPrefix() !== "/shop" ;
+        $res = true;
+        if($request->segment(1) !== null)
+            $res = $request->segment(1) !== "admin"
+                || $request->segment(1) !== "owner"
+                || $request->segment(1) !== "shop" ;
+        return $res;
     }
 }
