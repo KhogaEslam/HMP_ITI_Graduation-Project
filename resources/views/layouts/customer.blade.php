@@ -137,8 +137,9 @@
     <!-- /.container-fluid -->
 </nav>
 
+<div class="wrapper">
 @yield('content')
-
+</div>
 <footer class="panel-footer">
     <div class="container">
         <div class="row">
