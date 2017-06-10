@@ -32,6 +32,7 @@ use OpenGraph;
 use Twitter;
 ## or
 use SEO;
+use Illuminate\Config;
 
 class CustomerController extends Controller
 {
@@ -388,7 +389,8 @@ class CustomerController extends Controller
 
     public function searchPrefix(Request $request)
     {
-        $trie = Trie::getInstance();
+//        $trie = Trie::getInstance();
+        $trie = \App::make("Trie");
         $prefix = $request->input("prefix");
         return $trie->results($prefix, 20);
     }

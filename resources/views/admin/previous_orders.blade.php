@@ -1,8 +1,7 @@
-@extends("layouts.vendor")
+@extends("layouts.admin")
 @section("title")
-    Completed orders
+    Orders History
 @endsection
-
 @section("content")
     <div class="container">
         <div class="row">
@@ -16,7 +15,7 @@
                     @foreach($orders as $order)
                         <tr>
                             <td>
-                                <a href="{{action("VendorController@orderDetails", [$order])}}" class="text-primary" style="text-decoration: none;">{{$order->product->name}}</a>
+                                <a href="{{action("AdminController@orderDetails", [$order])}}" class="text-primary" style="text-decoration: none;">{{$order->product->name}}</a>
                             </td>
                             <td>{{$order->quantity}}</td>
                             <td>{{$order->created_at}}</td>

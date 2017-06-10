@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 use \App\Product;
+use Illuminate\Contracts\Foundation\Application;
+
 
 class Node {
     private $alpha;
@@ -59,13 +61,12 @@ class Trie {
     private $result;
 
     public static function getInstance() {
-        if(isset(Trie::$trieObject)) {
-            echo "\033[31m Products are already indexed\n";
+        var_dump(static::$trieObject);
+        if(! is_null(Trie::$trieObject)) {
             return Trie::$trieObject;
         }
-        echo "\033[34m Indexing product names for fast lookup..\n";
-        Trie::$trieObject = new Trie;
-        echo "\033[32m Indexing is complete ^^\n";
+        static::$trieObject = new Trie;
+
         return Trie::$trieObject;
     }
 
