@@ -19,7 +19,7 @@ class Customer
             return $next($request);
         }
         else if(\Auth::check()) {
-            return response("You're forbidden", 403);
+            return response()->view('errors.forbidden', [], 403);
         }
         return redirect("customer/login");
     }

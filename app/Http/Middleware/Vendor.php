@@ -19,7 +19,7 @@ class Vendor
             return $next($request);
         }
         else if(\Auth::check()) {
-            return response("You're not authorized", 403);
+            return response()->view('errors.forbidden', [], 403);
         }
         else {
             return redirect("shop/login");
