@@ -165,12 +165,8 @@
 <script src="{{ asset('js/toolkit.js') }} "></script>
 <script src="{{ asset('js/panel.js') }} "></script>
 <script src="{{ asset('js/custom_script.js') }}"></script>
-<<<<<<< HEAD
 <script src="{{ asset('js/ajaxRequests.js')}}"></script>
-
-=======
 <script src="{{ asset("js/application.js") }}"></script>
->>>>>>> 94fb1db7a107bd5d63e700668342f92553b7a457
 <script>
     // execute/clear BS loaders for docs
     $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})

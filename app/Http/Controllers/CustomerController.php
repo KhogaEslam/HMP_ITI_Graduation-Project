@@ -11,6 +11,8 @@ use App\Offer;
 use App\ProductImage;
 use App\ProductRate;
 use App\User;
+use App\UserAddress;
+use App\UserPhone;
 use App\WishList;
 use App\About;
 use App\FeaturedProduct;
@@ -719,6 +721,26 @@ class CustomerController extends Controller
             "orders" => $orders,
             "inCart" => $inCart,
             "categories" => $categories,
+        ]);
+    }
+
+    public function showVendor($vendor_id){
+
+        $categories = \App\Category::all();
+        $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+
+        $vendorProducts=Product::where("user_id", "=", $vendor_id)->get();
+        $vendorAddress=UserAddress::where("user_id", "=", $vendor_id)->get();
+        $vendorPhones=UserPhone::where("user_id", "=", $vendor_id)->get();
+        $vendor=User::find($vendor_id);
+
+        return view("customer.vendor", [
+            "inCart" => $inCart,
+            "categories" => $categories,
+            "vendor" => $vendor,
+            "vendorAddresses" =>$vendorAddress,
+            "vendorPhones" =>$vendorPhones,
+            "vendorProducts" =>$vendorProducts
         ]);
     }
 }

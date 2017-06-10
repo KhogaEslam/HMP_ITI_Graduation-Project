@@ -76,7 +76,7 @@
                 </div>
 
                 <h4 style="margin-top: 20px">Sold by</h4>
-                <span><a href="">{{$soldBy}}</a></span>
+                <span><a href="/vendor/{{$product->user_id}}">{{$soldBy}}</a></span>
 
 
                 @role("customer")
