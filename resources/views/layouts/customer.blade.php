@@ -195,6 +195,7 @@
 <script src="{{ asset('js/slider.js')}}"></script>
 <script src="{{ asset('js/search.js') }}"></script>
 <script src="{{ asset('/vendor/laravelLikeComment/js/script.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/custom_script.js') }}"></script>
 
 </body>
 </html>
