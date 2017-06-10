@@ -7,6 +7,7 @@ use App\Category;
 use App\CategoryRequest;
 use App\Http\Requests\AboutRequest;
 use App\Http\Requests\AdminRequest;
+use App\Http\Requests\CatRequest;
 use App\RegistrationRequest;
 use App\Role;
 use App\ShippingZone;
@@ -76,13 +77,12 @@ class AdminController extends Controller
      * createCategory
      * The function is used to receive the requests from new category view and save the data in the database
      * @author Mohamed Magdy
-     * @param  Request $request
+     * @param  CategoryRequest $request
      * @return  \Illuminate\Http\RedirectResponse
      */
-    public function createCategory(Request $request)
+    public function createCategory(CatRequest $request)
     {
 
-        $this->validate($request, ['name' => 'required|unique:categories|max:50']);
         $cat = new Category();
         $cat->name = $request->name;
         $cat->save();
@@ -110,9 +110,8 @@ class AdminController extends Controller
      * @param Category $category
      * @return  \Illuminate\Http\RedirectResponse
      */
-    public function updateCategory(Request $request, Category $cat)
+    public function updateCategory(CatRequest $request , Category $cat)
     {
-        $this->validate($request, ['name' => 'required|unique:categories|max:50']);
         $cat->update($request->all());
         return redirect('/admin/categories');
     }

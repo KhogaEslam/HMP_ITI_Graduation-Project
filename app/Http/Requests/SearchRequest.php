@@ -42,14 +42,14 @@ class SearchRequest extends FormRequest
     public function sanitize()
     {
         $input = $this->all();
-         if (isset($input['name'])) {
-            $input['name'] = filter_var($input['name'], FILTER_SANITIZE_STRING);
-        }
-        if (!empty($this->request->get('cat_name'))) {
-            foreach ($this->request->get('cat_name') as $a=>$z) {
-                $input['cat_name.' . $a] = filter_var($z, FILTER_SANITIZE_STRING);
-            }
-        }
+//         if (isset($input['name'])) {
+//            $input['name'] = filter_var($input['name'], FILTER_SANITIZE_STRING);
+//        }
+//        if (!empty($this->request->get('cat_name'))) {
+//            foreach ($this->request->get('cat_name') as $a=>$z) {
+//                $input['cat_name.' . $a] = filter_var($z, FILTER_SANITIZE_STRING);
+//            }
+//        }
         if (isset($input['price'])) {
             $input['price'] = filter_var($input['price'], FILTER_SANITIZE_NUMBER_INT);
         }

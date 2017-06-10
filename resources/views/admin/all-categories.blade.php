@@ -18,8 +18,9 @@
                         Actions
                     </th>
                 </thead>
-                <tr>
-                    @foreach($cats as $cat)
+
+                @foreach($cats as $cat)
+                    <tr>
                         <td>
                             {{$cat->name}}
                         </td>
@@ -35,8 +36,8 @@
                             </form>
 
                         </td>
-                    @endforeach
-                </tr>
+                    </tr>
+                @endforeach
             </table>
         </div>
     </div>

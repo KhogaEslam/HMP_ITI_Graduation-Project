@@ -18,6 +18,6 @@ class Admin
         if(\Auth::check() && (\Auth::user()->hasRole("admin") || \Auth::user()->hasRole("owner"))) {
             return $next($request);
         }
-        return response("You're forbidden", 403);
+        return response()->view('errors.forbidden', [], 403);
     }
 }

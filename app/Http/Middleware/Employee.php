@@ -19,7 +19,7 @@ class Employee
             return $next($request);
         }
         else if (\Auth::check()) {
-            return response("You're forbidden to handle shop work", 403);
+            return response()->view('errors.forbidden', [], 403);
         }
         else {
             return redirect("shop/login");

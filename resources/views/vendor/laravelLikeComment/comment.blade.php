@@ -16,6 +16,7 @@ $GLOBALS['commentClass'] = -1;
                 <div id="{{ $comment_item_id }}-comment-0">
 
                     {{--Start of input comment--}}
+                    @role('customer')
                     <form class="laravelComment-form form-horizontal" id="{{ $comment_item_id }}-comment-form"
                           data-parent="0"
                           data-item="{{ $comment_item_id }}">
@@ -36,6 +37,7 @@ $GLOBALS['commentClass'] = -1;
                             </div>
                         </div>
                     </form>
+                    @endrole
                     {{--End of input comment--}}
 
                     {{--Comments Section--}}

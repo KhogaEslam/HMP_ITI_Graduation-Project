@@ -179,6 +179,7 @@ Route::get("customer/shop/{vendor_id}", "CustomerController@index");
 Route::get("category/{category}/products","CustomerController@catProducts");
 Route::get("category/{category}/products/{product}", "CustomerController@productDetails");
 Route::get("category/popularCategories/show", "CustomerController@showPopularCategories");
+Route::get("vendor/{vendor_id}", "CustomerController@showVendor");
 //==================== Cart =========================//
 Route::post("customer/{product}/add_to_cart", "CustomerController@addToCart");
 Route::post("customer/{cart_detail}/edit_cart", "CustomerController@editCart");
@@ -236,6 +237,12 @@ Route::get('banner/{filename}', function($filename){
 //=====================================    Paypal ===================================================================//
 //Route::post("payment/confirm","CustomerController@verifyPayPalPayment");
 Route::resource("payment","PaymentController");
+Route::group(['middleware' => ['web']], function () {
+    Route::get('payPremium', ['as'=>'payPremium','uses'=>'PaypalController@payPremium']);
+    Route::post('getCheckout', ['as'=>'getCheckout','uses'=>'PaypalController@getCheckout']);
+    Route::get('getDone', ['as'=>'getDone','uses'=>'PaypalController@getDone']);
+    Route::get('getCancel', ['as'=>'getCancel','uses'=>'PaypalController@getCancel']);
+});
 //=====================================   End Paypal Routes ========================================================///
 //===================================== Advanced Search Route ============================================================//
 Route::get("/advanced-search", "SearchController@filter");

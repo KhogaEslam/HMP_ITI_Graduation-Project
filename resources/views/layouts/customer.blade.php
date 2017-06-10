@@ -17,7 +17,13 @@
     <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/button.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset("css/like_and_comment.css") }}" />
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
 
+
+
+    {!! SEOMeta::generate() !!}
+    {!! OpenGraph::generate() !!}
+    {!! Twitter::generate() !!}
 
     <title> @yield('title')</title>
 </head>
@@ -36,19 +42,13 @@
 
                                 <li class="divider"></li>
                                 <li class="divider"></li>
+                                @role('customer')
 
                                 <li><a href="/customer/wishlist/show">Wishlist <span class="glyphicon glyphicon-heart pull-right"></span></a></li>
 
-                                {{--<li class="divider"></li>--}}
-                                {{--<li class="divider"></li>--}}
-
-                                {{--<li><a href="#">Settings <span class="glyphicon glyphicon-cog pull-right"></span></a></li>--}}
-
                                 <li class="divider"></li>
                                 <li class="divider"></li>
-                                {{--<li><a href="#">Messages <span class="badge pull-right"> 42 </span></a></li>--}}
-                                <li class="divider"></li>
-                                <li class="divider"></li>
+                                @endrole
 
                                 <li>
                                     <a href="{{ route('logout') }}"
@@ -66,8 +66,12 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Enter<span class="glyphicon glyphicon-user pull-right"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="{{ url('/customer/login') }}">Login<span class="glyphicon glyphicon-log-in pull-right"></span></a></li>
-                                <li><a href="{{ url('/customer/register') }}">Register<span class="glyphicon glyphicon-registration-mark
-pull-right"></span></a></li>
+                                <li><a href="{{ url('/customer/register') }}">Register<span class="glyphicon glyphicon-registration-mark pull-right"></span></a></li>
+
+
+                                <li class="divider"></li>
+                                <li class="divider"></li>
+                                <li><a href="{{ url('/shop/register') }}">Register as Vendor<span class="glyphicon pull-right"></span></a></li>
                             </ul>
                         @endif
                     @endif
@@ -83,7 +87,8 @@ pull-right"></span></a></li>
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span>
                 <span class="icon-bar"></span> </button>
-            <a href="{{url('/')}}"><img class="logo" src="{{ asset('images/logo.png')}}"></a> </div>
+            <a href="{{url('/')}}"><img class="logo" src="{{ asset('images/logo.png')}}"></a>
+        </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
@@ -110,7 +115,7 @@ pull-right"></span></a></li>
                                     <a href="{{action("CustomerController@viewGuestCart")}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="count" >
                     @endif
                     @if(isset($inCart))
-                        {{$inCart}}
+                         <span class="incart-quantity"> {{$inCart}} </span>
                     @else
                         0
                     @endif</span></a></li>
@@ -134,8 +139,9 @@ pull-right"></span></a></li>
     <!-- /.container-fluid -->
 </nav>
 
+<div class="wrapper">
 @yield('content')
-
+</div>
 <footer class="panel-footer">
     <div class="container">
         <div class="row">
@@ -174,18 +180,18 @@ pull-right"></span></a></li>
                 <ul>
                     <li>
                         <h2>Terms of Use</h2></li>
-                    <p>Gadgetly.local is the sole owner of information collected on this site. We will not sell, share, or rent this information to any outside parties, except as outlined in this policy....</p>
+                    <p>Gadgetly. local is the sole owner of information collected on this site. We will not sell, share, or rent this information to any outside parties, except as outlined in this policy....</p>
                 </ul>
             </div>
         </div>
     </div>
 </footer>
 
-<script src="{{ asset('js/jquery.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.js')}}"></script>
 <script src="{{ asset('js/slider.js')}}"></script>
 <script src="{{ asset('js/search.js') }}"></script>
 <script src="{{ asset('/vendor/laravelLikeComment/js/script.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/ajaxRequests.js')}}"></script>
 
 </body>
 </html>
