@@ -1,7 +1,5 @@
 @extends('layouts.customer')
-@section('title')
-    Products
-@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">

@@ -1,7 +1,5 @@
 @extends('layouts.customer')
-@section('title')
-    Gadgetly
-@endsection
+
 @section('content')
     <div class="container">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
