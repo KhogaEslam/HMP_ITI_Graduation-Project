@@ -4,7 +4,7 @@
 <head>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css')}}"/>
     <link rel="stylesheet" href="{{ asset('css/home.css')}}"/>
-    <title>403 Error</title>
+    <title>Gadgetly | Access Denied</title>
 
 <body>
 <div class="container">

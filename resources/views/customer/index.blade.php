@@ -117,6 +117,9 @@
                             </a>
                         @endif
                         <div class="caption">
+                            <a href="{{action("CustomerController@productDetails", [$bestSelling->category, $bestSelling->id])}}">
+                                <h4 class="myTitle">{{$bestSelling->name}}</h4>
+                            </a>
                             <span class="price">{{$bestSelling->price}} $</span>
                             <div class="star-rating-container aggregate">
                                 <div class="star-rating" title="Rated {{ $bestSelling->avg_rate }} out of 5">

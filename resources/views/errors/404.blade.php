@@ -4,7 +4,7 @@
 <head>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css')}}"/>
     <link rel="stylesheet" href="{{ asset('css/home.css')}}"/>
-    <title>404 Error</title>
+    <title>Gadgetly | Page Not Found</title>
 <body>
 <div class="container">
     <div class="row about">
