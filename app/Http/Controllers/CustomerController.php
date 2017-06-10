@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ActiveBanner;
 use App\CartDetail;
 use App\CartHistory;
+use App\Http\Requests\RatingRequest;
 use App\CurrentCheckout;
 use App\Offer;
 use App\ProductImage;
@@ -210,7 +211,7 @@ class CustomerController extends Controller
         ]);
     }
 
-    public function submitRating(Request $request, Product $product)
+    public function submitRating(RatingRequest $request, Product $product)
     {
         $rating = new ProductRate();
         $rating->product()->associate($product);
@@ -222,9 +223,13 @@ class CustomerController extends Controller
             ->groupBy('product_id')
             ->havingRaw("product_id = $product->id")->first()->avg_rate);
         $rating->product->save();
-        return back();
-    }
+        $response = array(
+            'msg' => 'Thanks for submitting feedback',
+            'rating'=> $rating->product->avg_rate
+        );
+        return \Response::json($response);
 
+    }
     public function addToCart(CartRequest $request, Product $product)
     {
 
@@ -239,11 +244,15 @@ class CustomerController extends Controller
 
             $cartDetail->quantity = $request->input("quantity");
             $cartDetail->save();
-            return back();
+            return \Response::json(array("msg" => "added successfully",
+                "inCart" =>  \Auth::user()->cart()->first()->cartDetails->count(),
+                "status" => "success"));
         } else {
-            return back()->withErrors([
-                "quantity" => "Only " . $available . " items left in the shop"
-            ]);
+            return \Response::json(array(
+                "msg" => "Only " . $available . " items left in the shop",
+                "status" => "error"
+
+            ));
         }
     }
 
@@ -318,14 +327,18 @@ class CustomerController extends Controller
 
     }
 
-    public function addToWishList($product)
+    public function addToWishList(Product $product)
     {
         $wishlist = new WishList();
         $wishlist->product_id = $product->id;
         $wishlist->user_id = \Auth::user()->id;
         $wishlist->save();
 
-        return back();
+        $response = array(
+            'status' => 'success',
+            'msg'    => 'Successfully added to wishlist'
+        );
+        return \Response::json($response);
     }
 
     public function deleteFromWishList(WishList $item)

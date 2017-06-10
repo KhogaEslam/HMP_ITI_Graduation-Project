@@ -6,6 +6,7 @@ use App\CartHistory;
 use App\CategoryRequest;
 use App\CurrentCheckout;
 use App\Http\Requests\BannerRequest;
+use App\Http\Requests\CatRequest;
 use App\ProductImage;
 use App\User;
 use App\UserDetail;
@@ -66,9 +67,8 @@ class VendorController extends Controller
      * @param  Request $request
      * @return  \Illuminate\Http\RedirectResponse
      */
-    public function requestCategory(Request $request)
+    public function requestCategory( CatRequest $request)
     {
-        $this->validate($request, ['name' => 'required|unique:categories|max:50']);
         $catRequest = new CategoryRequest();
         $catRequest->name = $request->name;
         $catRequest->user()->associate(\Auth::user());

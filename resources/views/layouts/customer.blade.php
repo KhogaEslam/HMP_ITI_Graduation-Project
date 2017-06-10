@@ -17,6 +17,8 @@
     <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/button.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset("css/like_and_comment.css") }}" />
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+
 
 
     {!! SEOMeta::generate() !!}
@@ -113,7 +115,7 @@
                                     <a href="{{action("CustomerController@viewGuestCart")}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="count" >
                     @endif
                     @if(isset($inCart))
-                        {{$inCart}}
+                         <span class="incart-quantity"> {{$inCart}} </span>
                     @else
                         0
                     @endif</span></a></li>
@@ -185,11 +187,11 @@
     </div>
 </footer>
 
-<script src="{{ asset('js/jquery.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.js')}}"></script>
 <script src="{{ asset('js/slider.js')}}"></script>
 <script src="{{ asset('js/search.js') }}"></script>
 <script src="{{ asset('/vendor/laravelLikeComment/js/script.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/ajaxRequests.js')}}"></script>
 
 </body>
 </html>
