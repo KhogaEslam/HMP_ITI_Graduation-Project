@@ -99,6 +99,13 @@ Route::get("admin/statistics/top_revenue_vendor", "AdminController@topRevenueVen
 Route::get("admin/about/show", "AdminController@showAboutPage");
 Route::get("admin/about/edit", "AdminController@showEditAboutPage");
 Route::post("admin/about/{aboutPage}/edit", "AdminController@editAboutPage");
+//=====================     Shipping Zones ==================================//
+Route::get("admin/shipping_zones/new", "AdminController@showNewShippingZoneForm");
+Route::post("admin/shpping_zones/new", "AdminController@newShippingZone");
+Route::get("admin/shipping_zones/{shipping_zone}/edit", "AdminController@showEditShippingZoneForm");
+Route::post("admin/shipping_zones/{shipping_zone}/edit", "AdminController@editShippingZone");
+Route::get("admin/shipping_zones", "AdminController@showShippingZones");
+Route::post("admin/shipping_zones/{shipping_zone}/delete", "AdminController@deleteShippingZone");
 //===============================    End Admin Route  =================================================//
 //================================== Shop Routes  ==================================================//
 //=====================   Home =====================//

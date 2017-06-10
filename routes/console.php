@@ -2,6 +2,8 @@
 
 use Illuminate\Foundation\Inspiring;
 
+use \App\Helpers\Trie;
+
 /*
 |--------------------------------------------------------------------------
 | Console Routes
@@ -16,3 +18,7 @@ use Illuminate\Foundation\Inspiring;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+Artisan::command("index_products", function() {
+    Trie::getInstance();
+});

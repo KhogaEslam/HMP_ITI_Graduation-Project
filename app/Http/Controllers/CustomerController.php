@@ -151,6 +151,23 @@ class CustomerController extends Controller
         }
     }
 
+    public function addSingleToCart(CartRequest $request, Product $product) {
+        $cartDetail = \Auth::user()->cart->where("product_id", "=", $product->id);
+        if($cartDetail->isEmpty()) {
+            $cartDetail = new CartDetail;
+            $cartDetail->quantity = 0;
+            $cartDetail->product->associate($product);
+            $cartDetail->cart()->associate(\Auth::user()->cart);
+        }
+
+        $available = $product->quantity;
+
+        if($available > $cartDetail->quantity) {
+            $cartDetail->quantity++;
+            $cartDetail->save();
+        }
+    }
+
     public function editCart(CartRequest $request, CartDetail $cart)
     {
         $quantity = $request->input("quantity");

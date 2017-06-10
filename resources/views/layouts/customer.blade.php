@@ -114,7 +114,7 @@ pull-right"></span></a></li>
                     @else
                         0
                     @endif</span></a></li>
-                <form class="navbar-form navbar-right mySearch" action="{{action("CustomerController@search")}}" method="get">
+                <form class="navbar-form navbar-right mySearch search" action="{{action("CustomerController@search")}}" method="get">
                     <div class="input-group stylish-input-group">
                         <input name="search_name" type="text" class="form-control"  placeholder="Search" >
                         <span class="input-group-addon">

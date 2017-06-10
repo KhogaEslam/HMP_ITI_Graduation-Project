@@ -60,9 +60,12 @@ class Trie {
 
     public static function getInstance() {
         if(isset(Trie::$trieObject)) {
+            echo "\033[31m Products are already indexed\n";
             return Trie::$trieObject;
         }
+        echo "\033[34m Indexing product names for fast lookup..\n";
         Trie::$trieObject = new Trie;
+        echo "\033[32m Indexing is complete ^^\n";
         return Trie::$trieObject;
     }
 
