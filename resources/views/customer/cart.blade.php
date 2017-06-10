@@ -98,6 +98,7 @@
                     "class" => "myButton center-block"
                 ]) !!}
                 {!! Form::close() !!}
+                @role("customer")
                 <h5>or</h5>
                 {{-- check out --}}
                 <div class="col-md-4 text-center">
@@ -125,7 +126,7 @@
                             <?php $counter++; ?>
                         @endforeach
 
-                        <input type="hidden" name="custom" value="{{$cartDetails->first->cart->id}}"/>
+                        <input type="hidden" name="custom" value="{{$cartDetails->first()->cart->id}}"/>
                         <input type="hidden" name="shopping_url" value="{{ url('/') }}">
                         <input TYPE="hidden" name="return" value="{{ url('/') }}">
                         <input TYPE="hidden" name="cancel_return" value="{{ url('customer/cart') }}">
@@ -136,7 +137,10 @@
                     </span></button>
                     </form>
                 </div>
-                    @endif
+                    @endrole
+
+                @endif
+
             </div>
         </div>
     </div>

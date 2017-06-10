@@ -75,6 +75,10 @@
                     <p>{{$product->description}}</p>
                 </div>
 
+                <h4 style="margin-top: 20px">Sold by</h4>
+                <span><a href="">{{$soldBy}}</a></span>
+
+
                 @role("customer")
                 @if(!isset($isWish))
                     <form style="height:80px" id="add-to-wishlist" action="/customer/{{$product->id}}/wishlist/add">

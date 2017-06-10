@@ -10,6 +10,7 @@ use App\CurrentCheckout;
 use App\Offer;
 use App\ProductImage;
 use App\ProductRate;
+use App\User;
 use App\WishList;
 use App\About;
 use App\FeaturedProduct;
@@ -166,6 +167,7 @@ class CustomerController extends Controller
     {
         $categories = Category::all();
         $isWish = WishList::where("product_id", "=", $product->id)->first();
+        $soldBy=User::find($product->user_id)->name;
 
         if (\Auth::check() && \Auth::user()->hasRole("customer")) {
             $inCart = \Auth::user()->cart()->first()->cartDetails->count();
@@ -207,7 +209,8 @@ class CustomerController extends Controller
             "category" => $category,
             "categories" => $categories,
             "inCart" => $inCart,
-            "isWish" => $isWish
+            "isWish" => $isWish,
+            "soldBy" =>$soldBy
         ]);
     }
 
