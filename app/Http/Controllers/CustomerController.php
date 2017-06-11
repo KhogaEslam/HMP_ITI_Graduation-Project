@@ -232,8 +232,16 @@ class CustomerController extends Controller
     }
     public function addToCart(CartRequest $request, Product $product)
     {
+        $cartDetail = CartDetail::where("product_id", "=", $product)->get();
 
-        $cartDetail = new CartDetail;
+        if($cartDetail->isEmpty()) {
+            $cartDetail = new CartDetail;
+        }
+        else {
+            return \Response::json(array(
+                "msg" => "You have already added this item to  your cart",
+                "status" => "error" ));
+        }
 
         $quantity = $request->input("quantity");
         $available = $product->quantity;
@@ -244,9 +252,12 @@ class CustomerController extends Controller
 
             $cartDetail->quantity = $request->input("quantity");
             $cartDetail->save();
-            return \Response::json(array("msg" => "added successfully",
+            return \Response::json(array(
+                "msg" => "added successfully",
                 "inCart" =>  \Auth::user()->cart()->first()->cartDetails->count(),
-                "status" => "success"));
+                "status" => "success",
+                "action" => "/customer/" . \Auth::user()->cart->cartDetails()->quantity($product->id)->first()->id . "/edit_cart",
+            ));
         } else {
             return \Response::json(array(
                 "msg" => "Only " . $available . " items left in the shop",
@@ -258,16 +269,21 @@ class CustomerController extends Controller
 
     public function editCart(CartRequest $request, CartDetail $cart)
     {
+
         $quantity = $request->input("quantity");
         $available = $cart->product->quantity;
-        if ($quantity <= $available) {
+        if($quantity <= $available) {
             $cart->quantity = $quantity;
             $cart->save();
-            return back();
+            return \Response::json(array("msg" => "added successfully",
+                "inCart" =>  \Auth::user()->cart()->first()->cartDetails->count(),
+                "status" => "success"));
         } else {
-            return back()->withErrors([
-                "quantity" => "Only " . $available . " items left in the shop"
-            ]);
+            return \Response::json(array(
+                "msg" => "Only " . $available . " items left in the shop",
+                "status" => "error"
+
+            ));
         }
     }
 
@@ -600,7 +616,11 @@ class CustomerController extends Controller
         }
         $cart[$product->id] += $request->input("quantity");
         session()->put("user.cart", $cart);
-        return back();
+        return \Response::json(array(
+            "msg" => "added successfully",
+            "inCart" => GuestCart::getAllProductsCount(session('user.cart')),
+            "status" => "success",
+        ));
     }
 
     public function viewGuestCart()
