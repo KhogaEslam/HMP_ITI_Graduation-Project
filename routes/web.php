@@ -193,7 +193,6 @@ Route::get("cart", "CustomerController@viewGuestCart");
 Route::post("customer/cart/{cart_detail}/delete", "CustomerController@deleteProductFromCart");
 Route::post("customer/cart/checkout", "CustomerController@cashCheckout");
 Route::post("cart/{product}/add_to_cart", "CustomerController@addToGuestCart");
-Route::post("cart/{product}/add_to_cart", "CustomerController@addToGuestCart");
 Route::post("cart/{id}/delete_item", "CustomerController@deleteFromGuestCart");
 Route::post("cart/{id}/edit_item", "CustomerController@editGuestCart");
 
