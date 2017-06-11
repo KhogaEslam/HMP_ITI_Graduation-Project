@@ -42,6 +42,10 @@ class VendorController extends Controller
 
     public function index()
     {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $categories = Category::paginate(9);
         return view("shop.index", [
             "categories" => $categories
@@ -57,6 +61,11 @@ class VendorController extends Controller
 
     public function newCategory()
     {
+
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         return view( 'shop.new-category');
     }
 
@@ -69,6 +78,10 @@ class VendorController extends Controller
      */
     public function requestCategory( CatRequest $request)
     {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $catRequest = new CategoryRequest();
         $catRequest->name = $request->name;
         $catRequest->user()->associate(\Auth::user());
@@ -84,6 +97,10 @@ class VendorController extends Controller
 
     public function category(Category $category)
     {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $products = $category->products()->owned()->paginate(5);
         return view("shop.products", [
             "products" => $products,
@@ -98,6 +115,10 @@ class VendorController extends Controller
      */
 
     public function showNewProductForm(Category $category) {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         return view("shop.new_product", [
             "category" => $category,
         ]);
@@ -111,6 +132,10 @@ class VendorController extends Controller
 
     public function newProduct(Request $request, Category $category)
     {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $user = \Auth::user();
         if(\Auth::user()->hasRole("employee")) {
             $user = $user->employee->where("employee_id", "=", $user->id)->first()->manager;
@@ -149,6 +174,10 @@ class VendorController extends Controller
 
     public function productDetails(Category $category, Product $product)
     {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $discount=Discount::where("product_id","=",$product->id)->first();
         $featuredItem=FeaturedItem::where("product_id","=",$product->id)->first();
         return view("shop.product", [
@@ -161,11 +190,19 @@ class VendorController extends Controller
 
     public function showEditProductForm(Category $category, Product $product)
     {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         return view("shop.edit_product", compact("category", "product"));
     }
 
     public function editProduct(Request $request, Category $category, Product $product)
     {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $user = \Auth::user();
         if($user->hasRole("employee")) {
             $user->employee->where("employee_id", "=", $user->id)->first()->manager;
@@ -206,6 +243,10 @@ class VendorController extends Controller
 
     public function deleteProduct(Category $category, Product $product)
     {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         if($product->user->id == \Auth::user()->id) {
             Trie::getInstance()->deleteProduct($product->name);
             $product->delete();
@@ -218,6 +259,10 @@ class VendorController extends Controller
 
     public function publishProduct(Category $category, Product $product)
     {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         if($product->user->id == \Auth::user()->id) {
             $product->published = true;
             Trie::getInstance()->addProduct($product->name);
@@ -231,6 +276,10 @@ class VendorController extends Controller
 
     public function unPublishProduct(Category $category, Product $product)
     {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         if($product->user->id == \Auth::user()->id) {
             $product->published = false;
             Trie::getInstance()->deleteProduct($product->name);
@@ -243,10 +292,18 @@ class VendorController extends Controller
     }
 
     public function showNewEmployeeForm() {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         return view("shop.new_employee");
     }
 
     public function newEmployee(EmployeeRequest $request) {
+
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
 
         $role = Role::all()->where("name", "=", "employee")->first();
 
@@ -272,10 +329,18 @@ class VendorController extends Controller
     }
 
     public function showEditEmployeeForm(Employee $employee) {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         return view("shop.edit_employee", ["employee" => $employee]);
     }
 
     public function editEmployee(EditEmployeeRequest $request, Employee $employee) {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         if(\Auth::user()->id == $employee->manager->id) {
             $employee = $employee->self;
             $name = $request->input("name");
@@ -300,12 +365,20 @@ class VendorController extends Controller
     }
 
     public function deleteEmployee(Request $request, Employee $employee) {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         if(\Auth::user()->id == $employee->manager->id) {
             $employee->self->delete();
         }
     }
 
     public function showEmployees() {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $employees = Employee::all()->where("manager_id", "=", \Auth::user()->id);
         return view("shop.employees", [
             "employees" => $employees
@@ -315,6 +388,10 @@ class VendorController extends Controller
 
     public function showDiscountProductForm(Product $product)
     {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         return view("shop.add_discount",[
             'product' => $product
         ]);
@@ -322,6 +399,10 @@ class VendorController extends Controller
 
     public function newDiscount(Request $request, Product $product)
     {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $discount=new Discount();
         $discount->percentage = $request->input('percentage');
         $discount->start_date = $request->input('start_date');
@@ -337,12 +418,20 @@ class VendorController extends Controller
 
     public function deleteDiscount(Discount $discount)
     {
-            $discount->delete();
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
+        $discount->delete();
             return back();
     }
 
     public function makeFeaturedItemRequest($product)
     {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $featuredItem = new FeaturedItem();
         $featuredItem->product_id = $product->id;
         $featuredItem->user_id = \Auth::user()->id;
@@ -351,11 +440,19 @@ class VendorController extends Controller
     }
 
     public function showBannerRequestForm() {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $products = Product::owned()->get()->pluck("name", "id");
         return view("shop.banner_request", compact("products"));
     }
 
     public function addBannerRequest(BannerRequest $request) {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $products = Product::owned()->get()->pluck("name", "id");
         $upload_to = resource_path("banner");
 
@@ -392,6 +489,10 @@ class VendorController extends Controller
     }
 
     public function mostSoldProducts() {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $products = Product::owned()->topSale()->paginate(20);
         $total = Product::owned()->sum("sales_counter");
         if($total == 0)
@@ -403,6 +504,10 @@ class VendorController extends Controller
     }
 
     public function mostProfitableProducts() {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $products = Product::owned()->topProfit()->paginate(20);
         $total = Product::owned()->sum("revenue");
         if($total == 0)
@@ -414,6 +519,10 @@ class VendorController extends Controller
     }
 
     public function mostProfitableCategories() {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $categories = Product::owned()
             ->select("category_id", DB::raw("sum(revenue) as total_revenue"))
             ->groupBy("category_id")
@@ -431,6 +540,10 @@ class VendorController extends Controller
     }
 
     public function mostProfitableCategoryProducts(Category $category) {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $products = $category->products()->owned()->orderBy("revenue", "desc")->paginate(20);
         $total = $category->products()->owned()->sum("revenue");
         if($total == 0)
@@ -442,6 +555,10 @@ class VendorController extends Controller
     }
 
     public function topSalesCategories() {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $categories = Product::owned()
             ->select("category_id", DB::raw("sum(sales_counter) as sales"))
             ->groupBy("category_id")
@@ -460,6 +577,10 @@ class VendorController extends Controller
 
 
     public function topSalesCategoryProducts(Category $category) {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $products = $category->products()->owned()->orderBy("sales_counter", "desc")->paginate(20);
         $total = $category->products()->owned()->sum("sales_counter");
         if($total == 0)
@@ -471,6 +592,10 @@ class VendorController extends Controller
     }
 
     public function topRatedProducts() {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $products = Product::owned()->orderBy("avg_rate", "desc")->paginate(20);
         return view("shop.top_rated_products", [
             "products" => $products,
@@ -478,6 +603,10 @@ class VendorController extends Controller
     }
 
     public function showNewAddressesForm() {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $addresses = \Auth::user()->addresses;
         $counter = $addresses->count();
         if($counter == 0)
@@ -488,6 +617,10 @@ class VendorController extends Controller
     }
 
     public function showNewPhonesForm() {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $phones = \Auth::user()->phones;
         return view("shop.new_phones", [
             "phones" => $phones
@@ -495,6 +628,10 @@ class VendorController extends Controller
     }
 
     public function newAddress(Request $request) {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $this->validate($request, [
             "addresses" => "required",
             "addresses.*" => "required"
@@ -510,6 +647,10 @@ class VendorController extends Controller
     }
 
     public function deleteAddress(UserAddress $address) {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         if($address->user_id == \Auth::user()->id) {
             $address->delete();
         }
@@ -517,6 +658,10 @@ class VendorController extends Controller
     }
 
     public function addresses() {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $addresses = \Auth::user()->addresses()->paginate(20);
         return view("shop.addresses", [
             "addresses" => $addresses
@@ -524,6 +669,10 @@ class VendorController extends Controller
     }
 
     public function newPhones(Request $request) {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $this->validate($request, [
             "new_phones" => "required",
             "new_phones.*" => "required|regex:/(01)[0-9]{9}/",
@@ -539,6 +688,10 @@ class VendorController extends Controller
     }
 
     public function phones() {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $phones = \Auth::user()->phones()->paginate(20);
         return view("shop.phones", [
             "phones" => $phones
@@ -546,6 +699,10 @@ class VendorController extends Controller
     }
 
     public function deletePhone(UserPhone $phone) {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         if($phone->user_id == \Auth::user()->id) {
             $phone->delete();
         }
@@ -553,6 +710,10 @@ class VendorController extends Controller
     }
 
     public function viewCheckouts() {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $user = \Auth::user();
         if($user->hasRole("employee")) {
             $user = $user->employee->first()->manager;
@@ -571,6 +732,10 @@ class VendorController extends Controller
     }
 
     public function updateCheckoutStatus(CurrentCheckout $checkout) {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $user = \Auth::user();
         if($user->hasRole("employee")) {
             $user = $user->employee->first()->manager;
@@ -599,6 +764,10 @@ class VendorController extends Controller
     }
 
     public function previousOrders() {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         $orders = CartHistory::seller()->latest()->paginate(20);
 
         return view("shop.previous_orders", [
@@ -607,18 +776,25 @@ class VendorController extends Controller
     }
 
     public function orderDetails(CartHistory $order) {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         return view("shop.order_details", [
             "order" => $order
         ]);
     }
 
     public function deleteProductImage(Request $request, ProductImage $image) {
+        if(!\Auth::user()->plan){
+            return redirect()->route('payPremium');
+        }
+
         if(\Auth::user()->id == $image->product->user->id) {
             $image->delete();
         }
         return back();
     }
-
 
 }
 

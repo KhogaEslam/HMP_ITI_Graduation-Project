@@ -54,7 +54,7 @@
 {{--</nav>--}}
 <nav class="navbar navbar-default myNav">
     <ul class="nav navbar-nav container">
-        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Welcome {{ Auth::user()->name }} <span class="caret"></span></a>
+        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@if(Auth::user()) Welcome {{ Auth::user()->name }} @endif <span class="caret"></span></a>
             <ul class="dropdown-menu">
                 <li>
                     {!! Form::open(["route" => "logout"]) !!}

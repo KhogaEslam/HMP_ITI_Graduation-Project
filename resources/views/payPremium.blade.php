@@ -1,4 +1,7 @@
 @extends('layouts.vendor')
+@section('title')
+    Vendor | Subscribe
+    @endsection
 @section('content')
     <style type="text/css">
         .db-bk-color-one {
@@ -81,7 +84,7 @@
     <div class="container">
         <div class="row text-center">
             <div class="col-md-12">
-                <h3>Laravel 5 - Payment Using Paypal</h3>
+                <h3>Subscribe Now!</h3>
             </div>
         </div>
 
@@ -90,7 +93,7 @@
                 <div class="db-wrapper">
                     {!! Form::open(array('route' => 'getCheckout')) !!}
                     {!! Form::hidden('type','small') !!}
-                    {!! Form::hidden('pay',30) !!}
+                    {!! Form::hidden('pay',10) !!}
                     <div class="db-pricing-eleven db-bk-color-one">
                         <div class="price">
                             <sup>$</sup>30
@@ -100,12 +103,11 @@
                             SMALL PLAN
                         </div>
                         <ul>
-                            <li><i class="glyphicon glyphicon-print"></i>30+ Accounts </li>
-                            <li><i class="glyphicon glyphicon-time"></i>150+ Projects </li>
-                            <li><i class="glyphicon glyphicon-trash"></i>Lead Required</li>
+                            <li><i class="glyphicon glyphicon-print"></i>10 Products </li>
+                            <li><i class="glyphicon glyphicon-time"></i>1 Featured Item/Quarter </li>
                         </ul>
                         <div class="pricing-footer">
-                            <button class="btn db-button-color-square btn-lg">BOOK ORDER</button>
+                            <button class="btn db-button-color-square btn-lg">SUBSCRIBE</button>
                         </div>
                     </div>
                     {!! Form::close() !!}
@@ -115,7 +117,7 @@
                 <div class="db-wrapper">
                     {!! Form::open(array('route' => 'getCheckout')) !!}
                     {!! Form::hidden('type','medium') !!}
-                    {!! Form::hidden('pay',45) !!}
+                    {!! Form::hidden('pay',30) !!}
                     <div class="db-pricing-eleven db-bk-color-two popular">
                         <div class="price">
                             <sup>$</sup>45
@@ -125,12 +127,11 @@
                             MEDIUM PLAN
                         </div>
                         <ul>
-                            <li><i class="glyphicon glyphicon-print"></i>30+ Accounts </li>
-                            <li><i class="glyphicon glyphicon-time"></i>150+ Projects </li>
-                            <li><i class="glyphicon glyphicon-trash"></i>Lead Required</li>
+                            <li><i class="glyphicon glyphicon-print"></i>30 Products </li>
+                            <li><i class="glyphicon glyphicon-time"></i>3 Featured Item/Quarter </li>
                         </ul>
                         <div class="pricing-footer">
-                            <button class="btn db-button-color-square btn-lg">BOOK ORDER</button>
+                            <button class="btn db-button-color-square btn-lg">SUBSCRIBE</button>
                         </div>
                     </div>
                     {!! Form::close() !!}
@@ -140,22 +141,21 @@
                 <div class="db-wrapper">
                     {!! Form::open(array('route' => 'getCheckout')) !!}
                     {!! Form::hidden('type','advance') !!}
-                    {!! Form::hidden('pay',68) !!}
+                    {!! Form::hidden('pay',50) !!}
                     <div class="db-pricing-eleven db-bk-color-three">
                         <div class="price">
-                            <sup>$</sup>68
+                            <sup>$</sup>50
                             <small>per quarter</small>
                         </div>
                         <div class="type">
-                            ADVANCE PLAN
+                            FULL PLAN
                         </div>
                         <ul>
-                            <li><i class="glyphicon glyphicon-print"></i>30+ Accounts </li>
-                            <li><i class="glyphicon glyphicon-time"></i>150+ Projects </li>
-                            <li><i class="glyphicon glyphicon-trash"></i>Lead Required</li>
+                            <li><i class="glyphicon glyphicon-print"></i>50+ Products </li>
+                            <li><i class="glyphicon glyphicon-time"></i>5 Featured Item/Quarter </li>
                         </ul>
                         <div class="pricing-footer">
-                            <button class="btn db-button-color-square btn-lg">BOOK ORDER</button>
+                            <button class="btn db-button-color-square btn-lg">SUBSCRIBE</button>
                         </div>
                     </div>
                     {!! Form::close() !!}

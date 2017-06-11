@@ -115,4 +115,8 @@ class User extends Authenticatable //Entrust configuration needs User model to e
             'admin'  => $user->role === 'admin', // bool
         ];
     }
+
+    public function plan(){
+        return $this->hasOne("\App\VendorPlan");
+    }
 }
