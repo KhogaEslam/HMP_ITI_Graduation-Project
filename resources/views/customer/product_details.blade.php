@@ -290,7 +290,7 @@
                             alert(response.msg)
                         }
                         else {
-                            alert("page error")
+                            alert("Error")
                         }
                     }
                 })
@@ -326,7 +326,7 @@
                             alert(response.msg)
                         }
                         else {
-                            alert("page error")
+                            alert("Error")
                         }
                     }
                 })
@@ -363,7 +363,7 @@
                             alert(response.msg)
                         }
                         else {
-                            alert("page error")
+                            alert("Error")
                         }
                     }
 

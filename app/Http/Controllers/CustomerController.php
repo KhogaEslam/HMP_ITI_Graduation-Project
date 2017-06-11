@@ -276,7 +276,7 @@ class CustomerController extends Controller
     public function addSingleToCart(CartRequest $request, Product $product) {
         $cartDetail = \Auth::user()->cart->where("product_id", "=", $product->id);
         if($cartDetail->isEmpty()) {
-            $cartDetail = new CartDetail;
+                $cartDetail = new CartDetail;
             $cartDetail->quantity = 0;
             $cartDetail->product->associate($product);
             $cartDetail->cart()->associate(\Auth::user()->cart);
@@ -680,7 +680,7 @@ class CustomerController extends Controller
 
     }
 
-    public function addToGuestCart(Request $request, Product $product)
+    public function addToGuestCart(CartRequest $request, Product $product)
     {
         if (!session()->has("user.cart")) {
             session()->put("user.cart", []);
@@ -746,7 +746,11 @@ class CustomerController extends Controller
         $cart = session("user.cart");
         $cart[$id] = $request->input("quantity");
         session()->put("user.cart", $cart);
-        return back();
+        return \Response::json(array(
+            "msg" => "added successfully",
+            "inCart" => GuestCart::getAllProductsCount(session('user.cart')),
+            "status" => "success",
+        ));
     }
 
     public function deleteFromGuestCart($id)

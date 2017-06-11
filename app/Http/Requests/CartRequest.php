@@ -13,7 +13,7 @@ class CartRequest extends FormRequest
      */
     public function authorize()
     {
-        return \Auth::check() && \Auth::user()->hasRole("customer");
+        return (\Auth::check() && \Auth::user()->hasRole("customer")) || \Auth::guest();
     }
 
     /**

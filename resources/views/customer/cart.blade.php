@@ -36,12 +36,12 @@
                         <td class="" style="text-align: center">
                             {{--<input type="number" class="form-control" value="{{$cartDetail->quantity}}">--}}
                             @role("customer")
-                            {!! Form::model($cartDetail, ["action" => ["CustomerController@editCart", $cartDetail]]) !!}
+                            {!! Form::model($cartDetail, ["action" => ["CustomerController@editCart", $cartDetail], 'class' => 'edit-cart']) !!}
                             @endrole
                             @if(! \Auth::check() || ! \Auth::user()->hasRole("customer"))
-                            {!! Form::model($cartDetail, ["action" => ["CustomerController@editGuestCart", $cartDetail->product->id]]) !!}
+                            {!! Form::model($cartDetail, ["action" => ["CustomerController@editGuestCart", $cartDetail->product->id], 'class' => 'edit-cart', "min" => 1 , "max" => $cartDetail->product->quantity]) !!}
                             @endif
-                                {!! Form::number("quantity", null, ["class" => "form-control"]) !!}
+                                {!! Form::number("quantity", null, ["class" => "form-control cart-quantity", "min" => 1 , "max" => $cartDetail->product->quantity]) !!}
                                 {!! Form::submit("Submit", ["class" => "btn myButton submit-q"] )!!}
                             {!! Form::close() !!}
                         </td>
@@ -144,6 +144,61 @@
             </div>
         </div>
     </div>
+    <div class="x-cart-notification">
+        <div class="x-cart-notification-icon loading">
+            <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+        </div>
+        <div class="x-cart-notification-icon added">
+            <i class="fa fa-check" aria-hidden="true"></i>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $(document).on('submit', ".edit-cart", function(e) {
+                e.preventDefault();
+                var quantity  = $('[name= "quantity"]').val()
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: {"quantity" : quantity},
+                    datatype: 'JSON',
+                    success: function(response) {
+                        if (response.status == "success") {
+                            $('.x-cart-notification').addClass('bring-forward appear loading');
+                            $('.modal-close').click();
+                            setTimeout(function () {
+                                $('.x-cart-notification').addClass('added');
+                            }, 1400)
+                            setTimeout(function () {
+                                $('.x-cart-notification').removeClass('bring-forward appear loading added');
+                                $('.incart-quantity').html(response.inCart);
+                                location.reload();
+                            }, 2800)
+                        }
+                        else {
+
+                            if (response.msg) {
+                                alert(response.msg)
+                            }
+                            else {
+                                alert("Error")
+                            }
+                        }
+
+                    },
+                    error: function(response){
+                        if (response.msg) {
+                            alert(response.msg)
+                        }
+                        else {
+                            alert("Error")
+                        }
+                    }
+                })
+            });
+        })
+
+    </script>
 
 
     {{--<div class="col-md-1" style="padding-top: 80px;">--}}
