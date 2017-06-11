@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Paypal;
+use App\VendorPlan;
 
 class PaypalController extends Controller
 {
@@ -13,6 +14,8 @@ class PaypalController extends Controller
 
     public function __construct()
     {
+        $this->middleware(["employee.auth"]);
+
         $this->_apiContext = PayPal::ApiContext(
             config('services.paypal.client_id'),
             config('services.paypal.secret'));
@@ -44,7 +47,7 @@ class PaypalController extends Controller
 
         $transaction = PayPal::Transaction();
         $transaction->setAmount($amount);
-        $transaction->setDescription('Buy Premium '.$request->input('type').' Plan on '.$request->input('pay'));
+        $transaction->setDescription('Subscribe '.$request->input('type').' Plan on '.$request->input('pay'));
 
         $redirectUrls = PayPal:: RedirectUrls();
         $redirectUrls->setReturnUrl(route('getDone'));
@@ -75,8 +78,13 @@ class PaypalController extends Controller
         $paymentExecution->setPayerId($payer_id);
         $executePayment = $payment->execute($paymentExecution, $this->_apiContext);
 
+        $plan = new VendorPlan;
 
-        print_r($executePayment);
+        $plan->user->associate(\Auth::user());
+        $plan->save();
+        return redirect()->action("VendorController@index");
+//        echo "<pre>";
+//        print_r($executePayment);
     }
 
     public function getCancel()

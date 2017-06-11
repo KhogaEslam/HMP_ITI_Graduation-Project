@@ -70,7 +70,7 @@
 
                 <div>
                     <input id="date_of_birth" type="date" class="center-block sign" name="date_of_birth"
-                           value="{{ old('date_of_birth') }}" required>
+                           value="" required>
 
                     @if ($errors->has('date_of_birth'))
                         <span class="help-block">
@@ -111,8 +111,6 @@
                 </div>
             </div>
 
-            <label class="center-block"><input type="checkbox" name="terms" required> I agree with the <a href="#">Terms
-                    and Conditions</a>.</label>
 
             <button type="submit" class="btn btn-primary center-block myButton signb">
                 Sign up

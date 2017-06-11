@@ -40,6 +40,8 @@ class RouteServiceProvider extends ServiceProvider
         Route::model("checkout", \App\CartHistory::class);
         Route::model("current_checkout", \App\CurrentCheckout::class);
         Route::model("product_image", \App\ProductImage::class);
+        Route::model("shipping_zone", \App\ShippingZone::class);
+
     }
 
     /**

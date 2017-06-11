@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 use \App\Product;
+use Illuminate\Contracts\Foundation\Application;
+
 
 class Node {
     private $alpha;
@@ -59,10 +61,12 @@ class Trie {
     private $result;
 
     public static function getInstance() {
-        if(isset(Trie::$trieObject)) {
+        var_dump(static::$trieObject);
+        if(! is_null(Trie::$trieObject)) {
             return Trie::$trieObject;
         }
-        Trie::$trieObject = new Trie;
+        static::$trieObject = new Trie;
+
         return Trie::$trieObject;
     }
 

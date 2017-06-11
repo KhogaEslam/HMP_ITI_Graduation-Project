@@ -10,6 +10,9 @@ use App\CurrentCheckout;
 use App\Offer;
 use App\ProductImage;
 use App\ProductRate;
+use App\User;
+use App\UserAddress;
+use App\UserPhone;
 use App\WishList;
 use App\About;
 use App\FeaturedProduct;
@@ -29,12 +32,13 @@ use OpenGraph;
 use Twitter;
 ## or
 use SEO;
+use Illuminate\Config;
 
 class CustomerController extends Controller
 {
     public function __construct()
     {
-        $this->middleware("customer.auth")->except(["index", "verifyPayPalPayment", "catProducts", "productDetails", "search", "searchPrefix", "addToGuestCart", "viewGuestCart", "editGuestCart", "deleteFromGuestCart", "showAbout", "showContactUs"]);
+        $this->middleware("customer.auth")->except(["index", "verifyPayPalPayment", "catProducts", "productDetails", "search", "searchPrefix", "addToGuestCart", "viewGuestCart", "editGuestCart", "deleteFromGuestCart", "showAbout", "showContactUs","showVendor"]);
     }
 
     public function index()
@@ -166,6 +170,7 @@ class CustomerController extends Controller
     {
         $categories = Category::all();
         $isWish = WishList::where("product_id", "=", $product->id)->first();
+        $soldBy=User::find($product->user_id)->name;
 
         if (\Auth::check() && \Auth::user()->hasRole("customer")) {
             $inCart = \Auth::user()->cart()->first()->cartDetails->count();
@@ -207,7 +212,8 @@ class CustomerController extends Controller
             "category" => $category,
             "categories" => $categories,
             "inCart" => $inCart,
-            "isWish" => $isWish
+            "isWish" => $isWish,
+            "soldBy" =>$soldBy
         ]);
     }
 
@@ -264,6 +270,23 @@ class CustomerController extends Controller
                 "status" => "error"
 
             ));
+        }
+    }
+
+    public function addSingleToCart(CartRequest $request, Product $product) {
+        $cartDetail = \Auth::user()->cart->where("product_id", "=", $product->id);
+        if($cartDetail->isEmpty()) {
+            $cartDetail = new CartDetail;
+            $cartDetail->quantity = 0;
+            $cartDetail->product->associate($product);
+            $cartDetail->cart()->associate(\Auth::user()->cart);
+        }
+
+        $available = $product->quantity;
+
+        if($available > $cartDetail->quantity) {
+            $cartDetail->quantity++;
+            $cartDetail->save();
         }
     }
 
@@ -382,7 +405,8 @@ class CustomerController extends Controller
 
     public function searchPrefix(Request $request)
     {
-        $trie = Trie::getInstance();
+//        $trie = Trie::getInstance();
+        $trie = \App::make("Trie");
         $prefix = $request->input("prefix");
         return $trie->results($prefix, 20);
     }
@@ -394,6 +418,29 @@ class CustomerController extends Controller
             ->orderBy('sales', 'DESC')
             ->get();
 
+
+        /*
+        * Start of SEO part of code
+        * */
+        $keywords = array();
+
+        $categoriesArr = array_column($categories->toArray(), 'name');
+        $keywords = array_merge($keywords, $categoriesArr);
+
+        SEOMeta::setTitle('Gadgetly | Popular Categories');
+
+        OpenGraph::setTitle('Gadgetly | Popular Categories');
+
+        Twitter::setTitle('Gadgetly | Popular Categories');
+
+        $keywords = array_unique($keywords);
+        SEOMeta::addKeyword($keywords);
+
+        /*
+        * End of SEO
+        * */
+
+
         return view("customer.popular_categories", [
             "categories" => $categories
         ]);
@@ -401,14 +448,39 @@ class CustomerController extends Controller
 
     public function showAbout()
     {
+        $categories = Category::all();
         if (\Auth::check() && \Auth::user()->hasRole("customer")) {
             $inCart = \Auth::user()->cart()->first()->cartDetails->count();
         } else {
             $inCart = GuestCart::getAllProductsCount(session("user.cart"));
         }
         $aboutPage = About::all()->last();
+
+
+        /*
+        * Start of SEO part of code
+        * */
+        $keywords = array();
+
+        $categoriesArr = array_column($categories->toArray(), 'name');
+        $keywords = array_merge($keywords, $categoriesArr);
+
+
+        SEOMeta::setTitle('Gadgetly | About');
+
+        OpenGraph::setTitle('Gadgetly | About');
+
+        Twitter::setTitle('Gadgetly | About');
+
+        $keywords = array_unique($keywords);
+        SEOMeta::addKeyword($keywords);
+
+        /*
+        * End of SEO
+        * */
+
         return view("customer.about", [
-            "categories" => Category::all(),
+            "categories" => $categories,
             "aboutPage" => $aboutPage,
             "inCart" => $inCart
         ]);
@@ -593,13 +665,16 @@ class CustomerController extends Controller
 
     public function showContactUs()
     {
+        $categories = Category::all();
         if (\Auth::check() && \Auth::user()->hasRole("customer")) {
             $inCart = \Auth::user()->cart()->first()->cartDetails->count();
         } else {
             $inCart = GuestCart::getAllProductsCount(session("user.cart"));
         }
+
+
         return view("customer.contactUs", [
-            "categories" => Category::all(),
+            "categories" => $categories,
             "inCart" => $inCart
         ]);
 
@@ -638,7 +713,6 @@ class CustomerController extends Controller
         }
 
         $total = 0;
-        $inCart = 0;
 
         foreach ($cartDetails as $cartDetail) {
             $total += ($cartDetail->product->price - $cartDetail->product->discount / 100.0 * $cartDetail->product->price) * $cartDetail->quantity;
@@ -688,6 +762,10 @@ class CustomerController extends Controller
         $user = \Auth::user();
         $categories = \App\Category::all();
         $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+
+        $hash = md5(strtolower(trim(\Auth::user()->email)));
+        $userPic = "http://www.gravatar.com/avatar/$hash?d=identicon";
+
         return view("customer.profile", [
             "user" => $user,
             "categories" => $categories,
@@ -696,7 +774,8 @@ class CustomerController extends Controller
                 "Male",
                 "Female",
                 "Other"
-            ]
+            ],
+            "userPic" => $userPic
         ]);
     }
 
@@ -736,6 +815,61 @@ class CustomerController extends Controller
             "orders" => $orders,
             "inCart" => $inCart,
             "categories" => $categories,
+        ]);
+    }
+
+    public function showVendor($vendor_id){
+
+        $categories = \App\Category::all();
+        if (\Auth::check() && \Auth::user()->hasRole("customer")) {
+            $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+        } else {
+            $inCart = GuestCart::getAllProductsCount(session("user.cart"));
+        }
+
+
+        $vendorProducts=Product::where("user_id", "=", $vendor_id)->get();
+        $vendorAddress=UserAddress::where("user_id", "=", $vendor_id)->get();
+        $vendorPhones=UserPhone::where("user_id", "=", $vendor_id)->get();
+        $vendor=User::find($vendor_id);
+
+        /*
+        * Start of SEO part of code
+        * */
+        $keywords = array();
+
+        $categoriesArr = array_column($categories->toArray(), 'name');
+        $keywords = array_merge($keywords, $categoriesArr);
+
+        $vendorProductsArr = array_column($vendorProducts->toArray(), 'name');
+        $keywords = array_merge($keywords, $vendorProductsArr);
+
+        $vendorAddressArr = array_column($vendorAddress->toArray(), 'name');
+        $keywords = array_merge($keywords, $vendorAddressArr);
+
+        $vendorPhonesArr = array_column($vendorPhones->toArray(), 'name');
+        $keywords = array_merge($keywords, $vendorPhonesArr);
+
+        SEOMeta::setTitle("Gadgetly | $vendor->name Shop");
+
+        OpenGraph::setTitle("Gadgetly | $vendor->name Shop");
+
+        Twitter::setTitle("Gadgetly | $vendor->name Shop");
+
+        $keywords = array_unique($keywords);
+        SEOMeta::addKeyword($keywords);
+
+        /*
+        * End of SEO
+        * */
+
+        return view("customer.vendor", [
+            "inCart" => $inCart,
+            "categories" => $categories,
+            "vendor" => $vendor,
+            "vendorAddresses" =>$vendorAddress,
+            "vendorPhones" =>$vendorPhones,
+            "vendorProducts" =>$vendorProducts
         ]);
     }
 }

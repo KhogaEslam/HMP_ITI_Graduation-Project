@@ -20,9 +20,9 @@ class FacebookController extends Controller
     public function redirectToProvider()
     {
         return  Socialite::driver('facebook')->fields([
-            'name', 'email', 'gender', 'birthday'
+            'name', 'email', 'gender'
         ])->scopes([
-            'email', 'user_birthday'
+            'email'
         ])->redirect();
     }
 
@@ -47,13 +47,6 @@ class FacebookController extends Controller
             return redirect()->route('home');
         }
         else{
-            if (isset($user->user['birthday'])){
-                $date_of_birth = Carbon::parse($user->user['birthday'])->format('m-d-Y');
-            }
-            else{
-                $date_of_birth="";
-            }
-
             if (isset($user->email)){
                 $email=$user->email;
             }
@@ -74,7 +67,6 @@ class FacebookController extends Controller
                 "prefix" =>"/customer",
                 "email" => $email,
                 "name" => $user->name,
-                "date_of_birth" => $date_of_birth,
                 "gender"=>$gender
             ]);
         }

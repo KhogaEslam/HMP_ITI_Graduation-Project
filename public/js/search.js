@@ -6,7 +6,7 @@ $(document).ready(function() {
                 "url": "/api/search/",
                 "method": "get",
                 "dataType": "json",
-                "data": {"prefix": this.value},
+                "data": {"prefix": this.value.toLowerCase()},
                 "success": function(res) {
                     console.log(res);
                     var n = res.length;
@@ -14,7 +14,7 @@ $(document).ready(function() {
                         $(".results").fadeOut(200, function () {
                             $(".results").empty();
                             for (var i = 0; i < n; i++) {
-                                $(".results").append("<li><a id='search_result_" + i + "' class='search_result'><span>" + res[i] + "</span></a></li>");
+                                $(".results").append("<li><a id='search_result_" + i + "' class='search_result'>" + res[i] + "</a></li>");
                             }
                             $(".results").slideDown();
                         });
@@ -22,7 +22,7 @@ $(document).ready(function() {
                     else {
                         $(".results").empty();
                         for (var i = 0; i < n; i++) {
-                            $(".results").append("<li><a id='search_result_" + i + "' class='search_result'><span>" + res[i] + "</span></a></li>");
+                            $(".results").append("<li><a id='search_result_" + i + "' class='search_result '>" + res[i] + "</a></li>");
                         }
                     }
                 },

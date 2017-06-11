@@ -24,7 +24,7 @@ Route::get('/home', function (){
     elseif (Auth::check()&& (Auth::user()->hasRole("admin") || Auth::user()->hasRole("owner"))){
         return redirect()->action("AdminController@index");
     }
-});
+})->name('home');
 
 //=============================   End main home routes ===============================//
 //====================== Registration and login with social media ====================//
@@ -99,6 +99,17 @@ Route::get("admin/statistics/top_revenue_vendor", "AdminController@topRevenueVen
 Route::get("admin/about/show", "AdminController@showAboutPage");
 Route::get("admin/about/edit", "AdminController@showEditAboutPage");
 Route::post("admin/about/{aboutPage}/edit", "AdminController@editAboutPage");
+//=====================     Shipping Zones ==================================//
+Route::get("admin/shipping_zones/new", "AdminController@showNewShippingZoneForm");
+Route::post("admin/shpping_zones/new", "AdminController@newShippingZone");
+Route::get("admin/shipping_zones/{shipping_zone}/edit", "AdminController@showEditShippingZoneForm");
+Route::post("admin/shipping_zones/{shipping_zone}/edit", "AdminController@editShippingZone");
+Route::get("admin/shipping_zones", "AdminController@showShippingZones");
+Route::post("admin/shipping_zones/{shipping_zone}/delete", "AdminController@deleteShippingZone");
+//==================== Orders history =======================================//
+Route::get("admin/completed_orders", "AdminController@previousOrders");
+Route::get("admin/completed_orders/{checkout}/order", "AdminController@orderDetails");
+
 //===============================    End Admin Route  =================================================//
 //================================== Shop Routes  ==================================================//
 //=====================   Home =====================//
@@ -163,6 +174,7 @@ Route::get("customer/cart/track", "CustomerController@trackCheckout");
 Route::get("customer/completed_orders", "CustomerController@previousOrders");
 Route::post("/customer/cart/{current_checkout}/checkout_status", "CustomerController@changeCheckoutStatus");
 Route::get("shop/checkouts/completed", "VendorController@previousOrders");
+Route::get("shop/checkouts/completed/{checkout}/order", "VendorController@orderDetails");
 //================================= End Vendor Routes ========================================================//
 //===================================== Customer Routes ======================================================//
 //====================  Home  ======================//
@@ -172,6 +184,7 @@ Route::get("customer/shop/{vendor_id}", "CustomerController@index");
 Route::get("category/{category}/products","CustomerController@catProducts");
 Route::get("category/{category}/products/{product}", "CustomerController@productDetails");
 Route::get("category/popularCategories/show", "CustomerController@showPopularCategories");
+Route::get("vendor/{vendor_id}", "CustomerController@showVendor");
 //==================== Cart =========================//
 Route::post("customer/{product}/add_to_cart", "CustomerController@addToCart");
 Route::post("customer/{cart_detail}/edit_cart", "CustomerController@editCart");
@@ -229,7 +242,7 @@ Route::get('banner/{filename}', function($filename){
 //===================================  End files Routes ==============================================================//
 //=====================================    Paypal ===================================================================//
 //Route::post("payment/confirm","CustomerController@verifyPayPalPayment");
-Route::resource("payment","PaymentController");
+//Route::resource("payment","PaymentController");
 Route::group(['middleware' => ['web']], function () {
     Route::get('payPremium', ['as'=>'payPremium','uses'=>'PaypalController@payPremium']);
     Route::post('getCheckout', ['as'=>'getCheckout','uses'=>'PaypalController@getCheckout']);

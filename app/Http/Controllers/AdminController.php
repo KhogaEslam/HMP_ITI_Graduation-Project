@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\BannerRequest;
+use App\CartHistory;
 use App\Category;
 use App\CategoryRequest;
 use App\Http\Requests\AboutRequest;
@@ -10,6 +11,7 @@ use App\Http\Requests\AdminRequest;
 use App\Http\Requests\CatRequest;
 use App\RegistrationRequest;
 use App\Role;
+use App\ShippingZone;
 use App\UserDetail;
 use App\FeaturedProduct;
 use Illuminate\Http\Request;
@@ -551,6 +553,63 @@ class AdminController extends Controller
 //        dd($mostReviwed);
         return view("admin.most_reviewed", [
             "mostReviwed" => $mostReviwed
+        ]);
+    }
+
+
+    public function showNewShippingZoneForm() {
+        return view("admin.new_shipping_zone");
+    }
+
+    public function showEditShippingZoneForm(ShippingZone $shippingZone) {
+        return view("admin.edit_shipping_zone", [
+            "zone" => $shippingZone
+        ]);
+    }
+
+    public function newShippingZone(Request $request) {
+        $this->validate($request, [
+            "name" => "required|min:3"
+        ]);
+        $shippingZone = new ShippingZone;
+        $shippingZone->name = $request->input("name");
+        $shippingZone->save();
+        return redirect()->action("AdminController@showShippingZones");
+    }
+
+    public function editShippingZone(Request $request, ShippingZone $shippingZone) {
+        $this->validate($request, [
+            "name" => "required|min:3"
+        ]);
+
+        $shippingZone->name = $request->input("name");
+        $shippingZone->save();
+        return redirect()->action("AdminController@showShippingZones");
+    }
+
+    public function showShippingZones() {
+        $shippingZones = ShippingZone::all();
+        return view("admin.shipping_zones", [
+            "zones" => $shippingZones
+        ]);
+    }
+
+    public function deleteShippingZone(ShippingZone $shippingZone) {
+        $shippingZone->delete();
+        return back();
+    }
+
+    public function previousOrders() {
+        $orders = CartHistory::latest()->get();
+
+        return view("admin.previous_orders", [
+            "orders" => $orders
+        ]);
+    }
+
+    public function orderDetails(CartHistory $order) {
+        return view("admin.order_details", [
+            "order" => $order
         ]);
     }
 
