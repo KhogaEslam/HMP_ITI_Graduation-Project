@@ -56,7 +56,7 @@
     <section class="container">
         <div class="row">
             @foreach($newArrivals as $newProduct)
-                <div class="col-lg-3 col-md-3 col-xs-12">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="thumbnail">
                         @if(! $newProduct->images()->get()->isEmpty())
                             <a href="{{action("CustomerController@productDetails", [$newProduct->category, $newProduct->id])}}">
@@ -105,7 +105,7 @@
     <section class="container">
         <div class="row">
             @foreach($bestSellings as $bestSelling)
-                <div class="col-lg-3 col-md-3 col-xs-12">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="thumbnail">
                         @if(! $bestSelling->images()->get()->isEmpty())
                             <a href="{{action("CustomerController@productDetails", [$bestSelling->category, $bestSelling->id])}}">
@@ -145,7 +145,7 @@
         <div class="row">
             @foreach($featuredProducts as $featuredProduct)
                 @if($featuredProduct->product->isPublished())
-                    <div class="col-lg-3 col-md-3 col-xs-12">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="thumbnail">
                             @if(! $featuredProduct->product->images()->get()->isEmpty())
                                 <a href="{{action("CustomerController@productDetails", [$featuredProduct->product->category, $featuredProduct->product])}}">
