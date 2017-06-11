@@ -7,7 +7,7 @@
         <div class="row">
             <div class="user-profile"> <a class="pull-right edit" href="{{action("CustomerController@showEditCustomerProfileForm")}}">Edit Your Profile</a>
                 <ul>
-                    <li class="profile"> <img class="center-block pro-img " src="images/profile-circle.png">
+                    <li class="profile"> <img class="center-block pro-img " src="{{$userPic}}">
                         <p class="name ">{{\Auth::user()->name}}</p>
                     </li>
                 </ul>

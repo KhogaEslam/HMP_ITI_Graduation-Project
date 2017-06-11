@@ -24,7 +24,7 @@ Route::get('/home', function (){
     elseif (Auth::check()&& (Auth::user()->hasRole("admin") || Auth::user()->hasRole("owner"))){
         return redirect()->action("AdminController@index");
     }
-});
+})->name('home');
 
 //=============================   End main home routes ===============================//
 //====================== Registration and login with social media ====================//
