@@ -26,7 +26,7 @@
                 @endforelse
             </table>
 
-            <a href="{{action("VendorController@showNewEmployeeForm")}}" class="btn btn-primary btn-lg pull-right"><i class="fa fa-plus-square-o"></i> Add new employee</a>
+            <a href="{{action("VendorController@showNewEmployeeForm")}}" class="btn btn-primary btn-lg pull-right"> Add new employee</a>
         </div>
     </div>
 </div>

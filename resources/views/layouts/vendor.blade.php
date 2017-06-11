@@ -92,7 +92,7 @@
                         <span class="sr-only">Toggle nav</span>
                     </button>
                     <a class="sidebar-brand img-responsive" href="/shop">
-                        <span class="icon icon-leaf sidebar-brand-icon"><span class="panel-title">Admin Panel </span></span>
+                       <span class="panel-title"><img class="logo" src="{{ asset('images/logo.png')}}"></span>
                     </a>
                 </div>
 

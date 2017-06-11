@@ -489,6 +489,7 @@ footer h2 {
     width: 200px;
     margin-top: 15px;
     margin-bottom: 15px;
+    height: 37px;
 }
 
 .signb:hover {
@@ -518,7 +519,7 @@ footer h2 {
     border-radius: 0.2em;
     font-size: 14px;
     color: #FFF;
-    height: 50px;
+    height: 38px;
 }
 
 .loginBtn:before {
@@ -1672,4 +1673,8 @@ td.col-lg-3.pad {
 
 .side-menu .stars {
     margin-left: 10px;
+}
+
+.button-margin{
+    margin-bottom: 10px;
 }

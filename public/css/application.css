@@ -82,3 +82,11 @@ ul.dropdown-menu {
 .dropdown-toggle::before {
     content: " "
 }
+.logo{
+    width: 200px;
+}
+
+a.btn.btn-warning.btn-block{
+    background-color: #62d5c8;
+    border: 0px;
+}

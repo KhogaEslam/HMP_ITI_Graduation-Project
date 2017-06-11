@@ -46,10 +46,10 @@
                     <a href="#"></a>
                 </li>
             </ul>
+            <button class="myButton shop">Shop Now</button>
         </div>
         <!-- End Carousel -->
     </div>
-    <button class="myButton shop">Shop Now</button>
 
     <!--    New Arrivals-->
     <h3>New Arrivals</h3>
