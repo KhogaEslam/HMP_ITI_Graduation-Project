@@ -93,8 +93,6 @@
                 </div>
             </div>
 
-            <label class="center-block"><input type="checkbox" name="terms" required> I agree with the <a href="#">Terms
-                    and Conditions</a>.</label>
 
             <button type="submit" class="btn btn-primary center-block myButton signb">
                 Sign up

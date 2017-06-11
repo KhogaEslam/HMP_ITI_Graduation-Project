@@ -692,6 +692,10 @@ class CustomerController extends Controller
         $user = \Auth::user();
         $categories = \App\Category::all();
         $inCart = \Auth::user()->cart()->first()->cartDetails->count();
+
+        $hash = md5(strtolower(trim(\Auth::user()->email)));
+        $userPic = "http://www.gravatar.com/avatar/$hash?d=identicon";
+
         return view("customer.profile", [
             "user" => $user,
             "categories" => $categories,
@@ -700,7 +704,8 @@ class CustomerController extends Controller
                 "Male",
                 "Female",
                 "Other"
-            ]
+            ],
+            "userPic" => $userPic
         ]);
     }
 
