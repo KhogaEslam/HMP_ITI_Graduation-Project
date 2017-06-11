@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\PlanUser;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 use Paypal;
 use App\VendorPlan;
 
@@ -78,13 +79,35 @@ class PaypalController extends Controller
         $paymentExecution->setPayerId($payer_id);
         $executePayment = $payment->execute($paymentExecution, $this->_apiContext);
 
-        $plan = new VendorPlan;
-
-        $plan->user->associate(\Auth::user());
-        $plan->save();
-        return redirect()->action("VendorController@index");
 //        echo "<pre>";
-//        print_r($executePayment);
+//        dd($executePayment->transactions[0]->amount->total);
+        $planUser = new PlanUser;
+        if((double)$executePayment->transactions[0]->amount->total === 10.0){
+            $user = Auth::user();
+            $plan = VendorPlan::find(1);
+            $planUser->user()->associate($user);
+            $planUser->plan()->associate($plan);
+            $planUser->save();
+        }
+        elseif ((double)$executePayment->transactions[0]->amount->total === 30.0){
+            $user = Auth::user();
+            $plan = VendorPlan::find(2);
+            $planUser->user()->associate($user);
+            $planUser->plan()->associate($plan);
+            $planUser->save();
+        }
+        elseif ((double)$executePayment->transactions[0]->amount->total === 50.0){
+            $user = Auth::user();
+            $plan = VendorPlan::find(3);
+            $planUser->user()->associate($user);
+            $planUser->plan()->associate($plan);
+            $planUser->save();
+        }
+        else{
+            return redirect()->route('payPremium');
+        }
+
+        return redirect()->action("VendorController@index");
     }
 
     public function getCancel()

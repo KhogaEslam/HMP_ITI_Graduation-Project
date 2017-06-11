@@ -117,6 +117,6 @@ class User extends Authenticatable //Entrust configuration needs User model to e
     }
 
     public function plan(){
-        return $this->hasOne("\App\VendorPlan");
+        return $this->hasOne("\App\PlanUser",'plan_id');
     }
 }

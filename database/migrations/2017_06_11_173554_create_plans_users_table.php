@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddUserIdToUsersPlansTable extends Migration
+class CreatePlansUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,22 @@ class AddUserIdToUsersPlansTable extends Migration
      */
     public function up()
     {
-        Schema::table('vendor_plans', function (Blueprint $table) {
-            $table->integer("user_id")->unsigned();
+        Schema::create('plans_users', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->integer('plan_id')->unsigned();
 
             $table->foreign("user_id")
                 ->on("users")
                 ->references("id")
                 ->onDelete("cascade");
+
+            $table->foreign("plan_id")
+                ->on("vendor_plans")
+                ->references("id")
+                ->onDelete("cascade");
+
+            $table->timestamps();
         });
     }
 
@@ -30,8 +39,6 @@ class AddUserIdToUsersPlansTable extends Migration
      */
     public function down()
     {
-        Schema::table('vendor_plans', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('plans_users');
     }
 }
