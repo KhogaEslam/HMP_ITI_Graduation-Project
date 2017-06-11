@@ -238,8 +238,16 @@ class CustomerController extends Controller
     }
     public function addToCart(CartRequest $request, Product $product)
     {
+        $cartDetail = CartDetail::where("product_id", "=", $product)->get();
 
-        $cartDetail = new CartDetail;
+        if($cartDetail->isEmpty()) {
+            $cartDetail = new CartDetail;
+        }
+        else {
+            return \Response::json(array(
+                "msg" => "You have already added this item to  your cart",
+                "status" => "error" ));
+        }
 
         $quantity = $request->input("quantity");
         $available = $product->quantity;
@@ -250,9 +258,12 @@ class CustomerController extends Controller
 
             $cartDetail->quantity = $request->input("quantity");
             $cartDetail->save();
-            return \Response::json(array("msg" => "added successfully",
+            return \Response::json(array(
+                "msg" => "added successfully",
                 "inCart" =>  \Auth::user()->cart()->first()->cartDetails->count(),
-                "status" => "success"));
+                "status" => "success",
+                "action" => "/customer/" . \Auth::user()->cart->cartDetails()->quantity($product->id)->first()->id . "/edit_cart",
+            ));
         } else {
             return \Response::json(array(
                 "msg" => "Only " . $available . " items left in the shop",
@@ -281,16 +292,21 @@ class CustomerController extends Controller
 
     public function editCart(CartRequest $request, CartDetail $cart)
     {
+
         $quantity = $request->input("quantity");
         $available = $cart->product->quantity;
-        if ($quantity <= $available) {
+        if($quantity <= $available) {
             $cart->quantity = $quantity;
             $cart->save();
-            return back();
+            return \Response::json(array("msg" => "added successfully",
+                "inCart" =>  \Auth::user()->cart()->first()->cartDetails->count(),
+                "status" => "success"));
         } else {
-            return back()->withErrors([
-                "quantity" => "Only " . $available . " items left in the shop"
-            ]);
+            return \Response::json(array(
+                "msg" => "Only " . $available . " items left in the shop",
+                "status" => "error"
+
+            ));
         }
     }
 
@@ -402,6 +418,29 @@ class CustomerController extends Controller
             ->orderBy('sales', 'DESC')
             ->get();
 
+
+        /*
+        * Start of SEO part of code
+        * */
+        $keywords = array();
+
+        $categoriesArr = array_column($categories->toArray(), 'name');
+        $keywords = array_merge($keywords, $categoriesArr);
+
+        SEOMeta::setTitle('Gadgetly | Popular Categories');
+
+        OpenGraph::setTitle('Gadgetly | Popular Categories');
+
+        Twitter::setTitle('Gadgetly | Popular Categories');
+
+        $keywords = array_unique($keywords);
+        SEOMeta::addKeyword($keywords);
+
+        /*
+        * End of SEO
+        * */
+
+
         return view("customer.popular_categories", [
             "categories" => $categories
         ]);
@@ -409,14 +448,39 @@ class CustomerController extends Controller
 
     public function showAbout()
     {
+        $categories = Category::all();
         if (\Auth::check() && \Auth::user()->hasRole("customer")) {
             $inCart = \Auth::user()->cart()->first()->cartDetails->count();
         } else {
             $inCart = GuestCart::getAllProductsCount(session("user.cart"));
         }
         $aboutPage = About::all()->last();
+
+
+        /*
+        * Start of SEO part of code
+        * */
+        $keywords = array();
+
+        $categoriesArr = array_column($categories->toArray(), 'name');
+        $keywords = array_merge($keywords, $categoriesArr);
+
+
+        SEOMeta::setTitle('Gadgetly | About');
+
+        OpenGraph::setTitle('Gadgetly | About');
+
+        Twitter::setTitle('Gadgetly | About');
+
+        $keywords = array_unique($keywords);
+        SEOMeta::addKeyword($keywords);
+
+        /*
+        * End of SEO
+        * */
+
         return view("customer.about", [
-            "categories" => Category::all(),
+            "categories" => $categories,
             "aboutPage" => $aboutPage,
             "inCart" => $inCart
         ]);
@@ -601,13 +665,16 @@ class CustomerController extends Controller
 
     public function showContactUs()
     {
+        $categories = Category::all();
         if (\Auth::check() && \Auth::user()->hasRole("customer")) {
             $inCart = \Auth::user()->cart()->first()->cartDetails->count();
         } else {
             $inCart = GuestCart::getAllProductsCount(session("user.cart"));
         }
+
+
         return view("customer.contactUs", [
-            "categories" => Category::all(),
+            "categories" => $categories,
             "inCart" => $inCart
         ]);
 
@@ -624,7 +691,11 @@ class CustomerController extends Controller
         }
         $cart[$product->id] += $request->input("quantity");
         session()->put("user.cart", $cart);
-        return back();
+        return \Response::json(array(
+            "msg" => "added successfully",
+            "inCart" => GuestCart::getAllProductsCount(session('user.cart')),
+            "status" => "success",
+        ));
     }
 
     public function viewGuestCart()
@@ -642,7 +713,6 @@ class CustomerController extends Controller
         }
 
         $total = 0;
-        $inCart = 0;
 
         foreach ($cartDetails as $cartDetail) {
             $total += ($cartDetail->product->price - $cartDetail->product->discount / 100.0 * $cartDetail->product->price) * $cartDetail->quantity;
@@ -762,6 +832,36 @@ class CustomerController extends Controller
         $vendorAddress=UserAddress::where("user_id", "=", $vendor_id)->get();
         $vendorPhones=UserPhone::where("user_id", "=", $vendor_id)->get();
         $vendor=User::find($vendor_id);
+
+        /*
+        * Start of SEO part of code
+        * */
+        $keywords = array();
+
+        $categoriesArr = array_column($categories->toArray(), 'name');
+        $keywords = array_merge($keywords, $categoriesArr);
+
+        $vendorProductsArr = array_column($vendorProducts->toArray(), 'name');
+        $keywords = array_merge($keywords, $vendorProductsArr);
+
+        $vendorAddressArr = array_column($vendorAddress->toArray(), 'name');
+        $keywords = array_merge($keywords, $vendorAddressArr);
+
+        $vendorPhonesArr = array_column($vendorPhones->toArray(), 'name');
+        $keywords = array_merge($keywords, $vendorPhonesArr);
+
+        SEOMeta::setTitle("Gadgetly | $vendor->name Shop");
+
+        OpenGraph::setTitle("Gadgetly | $vendor->name Shop");
+
+        Twitter::setTitle("Gadgetly | $vendor->name Shop");
+
+        $keywords = array_unique($keywords);
+        SEOMeta::addKeyword($keywords);
+
+        /*
+        * End of SEO
+        * */
 
         return view("customer.vendor", [
             "inCart" => $inCart,

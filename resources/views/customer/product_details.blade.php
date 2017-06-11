@@ -103,58 +103,59 @@
                     </form>
                     <div style="height: 80px; display:none;" id ="wishListAjaxResponse"></div>
                 @endif
-                @if(\Auth::user()->cart->cartDetails()->quantity($product->id)->get()->isEmpty())
-                    <button class="myButton add" data-toggle="modal" data-target="#addModal">Add To Cart</button>
+                <div class="cart-actions">
+                    @if(\Auth::user()->cart->cartDetails()->quantity($product->id)->get()->isEmpty())
+                        <button class="myButton add" data-toggle="modal" data-target="#addModal">Add To Cart</button>
 
-                    <div class="modal fade" id="addModal" role="dialog">
-                        <div class="modal-dialog modal-sm">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Add To Cart</h4>
-                                </div>
-                                {!! Form::open(["action" => ["CustomerController@addToCart", $product], 'class' => 'add-to-cart']) !!}
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        {!! Form::label("Quantity") !!}
-                                        {!! Form::number("quantity", null, ["class" => "form-control cart-quantity" , "min" => 1 , "max" => $product->quantity]) !!}
+                        <div class="modal fade" id="addModal" role="dialog">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Add To Cart</h4>
                                     </div>
+                                    {!! Form::open(["action" => ["CustomerController@addToCart", $product], 'class' => 'add-to-cart']) !!}
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            {!! Form::label("Quantity") !!}
+                                            {!! Form::number("quantity", null, ["class" => "form-control cart-quantity" , "min" => 1 , "max" => $product->quantity]) !!}
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        {!! Form::submit("Add to cart",["class" => "btn btn-default modalb"]) !!}
+                                        <button type="button" class="btn btn-default modal-close" data-dismiss="modal">Close</button>
+                                    </div>
+                                    {!! Form::close() !!}
                                 </div>
-                                <div class="modal-footer">
-                                    {!! Form::submit("Add to cart",["class" => "btn btn-default modalb"]) !!}
-                                    <button type="button" class="btn btn-default modal-close" data-dismiss="modal">Close</button>
-                                </div>
-                                {!! Form::close() !!}
                             </div>
                         </div>
-                    </div>
-                @else
-                    <button class="myButton add" data-toggle="modal" data-target="#editModal">Edit Cart</button>
+                    @else
+                        <button class="myButton add" data-toggle="modal" data-target="#editModal">Edit Cart</button>
 
-                    <div class="modal fade" id="editModal" role="dialog">
-                        <div class="modal-dialog modal-sm">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Add To Cart</h4>
-                                </div>
-                                {!! Form::open(["action" => ["CustomerController@editCart", \Auth::user()->cart->cartDetails()->quantity($product->id)->first()], 'class' => 'edit-cart']) !!}
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        {!! Form::label("Quantity") !!}
-                                        {!! Form::number("quantity", \Auth::user()->cart->cartDetails()->quantity($product->id)->first()->quantity, ["class" => "form-control cart-quantity",  "min" => 1 , "max" => $product->quantity]) !!}
+                        <div class="modal fade" id="editModal" role="dialog">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Edit Cart</h4>
                                     </div>
+                                    {!! Form::open(["action" => ["CustomerController@editCart", \Auth::user()->cart->cartDetails()->quantity($product->id)->first()], 'class' => 'edit-cart']) !!}
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            {!! Form::label("Quantity") !!}
+                                            {!! Form::number("quantity", \Auth::user()->cart->cartDetails()->quantity($product->id)->first()->quantity, ["class" => "form-control cart-quantity",  "min" => 1 , "max" => $product->quantity]) !!}
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        {!! Form::submit("Edit cart",["class" => "btn btn-default modalb"]) !!}
+                                        <button type="button" class="btn btn-default modal-close" data-dismiss="modal">Close</button>
+                                    </div>
+                                    {!! Form::close() !!}
                                 </div>
-                                <div class="modal-footer">
-                                    {!! Form::submit("Edit cart",["class" => "btn btn-default modalb"]) !!}
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                </div>
-                                {!! Form::close() !!}
                             </div>
                         </div>
-                    </div>
-                @endif
-
+                    @endif
+                </div>
                 @endrole
                 @if(! \Auth::check())
                     <button class="myButton add" data-toggle="modal" data-target="#addModal">Add To Cart</button>
@@ -170,7 +171,7 @@
                                 <div class="modal-body">
                                     <div class="form-group">
                                         {!! Form::label("Quantity") !!}
-                                        {!! Form::number("quantity", null, ["class" => "form-control" , "min" => 1 , "max" => $product->quantity]) !!}
+                                        {!! Form::number("quantity", null, ["class" => "form-control cart-quantity" , "min" => 1 , "max" => $product->quantity]) !!}
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -250,12 +251,56 @@
 
                 })
             });
-            $('.add-to-cart').on('submit', function(e){
+            $(document).on('submit', ".add-to-cart", function(e) {
+                e.preventDefault();
+                var quantity  = $('.cart-quantity').val()
+                var theForm = $(this)
+                $.ajax({
+                    type: 'POST',
+                    url: '/customer/{{$product->id}}/add_to_cart',
+                    data: {"quantity" : quantity},
+                    datatype: 'JSON',
+                    success: function(response) {
+                        if (response.status == "success") {
+                            $('.x-cart-notification').addClass('bring-forward appear loading');
+                            $('.add').text('Edit Cart');
+                            theForm.attr('action', response.action);
+                            theForm.removeClass('add-to-cart').addClass('edit-cart');
+                            $('.modal-close').click();
+                            setTimeout(function () {
+                                $('.x-cart-notification').addClass('added');
+                            }, 1400)
+                            setTimeout(function () {
+                                $('.x-cart-notification').removeClass('bring-forward appear loading added');
+                                $('.incart-quantity').html(response.inCart);
+                                $('.modal-title').text('Edit Cart');
+                                $('.modalb').html('Edit Cart')
+                                $('.cart-quantity').html(quantity)
+
+                            }, 2800)
+                        }
+                        else {
+                            $('.modal-close').click();
+                            alert (response.msg)
+                        }
+
+                    },
+                    error: function(response){
+                        if (response.msg) {
+                            alert(response.msg)
+                        }
+                        else {
+                            alert("page error")
+                        }
+                    }
+                })
+            })
+        $(document).on('submit', ".edit-cart", function(e) {
                 e.preventDefault();
                 var quantity  = $('.cart-quantity').val()
                 $.ajax({
                     type: 'POST',
-                    url: '/customer/{{$product->id}}/add_to_cart',
+                    url: $(this).attr('action'),
                     data: {"quantity" : quantity},
                     datatype: 'JSON',
                     success: function(response) {
@@ -267,7 +312,7 @@
                             }, 1400)
                             setTimeout(function () {
                                 $('.x-cart-notification').removeClass('bring-forward appear loading added');
-                                $('.incart-quantity').html(response.inCart)
+                                $('.incart-quantity').html(response.inCart);
                             }, 2800)
                         }
                         else {
@@ -277,12 +322,56 @@
 
                     },
                     error: function(response){
-                        alert(response.msg)
+                        if (response.msg) {
+                            alert(response.msg)
+                        }
+                        else {
+                            alert("page error")
+                        }
                     }
                 })
-            })
-        })
+        });
+
+            $(document).on('submit' , '.add-to-guest-cart' , function (e) {
+                e.preventDefault();
+                var quantity  = $('.cart-quantity').val()
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: {"quantity" : quantity},
+                    datatype: 'JSON',
+                    success: function(response) {
+                        if (response.status == "success") {
+                            $('.x-cart-notification').addClass('bring-forward appear loading');
+                            $('.modal-close').click();
+                            setTimeout(function () {
+                                $('.x-cart-notification').addClass('added');
+                            }, 1400)
+                            setTimeout(function () {
+                                $('.x-cart-notification').removeClass('bring-forward appear loading added');
+                                $('.incart-quantity').html(response.inCart);
+                            }, 2800)
+                        }
+                        else {
+                            $('.modal-close').click();
+                            alert (response.msg)
+                        }
+
+                    },
+                    error: function(response){
+                        if (response.msg) {
+                            alert(response.msg)
+                        }
+                        else {
+                            alert("page error")
+                        }
+                    }
+
+                })
+            });
+        });
     </script>
+
 
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 
@@ -309,6 +398,7 @@
                 popup.focus();
                 e.preventDefault();
             }
+>>>>>>> df6c415436bcd98a1530ed4306d79e1c15c120db
 
         });
     </script>
