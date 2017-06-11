@@ -44,6 +44,9 @@ return [
         'redirect' => env('CALLBACK_URL'),
     ],
 
+    /**
+     * PayPal
+     * */
     'paypal' => [
         'client_id' => env('PAYPAL_CLIENT_ID'),
         'secret' => env('PAYPAL_CLIENT_SECRET'),

@@ -20,5 +20,9 @@ Artisan::command('inspire', function () {
 })->describe('Display an inspiring quote');
 
 Artisan::command("index_products", function() {
-    Trie::getInstance();
+    Config::set(["Trie" => \App\Helpers\Trie::getInstance()]);
+});
+
+Artisan::command("check_index_products", function() {
+    $this->comment(Config::has("Trie"));
 });

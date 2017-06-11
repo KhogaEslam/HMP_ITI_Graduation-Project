@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\BannerRequest;
+use App\CartHistory;
 use App\Category;
 use App\CategoryRequest;
 use App\Http\Requests\AboutRequest;
@@ -596,6 +597,20 @@ class AdminController extends Controller
     public function deleteShippingZone(ShippingZone $shippingZone) {
         $shippingZone->delete();
         return back();
+    }
+
+    public function previousOrders() {
+        $orders = CartHistory::latest()->get();
+
+        return view("admin.previous_orders", [
+            "orders" => $orders
+        ]);
+    }
+
+    public function orderDetails(CartHistory $order) {
+        return view("admin.order_details", [
+            "order" => $order
+        ]);
     }
 
 }

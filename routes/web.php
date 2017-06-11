@@ -106,6 +106,10 @@ Route::get("admin/shipping_zones/{shipping_zone}/edit", "AdminController@showEdi
 Route::post("admin/shipping_zones/{shipping_zone}/edit", "AdminController@editShippingZone");
 Route::get("admin/shipping_zones", "AdminController@showShippingZones");
 Route::post("admin/shipping_zones/{shipping_zone}/delete", "AdminController@deleteShippingZone");
+//==================== Orders history =======================================//
+Route::get("admin/completed_orders", "AdminController@previousOrders");
+Route::get("admin/completed_orders/{checkout}/order", "AdminController@orderDetails");
+
 //===============================    End Admin Route  =================================================//
 //================================== Shop Routes  ==================================================//
 //=====================   Home =====================//
@@ -170,6 +174,7 @@ Route::get("customer/cart/track", "CustomerController@trackCheckout");
 Route::get("customer/completed_orders", "CustomerController@previousOrders");
 Route::post("/customer/cart/{current_checkout}/checkout_status", "CustomerController@changeCheckoutStatus");
 Route::get("shop/checkouts/completed", "VendorController@previousOrders");
+Route::get("shop/checkouts/completed/{checkout}/order", "VendorController@orderDetails");
 //================================= End Vendor Routes ========================================================//
 //===================================== Customer Routes ======================================================//
 //====================  Home  ======================//
@@ -236,7 +241,7 @@ Route::get('banner/{filename}', function($filename){
 //===================================  End files Routes ==============================================================//
 //=====================================    Paypal ===================================================================//
 //Route::post("payment/confirm","CustomerController@verifyPayPalPayment");
-Route::resource("payment","PaymentController");
+//Route::resource("payment","PaymentController");
 Route::group(['middleware' => ['web']], function () {
     Route::get('payPremium', ['as'=>'payPremium','uses'=>'PaypalController@payPremium']);
     Route::post('getCheckout', ['as'=>'getCheckout','uses'=>'PaypalController@getCheckout']);

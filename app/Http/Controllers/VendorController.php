@@ -606,6 +606,12 @@ class VendorController extends Controller
         ]);
     }
 
+    public function orderDetails(CartHistory $order) {
+        return view("shop.order_details", [
+            "order" => $order
+        ]);
+    }
+
     public function deleteProductImage(Request $request, ProductImage $image) {
         if(\Auth::user()->id == $image->product->user->id) {
             $image->delete();
