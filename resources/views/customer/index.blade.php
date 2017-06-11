@@ -60,7 +60,7 @@
                     <div class="thumbnail">
                         @if(! $newProduct->images()->get()->isEmpty())
                             <a href="{{action("CustomerController@productDetails", [$newProduct->category, $newProduct->id])}}">
-                                <center><img  src="{{route("image", [$newProduct->images()->get()->first()->stored_name])}}"  alt="{{$newProduct->name}}"></center>
+                                <center><img  width="245" height="158" src="{{route("image", [$newProduct->images()->get()->first()->stored_name])}}"  alt="{{$newProduct->name}}"></center>
                             </a>
                         @else
                             <a href="{{action("CustomerController@productDetails", [$newProduct->category, $newProduct->id])}}">
