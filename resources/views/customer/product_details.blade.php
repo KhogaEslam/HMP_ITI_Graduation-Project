@@ -1,14 +1,21 @@
 @extends('layouts.customer')
 
 @section('content')
+    {{-- facebook share --}}
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9&appId=421062961593419";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+
     {{-- product details --}}
     <div class="row">
         <div class="container single">
             <div class="col-md-8 col-sm-12">
                 <div class="col-xs-2 single-pro">
-                    {{--<div class=" thumbnail proImg"><img class="bigger" src="images/e2.png"></div>--}}
-                    {{--<div class="thumbnail proImg"><img class="bigger" src="images/e3.png"></div>--}}
-                    {{--<div class="thumbnail proImg"><img class="bigger" src="images/e4.png"></div>--}}
                     @foreach($product->images as $image)
                         <div class="thumbnail proImg"><img class="bigger" src="{{route("image", [$image->stored_name])}}"></div>
                     @endforeach
@@ -78,6 +85,12 @@
                 <h4 style="margin-top: 20px">Sold by</h4>
                 <span><a href="/vendor/{{$product->user_id}}">{{$soldBy}}</a></span>
 
+
+                {{-- facebook share --}}
+                <br>
+                <div class="fb-share-button" data-href="{{ urlencode(request()->fullUrl()) }}" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}">Share</a>
+                </div>
 
                 @role("customer")
                 @if(!isset($isWish))
@@ -268,17 +281,39 @@
                     }
                 })
             })
-
-
-
-
-
-
-
         })
-
-
     </script>
+
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+
+    {{-- facebook share --}}
+    <script>
+
+        var popupSize = {
+            width: 780,
+            height: 550
+        };
+
+        $(document).on('click', '.social-buttons > a', function(e){
+
+            var
+                verticalPos = Math.floor(($(window).width() - popupSize.width) / 2),
+                horisontalPos = Math.floor(($(window).height() - popupSize.height) / 2);
+
+            var popup = window.open($(this).prop('href'), 'social',
+                'width='+popupSize.width+',height='+popupSize.height+
+                ',left='+verticalPos+',top='+horisontalPos+
+                ',location=0,menubar=0,toolbar=0,status=0,scrollbars=1,resizable=1');
+
+            if (popup) {
+                popup.focus();
+                e.preventDefault();
+            }
+
+        });
+    </script>
+
+
 @include('laravelLikeComment::comment', ['comment_item_id' => $product->id])
     <div class="x-cart-notification">
         <div class="x-cart-notification-icon loading">
