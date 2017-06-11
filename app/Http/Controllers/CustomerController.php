@@ -111,7 +111,7 @@ class CustomerController extends Controller
 
     public function catProducts(Category $category)
     {
-        $products = $category->products()->published()->get();
+        $products = $category->products()->published()->paginate(15);
         $categories = Category::all();
 
         $maxPrice = DB::table('products')

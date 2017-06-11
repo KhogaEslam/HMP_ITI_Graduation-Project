@@ -142,7 +142,10 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{action("VendorController@mostProfitableCategories")}}">Top categories</a>
+                            <a class="nav-link" href="{{action("VendorController@mostProfitableCategories")}}">Top categories (revenue)</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{action("VendorController@topSalesCategories")}}">Top categories (sales)</a>
                         </li>
 
                     </ul>
