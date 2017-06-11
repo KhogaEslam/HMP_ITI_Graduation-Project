@@ -96,7 +96,7 @@
                     {!! Form::hidden('pay',10) !!}
                     <div class="db-pricing-eleven db-bk-color-one">
                         <div class="price">
-                            <sup>$</sup>30
+                            <sup>$</sup>10
                             <small>per quarter</small>
                         </div>
                         <div class="type">
@@ -120,7 +120,7 @@
                     {!! Form::hidden('pay',30) !!}
                     <div class="db-pricing-eleven db-bk-color-two popular">
                         <div class="price">
-                            <sup>$</sup>45
+                            <sup>$</sup>30
                             <small>per quarter</small>
                         </div>
                         <div class="type">

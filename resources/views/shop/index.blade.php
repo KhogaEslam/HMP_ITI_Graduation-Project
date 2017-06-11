@@ -12,7 +12,7 @@
                     <img src="http://placehold.it/235x235" alt="No image">
                     <div class="caption">
                         <h3>{{$category->name}}</h3>
-                        <p><a class="btn btn-warning btn-block text-success" href="{{action("VendorController@category", ["id" => $category->id])}}">Browse</a></p>
+                        <p><a class="btn btn-warning btn-block" href="{{action("VendorController@category", ["id" => $category->id])}}">Browse</a></p>
                     </div>
                 </div>
             </div>
@@ -31,7 +31,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <a class="btn btn-primary btn-block" href="/shop/category/new"> New Category </a>
+            <a class="btn btn-primary " href="/shop/category/new"> New Category </a>
         </div>
     </div>
 </div>

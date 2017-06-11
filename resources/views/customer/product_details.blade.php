@@ -17,12 +17,16 @@
             <div class="col-md-8 col-sm-12">
                 <div class="col-xs-2 single-pro">
                     @foreach($product->images as $image)
-                        <div class="thumbnail proImg"><img class="bigger" src="{{route("image", [$image->stored_name])}}"></div>
+                        <div class="thumbnail proImg">
+                            <img class="bigger" src="{{route("image", [$image->stored_name])}}">
+                        </div>
                     @endforeach
                 </div>
                 <div class="col-xs-10 ">
                     @if(! $product->images()->get()->isEmpty())
-                        <div class="thumbnail originalImg"><img class="bigger" src="{{route("image", [$product->images()->get()->first()->stored_name])}}"></div>
+                        <div class="thumbnail originalImg">
+                            <img class="bigger" src="{{route("image", [$product->images()->get()->first()->stored_name])}}">
+                        </div>
                     @else
                         <img alt="No image provided" class="bigger">
                     @endif
@@ -86,11 +90,6 @@
                 <span><a href="/vendor/{{$product->user_id}}">{{$soldBy}}</a></span>
 
 
-                {{-- facebook share --}}
-                <br>
-                <div class="fb-share-button" data-href="{{ urlencode(request()->fullUrl()) }}" data-layout="button_count" data-size="large" data-mobile-iframe="true">
-                    <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}">Share</a>
-                </div>
 
                 @role("customer")
                 @if(!isset($isWish))
@@ -105,7 +104,7 @@
                 @endif
                 <div class="cart-actions">
                     @if(\Auth::user()->cart->cartDetails()->quantity($product->id)->get()->isEmpty())
-                        <button class="myButton add" data-toggle="modal" data-target="#addModal">Add To Cart</button>
+                        <button class="myButton add button-margin" data-toggle="modal" data-target="#addModal">Add To Cart</button>
 
                         <div class="modal fade" id="addModal" role="dialog">
                             <div class="modal-dialog modal-sm">
@@ -130,7 +129,7 @@
                             </div>
                         </div>
                     @else
-                        <button class="myButton add" data-toggle="modal" data-target="#editModal">Edit Cart</button>
+                        <button class="myButton add button-margin" data-toggle="modal" data-target="#editModal">Edit Cart</button>
 
                         <div class="modal fade" id="editModal" role="dialog">
                             <div class="modal-dialog modal-sm">
@@ -158,7 +157,7 @@
                 </div>
                 @endrole
                 @if(! \Auth::check())
-                    <button class="myButton add" data-toggle="modal" data-target="#addModal">Add To Cart</button>
+                    <button class="myButton add button-margin" data-toggle="modal" data-target="#addModal">Add To Cart</button>
 
                     <div class="modal fade" id="addModal" role="dialog">
                         <div class="modal-dialog modal-sm">
@@ -183,9 +182,17 @@
                         </div>
                     </div>
                 @endif
+
+                {{-- facebook share --}}
+                <div class="fb-share-button pull-right" data-href="{{ urlencode(request()->fullUrl()) }}" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}">Share</a>
+                </div>
+
             </div>
         </div>
     </div>
+
+
     <script>
         $(document).ready(function(){
             $('.star').change(function () {
