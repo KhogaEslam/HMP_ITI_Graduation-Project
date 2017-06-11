@@ -45,16 +45,16 @@ class UsersTableSeeder extends Seeder
         ]);
 
         DB::table("user_details")->insert([
-            ["user_id" => 1, "gender" => 0, "status" => 0, "date_of_birth" => "1994-06-11"],
-            ["user_id" => 2, "gender" => 0, "status" => 0, "date_of_birth" => "1994-06-11"],
-            ["user_id" => 3, "gender" => 0, "status" => 0, "date_of_birth" => "1994-06-11"],
-            ["user_id" => 4, "gender" => 0, "status" => 0, "date_of_birth" => "1994-06-11"],
-            ["user_id" => 5, "gender" => 0, "status" => 0, "date_of_birth" => "1994-06-11"],
-            ["user_id" => 6, "gender" => 0, "status" => 0, "date_of_birth" => "1994-06-11"],
-            ["user_id" => 7, "gender" => 0, "status" => 0, "date_of_birth" => "1994-06-11"],
-            ["user_id" => 8, "gender" => 1, "status" => 0, "date_of_birth" => "1994-06-11"],
-            ["user_id" => 9, "gender" => 1, "status" => 0, "date_of_birth" => "1994-06-11"],
-            ["user_id" => 10, "gender" => 0, "status" => 0, "date_of_birth" => "1994-06-11"],
+            ["user_id" => 1, "gender" => '0', "status" => '0', "date_of_birth" => "1994-06-11"],
+            ["user_id" => 2, "gender" => '0', "status" => '0', "date_of_birth" => "1994-06-11"],
+            ["user_id" => 3, "gender" => '0', "status" => '0', "date_of_birth" => "1994-06-11"],
+            ["user_id" => 4, "gender" => '0', "status" => '0', "date_of_birth" => "1994-06-11"],
+            ["user_id" => 5, "gender" => '0', "status" => '0', "date_of_birth" => "1994-06-11"],
+            ["user_id" => 6, "gender" => '0', "status" => '0', "date_of_birth" => "1994-06-11"],
+            ["user_id" => 7, "gender" => '0', "status" => '0', "date_of_birth" => "1994-06-11"],
+            ["user_id" => 8, "gender" => '1', "status" => '0', "date_of_birth" => "1994-06-11"],
+            ["user_id" => 9, "gender" => '1', "status" => '0', "date_of_birth" => "1994-06-11"],
+            ["user_id" => 10, "gender" => '0', "status" => '0', "date_of_birth" => "1994-06-11"],
         ]);
 
         DB::table("user_phones")->insert([

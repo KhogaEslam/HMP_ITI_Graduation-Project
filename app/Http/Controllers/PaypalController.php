@@ -83,11 +83,13 @@ class PaypalController extends Controller
 //        dd($executePayment->transactions[0]->amount->total);
         $planUser = new PlanUser;
         if((double)$executePayment->transactions[0]->amount->total === 10.0){
+
             $user = Auth::user();
             $plan = VendorPlan::find(1);
             $planUser->user()->associate($user);
             $planUser->plan()->associate($plan);
             $planUser->save();
+            dd($planUser);
         }
         elseif ((double)$executePayment->transactions[0]->amount->total === 30.0){
             $user = Auth::user();

@@ -16,6 +16,7 @@ use App\Category;
 use App\Product;
 use App\Discount;
 use App\FeaturedItem;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\Employee;
 use \App\Role;
@@ -42,7 +43,7 @@ class VendorController extends Controller
 
     public function index()
     {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -62,7 +63,7 @@ class VendorController extends Controller
     public function newCategory()
     {
 
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -76,17 +77,21 @@ class VendorController extends Controller
      * @param  Request $request
      * @return  \Illuminate\Http\RedirectResponse
      */
-    public function requestCategory( CatRequest $request)
+    public function requestCategory( Request $request)
     {
-        if(!\Auth::user()->plan()){
+        $this->validate($request, [
+            "name" => "required|min:2"
+        ]);
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
+
 
         $catRequest = new CategoryRequest();
         $catRequest->name = $request->name;
         $catRequest->user()->associate(\Auth::user());
         $catRequest->save();
-        return redirect('/shop');
+        return redirect()->action("VendorController@index");
     }
 
     /**
@@ -97,7 +102,7 @@ class VendorController extends Controller
 
     public function category(Category $category)
     {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -115,7 +120,7 @@ class VendorController extends Controller
      */
 
     public function showNewProductForm(Category $category) {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -132,7 +137,7 @@ class VendorController extends Controller
 
     public function newProduct(Request $request, Category $category)
     {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -174,7 +179,7 @@ class VendorController extends Controller
 
     public function productDetails(Category $category, Product $product)
     {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -190,7 +195,7 @@ class VendorController extends Controller
 
     public function showEditProductForm(Category $category, Product $product)
     {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -199,7 +204,7 @@ class VendorController extends Controller
 
     public function editProduct(Request $request, Category $category, Product $product)
     {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -243,7 +248,7 @@ class VendorController extends Controller
 
     public function deleteProduct(Category $category, Product $product)
     {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -259,7 +264,7 @@ class VendorController extends Controller
 
     public function publishProduct(Category $category, Product $product)
     {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -276,7 +281,7 @@ class VendorController extends Controller
 
     public function unPublishProduct(Category $category, Product $product)
     {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -292,7 +297,7 @@ class VendorController extends Controller
     }
 
     public function showNewEmployeeForm() {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -301,7 +306,7 @@ class VendorController extends Controller
 
     public function newEmployee(EmployeeRequest $request) {
 
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -329,7 +334,7 @@ class VendorController extends Controller
     }
 
     public function showEditEmployeeForm(Employee $employee) {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -337,7 +342,7 @@ class VendorController extends Controller
     }
 
     public function editEmployee(EditEmployeeRequest $request, Employee $employee) {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -365,7 +370,7 @@ class VendorController extends Controller
     }
 
     public function deleteEmployee(Request $request, Employee $employee) {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -375,7 +380,7 @@ class VendorController extends Controller
     }
 
     public function showEmployees() {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -388,7 +393,7 @@ class VendorController extends Controller
 
     public function showDiscountProductForm(Product $product)
     {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -399,7 +404,7 @@ class VendorController extends Controller
 
     public function newDiscount(Request $request, Product $product)
     {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -418,7 +423,7 @@ class VendorController extends Controller
 
     public function deleteDiscount(Discount $discount)
     {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -428,7 +433,7 @@ class VendorController extends Controller
 
     public function makeFeaturedItemRequest($product)
     {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -440,7 +445,7 @@ class VendorController extends Controller
     }
 
     public function showBannerRequestForm() {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -449,7 +454,7 @@ class VendorController extends Controller
     }
 
     public function addBannerRequest(BannerRequest $request) {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -489,7 +494,7 @@ class VendorController extends Controller
     }
 
     public function mostSoldProducts() {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -504,7 +509,7 @@ class VendorController extends Controller
     }
 
     public function mostProfitableProducts() {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -519,7 +524,7 @@ class VendorController extends Controller
     }
 
     public function mostProfitableCategories() {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -540,7 +545,7 @@ class VendorController extends Controller
     }
 
     public function mostProfitableCategoryProducts(Category $category) {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -555,7 +560,7 @@ class VendorController extends Controller
     }
 
     public function topSalesCategories() {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -577,7 +582,7 @@ class VendorController extends Controller
 
 
     public function topSalesCategoryProducts(Category $category) {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -592,7 +597,7 @@ class VendorController extends Controller
     }
 
     public function topRatedProducts() {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -603,7 +608,7 @@ class VendorController extends Controller
     }
 
     public function showNewAddressesForm() {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -617,7 +622,7 @@ class VendorController extends Controller
     }
 
     public function showNewPhonesForm() {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -628,7 +633,7 @@ class VendorController extends Controller
     }
 
     public function newAddress(Request $request) {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -647,7 +652,7 @@ class VendorController extends Controller
     }
 
     public function deleteAddress(UserAddress $address) {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -658,7 +663,7 @@ class VendorController extends Controller
     }
 
     public function addresses() {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -669,7 +674,7 @@ class VendorController extends Controller
     }
 
     public function newPhones(Request $request) {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -688,7 +693,7 @@ class VendorController extends Controller
     }
 
     public function phones() {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -699,7 +704,7 @@ class VendorController extends Controller
     }
 
     public function deletePhone(UserPhone $phone) {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -710,7 +715,7 @@ class VendorController extends Controller
     }
 
     public function viewCheckouts() {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -732,7 +737,7 @@ class VendorController extends Controller
     }
 
     public function updateCheckoutStatus(CurrentCheckout $checkout) {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -764,7 +769,7 @@ class VendorController extends Controller
     }
 
     public function previousOrders() {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -776,7 +781,7 @@ class VendorController extends Controller
     }
 
     public function orderDetails(CartHistory $order) {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
@@ -786,7 +791,7 @@ class VendorController extends Controller
     }
 
     public function deleteProductImage(Request $request, ProductImage $image) {
-        if(!\Auth::user()->plan()){
+        if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
         }
 
