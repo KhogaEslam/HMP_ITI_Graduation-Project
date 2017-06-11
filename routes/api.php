@@ -26,3 +26,7 @@ Route::middleware('api')->post("payment/confirm","CustomerController@verifyPayPa
 Route::middleware('api')->post('customer/{product}/rating/add','CustomerController@submitRating');
 Route::middleware('api')->get("customer/{product}/wishlist/add", "CustomerController@addToWishList");
 Route::middleware('api')->post("customer/{product}/add_to_cart", "CustomerController@addToCart");
+Route::middleware('api')->post("customer/{cart_detail}/edit_cart", "CustomerController@editCart");
+Route::middleware('api')->post("cart/{product}/add_to_cart", "CustomerController@addToGuestCart");
+
+

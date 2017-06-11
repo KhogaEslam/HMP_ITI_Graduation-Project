@@ -101,7 +101,7 @@ Route::get("admin/about/edit", "AdminController@showEditAboutPage");
 Route::post("admin/about/{aboutPage}/edit", "AdminController@editAboutPage");
 //=====================     Shipping Zones ==================================//
 Route::get("admin/shipping_zones/new", "AdminController@showNewShippingZoneForm");
-Route::post("admin/shpping_zones/new", "AdminController@newShippingZone");
+Route::post("admin/shipping_zones/new", "AdminController@newShippingZone");
 Route::get("admin/shipping_zones/{shipping_zone}/edit", "AdminController@showEditShippingZoneForm");
 Route::post("admin/shipping_zones/{shipping_zone}/edit", "AdminController@editShippingZone");
 Route::get("admin/shipping_zones", "AdminController@showShippingZones");
@@ -192,7 +192,8 @@ Route::get("customer/cart", "CustomerController@viewCart");
 Route::get("cart", "CustomerController@viewGuestCart");
 Route::post("customer/cart/{cart_detail}/delete", "CustomerController@deleteProductFromCart");
 Route::post("customer/cart/checkout", "CustomerController@cashCheckout");
-Route::post("cart/{product}/add_to_cart", "CustomerController@addToGuestCart");Route::post("cart/{product}/add_to_cart", "CustomerController@addToGuestCart");
+Route::post("cart/{product}/add_to_cart", "CustomerController@addToGuestCart");
+Route::post("cart/{product}/add_to_cart", "CustomerController@addToGuestCart");
 Route::post("cart/{id}/delete_item", "CustomerController@deleteFromGuestCart");
 Route::post("cart/{id}/edit_item", "CustomerController@editGuestCart");
 

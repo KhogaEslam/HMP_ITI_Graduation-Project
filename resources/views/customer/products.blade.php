@@ -132,6 +132,11 @@
                 </div>
             </section>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                {{$products->links("vendor.pagination.bootstrap-4")}}
+            </div>
+        </div>
     </div>
 
 @endsection
