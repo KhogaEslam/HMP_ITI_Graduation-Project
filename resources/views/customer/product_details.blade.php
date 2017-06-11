@@ -398,7 +398,6 @@
                 popup.focus();
                 e.preventDefault();
             }
->>>>>>> df6c415436bcd98a1530ed4306d79e1c15c120db
 
         });
     </script>
