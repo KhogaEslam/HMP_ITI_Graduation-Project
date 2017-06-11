@@ -5,9 +5,6 @@
 @section("content")
 <div class="container">
     <div class="row">
-        <div>
-        <a class="btn btn-primary" href="/shop/category/new"> New Category </a>
-        </div>
         @forelse($categories as $category)
 
             <div class="col-sm-6 col-md-4">
@@ -24,9 +21,17 @@
         @endforelse
 
     </div>
+
+
+    <div class="row" style="padding-top: 30px;">
+        <div class="col-md-12">
+            {{$categories->links("vendor.pagination.bootstrap-4")}}
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-12">
-            {{$categories->links()}}
+            <a class="btn btn-primary btn-block" href="/shop/category/new"> New Category </a>
         </div>
     </div>
 </div>

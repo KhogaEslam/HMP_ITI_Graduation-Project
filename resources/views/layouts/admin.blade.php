@@ -133,6 +133,41 @@
                         </li>
 
                         <li class="nav-item">
+                            <a class="nav-link" href="{{action("AdminController@showShippingZones")}}">Shipping zones</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{action("AdminController@mostProfitableCategories")}}">Category revenue</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{action("AdminController@topCategorySales")}}">Category sales</a>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{action("AdminController@showMostReviwed")}}">Top reviewed products</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{action("AdminController@topRatedProducts")}}">Top rated products</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{action("AdminController@topSellingProducts")}}">Top sellings</a>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{action("AdminController@topRevenueVendor")}}">Top vendors (revenue)</a>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{action("AdminController@topSalesVendor")}}">Top vendors (sales)</a>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link" href="/admin/about/show">About Page</a>
                         </li>
 

@@ -61,7 +61,6 @@ class Trie {
     private $result;
 
     public static function getInstance() {
-        var_dump(static::$trieObject);
         if(! is_null(Trie::$trieObject)) {
             return Trie::$trieObject;
         }

@@ -28,11 +28,11 @@ class GuestCart {
 
     public static function merge($guestItems, $userItems) {
         foreach($userItems as $item) {
-            if(isset($guestItems[$item->id])) {
-                $item->quantity = $guestItems[$item->id];
+            if(isset($guestItems[$item->product_id])) {
+                $item->quantity = $guestItems[$item->product_id];
             }
             $item->save();
-            unset($guestItems[$item->id]);
+            unset($guestItems[$item->product_id]);
         }
         if(count($guestItems)) {
             foreach ($guestItems as $id => $quantity) {
