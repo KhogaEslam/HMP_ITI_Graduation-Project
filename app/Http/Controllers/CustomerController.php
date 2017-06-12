@@ -682,20 +682,33 @@ class CustomerController extends Controller
 
     public function addToGuestCart(CartRequest $request, Product $product)
     {
+
+
         if (!session()->has("user.cart")) {
             session()->put("user.cart", []);
         }
         $cart = session("user.cart");
-        if (!isset($cart[$product->id])) {
-            $cart[$product->id] = 0;
+        $quantity = $request->input("quantity");
+        $available = $product->quantity;
+        if($quantity <= $available) {
+            if (!isset($cart[$product->id])) {
+                $cart[$product->id] = 0;
+            }
+            $cart[$product->id] += $request->input("quantity");
+            session()->put("user.cart", $cart);
+            return \Response::json(array(
+                "msg" => "added successfully",
+                "inCart" => GuestCart::getAllProductsCount(session('user.cart')),
+                "status" => "success",
+            ));
         }
-        $cart[$product->id] += $request->input("quantity");
-        session()->put("user.cart", $cart);
-        return \Response::json(array(
-            "msg" => "added successfully",
-            "inCart" => GuestCart::getAllProductsCount(session('user.cart')),
-            "status" => "success",
-        ));
+        else {
+            return \Response::json(array(
+                "msg" => "Only " . $available . " items left in the shop",
+                "status" => "error"
+
+            ));
+        }
     }
 
     public function viewGuestCart()

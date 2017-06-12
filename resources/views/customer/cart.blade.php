@@ -109,21 +109,20 @@
                         <input type="hidden" name="business" value="gbusiness@gadget.ly">
 
                         @if($offer >= 0)
-                            <input type="hidden" name="discount_rate_cart" value="{{$offer}}">
+                            {{--<input type="hidden" name="discount_rate_cart" value="{{$offer}}">--}}
                         @endif
 
                         <?php $counter=1; ?>
                         @foreach($cartDetails as $cartDetail)
-                            <input type="hidden" name="item_name_{{$counter}}" value="{{$cartDetail->product->name}}">
-                            <input type="hidden" name="quantity_{{$counter}}" value="{{$cartDetail->quantity}}">
-                            <input type="hidden" name="amount_{{$counter}}" value="{{$cartDetail->product->price}}">
+                            <input type="hidden" name="item_name_{{$loop->iteration}}" value="{{$cartDetail->product->name}}">
+                            <input type="hidden" name="quantity_{{$loop->iteration}}" value="{{$cartDetail->quantity}}">
+                            <input type="hidden" name="amount_{{$loop->iteration}}" value="{{$cartDetail->product->price}}">
 
-                            @if($cartDetail->product->discount >= 0)
-                                <input type="hidden" name="discount_rate_{{$counter}}" value="{{$cartDetail->product->discount}}">
-                                <input type="hidden" name="discount_amount_{{$counter}}" value="{{$cartDetail->product->discount}}">
+                            @if($cartDetail->product->discount > 0)
+                                <input type="hidden" name="discount_rate_{{$loop->iteration}}" value="{{$cartDetail->product->discount}}">
+                                <input type="hidden" name="discount_amount_{{$loop->iteration}}" value="{{$cartDetail->product->discount}}">
                             @endif
 
-                            <?php $counter++; ?>
                         @endforeach
 
                         <input type="hidden" name="custom" value="{{$cartDetails->first()->cart->id}}"/>

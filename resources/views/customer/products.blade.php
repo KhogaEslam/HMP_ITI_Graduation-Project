@@ -97,32 +97,48 @@
                 <div class="row">
                     @forelse($products as $product)
                         <div class="col-md-4 col-xs-12">
-                            <div class="thumbnail">
-                                @if(! $product->images()->get()->isEmpty())
-                                    <a href="{{action("CustomerController@productDetails", [$category->id, $product->id])}}">
-                                        {{--<img src="{{route("image", [$product->images()->get()->first()->stored_name])}}" class="img-responsive img-fluid img-rounded" width="235" height="235" alt="No image provided">--}}
-                                        <center><img  width="245" height="158"  src="{{route("image", [$product->images()->get()->first()->stored_name])}}" class="product1" alt="{{$product->name}}"></center>
 
-                                    </a>
-                                @else
-                                    <img alt="No image provided">
-                                @endif
+                            <div class="thumbnail">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        @if(! $product->images()->get()->isEmpty())
+                                            <a href="{{action("CustomerController@productDetails", [$category->id, $product->id])}}">
+                                                {{--<img src="{{route("image", [$product->images()->get()->first()->stored_name])}}" class="img-responsive img-fluid img-rounded" width="235" height="235" alt="No image provided">--}}
+                                                <center><img  width="245" height="158"  src="{{route("image", [$product->images()->get()->first()->stored_name])}}" class="product1" alt="{{$product->name}}"></center>
+
+                                            </a>
+                                        @else
+                                            <img alt="No image provided">
+                                        @endif
+                                    </div>
+                                </div>
                                 <div class="caption">
-                                    <a class="text-warning" href="{{action("CustomerController@productDetails", [$category->id, $product->id])}}">
-                                        <h4 class="myTitle">{{$product->name}}</h4>
-                                    </a>
-                                    <span class="price">{{$product->price}} $</span>
-                                    <div class="star-rating-container aggregate">
-                                        <div class="star-rating" title="Rated {{ $product->avg_rate }} out of 5">
-                                            @for ($i=0; $i< $product->avg_rate ; $i++ )
-                                                <span class="star filled"> </span>
-                                            @endfor
-                                            @for ($i= $product->avg_rate; $i < 5; $i++)
-                                                <span class="star"> </span>
-                                            @endfor
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <a class="text-warning" href="{{action("CustomerController@productDetails", [$category->id, $product->id])}}">
+                                                <h4 class="myTitle">{{$product->name}}</h4>
+                                            </a>
+
                                         </div>
                                     </div>
-                                    <button class="myButton add">Add To Cart</button>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <span class="price">{{$product->price}} $</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="star-rating-container aggregate">
+                                                <div class="star-rating" title="Rated {{ $product->avg_rate }} out of 5">
+                                                    @for ($i=0; $i< $product->avg_rate ; $i++ )
+                                                        <span class="star filled"> </span>
+                                                    @endfor
+                                                    @for ($i= $product->avg_rate; $i < 5; $i++)
+                                                        <span class="star"> </span>
+                                                    @endfor
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

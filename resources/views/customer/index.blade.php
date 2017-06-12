@@ -82,7 +82,6 @@
                                     @endfor
                                 </div>
                             </div>
-                            <button class="myButton add">Add To Cart</button>
                         </div>
                     </div>
                 </div>
@@ -131,7 +130,6 @@
                                     @endfor
                                 </div>
                             </div>
-                            <button class="myButton add">Add To Cart</button>
                         </div>
                     </div>
                 </div>
@@ -171,7 +169,6 @@
                                         @endfor
                                     </div>
                                 </div>
-                                <button class="myButton add">Add To Cart</button>
                             </div>
                         </div>
                     </div>

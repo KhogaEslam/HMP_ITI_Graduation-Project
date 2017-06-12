@@ -62,7 +62,7 @@
                 <div class="col-md-2">
                 </div>
                 <div class="col-md-6">
-                    {!! $products->links() !!}
+                    {!! $products->links("vendor.pagination.bootstrap-4") !!}
                 </div>
             </div>
         </div>
