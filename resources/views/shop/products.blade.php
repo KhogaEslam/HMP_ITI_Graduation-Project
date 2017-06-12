@@ -18,7 +18,7 @@
                     @endif
                     <div class="caption">
                         <a href="{{action("VendorController@productDetails", [$category->id, $product->id])}}">
-                            <h3>{{$product->name}}</h3>
+                            <h3 style="font-size: 18px;margin-top:10px;margin-bottom:10px;text-align:center">{{$product->name}}</h3>
                         </a>
                         <p><a href="{{action("VendorController@showEditProductForm", [$category->id, $product->id])}}" class="btn btn-primary btn-block">Edit product</a></p>
                         <p>{!! Form::open(["action" => ["VendorController@deleteProduct", $category, $product]]) !!}
