@@ -80,7 +80,7 @@ class VendorController extends Controller
     public function requestCategory( Request $request)
     {
         $this->validate($request, [
-            "name" => "required|min:2"
+            "name" => "required|unique:categories|unique:category_requests|string|min:2|max:50"
         ]);
         if(Auth::user()->plan()->get()->isEmpty()){
             return redirect()->route('payPremium');
