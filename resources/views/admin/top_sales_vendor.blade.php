@@ -12,7 +12,7 @@
                     <a class="list-group-item  list-group-item-action justify-content-between">
                         <span class="list-group-progress" style="width: {{$user->sales / $total * 100}}%"></span>
                         {{$user->user->email}}
-                        <span class="ml-a text-muted">{{round($user->sales_counter / $total * 100, 2)}}%</span>
+                        <span class="ml-a text-muted">{{$user->sales}}</span>
                     </a>
                 @endforeach
                 {!! $users->links() !!}

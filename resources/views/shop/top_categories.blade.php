@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 mb-5">
-                <h6 class="list-group-header">Best categories sales</h6>
+                <h6 class="list-group-header">Top categories (revenue)</h6>
                 @foreach($categories as $category)
                     <a href="{{action("VendorController@mostProfitableCategoryProducts", [$category->category])}}" class="list-group-item  list-group-item-action justify-content-between">
                         <span class="list-group-progress" style="width: {{$category->total_revenue / $total * 100}}%"></span>

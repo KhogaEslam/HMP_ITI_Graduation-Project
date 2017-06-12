@@ -7,7 +7,7 @@ Top categories
 <div class="container">
     <div class="row">
         <div class="col-md-12 mb-5">
-            <h6 class="list-group-header">Top Products in {{$products->first()->category->name}}</h6>
+            <h6 class="list-group-header">Top Products in {{$products->first()->category->name}} (sales)</h6>
             @foreach($products as $product)
             <a class="list-group-item  list-group-item-action justify-content-between">
                 <span class="list-group-progress" style="width: {{$product->sales_counter / $total * 100}}%"></span>

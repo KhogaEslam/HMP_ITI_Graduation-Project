@@ -44,7 +44,31 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.index');
+        $owner = Role::find(1)->users->count();
+        $admin = Role::find(2)->users->count();
+        $shop = Role::find(3)->users->count();
+        $employee = Role::find(4)->users->count();
+        $customer = Role::find(5)->count();
+        $active = DB::table("users")
+            ->join("user_details", function($join) {
+                $join->on("users.id", "=", "user_details.user_id")
+                    ->where("status", "=", "0");
+            })->get()->count();
+
+        $suspended = DB::table("users")
+            ->join("user_details", function($join) {
+                $join->on("users.id", "=", "user_details.user_id")
+                    ->where("status", "=", "1");
+            })->get()->count();
+
+        $blocked = DB::table("users")
+            ->join("user_details", function($join) {
+                $join->on("users.id", "=", "user_details.user_id")
+                    ->where("status", "=", "2");
+            })->get()->count();
+
+
+        return view('admin.index', compact("owner", "admin", "shop", "employee", "customer", "active", "suspended", "blocked"));
     }
 
     //=================================  Categories  ===================================== //
@@ -200,7 +224,12 @@ class AdminController extends Controller
 
     public function newAdminUser()
     {
-        return view('admin.new-admin');
+        if(\Auth::user()->hasRole("owner")) {
+            return view('admin.new-admin');
+        }
+        else {
+            return response()->view("errors.forbidden", [], 403);
+        }
     }
 
     public function createAdminUser(AdminRequest $request)
@@ -459,10 +488,11 @@ class AdminController extends Controller
             ->groupBy('category_id')
             ->orderBy('sales', 'DESC')
             ->paginate(20);
+
         $total = Product::sum('sales_counter');
         if($total == 0)
             $total = 1;
-        return view("admin.top_categories", [
+        return view("admin.top_sales_categories", [
             "categories" => $categories,
             "total" => $total
         ]);

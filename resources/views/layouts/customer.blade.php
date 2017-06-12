@@ -159,10 +159,9 @@
             <div class="col-sm-3">
                 <ul class="info">
                     <h2>Information</h2>
-                    <li>Home</li>
-                    <li>Categories</li>
-                    <li>About</li>
-                    <li>Contact</li>
+                    <li><a href="{{action("CustomerController@index")}}">Home</a></li>
+                    <li><a href="{{action("CustomerController@showAbout")}}">About</a></li>
+                    <li><a href="{{action("CustomerController@showContactUs")}}">Contact us</a></li>
                 </ul>
             </div>
             <div class="col-sm-3">

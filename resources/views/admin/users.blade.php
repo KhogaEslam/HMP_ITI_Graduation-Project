@@ -8,9 +8,11 @@
             <h1 class="bordered-heading">
                 All Users
             </h1>
+            @role("owner")
             <div>
                 <a href="/admin/users/new-admin" class="btn btn-primary"> New Admin </a>
             </div>
+            @endrole
             <table class="table table-striped">
                 <thead>
                 <th>
@@ -56,13 +58,13 @@
                             <td>
                                 <form method="POST" action="{{action("AdminController@blockUser", [$user])}}">
                                     {!! csrf_field() !!}
-                                    <button type="submit" class="btn btn-success"> Block </button>
+                                    <button type="submit" class="btn btn-danger"> Block </button>
                                 </form>
                             </td>
                             <td>
                                 <form method="POST" action="{{action("AdminController@suspendUser", [$user])}}">
                                     {!! csrf_field() !!}
-                                    <button type="submit" class="btn btn-success"> Suspend </button>
+                                    <button type="submit" class="btn btn-danger"> Suspend </button>
                                 </form>
                             </td>
                         @elseif($user->userDetails->status == '1')
@@ -72,7 +74,7 @@
                             <td>
                                 <form method="POST" action="{{action("AdminController@blockUser", [$user])}}">
                                     {!! csrf_field() !!}
-                                    <button type="submit" class="btn btn-success"> Block </button>
+                                    <button type="submit" class="btn btn-danger"> Block </button>
                                 </form>
                             </td>
                             <td>

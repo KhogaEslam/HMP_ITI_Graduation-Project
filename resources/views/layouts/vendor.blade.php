@@ -118,6 +118,10 @@
                             <a class="nav-link" href="{{action("VendorController@viewCheckouts")}}">Current orders</a>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{action("VendorController@previousOrders")}}">Previous orders</a>
+                        </li>
+
                         @role("shop")
                         <li class="nav-item">
                             <a class="nav-link" href="{{action("VendorController@showEmployees")}}">Registered employees</a>
@@ -125,7 +129,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{action("VendorController@showNewEmployeeForm")}}">Register an employee</a>
                         </li>
-                        @endrole
 
                         <li class="nav-item">
                             <a class="nav-link" href="{{action("VendorController@mostProfitableProducts")}}">Top products</a>
@@ -141,7 +144,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{action("VendorController@topSalesCategories")}}">Top categories (sales)</a>
                         </li>
-
+                        @endrole
                     </ul>
                     <hr class="visible-xs mt-3">
                 </div>

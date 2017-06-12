@@ -36,9 +36,7 @@ Route::get('auth/facebook', 'FacebookController@redirectToProvider')
     ->name('facebook.login')
     ->prefix("customer");
 Route::get('auth/facebook/callback', 'FacebookController@handleProviderCallback');
-Route::group(['prefix' => 'owner'], function(){
-    Auth::routes();
-});
+
 Route::group(['prefix' => 'admin'], function(){
     Auth::routes();
 });
@@ -179,7 +177,7 @@ Route::get("shop/checkouts/completed/{checkout}/order", "VendorController@orderD
 //===================================== Customer Routes ======================================================//
 //====================  Home  ======================//
 Route::get("customer", "CustomerController@index");
-Route::get("customer/shop/{vendor_id}", "CustomerController@index");
+//Route::get("customer/shop/{vendor_id}", "CustomerController@index");
 //==================== Products ====================//
 Route::get("category/{category}/products","CustomerController@catProducts");
 Route::get("category/{category}/products/{product}", "CustomerController@productDetails");
