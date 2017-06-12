@@ -14,7 +14,8 @@
 
     <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
 
-    <link href="{{ asset('css/toolkit-inverse.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/toolkit-light.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/application.css') }}" rel="stylesheet">
     <link href="{{asset("css/font-awesome.min.css")}}" rel="stylesheet">
 
 
@@ -80,7 +81,7 @@
                 <li>
                     <form method="POST" action="{{route("logout")}}">
                         {!! csrf_field() !!}
-                        <button type="submit" class="btn btn-danger"> Logout </button>
+                        <button type="submit" class="transparent"> Logout </button>
                     </form>
                 </li>
             </ul>
@@ -110,26 +111,26 @@
                     </form>
                     <ul class="nav nav-pills nav-stacked flex-column">
                         <li class="nav-item">
-                            <a class="nav-link dashboard-link" href="/admin" > Dashboard</a>
+                            <a class="nav-link dashboard-link" href="{{action("AdminController@index")}}" > Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/categories">Categories</a>
+                            <a class="nav-link" href="{{action("AdminController@listCategories")}}">Categories</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/users">Users</a>
+                            <a class="nav-link" href="{{action("AdminController@listUsers")}}">Users</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/registration-requests">Registration Requests</a>
+                            <a class="nav-link" href="{{action("AdminController@viewAllRegRequests")}}">Registration Requests</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/category-requests">Category Requests</a>
+                            <a class="nav-link" href="{{action("AdminController@viewAllCatCreationRequests")}}">Category Requests</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/banner_requests">Banner Requests</a>
+                            <a class="nav-link" href="{{action("AdminController@viewBannerRequests")}}">Banner Requests</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/featured_requests">Feature Request</a>
+                            <a class="nav-link" href="{{action("AdminController@viewFeaturedRequests")}}">Feature Request</a>
                         </li>
 
                         <li class="nav-item">
@@ -194,6 +195,8 @@
 <script src="{{ asset('js/panel.js') }} "></script>
 <script src="{{ asset('js/custom_script.js') }}"></script>
 <script src="{{ asset('js/ajaxRequests.js')}}"></script>
+<script src="{{ asset("js/application.js") }}"></script>
+
 
 <script>
     // execute/clear BS loaders for docs

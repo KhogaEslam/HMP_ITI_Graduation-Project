@@ -307,7 +307,7 @@ class AdminController extends Controller
 
     public function acceptFeaturedRequest(FeaturedItem $item)
     {
-        if (FeaturedProduct::find($item->product)->isEmpty()) {
+        if (is_null(FeaturedProduct::find($item->product_id))) {
             $featuredProduct = new FeaturedProduct;
             $featuredProduct->product()->associate($item->product);
             $featuredProduct->save();

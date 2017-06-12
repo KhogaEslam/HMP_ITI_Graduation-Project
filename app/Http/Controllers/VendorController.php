@@ -796,6 +796,7 @@ class VendorController extends Controller
         }
 
         if(\Auth::user()->id == $image->product->user->id) {
+            \Storage::delete();
             $image->delete();
         }
         return back();

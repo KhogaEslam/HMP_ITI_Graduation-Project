@@ -725,11 +725,8 @@ class CustomerController extends Controller
         } else {
             $offer = 0;
         }
-        if (\Auth::check()) {
-            $inCart = \Auth::user()->cart()->first()->cartDetails->count();
-        } else {
-            $inCart = GuestCart::getAllProductsCount($items);
-        }
+        $inCart = GuestCart::getAllProductsCount($items);
+
 
         return view("customer.cart", [
             "cartDetails" => $cartDetails,

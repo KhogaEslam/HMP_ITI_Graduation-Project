@@ -243,6 +243,10 @@ ul.nav.navbar-nav.navbar-right > li:before {
 .myTitle {
     padding-left: 10px;
     font-size: 16px;
+    height: 40px;
+    overflow: hidden;
+    line-height: 1.4;
+    /*font-size: 1rem;*/
 }
 
 .add {
@@ -1677,4 +1681,8 @@ td.col-lg-3.pad {
 
 .button-margin{
     margin-bottom: 10px;
+}
+
+.caption {
+    /*height: 170px;*/
 }
