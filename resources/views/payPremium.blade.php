@@ -5,13 +5,13 @@
 @section('content')
     <style type="text/css">
         .db-bk-color-one {
-            background-color: #f55039;
+            background-color: #4db6ac;
         }
         .db-bk-color-two {
-            background-color: #46A6F7;
+            background-color: #009688;
         }
         .db-bk-color-three {
-            background-color: #47887E;
+            background-color: #00796b;
         }
         .db-bk-color-six {
             background-color: #F59B24;
@@ -24,6 +24,7 @@
             background-color: rgba(0, 0, 0, 0.50);
             border: none;
             border-radius: 0px;
+            font-size: 16px;
         }
         .db-button-color-square:hover {
             color: #fff;
@@ -52,24 +53,24 @@
             margin-right: 5px;
         }
         .db-pricing-eleven .price {
-            background-color: rgba(0, 0, 0, 0.5);
+            /*background-color: rgba(0, 0, 0, 0.5);*/
             padding: 40px 20px 20px 20px;
             font-size: 60px;
             font-weight: 900;
             color: #FFFFFF;
         }
         .db-pricing-eleven .price small {
-            color: #B8B8B8;
+            color: white;
             display: block;
             font-size: 12px;
             margin-top: 22px;
         }
         .db-pricing-eleven .type {
-            background-color: #52E89E;
-            padding: 40px 10px;
+            background-color: #ffca2b;
+            padding: 30px 10px;
             font-weight: 900;
             text-transform: uppercase;
-            font-size: 30px;
+            font-size: 26px;
         }
         .db-pricing-eleven .pricing-footer {
             padding: 10px;
