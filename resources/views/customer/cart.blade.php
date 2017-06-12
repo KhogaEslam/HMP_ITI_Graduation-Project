@@ -108,9 +108,7 @@
                         <input type="hidden" name="upload" value="1">
                         <input type="hidden" name="business" value="gbusiness@gadget.ly">
 
-                        @if($offer >= 0)
-                            {{--<input type="hidden" name="discount_rate_cart" value="{{$offer}}">--}}
-                        @endif
+
 
                         <?php $counter=1; ?>
                         @foreach($cartDetails as $cartDetail)
@@ -118,9 +116,10 @@
                             <input type="hidden" name="quantity_{{$loop->iteration}}" value="{{$cartDetail->quantity}}">
                             <input type="hidden" name="amount_{{$loop->iteration}}" value="{{$cartDetail->product->price}}">
 
-                            @if($cartDetail->product->discount > 0)
+                            @if($offer > 0)
+                                <input type="hidden" name="discount_rate_cart" value="{{$offer}}">
+                            @elseif($cartDetail->product->discount > 0)
                                 <input type="hidden" name="discount_rate_{{$loop->iteration}}" value="{{$cartDetail->product->discount}}">
-                                <input type="hidden" name="discount_amount_{{$loop->iteration}}" value="{{$cartDetail->product->discount}}">
                             @endif
 
                         @endforeach

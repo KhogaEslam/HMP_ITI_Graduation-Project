@@ -87,7 +87,7 @@
                 </div>
 
                 <h4 style="margin-top: 20px">Sold by</h4>
-                <span><a href="/vendor/{{$product->user_id}}">{{$soldBy}}</a></span>
+                <span><a href="{{action("CustomerController@showVendor", [$product->user->id])}}">{{$soldBy}}</a></span>
 
 
 

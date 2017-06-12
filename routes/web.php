@@ -184,7 +184,7 @@ Route::get("customer/shop/{vendor_id}", "CustomerController@index");
 Route::get("category/{category}/products","CustomerController@catProducts");
 Route::get("category/{category}/products/{product}", "CustomerController@productDetails");
 Route::get("category/popularCategories/show", "CustomerController@showPopularCategories");
-Route::get("vendor/{vendor_id}", "CustomerController@showVendor");
+Route::get("shop/{vendor_id}", "CustomerController@showVendor");
 //==================== Cart =========================//
 Route::post("customer/{product}/add_to_cart", "CustomerController@addToCart");
 Route::post("customer/{cart_detail}/edit_cart", "CustomerController@editCart");
