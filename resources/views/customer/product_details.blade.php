@@ -103,56 +103,60 @@
                     <div style="height: 80px; display:none;" id ="wishListAjaxResponse"></div>
                 @endif
                 <div class="cart-actions">
-                    @if(\Auth::user()->cart->cartDetails()->quantity($product->id)->get()->isEmpty())
-                        <button class="myButton add button-margin" data-toggle="modal" data-target="#addModal">Add To Cart</button>
+                    @if ($product->quantity > 1)
+                        @if(\Auth::user()->cart->cartDetails()->quantity($product->id)->get()->isEmpty())
+                            <button class="myButton add button-margin" data-toggle="modal" data-target="#addModal">Add To Cart</button>
 
-                        <div class="modal fade" id="addModal" role="dialog">
-                            <div class="modal-dialog modal-sm">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Add To Cart</h4>
-                                    </div>
-                                    {!! Form::open(["action" => ["CustomerController@addToCart", $product], 'class' => 'add-to-cart']) !!}
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            {!! Form::label("Quantity") !!}
-                                            {!! Form::number("quantity", null, ["class" => "form-control cart-quantity" , "min" => 1 , "max" => $product->quantity]) !!}
+                            <div class="modal fade" id="addModal" role="dialog">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Add To Cart</h4>
                                         </div>
+                                        {!! Form::open(["action" => ["CustomerController@addToCart", $product], 'class' => 'add-to-cart']) !!}
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                {!! Form::label("Quantity") !!}
+                                                {!! Form::number("quantity", 1, ["class" => "form-control cart-quantity" , "value"=>1, "min" => 1 , "max" => $product->quantity]) !!}
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            {!! Form::submit("Add to cart",["class" => "btn btn-default modalb"]) !!}
+                                            <button type="button" class="btn btn-default modal-close" data-dismiss="modal">Close</button>
+                                        </div>
+                                        {!! Form::close() !!}
                                     </div>
-                                    <div class="modal-footer">
-                                        {!! Form::submit("Add to cart",["class" => "btn btn-default modalb"]) !!}
-                                        <button type="button" class="btn btn-default modal-close" data-dismiss="modal">Close</button>
-                                    </div>
-                                    {!! Form::close() !!}
                                 </div>
                             </div>
-                        </div>
+                        @else
+                            <button class="myButton add button-margin" data-toggle="modal" data-target="#editModal">Edit Cart</button>
+
+                            <div class="modal fade" id="editModal" role="dialog">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Edit Cart</h4>
+                                        </div>
+                                        {!! Form::open(["action" => ["CustomerController@editCart", \Auth::user()->cart->cartDetails()->quantity($product->id)->first()], 'class' => 'edit-cart']) !!}
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                {!! Form::label("Quantity") !!}
+                                                {!! Form::number("quantity", \Auth::user()->cart->cartDetails()->quantity($product->id)->first()->quantity, ["class" => "form-control cart-quantity",  "min" => 1 , "max" => $product->quantity]) !!}
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            {!! Form::submit("Edit cart",["class" => "btn btn-default modalb"]) !!}
+                                            <button type="button" class="btn btn-default modal-close" data-dismiss="modal">Close</button>
+                                        </div>
+                                        {!! Form::close() !!}
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     @else
-                        <button class="myButton add button-margin" data-toggle="modal" data-target="#editModal">Edit Cart</button>
-
-                        <div class="modal fade" id="editModal" role="dialog">
-                            <div class="modal-dialog modal-sm">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Edit Cart</h4>
-                                    </div>
-                                    {!! Form::open(["action" => ["CustomerController@editCart", \Auth::user()->cart->cartDetails()->quantity($product->id)->first()], 'class' => 'edit-cart']) !!}
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            {!! Form::label("Quantity") !!}
-                                            {!! Form::number("quantity", \Auth::user()->cart->cartDetails()->quantity($product->id)->first()->quantity, ["class" => "form-control cart-quantity",  "min" => 1 , "max" => $product->quantity]) !!}
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        {!! Form::submit("Edit cart",["class" => "btn btn-default modalb"]) !!}
-                                        <button type="button" class="btn btn-default modal-close" data-dismiss="modal">Close</button>
-                                    </div>
-                                    {!! Form::close() !!}
-                                </div>
-                            </div>
-                        </div>
+                        <div class="alert alert-warning"> Out Of Stock</div>
                     @endif
                 </div>
                 @endrole
@@ -170,7 +174,7 @@
                                 <div class="modal-body">
                                     <div class="form-group">
                                         {!! Form::label("Quantity") !!}
-                                        {!! Form::number("quantity", null, ["class" => "form-control cart-quantity" , "min" => 1 , "max" => $product->quantity]) !!}
+                                        {!! Form::number("quantity", 1, ["class" => "form-control cart-quantity" , "min" => 1 , "max" => $product->quantity]) !!}
                                     </div>
                                 </div>
                                 <div class="modal-footer">

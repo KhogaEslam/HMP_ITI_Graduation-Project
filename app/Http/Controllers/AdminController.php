@@ -219,7 +219,7 @@ class AdminController extends Controller
         $userDetail->user()->associate($user);
         $userDetail->save();
 
-        return back();
+        return redirect('/admin/users');
     }
 
     public function suspendUser(User $user)
