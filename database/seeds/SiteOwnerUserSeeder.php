@@ -11,6 +11,16 @@ class SiteOwnerUserSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('users')->insert([
+            ['name' => 'Site Owner', 'email' => 'owner@gadget.ly', 'password' => bcrypt('123456')],
+        ]);
 
+        DB::table('role_user')->insert([
+            ["user_id" => 1, "role_id" => 1],
+        ]);
+
+        DB::table("user_details")->insert([
+            ["user_id" => 1, "gender" => '0', "status" => '0', "date_of_birth" => "1994-06-11"],
+        ]);
     }
 }
