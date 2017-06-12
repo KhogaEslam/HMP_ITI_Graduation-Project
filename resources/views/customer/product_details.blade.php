@@ -35,14 +35,16 @@
             <div class="col-md-4 col-sm-12">
                 <h3>{{$product->name}}</h3>
                 <div class=" star-rating-container aggregate">
-                    <div class="rate2 star-rating" title="Rated {{ $product->avg_rate }} out of 5">
-                        @for ($i=0; $i< $product->avg_rate ; $i++ )
-                            <span class="star filled"></span>
-                        @endfor
-                        @for ($i= $product->avg_rate; $i < 5; $i++)
-                            <span class="star"></span>
-                        @endfor
-                    </div>
+                    @if($product->avg_rate >= 1)
+                        <div class="rate2 star-rating" title="Rated {{ $product->avg_rate }} out of 5">
+                            @for ($i=0; $i< $product->avg_rate ; $i++ )
+                                <span class="star filled"></span>
+                            @endfor
+                            @for ($i= $product->avg_rate; $i < 5; $i++)
+                                <span class="star"></span>
+                            @endfor
+                        </div>
+                    @endif
                 </div>
                 <p>
 

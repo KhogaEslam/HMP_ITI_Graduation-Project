@@ -72,16 +72,18 @@
                                 <h4 class="myTitle">{{$newProduct->name}}</h4>
                             </a>
                             <span class="price">{{$newProduct->price}} $</span>
-                            <div class="star-rating-container aggregate">
-                                <div class="star-rating" title="Rated <?= $newProduct->avg_rate ?> out of 5">
-                                    @for ($i=0; $i< $newProduct->avg_rate ; $i++ )
-                                    <span class="star filled"> </span>
-                                    @endfor
-                                    @for ($i= $newProduct->avg_rate; $i < 5; $i++)
-                                    <span class="star"> </span>
-                                    @endfor
+                            @if($newProduct->avg_rate >= 1)
+                                <div class="star-rating-container aggregate">
+                                    <div class="star-rating" title="Rated <?= $newProduct->avg_rate ?> out of 5">
+                                        @for ($i=0; $i< $newProduct->avg_rate ; $i++ )
+                                        <span class="star filled"> </span>
+                                        @endfor
+                                        @for ($i= $newProduct->avg_rate; $i < 5; $i++)
+                                        <span class="star"> </span>
+                                        @endfor
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -120,16 +122,18 @@
                                 <h4 class="myTitle">{{$bestSelling->name}}</h4>
                             </a>
                             <span class="price">{{$bestSelling->price}} $</span>
-                            <div class="star-rating-container aggregate">
-                                <div class="star-rating" title="Rated {{ $bestSelling->avg_rate }} out of 5">
-                                    @for ($i=0; $i< $bestSelling->avg_rate ; $i++ )
-                                        <span class="star filled"> </span>
-                                    @endfor
-                                    @for ($i= $bestSelling->avg_rate; $i < 5; $i++)
-                                        <span class="star"> </span>
-                                    @endfor
+                            @if($bestSelling->avg_rate >= 1)
+                                <div class="star-rating-container aggregate">
+                                    <div class="star-rating" title="Rated {{ $bestSelling->avg_rate }} out of 5">
+                                        @for ($i=0; $i< $bestSelling->avg_rate ; $i++ )
+                                            <span class="star filled"> </span>
+                                        @endfor
+                                        @for ($i= $bestSelling->avg_rate; $i < 5; $i++)
+                                            <span class="star"> </span>
+                                        @endfor
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -159,16 +163,18 @@
                                     <h4 class="myTitle">{{$featuredProduct->product->name}}</h4>
                                 </a>
                                 <span class="price">{{$featuredProduct->product->price}} $</span>
-                                <div class="star-rating-container aggregate">
-                                    <div class="star-rating" title="Rated {{$featuredProduct->product->avg_rate }} out of 5">
-                                        @for ($i=0; $featuredProduct->avg_rate ; $i++ )
-                                            <span class="star filled"> </span>
-                                        @endfor
-                                        @for ($i= $featuredProduct->avg_rate; $i < 5; $i++)
-                                            <span class="star"> </span>
-                                        @endfor
+                                @if($featuredProduct->avg_rate >=1)
+                                    <div class="star-rating-container aggregate">
+                                        <div class="star-rating" title="Rated {{$featuredProduct->product->avg_rate }} out of 5">
+                                            @for ($i=0; $featuredProduct->avg_rate ; $i++ )
+                                                <span class="star filled"> </span>
+                                            @endfor
+                                            @for ($i= $featuredProduct->avg_rate; $i < 5; $i++)
+                                                <span class="star"> </span>
+                                            @endfor
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>
