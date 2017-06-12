@@ -126,16 +126,18 @@
                                             <span class="price">{{$product->price}} $</span>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="star-rating-container aggregate">
-                                                <div class="star-rating" title="Rated {{ $product->avg_rate }} out of 5">
-                                                    @for ($i=0; $i< $product->avg_rate ; $i++ )
-                                                        <span class="star filled"> </span>
-                                                    @endfor
-                                                    @for ($i= $product->avg_rate; $i < 5; $i++)
-                                                        <span class="star"> </span>
-                                                    @endfor
+                                            @if($product->avg_rate >= 1)
+                                                <div class="star-rating-container aggregate">
+                                                    <div class="star-rating" title="Rated {{ $product->avg_rate }} out of 5">
+                                                        @for ($i=0; $i< $product->avg_rate ; $i++ )
+                                                            <span class="star filled"> </span>
+                                                        @endfor
+                                                        @for ($i= $product->avg_rate; $i < 5; $i++)
+                                                            <span class="star"> </span>
+                                                        @endfor
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            @endif
                                         </div>
                                     </div>
 

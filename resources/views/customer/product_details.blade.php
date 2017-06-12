@@ -35,14 +35,16 @@
             <div class="col-md-4 col-sm-12">
                 <h3>{{$product->name}}</h3>
                 <div class=" star-rating-container aggregate">
-                    <div class="rate2 star-rating" title="Rated {{ $product->avg_rate }} out of 5">
-                        @for ($i=0; $i< $product->avg_rate ; $i++ )
-                            <span class="star filled"></span>
-                        @endfor
-                        @for ($i= $product->avg_rate; $i < 5; $i++)
-                            <span class="star"></span>
-                        @endfor
-                    </div>
+                    @if($product->avg_rate >= 1)
+                        <div class="rate2 star-rating" title="Rated {{ $product->avg_rate }} out of 5">
+                            @for ($i=0; $i< $product->avg_rate ; $i++ )
+                                <span class="star filled"></span>
+                            @endfor
+                            @for ($i= $product->avg_rate; $i < 5; $i++)
+                                <span class="star"></span>
+                            @endfor
+                        </div>
+                    @endif
                 </div>
                 <p>
 
@@ -212,20 +214,25 @@
                     data: {"star": rating},
                     datatype: 'JSON',
                     success: function(response) {
-                        $('.stars').remove();
-                        $('#ratingAjaxResponse').show().append('<div class="alert alert-success">' + response.msg + '</div>');
-                        $('.star-rating-container').empty();
-                        $('.star-rating-container').append('<div class="rate2 star-rating" title="Rated '+ response.rating +' out of 5"></div>')
-                        for (var i =0 ; i< response.rating; i++) {
-                            $('.star-rating').append('<span class="star filled"></span>')
+                        if(response.status == 'success') {
+                            $('.stars').remove();
+                            $('#ratingAjaxResponse').show().append('<div class="alert alert-success">' + response.msg + '</div>');
+                            $('.star-rating-container').empty();
+                            $('.star-rating-container').append('<div class="rate2 star-rating" title="Rated ' + response.rating + ' out of 5"></div>')
+                            for (var i = 0; i < response.rating; i++) {
+                                $('.star-rating').append('<span class="star filled"></span>')
+                            }
+                            for (var i = response.rating; i < 5; i++) {
+                                $('.star-rating').append('<span class="star"></span>')
+                            }
                         }
-                        for (var i = response.rating; i<5; i++) {
-                            $('.star-rating').append('<span class="star"></span>')
+                        else {
+                            alert('Error')
                         }
 
                     },
                     error: function() {
-                        alert('error')
+                        alert('Error')
                     }
                 });
             });
