@@ -219,21 +219,30 @@ class CustomerController extends Controller
 
     public function submitRating(RatingRequest $request, Product $product)
     {
-        $rating = new ProductRate();
-        $rating->product()->associate($product);
-        $rating->user()->associate(\Auth::user());
-        $rating->rate = $request->star;
-        $rating->save();
-        $rating->product->avg_rate = round(DB::table('product_rates')
-            ->select(DB::raw('avg(rate) as avg_rate'))
-            ->groupBy('product_id')
-            ->havingRaw("product_id = $product->id")->first()->avg_rate);
-        $rating->product->save();
-        $response = array(
-            'msg' => 'Thanks for submitting feedback',
-            'rating'=> $rating->product->avg_rate
-        );
-        return \Response::json($response);
+        if($product->ratings->where('user_id','=' , \Auth::user()->id )->isEmpty()) {
+            $rating = new ProductRate();
+            $rating->product()->associate($product);
+            $rating->user()->associate(\Auth::user());
+            $rating->rate = $request->star;
+            $rating->save();
+            $rating->product->avg_rate = round(DB::table('product_rates')
+                ->select(DB::raw('avg(rate) as avg_rate'))
+                ->groupBy('product_id')
+                ->havingRaw("product_id = $product->id")->first()->avg_rate);
+            $rating->product->save();
+            $response = array(
+                'status'=> 'success',
+                'msg' => 'Thanks for submitting feedback',
+                'rating' => $rating->product->avg_rate
+            );
+            return \Response::json($response);
+        }
+        else {
+            return array(
+                'status'=> 'Error',
+            );
+        }
+
 
     }
     public function addToCart(CartRequest $request, Product $product)
