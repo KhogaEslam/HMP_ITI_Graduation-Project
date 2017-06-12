@@ -1687,3 +1687,12 @@ td.col-lg-3.pad {
 .caption {
     /*height: 170px;*/
 }
+
+.product-image {
+    width:auto;
+    height:200px;
+    display: block;
+    text-align:center;
+    margin-right:auto;
+    margin-left:auto
+}

@@ -11,14 +11,14 @@
                 <div class="thumbnail">
                     @if(! $product->images()->get()->isEmpty())
                         <a href="{{action("VendorController@productDetails", [$category->id, $product->id])}}">
-                            <img src="{{route("image", [$product->images()->get()->first()->stored_name])}}" class="img-responsive img-fluid img-rounded" style="width:auto;max-height:200px;display: block;text-align:center;margin-right:auto;margin-left:auto" alt="No image provided">
+                            <img src="{{route("image", [$product->images()->get()->first()->stored_name])}}" class="img-responsive img-fluid img-rounded" style="width:auto;height:200px;display: block;text-align:center;margin-right:auto;margin-left:auto" alt="No image provided">
                         </a>
                     @else
                         <img alt="No image provided">
                     @endif
                     <div class="caption">
                         <a href="{{action("VendorController@productDetails", [$category->id, $product->id])}}">
-                            <h3 style="font-size: 18px;margin-top:10px;margin-bottom:10px;text-align:center">{{$product->name}}</h3>
+                            <h3 style="padding-left: 10px;font-size: 16px;height: 40px;overflow: hidden;line-height: 1.4;">{{$product->name}}</h3>
                         </a>
                         <p><a href="{{action("VendorController@showEditProductForm", [$category->id, $product->id])}}" class="btn btn-primary btn-block">Edit product</a></p>
                         <p>{!! Form::open(["action" => ["VendorController@deleteProduct", $category, $product]]) !!}
