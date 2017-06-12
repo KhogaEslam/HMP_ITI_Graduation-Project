@@ -159,7 +159,7 @@ class AdminController extends Controller
     {
 //        $userDetails  = UserDetail::all();
 //        dd($userDetails);
-//        MailController::acceptRegistrationMail($regReq->user);
+        MailController::acceptRegistrationMail($regReq->user);
         $regReq->user->userDetails->status = '0';
         $regReq->user->userDetails->save();
         $regReq->delete();
