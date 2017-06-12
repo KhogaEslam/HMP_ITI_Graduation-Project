@@ -10,6 +10,7 @@ Homestead.yaml
 npm-debug.log
 vendor/
 node_modules/
+resources/img
 
 # Laravel 4 specific
 bootstrap/compiled.php
