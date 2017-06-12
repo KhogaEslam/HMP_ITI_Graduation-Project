@@ -11,7 +11,7 @@
                 <div class="thumbnail">
                     @if(! $product->images()->get()->isEmpty())
                         <a href="{{action("VendorController@productDetails", [$category->id, $product->id])}}">
-                            <img src="{{route("image", [$product->images()->get()->first()->stored_name])}}" class="img-responsive img-fluid img-rounded" width="235" height="235" alt="No image provided">
+                            <img src="{{route("image", [$product->images()->get()->first()->stored_name])}}" class="img-responsive img-fluid img-rounded" style="width:auto;max-height:200px;display: block;text-align:center;margin-right:auto;margin-left:auto" alt="No image provided">
                         </a>
                     @else
                         <img alt="No image provided">

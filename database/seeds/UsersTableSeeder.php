@@ -24,27 +24,25 @@ class UsersTableSeeder extends Seeder
         ]);
 
         DB::table("employees")->insert([
-            ["employee_id" => 4, "manager_id" => 1, "created_at" => \Carbon\Carbon::now(), "updated_at" => \Carbon\Carbon::now()],
-            ["employee_id" => 5, "manager_id" => 1, "created_at" => \Carbon\Carbon::now(), "updated_at" => \Carbon\Carbon::now()],
-            ["employee_id" => 9, "manager_id" => 2, "created_at" => \Carbon\Carbon::now(), "updated_at" => \Carbon\Carbon::now()],
-            ["employee_id" => 10, "manager_id" => 2, "created_at" => \Carbon\Carbon::now(), "updated_at" => \Carbon\Carbon::now()],
+            ["employee_id" => 4, "manager_id" => 1],
+            ["employee_id" => 5, "manager_id" => 1],
+            ["employee_id" => 9, "manager_id" => 2],
+            ["employee_id" => 10, "manager_id" => 2],
         ]);
 
         DB::table('role_user')->insert([
-            ["user_id" => 1, "role_id" => 1, "created_at" => \Carbon\Carbon::now(), "updated_at" => \Carbon\Carbon::now()],
-            ['user_id' => 2, 'role_id' => 3, "created_at" => \Carbon\Carbon::now(), "updated_at" => \Carbon\Carbon::now()],
-            ["user_id" => 3, "role_id" => 3, "created_at" => \Carbon\Carbon::now(), "updated_at" => \Carbon\Carbon::now()],
-            ["user_id" => 4, "role_id" => 4, "created_at" => \Carbon\Carbon::now(), "updated_at" => \Carbon\Carbon::now()],
-            ["user_id" => 5, "role_id" => 4, "created_at" => \Carbon\Carbon::now(), "updated_at" => \Carbon\Carbon::now()],
-            ["user_id" => 6, "role_id" => 2, "created_at" => \Carbon\Carbon::now(), "updated_at" => \Carbon\Carbon::now()],
-            ["user_id" => 7, "role_id" => 5, "created_at" => \Carbon\Carbon::now(), "updated_at" => \Carbon\Carbon::now()],
-            ["user_id" => 8, "role_id" => 5, "created_at" => \Carbon\Carbon::now(), "updated_at" => \Carbon\Carbon::now()],
-            ["user_id" => 9, "role_id" => 4, "created_at" => \Carbon\Carbon::now(), "updated_at" => \Carbon\Carbon::now()],
-            ["user_id" => 10, "role_id" => 4, "created_at" => \Carbon\Carbon::now(), "updated_at" => \Carbon\Carbon::now()],
+            ['user_id' => 2, 'role_id' => 3],
+            ["user_id" => 3, "role_id" => 3],
+            ["user_id" => 4, "role_id" => 4],
+            ["user_id" => 5, "role_id" => 4],
+            ["user_id" => 6, "role_id" => 2],
+            ["user_id" => 7, "role_id" => 5],
+            ["user_id" => 8, "role_id" => 5],
+            ["user_id" => 9, "role_id" => 4],
+            ["user_id" => 10, "role_id" => 4],
         ]);
 
         DB::table("user_details")->insert([
-            ["user_id" => 1, "gender" => '0', "status" => '0', "date_of_birth" => "1994-06-11", "created_at" => \Carbon\Carbon::now(), "updated_at" => \Carbon\Carbon::now()],
             ["user_id" => 2, "gender" => '0', "status" => '0', "date_of_birth" => "1994-06-11", "created_at" => \Carbon\Carbon::now(), "updated_at" => \Carbon\Carbon::now()],
             ["user_id" => 3, "gender" => '0', "status" => '0', "date_of_birth" => "1994-06-11", "created_at" => \Carbon\Carbon::now(), "updated_at" => \Carbon\Carbon::now()],
             ["user_id" => 4, "gender" => '0', "status" => '0', "date_of_birth" => "1994-06-11", "created_at" => \Carbon\Carbon::now(), "updated_at" => \Carbon\Carbon::now()],
