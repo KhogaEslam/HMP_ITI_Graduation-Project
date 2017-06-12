@@ -98,7 +98,7 @@
                         @forelse($categories as $category)
                             <li> {{link_to_action("CustomerController@catProducts", $category->name, [$category])}}</li>
                         @empty
-                            <li>No categories yet</li>
+                            <li style="color:red;">No categories yet</li>
                         @endforelse
                     </ul>
                 </li>

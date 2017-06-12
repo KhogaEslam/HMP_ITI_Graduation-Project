@@ -394,13 +394,13 @@ blockquote {
 }
 
 a {
-    color: #1997c6;
+    color: #106382;
     text-decoration: none;
 }
 
 a:focus,
 a:hover {
-    color: #106382;
+    color: #62d5c8;
     text-decoration: underline;
 }
 
@@ -4088,7 +4088,8 @@ tbody.collapse.show {
 .nav-link {
     display: block;
     padding: 7px 15px;
-    color: #62d5c8;
+    color: #3F4140;
+    font-size: 15px;
 }
 
 .nav-link:focus,
