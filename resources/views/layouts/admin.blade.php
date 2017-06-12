@@ -98,17 +98,11 @@
                         <span class="sr-only">Toggle nav</span>
                     </button>
                     <a class="sidebar-brand img-responsive" href="/admin">
-                        <span class="icon icon-leaf sidebar-brand-icon"><span class="panel-title">Admin Panel </span></span>
+                        <span class="panel-title"><img class="logo" src="{{ asset('images/logo.png')}}"></span>
                     </a>
                 </div>
 
                 <div class="collapse nav-toggleable-md" id="nav-toggleable-md">
-                    <form class="sidebar-form">
-                        <input class="form-control" type="text" placeholder="Search...">
-                        <button type="submit" class="btn-link">
-                            <span class="icon icon-magnifying-glass"></span>
-                        </button>
-                    </form>
                     <ul class="nav nav-pills nav-stacked flex-column">
                         <li class="nav-item">
                             <a class="nav-link dashboard-link" href="{{action("AdminController@index")}}" > Dashboard</a>
@@ -169,7 +163,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/about/show">About Page</a>
+                            <a class="nav-link" href="{{action("AdminController@showEditAboutPage")}}">About Page</a>
                         </li>
 
                     </ul>
