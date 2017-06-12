@@ -24,9 +24,6 @@
 
                 </th>
                 <th>
-                    Birth of date
-                </th>
-                <th>
                     Role
                 </th>
                 <th>
@@ -47,10 +44,7 @@
                             {{$user->email}}
                         </td>
                         <td>
-                            {{$user->userDetails->gender}}
-                        </td>
-                        <td>
-                            {{$user->userDetails->birth_of_date}}
+                            {{$user->userDetails->gender ? "Female" : "Male"}}
                         </td>
                         <td>
                             {{$user->roles[0]->name}}

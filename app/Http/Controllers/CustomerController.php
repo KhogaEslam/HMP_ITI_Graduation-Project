@@ -509,7 +509,7 @@ class CustomerController extends Controller
             $checkout->save();
             $item->product->quantity -= $item->quantity;
             $item->product->sales_counter += $item->quantity;
-            $item->revenue += $price;
+            $item->product->revenue += $price;
             $item->product->save();
             $item->delete();
         }

@@ -191,7 +191,7 @@ class AdminController extends Controller
 
         } else {
             $users = User::whereHas('roles', function ($q) {
-                $q->where('name', '!=', 'admin');
+                $q->where('name', '!=', 'admin')->where("name", "!=", "owner");
             })->get();
 
         }
@@ -542,7 +542,7 @@ class AdminController extends Controller
     public function showMostReviwed()
     {
 
-        $mostReviwed = DB::table('products')
+        $mostReviewed = DB::table('products')
             ->select('*')
             ->leftJoin(DB::raw('(SELECT item_id, COUNT(id) as CommentCount FROM laravellikecomment_comments
             GROUP BY (item_id) ) as T'), function ($join) {
@@ -552,7 +552,7 @@ class AdminController extends Controller
 
 //        dd($mostReviwed);
         return view("admin.most_reviewed", [
-            "mostReviwed" => $mostReviwed
+            "mostReviewed" => $mostReviewed
         ]);
     }
 

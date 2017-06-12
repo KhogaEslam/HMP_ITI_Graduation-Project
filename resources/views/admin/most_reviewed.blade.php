@@ -12,7 +12,7 @@
                         <th>Name</th>
                         <th>Reviewed Num.</th>
                     </tr>
-                    @foreach($mostReviwed as $item)
+                    @foreach($mostReviewed as $item)
                         <tr>
                             <td>{{$loop->iteration}}</td>
                             <td>{{$item->name}}</td>
