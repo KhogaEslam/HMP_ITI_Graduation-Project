@@ -60,11 +60,11 @@
                     <div class="thumbnail">
                         @if(! $newProduct->images()->get()->isEmpty())
                             <a href="{{action("CustomerController@productDetails", [$newProduct->category, $newProduct->id])}}">
-                                <center><img  width="245" height="158" src="{{route("image", [$newProduct->images()->get()->first()->stored_name])}}"  alt="{{$newProduct->name}}"></center>
+                                <center><img  class="product-image" src="{{route("image", [$newProduct->images()->get()->first()->stored_name])}}"  alt="{{$newProduct->name}}"></center>
                             </a>
                         @else
                             <a href="{{action("CustomerController@productDetails", [$newProduct->category, $newProduct->id])}}">
-                                <center><img alt="No image provided"></center>
+                                <center><img class="product-image" alt="No image provided"></center>
                             </a>
                         @endif
                         <div class="caption">
@@ -108,11 +108,11 @@
                     <div class="thumbnail">
                         @if(! $bestSelling->images()->get()->isEmpty())
                             <a href="{{action("CustomerController@productDetails", [$bestSelling->category, $bestSelling->id])}}">
-                                <center><img  width="245" height="158"  src="{{route("image", [$bestSelling->images()->get()->first()->stored_name])}}" class="product1" alt="{{$bestSelling->name}}"></center>
+                                <center><img  src="{{route("image", [$bestSelling->images()->get()->first()->stored_name])}}" class="product1 product-image" alt="{{$bestSelling->name}}"></center>
                             </a>
                         @else
                             <a href="{{action("CustomerController@productDetails", [$bestSelling->category, $bestSelling->id])}}">
-                                <center><img  width="245" height="158" alt="No image provided"></center>
+                                <center><img  class="product-image" alt="No image provided"></center>
                             </a>
                         @endif
                         <div class="caption">
@@ -147,11 +147,11 @@
                         <div class="thumbnail">
                             @if(! $featuredProduct->product->images()->get()->isEmpty())
                                 <a href="{{action("CustomerController@productDetails", [$featuredProduct->product->category, $featuredProduct->product])}}">
-                                    <center><img  width="245" height="158"  src="{{route("image", [$featuredProduct->product->images()->get()->first()->stored_name])}}" class="product1" alt="{{$featuredProduct->product->name}}"></center>
+                                    <center><img  src="{{route("image", [$featuredProduct->product->images()->get()->first()->stored_name])}}" class="product1 product-image" alt="{{$featuredProduct->product->name}}"></center>
                                 </a>
                             @else
                                 <a href="{{action("CustomerController@productDetails", [$featuredProduct->product->category, $featuredProduct->product])}}">
-                                    <center><img  width="245" height="158" alt="No image provided"></center>
+                                    <center><img  class="product-image"  alt="No image provided"></center>
                                 </a>
                             @endif
                             <div class="caption">
