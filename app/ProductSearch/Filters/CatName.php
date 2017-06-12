@@ -20,6 +20,6 @@ class CatName implements Filter
                 $category_ids[] = Category::where('name', '=', $cat)->first()->id;
             }
         }
-        return $builder->whereIn('id' ,  $category_ids);
+        return $builder->whereIn('category_id' ,  $category_ids);
     }
 }
