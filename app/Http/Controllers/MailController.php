@@ -26,7 +26,7 @@ class MailController extends Controller
         Mail::send('emails.mailEvent', $user, function($message) use ($user) {
             $message->to($user['email']);
             $message->subject('Registration Accpetance');
-            $message->setBody('Congratulation. We accept your registration. You can login at the following link : <br> '.url('shop/login'), 'text/html');
+            $message->setBody('Congratulation. We accept your registration. You can login at the following link : <br> '+url('shop/login'), 'text/html');
         });
     }
 
