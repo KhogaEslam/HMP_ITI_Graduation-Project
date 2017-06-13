@@ -734,7 +734,7 @@ class CustomerController extends Controller
         } else {
             $offer = 0;
         }
-        if (\Auth::check()) {
+        if (\Auth::check() && \Auth::user()->hasRole("customer")) {
             $inCart = \Auth::user()->cart()->first()->cartDetails->count();
         } else {
             $inCart = GuestCart::getAllProductsCount($items);

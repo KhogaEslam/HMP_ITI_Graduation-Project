@@ -5,26 +5,26 @@
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Wrapper for slides -->
             <div class="carousel-inner">
-                <div class="item active"> <img class="myheader" src="images/header.jpg">
+                <div class="item active"> <img class="myheader" src="{{asset("images/header2.jpg")}}">
                     <div class="carousel-caption">
                         <!--       <h3>Headline</h3>
           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. </p>--></div>
                 </div>
                 <!-- End Item -->
-                <div class="item"> <img class="myheader" src="images/header.jpg">
+                <div class="item"> <img class="myheader" src="{{asset("images/slider-mobiles.jpg")}}">
                     <div class="carousel-caption">
                         {{--<h3>Headline</h3>--}}
                         <!--<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.  </p>-->
                     </div>
                 </div>
                 <!-- End Item -->
-                <div class="item"> <img class="myheader" src="images/header.jpg">
+                <div class="item"> <img class="myheader" src="{{asset("images/slider-laptop.jpg")}}">
                     <div class="carousel-caption">
                         <!--       <h3>Headline</h3>
           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.  </p>--></div>
                 </div>
                 <!-- End Item -->
-                <div class="item"> <img class="myheader" src="images/header.jpg">
+                <div class="item"> <img class="myheader" src="{{asset("images/slider-tablet.jpg")}}">
                     <div class="carousel-caption">
                         <!-- <h3>Headline</h3>
             <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. </p>--></div>
@@ -46,7 +46,9 @@
                     <a href="#"></a>
                 </li>
             </ul>
-            <button class="myButton shop">Shop Now</button>
+            @if(\Auth::guest())
+            <button class="myButton shop"><a href="customer/register" style="text-decoration: none; color: white;">Shop now</a></button>
+            @endif
         </div>
         <!-- End Carousel -->
     </div>

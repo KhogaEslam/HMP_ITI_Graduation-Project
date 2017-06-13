@@ -159,9 +159,9 @@
             <div class="col-sm-3">
                 <ul class="info">
                     <h2>Information</h2>
-                    <li><a href="{{action("CustomerController@index")}}">Home</a></li>
-                    <li><a href="{{action("CustomerController@showAbout")}}">About</a></li>
-                    <li><a href="{{action("CustomerController@showContactUs")}}">Contact us</a></li>
+                    <li><a style="color: white;" href="{{action("CustomerController@index")}}">Home</a></li>
+                    <li><a style="color: white;" href="{{action("CustomerController@showAbout")}}">About</a></li>
+                    <li><a style="color: white;" href="{{action("CustomerController@showContactUs")}}">Contact us</a></li>
                 </ul>
             </div>
             <div class="col-sm-3">

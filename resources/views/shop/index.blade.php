@@ -9,7 +9,7 @@
 
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
-                    <img src="{{asset("images/category.png")}}" alt="No image">
+                    <img style="width: 235px;" src="{{asset("images/category2.png")}}" alt="No image">
                     <div class="caption">
                         <h3>{{$category->name}}</h3>
                         <p><a class="btn btn-warning btn-block" href="{{action("VendorController@category", ["id" => $category->id])}}">Browse</a></p>
