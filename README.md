@@ -45,8 +45,8 @@ Could Be found on the project shared drive folder **_[here](https://goo.gl/OWMv0
 -	[REQUIRED] Configure .env file contents Database and APIs [Appendix D]
 -	Inside /hmp/resources/ create two folders `img` directory and `banner` directory with suitable permissions [775]
 -	Open terminal inside project’s folder
-  -	Run cmd> composer install
-  -	Run cmd> php artisan migrate
-  -	Run cmd> php artisan db:seed 
-  -	These cmds will install needed packages and will seed needed basic Database contents [Admin user, sample users, Rules, etc.]
+    - Run cmd> composer install
+    - Run cmd> php artisan migrate
+    - Run cmd> php artisan db:seed 
+    - These cmds will install needed packages and will seed needed basic Database contents [Admin user, sample users, Rules, etc.]
 
