@@ -1,0 +1,30 @@
+Steps of Installations
+
+For Fresh Installation:
+1- Clone/Pull the project from github repository 
+https://github.com/KhogaEslam/HMP_ITI_Graduation-Project
+2- [IMPORTANT] Edit in file in this path [/hmp/vendor/risul/laravel-like-comment/src/LikeCommentServiceProvider.php] replace this part of code at line 34-36 with the following snippet
+>   $this->app->singleton('LaravelLikeComment', function ($app){
+     return new LaravelLikeComment;
+     });
+3- Create Database
+4- [REQUIRED] Configure .env file contents: Database and APIs 
+You can download it from here 
+https://goo.gl/2Oj0tM
+
+5- Inside /hmp/resources/ create two Directorys `img` directory and `banner` directory with suitable permissions [775/777]
+6- Open terminal inside project’s Directory [YOUR_PATH]/hmp/ 
+	[You must have composer & php 7 installed]
+	> Run cmd> composer install
+	> Run cmd> php artisan migrate
+	> Run cmd> php artisan db:seed 
+These cmds will install needed packages and will seed needed basic Database contents [Admin user, sample users, Rules, etc.]
+
+
+To Run The Project on The Virtual Machine
+There are 2 Options:
+1- 	inside project’s Directory /[YOUR_PATH]/hmp/
+	Run command> php artisan serve 
+	Open the url that will apeear in terminal
+	
+2- 	Create Virtual Host to the project's public Directory path /[YOUR_PATH]/hmp/public/
